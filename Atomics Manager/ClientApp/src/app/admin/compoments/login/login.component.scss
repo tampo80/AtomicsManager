@@ -1,0 +1,102 @@
+//colors
+$color_razzmatazz_approx: #686868;
+$white: #fff;
+$black_100: rgba(0,0,0,1);
+$color_purple_heart_approx:rgba(0,0,0,.03) ;
+$color_quill_gray_approx: #000000;
+$color_button:#3f51b5;
+//fonts
+$font_0: Roboto;
+$font_1: sans-serif;
+
+.body {
+	background-color: $color_razzmatazz_approx;
+	font-family: $font_0, $font_1;
+	margin: 0 !important;
+	height: 100%;
+}
+.app-header {
+	color: $white;
+	background-color: $color_razzmatazz_approx;
+	text-align: center;
+	padding: 1%;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 2px 4px 58px -20px $black_100;
+}
+.login-container {
+	width: 100%;
+	height: 400px;
+	padding: 0 !important;
+	background-color: $white;
+	//Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+	box-shadow: 2px 4px 58px -20px $black_100;
+}
+.login-box-header {
+	width: auto;
+	height: 15%;
+	background-color: $color_purple_heart_approx;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 4em;
+	padding: 2%;
+	color: $white;
+}
+.login-box-body {
+	width: auto;
+	height: 100%;
+	padding: 5%;
+	color: $color_quill_gray_approx;
+}
+.login-icon {
+	margin-top: -2px;
+}
+.justifier {
+	width: 100%;
+	padding-bottom: 2%;
+}
+.login-button {
+	align-self: center;
+	width: 100%;
+	background-color:$color_razzmatazz_approx;
+
+	color: $white !important;
+}
+
+.wrapper {
+	background-color: $color_razzmatazz_approx;
+	font-family: $font_0, $font_1;
+	margin: 0 !important;
+	position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+	text-align:center
+	
+}
+
+$icon-lg-container-size: 128px;
+$icon-lg-size: 64px;
+
+.mat-icon-button.lg {
+  width: $icon-lg-container-size;
+  height: $icon-lg-container-size;
+  line-height: $icon-lg-container-size;
+
+  .mat-icon, .mat-icon-button i {
+    line-height: $icon-lg-size;
+  }
+
+  .mat-icon {
+    width: $icon-lg-size;
+    height: $icon-lg-size;
+  }
+
+  .material-icons {
+    font-size: $icon-lg-size;
+  }
+}
+div.error-message i{
+    vertical-align: middle !important;
+}
+.color-erreur{
+	color: red;
+	vertical-align: middle !important;
+}

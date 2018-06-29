@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Atomics Manager", "Atomics Manager\Atomics Manager.csproj", "{AD6D57B4-8823-431B-B83A-66EA64AC96D0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{3C6D9893-F1E8-4EAD-8B12-34CE3DFB11A2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD6D57B4-8823-431B-B83A-66EA64AC96D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD6D57B4-8823-431B-B83A-66EA64AC96D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD6D57B4-8823-431B-B83A-66EA64AC96D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD6D57B4-8823-431B-B83A-66EA64AC96D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C6D9893-F1E8-4EAD-8B12-34CE3DFB11A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C6D9893-F1E8-4EAD-8B12-34CE3DFB11A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C6D9893-F1E8-4EAD-8B12-34CE3DFB11A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C6D9893-F1E8-4EAD-8B12-34CE3DFB11A2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2F6F9726-47B7-45EF-BF20-519B8EF57D9B}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,100 @@
+
+
+   <mat-toolbar color="primary">
+      Ajouter un nouveau rôle
+ 
+  </mat-toolbar>
+
+  <mat-divider></mat-divider>
+  <hr>
+<mat-card>
+
+  
+  <mat-card-content>
+      <form class="example-form" (ngSubmit)="submit" #formControl="ngForm">
+
+   
+             
+       
+              <div 
+              fxLayout
+              fxLayout.xs="column wrap"
+              fxLayoutAlign="center"
+              fxLayoutGap="15px"
+              fxLayoutGap.xs="0">
+            
+                        
+                              
+                                
+                       
+              <div fxFlex="45%">   
+                    <div class="mat-elevation-z2 pad"> <mat-form-field class="example-full-width">
+                            <input matInput   placeholder="Rôle" [(ngModel)]="data.role.name" name="rôle" required >
+                            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                      </mat-form-field>
+                      <mat-form-field class="example-full-width">
+                            <textarea matInput   placeholder="Description du rôle" [(ngModel)]="data.role.description" name="description" required ></textarea>
+                            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                      </mat-form-field>      
+                    </div>    
+                    <br> 
+                    <div  *ngFor="let permissionGroup of permissions | groupBy: 'groupName';let j = index;">
+
+                       
+                            <fieldset *ngIf="j%2 == 0" >
+                                    <legend class="permission-text" ><b>{{permissionGroup.key}}</b></legend>
+                            
+                                <div *ngFor="let permission of permissionGroup.value">
+                                    <mat-checkbox [(ngModel)]="selectedValues[permission.value]" name="checkboxes-{{permission.value}}"><span class="permission-text">{{permission.name}}</span> </mat-checkbox>
+                                </div>
+                              
+            
+                            
+                            </fieldset>
+                        </div>             
+            
+                            
+
+            </div>           
+                    
+            <div fxFlex="45%">  
+                <div  *ngFor="let permissionGroup of permissions | groupBy: 'groupName';let j = index;">
+
+                       
+                    <fieldset *ngIf="j%2 != 0" >
+                            <legend class="permission-text" ><b>{{permissionGroup.key}}</b></legend>
+                    
+                        <div *ngFor="let permission of permissionGroup.value">
+                            <mat-checkbox [(ngModel)]="selectedValues[permission.value]" name="checkboxes-{{permission.value}}"><span class="permission-text">{{permission.name}}</span> </mat-checkbox>
+                        </div>
+                      
+    
+                    
+                    </fieldset>
+                </div>             
+    
+                </div>
+      
+              </div>
+      
+             
+       
+     
+            
+           
+          
+      
+      </form>
+  </mat-card-content>
+  <div align="start">
+        <button  mat-button (click)="selectAll()" color="warn" >Tout séléctionner</button>
+        
+        <button  mat-button (click)="selectNone()">Tout déséléctionner</button>
+    </div>      
+  <mat-card-actions align="end">
+      <button mat-raised-button [type]="submit" [disabled]="!formControl.valid" color="primary"  (click)="addRole()">Ajouter</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+      
+  </mat-card-actions>
+ 
+</mat-card>

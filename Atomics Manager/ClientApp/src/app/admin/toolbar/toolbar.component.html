@@ -1,0 +1,12 @@
+<mat-toolbar color="primary" class="mat-elevation-z15">
+  <button mat-icon-button matTooltip="Affiche/Cache la bar de navigation latérale" (click)="sidenav.toggle()">
+    <mat-icon>view_headline</mat-icon>  
+  </button>
+  <span *ngIf="navigationService.selectedNavigationItem">{{navigationService.selectedNavigationItem.name}}</span>
+  <span class="fill-remaining-space"></span>
+  <span *ngIf="userService.currentUser.friendlyName">{{userService.currentUser.friendlyName}}</span>
+  <app-theme-select></app-theme-select>
+  <app-alert-toolbar></app-alert-toolbar>
+
+  <app-toolbar-menu></app-toolbar-menu>
+</mat-toolbar>

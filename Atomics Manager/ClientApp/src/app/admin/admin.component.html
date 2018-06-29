@@ -1,0 +1,9 @@
+<mat-sidenav-container [class]="themeService.theme.class">
+  <mat-sidenav #sidenav opened="true" mode="side" class="mat-elevation-z10">
+    <app-side-navigation></app-side-navigation>
+  </mat-sidenav>
+    <app-toolbar [sidenav]="sidenav"></app-toolbar>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+</mat-sidenav-container>

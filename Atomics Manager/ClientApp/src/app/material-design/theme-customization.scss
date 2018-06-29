@@ -1,0 +1,8 @@
+@import '../admin/admin.scss';
+@import '../dashboard/dashboard.component.scss';
+
+@mixin theme-customization($theme) {
+    @include admin-theme($theme);
+    @include dashboard-theme($theme);
+}
+

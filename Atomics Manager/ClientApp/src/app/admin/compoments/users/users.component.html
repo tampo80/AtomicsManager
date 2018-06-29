@@ -1,0 +1,71 @@
+ <div class="mat-row page mat-elevation-z2">
+    
+
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+          <mat-table [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+              <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
+                  <mat-cell *matCellDef="let user; let i=index"> {{i+1}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="jobTitle">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> titre </mat-header-cell>
+                    <mat-cell *matCellDef="let user"> {{user.jobTitle}} </mat-cell>
+                  </ng-container>
+              <ng-container matColumnDef="userName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Nom d'utilisateur </mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.userName}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="email">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> E-Mail </mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.email}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="phoneNumber">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Téléphone </mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.phoneNumber}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="fullName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Nom complet </mat-header-cell>
+                <mat-cell *matCellDef="let user"> {{user.fullName}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="roles">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Rôles </mat-header-cell>
+                  <mat-cell *matCellDef="let user" color="warn"> <h4>{{user.roles}} </h4> </mat-cell>
+                </ng-container>
+             
+
+              <ng-container matColumnDef="actions">
+                  <mat-header-cell *matHeaderCellDef class="lastcell">
+                    <button mat-mini-fab color="primary" matTooltip="Nouvelle utilisateur" (click)="addNewUser(user)">
+                      <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+                    </button>
+                  </mat-header-cell>
+            
+                  <mat-cell *matCellDef="let user"  class="lastcell">
+
+                    <button mat-icon-button color="accent" matTooltip="Editer les informations" (click)="EditUser(user)">
+                      <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+
+                    <button mat-icon-button color="primary" matTooltip="Réinitialiser le mot de passe" (click)="resetPassword(user)">
+                        <mat-icon aria-label="refresh">refresh</mat-icon>
+                      </button>
+            
+                    <button mat-icon-button color="warn" matTooltip="Suprimer l'utilisateur" (click)="deleteUser(user)">
+                      <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let user; columns: displayedColumns;"></mat-row>
+           
+          </mat-table>
+
+          <mat-paginator  [pageSize]="10" [pageSizeOptions]="[5, 10, 25]">
+            </mat-paginator>
+     
+  
+</div>
+ </div>

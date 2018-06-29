@@ -1,0 +1,84 @@
+
+
+   <mat-toolbar color="primary">
+      Ajouter un nouvel utilisateur
+ 
+  </mat-toolbar>
+
+  <mat-divider></mat-divider>
+  <hr>
+<mat-card>
+
+  
+  <mat-card-content>
+      <form class="example-form" (ngSubmit)="submit" #formControl="ngForm">
+
+         
+       
+              <div fxLayout
+              fxLayout
+              fxLayout.xs="column"
+              fxLayoutAlign="center"
+              fxLayoutGap="10px"
+              fxLayoutGap.xs="0">
+            
+                        <div fxFlex="49%">
+                              <mat-form-field class="example-full-width">
+                                      <input matInput   placeholder="Profession" [(ngModel)]="data.user.jobTitle" name="jobTitle" required >
+                                      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width">
+                                      <input matInput   placeholder="Nom d'utilisateur" [(ngModel)]="data.user.userName" name="userName" required minlength="5" >
+                                      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width">
+                                      <input matInput  placeholder="Adress élèctronique" [(ngModel)]="data.user.email" name="email" required email >
+                                      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                                </mat-form-field>
+                                <mat-form-field class="example-full-width">
+                                      <input matInput   placeholder="Tél" [(ngModel)]="data.user.phoneNumber" name="phoneNumber"  required >
+                                      <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                                 </mat-form-field>
+                        </div>
+                           
+                        <div fxFlex="49%">
+                              <mat-form-field class="example-full-width">
+                                      <input matInput   placeholder="Nom complet" [(ngModel)]="data.user.fullName" name="fullName"  required >
+                        
+                                    <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                                   
+                                  </mat-form-field>
+                                  
+
+                                  <mat-form-field class="example-full-width">
+                                          <mat-select placeholder="Rôles" [formControl]="roleformControl" multiple [(ngModel)]="data.user.roles">
+                                              <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
+                                          </mat-select>
+                                         
+                                         
+                                  </mat-form-field>
+                                
+                                      <mat-checkbox [(ngModel)]="data.user.isEnabled" value="" color="primary" name="isEnabled" [ngModelOptions]="{standalone: true}">Activé</mat-checkbox>
+                                     
+                                        
+                                 
+                        </div>
+      
+              </div>
+      
+             
+       
+            
+            
+           
+          
+      
+      </form>
+  </mat-card-content>
+  <mat-card-actions align="end">
+      <button mat-raised-button [type]="submit" [disabled]="!formControl.valid" color="primary"  (click)="confirmEdit()">Modifier</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+      
+  </mat-card-actions>
+ 
+</mat-card>
