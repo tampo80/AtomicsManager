@@ -31,6 +31,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AddRolesDialogComponent } from './compoments/roles/dialogs/add/add-roles-dialog/add-roles-dialog.component';
 import { EditRolesDialogComponent } from './compoments/roles/dialogs/edit/edit-roles-dialog/edit-roles-dialog.component';
 import { GroupByPipe } from './pipes/group-by.pipe';
+import { MaterialDashboardComponent } from './material-dashboard/material-dashboard.component';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 
 
@@ -41,7 +43,12 @@ import { GroupByPipe } from './pipes/group-by.pipe';
     ReactiveFormsModule ,
     MaterialDesignModule,
     AdminRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
   declarations: [
     AdminComponent,
@@ -62,7 +69,8 @@ import { GroupByPipe } from './pipes/group-by.pipe';
     RolesComponent,
     EditDialogComponent,
     AddRolesDialogComponent,
-    EditRolesDialogComponent
+    EditRolesDialogComponent,
+    MaterialDashboardComponent
     
   ],
   exports: [

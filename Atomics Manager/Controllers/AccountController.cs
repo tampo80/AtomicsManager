@@ -219,7 +219,7 @@ namespace Atomics_Manager.Controllers
 
                 if (Utilities.GetUserId(this.User) != id)
                 {
-                    if (!string.IsNullOrWhiteSpace(user.NewPassword))
+                    if (string.IsNullOrWhiteSpace(user.NewPassword))
                         return BadRequest("Current password is required when changing your own password");
 
                     if (appUser.UserName != user.UserName)

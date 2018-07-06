@@ -26,8 +26,15 @@ namespace DAL
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Demandes> Demandes { get; set; }
 
+        public DbSet<Pays> Pays { get; set; }
+        public DbSet<Fournisseurs> Fournisseurs { get; set; }
+        public DbSet<Devises> Devises { get; set; }
+        public DbSet<BankInfos> BankInfos { get; set; }
+        public DbSet<Secteurs> Secteurs { get; set; }
 
-
+        public DbSet<Villes> Villes { get; set; }
+      
+       
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
 
@@ -61,12 +68,42 @@ namespace DAL
             builder.Entity<Product>().ToTable($"App{nameof(this.Products)}");
 
             builder.Entity<Order>().Property(o => o.Comments).HasMaxLength(500);
+
             builder.Entity<Order>().ToTable($"App{nameof(this.Orders)}");
 
             builder.Entity<OrderDetail>().ToTable($"App{nameof(this.OrderDetails)}");
 
+            //pays
+            builder.Entity<Pays>().HasKey(p => p.Id);
+            builder.Entity<Pays>().HasIndex(p=>p.Name);
+            builder.Entity<Pays>().HasMany(p => p.Villes);
 
-            builder.Entity<Demandes>().ToTable($"App{nameof(this.Demandes)}");
+            builder.Entity<Pays>().ToTable($"App{nameof(this.Pays)}");
+
+            //villes
+            builder.Entity<Villes>().HasKey(p => p.Id);
+            builder.Entity<Villes>().HasOne(p => p.Pays);
+            builder.Entity<Villes>().HasIndex(p => p.Name);
+            builder.Entity<Villes>().ToTable($"App{nameof(this.Villes)}");
+
+            //baninfos
+
+            builder.Entity<BankInfos>().HasIndex(p => p.BankName);
+            builder.Entity<BankInfos>().ToTable($"App{nameof(this.BankInfos)}");
+
+            builder.Entity<Secteurs>().HasIndex(p => p.Name);
+
+            builder.Entity<Secteurs>().ToTable($"App{nameof(this.Secteurs)}");
+
+            builder.Entity<Fournisseurs>().HasIndex(p => p.Titre);
+
+            builder.Entity<Fournisseurs>().ToTable($"App{nameof(this.Fournisseurs)}");
+
+            builder.Entity<Devises>().HasIndex(p => p.Label);
+
+            builder.Entity<Devises>().ToTable($"App{nameof(this.Devises)}");
+            
+
         }
 
 

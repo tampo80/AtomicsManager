@@ -7,7 +7,7 @@ import { ConfigService } from './config.service';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import { HttpErrorHandler ,HandleError} from './http-error-handler.service';
+import {GlobalErrorInterceptor} from "../interceptors/global-error.interceptor";
 import { catchError } from 'rxjs/operators';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { UserEdit } from '../models/user-edit.model';
@@ -27,12 +27,12 @@ export class AccountService {
     private readonly _rolesUrl: string = "/api/account/roles";
     private readonly _roleByRoleNameUrl: string = "/api/account/roles/name";
     private readonly _permissionsUrl: string = "/api/account/permissions";
-    private handleError: HandleError;
+    private handleError: GlobalErrorInterceptor;
 
-  constructor(private router: Router, private http: HttpClient, httpErrorHandler:HttpErrorHandler,private userService:UserService) {
+  constructor(private router: Router, private http: HttpClient,private userService:UserService) {
 
 
-    this.handleError = httpErrorHandler.createHandleError('AccountService');
+   
    }
 
 
@@ -49,46 +49,31 @@ export class AccountService {
 
 
    getUsers():Observable<User[]> {
-    return this.http.get<User[]>(ConfigService.rootUrl+this._usersUrl,this.getRequestHeaders()).pipe(
-
-      catchError(this.handleError<User[]>("getusers"))
-    );
+    return this.http.get<User[]>(ConfigService.rootUrl+this._usersUrl,this.getRequestHeaders());
                     
                     
 }
 
 
 getPermisions():Observable<Permission[]> {
-  return this.http.get<Permission[]>(ConfigService.rootUrl+this._permissionsUrl,this.getRequestHeaders()).pipe(
-
-    catchError(this.handleError<Permission[]>("getPermisions"))
-  );
+  return this.http.get<Permission[]>(ConfigService.rootUrl+this._permissionsUrl,this.getRequestHeaders());
                   
                   
 }
 
  getUser(userId:string):Observable<{}> {
-  return this.http.get<User>(ConfigService.rootUrl+this._usersUrl+"/"+userId,this.getRequestHeaders()).pipe(
-
-    catchError(this.handleError("getUser"))
-  );
+  return this.http.get<User>(ConfigService.rootUrl+this._usersUrl+"/"+userId,this.getRequestHeaders());
 }
 
 
 getUserByName(userName:string):Observable<{}> {
-  return this.http.get<User>(ConfigService.rootUrl+this._userByUserNameUrl+"/"+userName,this.getRequestHeaders()).pipe(
-
-    catchError(this.handleError("getUserByName"))
-  );
+  return this.http.get<User>(ConfigService.rootUrl+this._userByUserNameUrl+"/"+userName,this.getRequestHeaders());
 }
 
 
    deleteUser(UserId?:string):Observable<{}>{
 
-    return this.http.delete(ConfigService.rootUrl+this._usersUrl+"/"+UserId,this.getRequestHeaders()).pipe(
-
-      catchError(this.handleError("deleteuser"))
-    );
+    return this.http.delete(ConfigService.rootUrl+this._usersUrl+"/"+UserId,this.getRequestHeaders());
    }
 
    addUser(user:UserEdit):Observable<UserEdit>{
@@ -97,42 +82,29 @@ getUserByName(userName:string):Observable<{}> {
 
 
    updateUser(user:UserEdit):Observable<UserEdit>{
-    return this.http.put<UserEdit>(ConfigService.rootUrl+this._usersUrl+"/"+user.id,JSON.stringify(user),this.getRequestHeaders()).pipe(
-
-     catchError(this.handleError("updateUser",user))
-    )
+    return this.http.put<UserEdit>(ConfigService.rootUrl+this._usersUrl+"/"+user.id,JSON.stringify(user),this.getRequestHeaders());
   };
 
   resetUserPassword(user:UserEdit):Observable<UserEdit>{
-    return this.http.put<UserEdit>(ConfigService.rootUrl+this._usersUrl+"/resetuserpassword/"+user.id,JSON.stringify(user),this.getRequestHeaders()).pipe(
-
-     catchError(this.handleError("updateUser",user))
-    )
+    return this.http.put<UserEdit>(ConfigService.rootUrl+this._usersUrl+"/resetuserpassword/"+user.id,JSON.stringify(user),this.getRequestHeaders());
   };
 
   //roles management
 
 getRoles():Observable<Role[]>{
 
-  return this.http.get<Role[]>(ConfigService.rootUrl+this._rolesUrl,this.getRequestHeaders()).pipe(
-    catchError(this.handleError<Role[]>("getRoles"))
-  );
+  return this.http.get<Role[]>(ConfigService.rootUrl+this._rolesUrl,this.getRequestHeaders());
 }
 
 
 getRolesByUserName(userName:string):Observable<Role[]>{
 
-  return this.http.get<Role[]>(ConfigService.rootUrl+this._roleByRoleNameUrl+'/'+userName,this.getRequestHeaders()).pipe(
-    catchError(this.handleError<Role[]>("getRoles"))
-  );
+  return this.http.get<Role[]>(ConfigService.rootUrl+this._roleByRoleNameUrl+'/'+userName,this.getRequestHeaders());
 }
 
 deleteRoles(roleId?:string):Observable<{}>{
 
-  return this.http.delete(ConfigService.rootUrl+this._rolesUrl+"/"+roleId,this.getRequestHeaders()).pipe(
-
-   // catchError(this.handleError("deleteRoles"))
-  );
+  return this.http.delete(ConfigService.rootUrl+this._rolesUrl+"/"+roleId,this.getRequestHeaders());
  }
 
 

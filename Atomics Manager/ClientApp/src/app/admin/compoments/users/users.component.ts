@@ -7,6 +7,8 @@ import { MessageboxService } from '../../services/messagebox.service';
 import { AddDialogComponent } from './dialogs/add/add-dialog/add-dialog.component';
 import { UserEdit } from '../../models/user-edit.model';
 import { EditDialogComponent } from './dialogs/edit/edit-dialog/edit-dialog.component';
+import { GlobalErrorInterceptor } from '../../interceptors/global-error.interceptor';
+import { AlertService } from '../../services/alert.service';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -14,7 +16,7 @@ import { EditDialogComponent } from './dialogs/edit/edit-dialog/edit-dialog.comp
 })
 export class UsersComponent implements OnInit,AfterViewInit {
     users:User[];
-    
+    Error:GlobalErrorInterceptor;
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
@@ -22,9 +24,9 @@ export class UsersComponent implements OnInit,AfterViewInit {
     dataSource = new MatTableDataSource();
     displayedColumns = ['id','jobTitle','userName', 'email', 'phoneNumber', 'fullName','roles','actions'];
 
-  constructor(public accountService:AccountService,private messageboxService:MessageboxService,private dialog: MatDialog) { 
+  constructor(public accountService:AccountService,private alertService: AlertService,private messageboxService:MessageboxService,private dialog: MatDialog) { 
 
-    
+    this.Error=new GlobalErrorInterceptor(alertService);
   }
 
 
@@ -99,7 +101,7 @@ export class UsersComponent implements OnInit,AfterViewInit {
 
     dialogRef.afterClosed().subscribe(res=>{
       if (res.result===1) {
-        this.messageboxService.ShowMessage("Information","Utilisateur ajouter avec succès",user.friendlyName,0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage("Information","Informations modifiées avec succès",user.friendlyName,0,false,1,'500px',"info",'primary');
       }
     }
 
@@ -115,9 +117,11 @@ export class UsersComponent implements OnInit,AfterViewInit {
         this.accountService.resetUserPassword(user).subscribe(res=>{
           if(res==null)
           {
-            this.messageboxService.ShowMessage("Information","Utilisateur ajouter avec succès",user.friendlyName,0,false,1,'500px',"info",'primary');
+            this.messageboxService.ShowMessage("Information","Mot de passe à réinitialisé",user.friendlyName,0,false,1,'500px',"info",'primary');
 
           }
+        },error=>{
+          this.Error.handleError(error);
         }
 
         );
@@ -125,7 +129,9 @@ export class UsersComponent implements OnInit,AfterViewInit {
       else{
         return;
       }
-    });
+    }
+  
+  );
   }
   
 }

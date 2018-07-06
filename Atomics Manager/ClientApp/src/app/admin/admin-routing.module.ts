@@ -4,6 +4,7 @@ import { AdminComponent } from './admin.component';
 import { UnderConstructionComponent } from './under-construction/under-construction.component';
 import { UsersComponent } from './compoments/users/users.component';
 import { RolesComponent } from './compoments/roles/roles.component';
+import { MaterialDashboardComponent } from './material-dashboard/material-dashboard.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -14,7 +15,7 @@ import { RolesComponent } from './compoments/roles/roles.component';
         { path: 'manage-users', component: UsersComponent },
         { path: 'manage-roles', component: RolesComponent },
         { path: 'under-construction', component: UnderConstructionComponent },
-        { path: 'dashboard', loadChildren: '../dashboard/dashboard.module#DashboardModule' }
+        { path: 'dashboard',  component: MaterialDashboardComponent }
       ]
     }
   ])],
