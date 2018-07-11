@@ -33,6 +33,19 @@ import { EditRolesDialogComponent } from './compoments/roles/dialogs/edit/edit-r
 import { GroupByPipe } from './pipes/group-by.pipe';
 import { MaterialDashboardComponent } from './material-dashboard/material-dashboard.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { PaysComponent } from './compoments/pays/pays.component';
+import { AddPaysDialogComponent } from './compoments/pays/dialogs/add/add-pays-dialog/add-pays-dialog.component';
+import { EditPaysDialogComponent } from './compoments/pays/dialogs/edit/edit-pays-dialog/edit-pays-dialog.component';
+import { VillesComponent } from './compoments/villes/villes.component';
+import { VillesService } from './services/villes.service';
+import { AddVillesDialogComponent } from './compoments/villes/dialog/add/add-villes-dialog/add-villes-dialog.component';
+import { EditVillesDialogComponent } from './compoments/villes/dialog/edit/edit-villes-dialog/edit-villes-dialog.component';
+import { CompomentsModule } from './compoments/compoments.module';
+import { DevisesService } from './services/devises.service';
+import { EditDevisesDialogComponent } from './compoments/devises/dialogs/edit/edit-devises-dialog/edit-devises-dialog.component';
+import { AddDevisesDialogComponent } from './compoments/devises/dialogs/add/add-devises-dialog/add-devises-dialog.component';
+import { AddSecteursDialogComponent } from './compoments/secteurs/dialog/add/add-secteurs-dialog/add-secteurs-dialog.component';
+import { EditSecteursDialogComponent } from './compoments/secteurs/dialog/edit/edit-secteurs-dialog/edit-secteurs-dialog.component';
 
 
 
@@ -48,7 +61,8 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
     MatCardModule,
     MatMenuModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    CompomentsModule
   ],
   declarations: [
     AdminComponent,
@@ -70,8 +84,17 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
     EditDialogComponent,
     AddRolesDialogComponent,
     EditRolesDialogComponent,
-    MaterialDashboardComponent
-    
+    MaterialDashboardComponent,
+    PaysComponent,
+    AddPaysDialogComponent,
+    EditPaysDialogComponent,
+    VillesComponent,
+    AddVillesDialogComponent,
+    EditVillesDialogComponent,
+    EditDevisesDialogComponent,
+    AddDevisesDialogComponent,
+    AddSecteursDialogComponent,
+    EditSecteursDialogComponent,
   ],
   exports: [
     MessageBoxDialogComponent
@@ -83,6 +106,7 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
     MessageboxService,
     HttpErrorHandler,
     AccountService,
+    DevisesService,
     {
       provide: ErrorHandler,
       useClass: GlobalErrorInterceptor
@@ -95,8 +119,15 @@ import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButt
     
     EditDialogComponent,
     AddRolesDialogComponent,
-    EditRolesDialogComponent
-
+    EditRolesDialogComponent,
+    AddPaysDialogComponent,
+    EditPaysDialogComponent,
+    AddVillesDialogComponent,
+    EditVillesDialogComponent,
+    EditDevisesDialogComponent,
+    AddDevisesDialogComponent,
+    AddSecteursDialogComponent,
+    EditSecteursDialogComponent,
   ]
 })
 export class AdminModule { }

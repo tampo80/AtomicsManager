@@ -1,0 +1,70 @@
+
+
+   <mat-toolbar color="primary">
+      Modifier la ville
+  
+  </mat-toolbar>
+  
+  <mat-divider></mat-divider>
+  
+  <mat-card>
+  
+  
+  <mat-card-content>
+      <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="villesForm" >
+  
+   
+             
+       
+             
+            
+                        
+                              
+                                
+                       
+              
+                    <mat-form-field class="example-full-width">
+                            <input matInput   placeholder="Nom"  formControlName='name' >
+                            <mat-error *ngIf="villesForm.get('name').errors && villesForm.get('name').errors.isExiste">Ce pays existe déjà dans l'application !</mat-error>
+                            <mat-error *ngIf="villesForm.get('name').errors && !villesForm.get('name').errors.isExiste">Le nom du pays est réquis!</mat-error>
+                            <mat-error color="primary" *ngIf="villesForm.get('name').status === 'PENDING'">Vérification</mat-error>
+                          
+                    </mat-form-field>
+                    
+                    <mat-form-field class="example-full-width">
+                        <mat-select placeholder="Séléctionner le pays" formControlName="paysId">
+                            <mat-option *ngFor="let pays of Pays" [value]="pays.id">
+                              {{pays.name}}
+                            </mat-option>
+                          </mat-select>
+                      
+                      <mat-error *ngIf="villesForm.get('paysId').errors">Le code pays est réquis!</mat-error>
+                   </mat-form-field>
+                     
+                    <br> 
+                               
+                
+  
+              
+                    
+            
+      
+             
+      
+             
+       
+     
+            
+           
+          
+      
+      </form>
+  </mat-card-content>
+    
+  <mat-card-actions align="end">
+      <button mat-raised-button (click)="onSubmit()" [disabled]="!villesForm.valid" color="primary" >Modifier</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+      
+  </mat-card-actions>
+  
+  </mat-card>

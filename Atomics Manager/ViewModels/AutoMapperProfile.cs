@@ -57,6 +57,22 @@ namespace Atomics_Manager.ViewModels
 
             CreateMap<Order, OrderViewModel>()
                 .ReverseMap();
+
+            CreateMap<Pays, PaysViewModel>()
+               .ForMember(d=>d.Villes,map=>map.Ignore())
+               .ReverseMap();
+
+            CreateMap<Villes, VillesViewModel>()
+              
+              .ReverseMap();
+
+            CreateMap<Devises, DevisesViewModel>()
+
+             .ReverseMap();
+
+            CreateMap<Secteurs, SecteursViewModel>()
+
+            .ReverseMap();
         }
     }
 }

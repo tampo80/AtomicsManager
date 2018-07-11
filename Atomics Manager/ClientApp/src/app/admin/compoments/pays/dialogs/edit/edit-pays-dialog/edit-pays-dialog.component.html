@@ -1,0 +1,62 @@
+
+
+   <mat-toolbar color="primary">
+    Ajouter un nouveau pays
+
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<mat-card>
+
+
+<mat-card-content>
+    <form class="example-form" (ngSubmit)="submit" #formControl="ngForm">
+
+ 
+           
+     
+           
+          
+                      
+                            
+                              
+                     
+            
+                  <mat-form-field class="example-full-width">
+                          <input matInput   placeholder="Nom" [(ngModel)]="data.pays.name" name="name" required >
+                          <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput   placeholder="Code du pays" [(ngModel)]="data.pays.codePays" name="codePays" required >
+                    <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+                 </mat-form-field>
+                   
+                  <br> 
+                             
+          
+                          
+
+            
+                  
+          
+    
+           
+    
+           
+     
+   
+          
+         
+        
+    
+    </form>
+</mat-card-content>
+  
+<mat-card-actions align="end">
+    <button mat-raised-button [type]="submit" [disabled]="!formControl.valid" color="primary"  (click)="addPays()">Modifier</button>
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+    
+</mat-card-actions>
+
+</mat-card>

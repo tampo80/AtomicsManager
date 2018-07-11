@@ -65,7 +65,11 @@ permissions:[
         {
             routerLink: "under-construction",
             name: "Les Profils"
-        }
+        },
+        {
+            routerLink: "under-construction",
+            name: "Société"
+        },
 ],
 permissions:[
     {
@@ -78,10 +82,10 @@ permissions:[
     icon: "local_shipping",
     name: "Fournisseurs",
     items: [{
-        routerLink: "under-construction",
+        routerLink: "manage-fournisseurs",
         name: "Les fournisseurs"
     }, {
-        routerLink: "under-construction",
+        routerLink: "manage-secteurs",
         name: "Secteurs d'activités"
     }],
     permissions:[
@@ -112,12 +116,13 @@ permissions:[
 }, {
     icon: "build",
     name: "Paramètres",
-    items: [{
-                routerLink: "under-construction",
-                name: "Préferences"
+    items: [
+            {
+                routerLink: "manage-pays",
+                name: "Pays"
             },
             {
-                routerLink: "under-construction",
+                routerLink: "manage-villes",
                 name: "villes"
             },
             {
@@ -147,6 +152,9 @@ permissions:[
     }, {
         routerLink: "under-construction",
         name: "Restauration"
+    }, {
+        routerLink: "manage-devises",
+        name: "Devises"
     }],
     permissions:[
         {
@@ -170,7 +178,8 @@ permissions:[
             value:false
         }
     ]
-}
+},
+
 
 
 

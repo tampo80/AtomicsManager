@@ -17,10 +17,10 @@ namespace DAL.Models
 
         //navigation
         public int PaysId { get; set; }
-        public Pays Pays { get; set; }
+        public virtual Pays Pays { get; set; }
 
         
-        public ICollection<BankInfos> BankInfos { get; set; }
-        public ICollection<Fournisseurs> Fournisseurs { get; set; }
+        public virtual ICollection<BankInfos> BankInfos { get; set; }
+        public virtual ICollection<Fournisseurs> Fournisseurs { get; set; }
     }
 }

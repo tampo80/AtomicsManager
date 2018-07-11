@@ -16,6 +16,6 @@ namespace DAL.Models
         public string CodePays { get; set; }
 
         // navigation 
-        public ICollection<Villes> Villes { get; set; }
+        public virtual ICollection<Villes> Villes { get; set; }
     }
 }

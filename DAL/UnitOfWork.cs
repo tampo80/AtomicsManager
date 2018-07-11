@@ -21,8 +21,11 @@ namespace DAL
         IProductRepository _products;
         IOrdersRepository _orders;
         IDemandesRepository _Demandes;
+        IPaysRepository _Pays;
+        IVillesRepository _Villes;
+        IDevisesRepository _Devises;
 
-
+        ISecteursRepository _Secteurs;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -81,11 +84,61 @@ namespace DAL
         }
 
 
+        public IPaysRepository Pays
+        {
+            get
+            {
+                if (_Pays == null)
+                    _Pays = new PaysRepository(_context);
 
+                return _Pays;
+            }
+        }
+
+
+
+        public IVillesRepository Villes
+        {
+            get
+            {
+                if (_Villes == null)
+                    _Villes = new VillesRepository(_context);
+
+                return _Villes;
+            }
+        }
+
+        public IDevisesRepository Devises
+        {
+            get
+            {
+                if (_Devises == null)
+                    _Devises = new DevisesRepository(_context);
+
+                return _Devises;
+            }
+        }
+
+
+        public ISecteursRepository Secteurs
+        {
+            get
+            {
+                if (_Secteurs == null)
+                    _Secteurs = new SecteursRepository(_context);
+
+                return _Secteurs;
+            }
+        }
 
         public int SaveChanges()
         {
             return _context.SaveChanges();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return _context.SaveChangesAsync();
         }
     }
 }

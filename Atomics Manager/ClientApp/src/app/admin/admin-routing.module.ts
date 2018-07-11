@@ -5,6 +5,11 @@ import { UnderConstructionComponent } from './under-construction/under-construct
 import { UsersComponent } from './compoments/users/users.component';
 import { RolesComponent } from './compoments/roles/roles.component';
 import { MaterialDashboardComponent } from './material-dashboard/material-dashboard.component';
+import { PaysComponent } from './compoments/pays/pays.component';
+import { VillesComponent } from './compoments/villes/villes.component';
+import { DevisesComponent } from './compoments/devises/devises.component';
+import { SecteursComponent } from './compoments/secteurs/secteurs.component';
+import { FournisseursComponent } from './compoments/fournisseurs/fournisseurs.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -13,6 +18,11 @@ import { MaterialDashboardComponent } from './material-dashboard/material-dashbo
       component: AdminComponent,
       children: [
         { path: 'manage-users', component: UsersComponent },
+        { path: 'manage-villes', component: VillesComponent },
+        { path: 'manage-pays', component: PaysComponent },
+        { path: 'manage-secteurs', component: SecteursComponent },
+        { path: 'manage-devises', component: DevisesComponent },
+        { path: 'manage-fournisseurs', component: FournisseursComponent },
         { path: 'manage-roles', component: RolesComponent },
         { path: 'under-construction', component: UnderConstructionComponent },
         { path: 'dashboard',  component: MaterialDashboardComponent }

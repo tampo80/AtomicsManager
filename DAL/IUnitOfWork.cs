@@ -18,7 +18,13 @@ namespace DAL
         IProductRepository Products { get; }
         IOrdersRepository Orders { get; }
         IDemandesRepository Demandes { get; }
+        IPaysRepository Pays { get; }
+        IVillesRepository Villes { get; }
+        IDevisesRepository Devises { get; }
+
+        ISecteursRepository Secteurs { get; }
 
         int SaveChanges();
+        Task<int> SaveChangesAsync();
     }
 }

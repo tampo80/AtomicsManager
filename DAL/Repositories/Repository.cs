@@ -38,6 +38,7 @@ namespace DAL.Repositories
 
         public virtual void Update(TEntity entity)
         {
+            
             _entities.Update(entity);
         }
 
@@ -65,10 +66,10 @@ namespace DAL.Repositories
         }
 
 
-        public virtual IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
-        {
-            return _entities.Where(predicate);
-        }
+        //public virtual IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        //{
+        //    return _entities.Where(predicate);
+        //}
 
         public virtual TEntity GetSingleOrDefault(Expression<Func<TEntity, bool>> predicate)
         {
@@ -80,9 +81,84 @@ namespace DAL.Repositories
             return _entities.Find(id);
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        //public virtual IEnumerable<TEntity> GetAll()
+        //{
+        //    return _entities.ToList();
+        //}
+
+        public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
-            return _entities.ToList();
+            await _context.AddAsync(entity);
+            return entity; 
+        }
+
+        public virtual async Task<TEntity> UpdateAsyn(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual Task<int> RemoveAsyn(TEntity entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual async Task<int> CountAsync()
+        {
+            return await _entities.CountAsync();
+        }
+
+       public virtual ICollection<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
+        {
+            return _entities.Where(predicate).ToList();
+        }
+
+        public virtual async Task<TEntity> GetAsync(int id)
+        {
+            return await _entities.FindAsync(id);
+        }
+
+
+
+       public virtual IQueryable<TEntity> GetAll()
+        {
+            return _entities;
+        }
+
+        public virtual IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            IQueryable<TEntity> queryable = GetAll();
+            foreach (Expression<Func<TEntity, object>> includeProperty in includeProperties)
+            {
+
+                queryable = queryable.Include<TEntity, object>(includeProperty);
+            }
+
+            return queryable;
+        }
+
+        public virtual async Task<ICollection<TEntity>> GetAllAsyn()
+        {
+            return await _entities.ToListAsync();
+        }
+
+        public virtual void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<TEntity> GetSingleOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _entities.SingleOrDefaultAsync(predicate);
+        }
+
+        public Task<TEntity> UpdateAsyn(TEntity entity, object key)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual async Task<ICollection<TEntity>> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await  _entities.Where(predicate).ToListAsync();
         }
     }
 }

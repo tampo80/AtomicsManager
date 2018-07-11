@@ -1,0 +1,59 @@
+
+
+   <mat-toolbar color="primary">
+    Ajouter une nouvelle secteurs
+
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<mat-card>
+
+
+<mat-card-content>
+    <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="secteursForm" >
+
+         
+                     
+            
+                  <mat-form-field class="example-full-width">
+                          <input matInput   placeholder="Désignation"  formControlName='name' >
+                          <mat-error *ngIf="secteursForm.get('name').errors && secteursForm.get('name').errors.isExiste">Ce secteurs existe déjà dans l'application !</mat-error>
+                          <mat-error *ngIf="secteursForm.get('name').errors && !secteursForm.get('name').errors.isExiste">Le nom du secteurs est réquis!</mat-error>
+                          <mat-error color="primary" *ngIf="secteursForm.get('name').status === 'PENDING'">Vérification</mat-error>
+                        
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <textarea matInput   placeholder="Description"  formControlName='description' ></textarea>
+                    <mat-error *ngIf="secteursForm.get('description').errors && secteursForm.get('description').errors.isExiste">Ce secteurs existe déjà dans l'application !</mat-error>
+                    <mat-error *ngIf="secteursForm.get('description').errors && !secteursForm.get('description').errors.isExiste">Le nom du secteurs est réquis!</mat-error>
+                    <mat-error color="primary" *ngIf="secteursForm.get('description').status === 'PENDING'">Vérification</mat-error>
+                  
+            </mat-form-field>
+                  
+                   
+                  <br> 
+                             
+                
+
+            
+                  
+          
+    
+           
+    
+           
+     
+ 
+        
+    
+    </form>
+</mat-card-content>
+  
+<mat-card-actions align="end">
+    <button mat-raised-button (click)="onSubmit()" [disabled]="!secteursForm.valid" color="primary" >Modifier</button>
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+    
+</mat-card-actions>
+
+</mat-card>

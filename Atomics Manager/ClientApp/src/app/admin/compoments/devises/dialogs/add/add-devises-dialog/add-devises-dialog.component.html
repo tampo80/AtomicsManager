@@ -1,0 +1,69 @@
+
+
+   <mat-toolbar color="primary">
+    Ajouter une nouvelle devises
+
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<mat-card>
+
+
+<mat-card-content>
+    <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="devisesForm" >
+
+ 
+           
+     
+           
+          
+                      
+                            
+                              
+                     
+            
+                  <mat-form-field class="example-full-width">
+                          <input matInput   placeholder="Désignation"  formControlName='label' >
+                          <mat-error *ngIf="devisesForm.get('label').errors && devisesForm.get('label').errors.isExiste">Ce devises existe déjà dans l'application !</mat-error>
+                          <mat-error *ngIf="devisesForm.get('label').errors && !devisesForm.get('label').errors.isExiste">Le nom du devises est réquis!</mat-error>
+                          <mat-error color="primary" *ngIf="devisesForm.get('label').status === 'PENDING'">Vérification</mat-error>
+                        
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput   placeholder="Symbole"  formControlName='symbole' >
+                    <mat-error *ngIf="devisesForm.get('symbole').errors && devisesForm.get('symbole').errors.isExiste">Ce devises existe déjà dans l'application !</mat-error>
+                    <mat-error *ngIf="devisesForm.get('symbole').errors && !devisesForm.get('symbole').errors.isExiste">Le nom du devises est réquis!</mat-error>
+                    <mat-error color="primary" *ngIf="devisesForm.get('symbole').status === 'PENDING'">Vérification</mat-error>
+                  
+            </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input matInput   placeholder="Code du devises"  formControlName="codeIso"  >
+                    <mat-error *ngIf="devisesForm.get('codeIso').errors">Le code devises est réquis!</mat-error>
+                 </mat-form-field>
+                   
+                  <br> 
+                             
+                
+
+            
+                  
+          
+    
+           
+    
+           
+     
+ 
+        
+    
+    </form>
+</mat-card-content>
+  
+<mat-card-actions align="end">
+    <button mat-raised-button (click)="onSubmit()" [disabled]="!devisesForm.valid" color="primary" >Ajouter</button>
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+    
+</mat-card-actions>
+
+</mat-card>
