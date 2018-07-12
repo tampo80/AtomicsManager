@@ -1,28 +1,38 @@
 import { BankInfos } from "./bank-infos-model";
 import { Villes } from "./villes";
+import { TypePayments } from "./type-payments.enum";
+import { Devises } from "./devises";
 
 export class Fournisseurs {
-    public id:number;
-    public titre:string;
-    public Email :string;
-        public  PhoneNumber :string;
-        public  AlternatePhoneNumber :string;
-        public CodePostale :string;
-        public Adresse :string;
+    public id :number;
+    public titre :string;
 
-        public Devises DevisesPayement :string;
+    public formeJuridique :string;
 
-        public TypePayments TypePayments :string;
-
-        public NumeroDeCompte :string;
-
-        public IntituleDuCompte :string;
-
-        public  BankInfos :BankInfos;
+    public nomSociete :string;
 
 
-        //navigation
+   
+    public email :string;
+    public phoneNumber :string;
 
-        public  VilleId :number;
-        public  Villes :Villes;
+    public emailcommande :string;
+
+    public telCommande :string;
+
+    public alternatePhoneNumber :string;
+    public codePostale :string;
+    public adresse :string;
+
+   
+
+
+
+    //navigation
+
+  
+    public villesName :string;
+
+
+    public secteurs :string[];
 }

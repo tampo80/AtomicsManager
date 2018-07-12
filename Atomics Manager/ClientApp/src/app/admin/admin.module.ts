@@ -46,6 +46,9 @@ import { EditDevisesDialogComponent } from './compoments/devises/dialogs/edit/ed
 import { AddDevisesDialogComponent } from './compoments/devises/dialogs/add/add-devises-dialog/add-devises-dialog.component';
 import { AddSecteursDialogComponent } from './compoments/secteurs/dialog/add/add-secteurs-dialog/add-secteurs-dialog.component';
 import { EditSecteursDialogComponent } from './compoments/secteurs/dialog/edit/edit-secteurs-dialog/edit-secteurs-dialog.component';
+import { AddFournisseursDialogComponent } from './compoments/fournisseurs/dialog/add/add-fournisseurs-dialog/add-fournisseurs-dialog.component';
+import { EditFournisseursDialogComponent } from './compoments/fournisseurs/dialog/edit/edit-fournisseurs-dialog/edit-fournisseurs-dialog.component';
+
 
 
 
@@ -95,6 +98,9 @@ import { EditSecteursDialogComponent } from './compoments/secteurs/dialog/edit/e
     AddDevisesDialogComponent,
     AddSecteursDialogComponent,
     EditSecteursDialogComponent,
+    AddFournisseursDialogComponent,
+    EditFournisseursDialogComponent,
+    
   ],
   exports: [
     MessageBoxDialogComponent
@@ -128,6 +134,8 @@ import { EditSecteursDialogComponent } from './compoments/secteurs/dialog/edit/e
     AddDevisesDialogComponent,
     AddSecteursDialogComponent,
     EditSecteursDialogComponent,
+    AddFournisseursDialogComponent,
+    EditFournisseursDialogComponent,
   ]
 })
 export class AdminModule { }

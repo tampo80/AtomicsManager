@@ -33,8 +33,12 @@ namespace DAL
         public DbSet<Secteurs> Secteurs { get; set; }
 
         public DbSet<Villes> Villes { get; set; }
-      
+
+        public DbSet<SecteursFournisseurs> SecteursFournisseurs { get; set; }
+        public DbSet<DocumentsFournisseurs> DocumentsFournisseurs { get; set; }
+
        
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
 
@@ -102,8 +106,13 @@ namespace DAL
             builder.Entity<Devises>().HasIndex(p => p.Label);
 
             builder.Entity<Devises>().ToTable($"App{nameof(this.Devises)}");
-            
 
+
+          
+
+            builder.Entity<SecteursFournisseurs>().ToTable($"App{nameof(this.SecteursFournisseurs)}");
+
+            builder.Entity<DocumentsFournisseurs>().ToTable($"App{nameof(this.DocumentsFournisseurs)}");
         }
 
 

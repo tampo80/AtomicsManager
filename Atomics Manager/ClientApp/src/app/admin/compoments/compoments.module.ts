@@ -37,8 +37,7 @@ import { EditFournisseursDialogComponent } from './fournisseurs/dialog/edit/edit
     SecteursComponent,
     FournisseursComponent,
     BankInfosComponent,
-    AddFournisseursDialogComponent,
-    EditFournisseursDialogComponent,
+   
     
    
     

@@ -35,6 +35,8 @@ import {
   MatStepperModule,
 } from '@angular/material';
 
+import { MatFileUploadModule } from 'angular-material-fileupload';
+
 @NgModule({
   exports: [
     MatAutocompleteModule,
@@ -67,7 +69,8 @@ import {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatStepperModule
+    MatStepperModule,
+    MatFileUploadModule
   ]
 })
 export class MaterialDesignModule {

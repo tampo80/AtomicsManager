@@ -24,6 +24,11 @@ namespace DAL
 
         ISecteursRepository Secteurs { get; }
 
+        IFournisseursRepository Fournisseurs { get; }
+        ISecteursFournisseurs SecteursFournisseurs { get; }
+
+        IDocumentsFournisseursRepository DocumentsFournisseurs { get; }
+
         int SaveChanges();
         Task<int> SaveChangesAsync();
     }

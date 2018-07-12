@@ -29,6 +29,7 @@
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0-beta.5",
     "@ngx-translate/core": "^10.0.2",
     "angular-gridster2": "^6.0.5",
+    "angular-material-fileupload": "0.0.11",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",

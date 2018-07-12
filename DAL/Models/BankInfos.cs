@@ -10,7 +10,7 @@ namespace DAL.Models
         public string BankName { get; set; }
         public string AccountNumber { get; set; }
         public string AccountName { get; set; }
-
+        public string IBAN { get; set; }
         public string Adrresse { get; set; }
 
         public string Email { get; set; }
@@ -18,6 +18,7 @@ namespace DAL.Models
         public string TelephoneNumbers { get; set; }
 
         //navigation
+       
 
         public int VillesId { get; set; }
         public Villes Villes { get; set; }

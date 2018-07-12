@@ -1,14 +1,8 @@
-﻿// ====================================================
-// More Templates: https://www.ebenmonney.com/templates
-// Email: support@ebenmonney.com
-// ====================================================
-
+﻿using System;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System;
-using System.Collections.Generic;
 
-namespace Atomics_Manager.Migrations
+namespace AtomicsManager.Migrations
 {
     public partial class Initial : Migration
     {
@@ -18,20 +12,20 @@ namespace Atomics_Manager.Migrations
                 name: "AppCustomers",
                 columns: table => new
                 {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
+                    Email = table.Column<string>(maxLength: 100, nullable: true),
+                    PhoneNumber = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
                     Address = table.Column<string>(nullable: true),
                     City = table.Column<string>(maxLength: 50, nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
-                    Email = table.Column<string>(maxLength: 100, nullable: true),
                     Gender = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    PhoneNumber = table.Column<string>(unicode: false, maxLength: 30, nullable: true),
-                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: false)
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -39,20 +33,77 @@ namespace Atomics_Manager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppDevises",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Symbole = table.Column<string>(nullable: true),
+                    Label = table.Column<string>(nullable: true),
+                    CodeIso = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppDevises", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppDocumentsFournisseurs",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    DocumentName = table.Column<string>(nullable: true),
+                    Location = table.Column<string>(nullable: true),
+                    typeDocFournisseurs = table.Column<int>(nullable: false),
+                    FournisseurId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppDocumentsFournisseurs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppPays",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    CodePays = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppPays", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppProductCategories",
                 columns: table => new
                 {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
                     Icon = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: false)
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,17 +111,35 @@ namespace Atomics_Manager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppSecteurs",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppSecteurs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
                     UpdatedBy = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
                     UpdatedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -83,28 +152,28 @@ namespace Atomics_Manager.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    ConcurrencyStamp = table.Column<string>(nullable: true),
-                    Configuration = table.Column<string>(nullable: true),
-                    CreatedBy = table.Column<string>(nullable: true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    Email = table.Column<string>(maxLength: 256, nullable: true),
-                    EmailConfirmed = table.Column<bool>(nullable: false),
-                    FullName = table.Column<string>(nullable: true),
-                    IsEnabled = table.Column<bool>(nullable: false),
-                    JobTitle = table.Column<string>(nullable: true),
-                    LockoutEnabled = table.Column<bool>(nullable: false),
-                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
-                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
+                    Email = table.Column<string>(maxLength: 256, nullable: true),
+                    NormalizedEmail = table.Column<string>(maxLength: 256, nullable: true),
+                    EmailConfirmed = table.Column<bool>(nullable: false),
                     PasswordHash = table.Column<string>(nullable: true),
+                    SecurityStamp = table.Column<string>(nullable: true),
+                    ConcurrencyStamp = table.Column<string>(nullable: true),
                     PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
-                    SecurityStamp = table.Column<string>(nullable: true),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
+                    LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
+                    LockoutEnabled = table.Column<bool>(nullable: false),
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    JobTitle = table.Column<string>(nullable: true),
+                    FullName = table.Column<string>(nullable: true),
+                    Configuration = table.Column<string>(nullable: true),
+                    IsEnabled = table.Column<bool>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
                     UpdatedBy = table.Column<string>(nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    UserName = table.Column<string>(maxLength: 256, nullable: true)
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    UpdatedDate = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -112,15 +181,34 @@ namespace Atomics_Manager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Demandes",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    userId = table.Column<string>(nullable: true),
+                    DateDemande = table.Column<DateTime>(nullable: false),
+                    Motif = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Demandes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "OpenIddictApplications",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
                     ClientId = table.Column<string>(nullable: false),
                     ClientSecret = table.Column<string>(nullable: true),
                     ConcurrencyToken = table.Column<string>(nullable: true),
                     ConsentType = table.Column<string>(nullable: true),
                     DisplayName = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
                     Permissions = table.Column<string>(nullable: true),
                     PostLogoutRedirectUris = table.Column<string>(nullable: true),
                     Properties = table.Column<string>(nullable: true),
@@ -136,10 +224,10 @@ namespace Atomics_Manager.Migrations
                 name: "OpenIddictScopes",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
                     ConcurrencyToken = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
                     DisplayName = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: false),
                     Properties = table.Column<string>(nullable: true),
                     Resources = table.Column<string>(nullable: true)
@@ -150,27 +238,51 @@ namespace Atomics_Manager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppVilles",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    PaysId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppVilles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppVilles_AppPays_PaysId",
+                        column: x => x.PaysId,
+                        principalTable: "AppPays",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppProducts",
                 columns: table => new
                 {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BuyingPrice = table.Column<decimal>(nullable: false),
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    DateCreated = table.Column<DateTime>(nullable: false),
-                    DateModified = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(maxLength: 100, nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
                     Icon = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
-                    IsActive = table.Column<bool>(nullable: false),
-                    IsDiscontinued = table.Column<bool>(nullable: false),
-                    Name = table.Column<string>(maxLength: 100, nullable: false),
-                    ParentId = table.Column<int>(nullable: true),
-                    ProductCategoryId = table.Column<int>(nullable: false),
+                    BuyingPrice = table.Column<decimal>(nullable: false),
                     SellingPrice = table.Column<decimal>(nullable: false),
                     UnitsInStock = table.Column<int>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: false)
+                    IsActive = table.Column<bool>(nullable: false),
+                    IsDiscontinued = table.Column<bool>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    DateModified = table.Column<DateTime>(nullable: false),
+                    ParentId = table.Column<int>(nullable: true),
+                    ProductCategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -195,9 +307,9 @@ namespace Atomics_Manager.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
-                    RoleId = table.Column<string>(nullable: false)
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -214,18 +326,18 @@ namespace Atomics_Manager.Migrations
                 name: "AppOrders",
                 columns: table => new
                 {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CashierId = table.Column<string>(nullable: true),
+                    Discount = table.Column<decimal>(nullable: false),
                     Comments = table.Column<string>(maxLength: 500, nullable: true),
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    CustomerId = table.Column<int>(nullable: false),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     DateModified = table.Column<DateTime>(nullable: false),
-                    Discount = table.Column<decimal>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: false)
+                    CashierId = table.Column<string>(nullable: true),
+                    CustomerId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -250,9 +362,9 @@ namespace Atomics_Manager.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true),
-                    UserId = table.Column<string>(nullable: false)
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -333,9 +445,9 @@ namespace Atomics_Manager.Migrations
                 name: "OpenIddictAuthorizations",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
                     ApplicationId = table.Column<string>(nullable: true),
                     ConcurrencyToken = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
                     Properties = table.Column<string>(nullable: true),
                     Scopes = table.Column<string>(nullable: true),
                     Status = table.Column<string>(nullable: false),
@@ -354,20 +466,50 @@ namespace Atomics_Manager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppBankInfos",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    BankName = table.Column<string>(nullable: true),
+                    AccountNumber = table.Column<string>(nullable: true),
+                    AccountName = table.Column<string>(nullable: true),
+                    IBAN = table.Column<string>(nullable: true),
+                    Adrresse = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    TelephoneNumbers = table.Column<string>(nullable: true),
+                    VillesId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppBankInfos", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppBankInfos_AppVilles_VillesId",
+                        column: x => x.VillesId,
+                        principalTable: "AppVilles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppOrderDetails",
                 columns: table => new
                 {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    Discount = table.Column<decimal>(nullable: false),
-                    OrderId = table.Column<int>(nullable: false),
-                    ProductId = table.Column<int>(nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
                     UnitPrice = table.Column<decimal>(nullable: false),
-                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: false)
+                    Quantity = table.Column<int>(nullable: false),
+                    Discount = table.Column<decimal>(nullable: false),
+                    ProductId = table.Column<int>(nullable: false),
+                    OrderId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -390,12 +532,12 @@ namespace Atomics_Manager.Migrations
                 name: "OpenIddictTokens",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
                     ApplicationId = table.Column<string>(nullable: true),
                     AuthorizationId = table.Column<string>(nullable: true),
-                    ConcurrencyToken = table.Column<string>(nullable: true),
                     CreationDate = table.Column<DateTimeOffset>(nullable: true),
                     ExpirationDate = table.Column<DateTimeOffset>(nullable: true),
+                    ConcurrencyToken = table.Column<string>(nullable: true),
+                    Id = table.Column<string>(nullable: false),
                     Payload = table.Column<string>(nullable: true),
                     Properties = table.Column<string>(nullable: true),
                     ReferenceId = table.Column<string>(nullable: true),
@@ -420,10 +562,141 @@ namespace Atomics_Manager.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AppFournisseurs",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Titre = table.Column<int>(nullable: false),
+                    FormeJuridique = table.Column<string>(nullable: true),
+                    NomSociete = table.Column<string>(nullable: true),
+                    NumTVAintracommunautare = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    Emailcommande = table.Column<string>(nullable: true),
+                    TelCommande = table.Column<string>(nullable: true),
+                    AlternatePhoneNumber = table.Column<string>(nullable: true),
+                    CodePostale = table.Column<string>(nullable: true),
+                    Adresse = table.Column<string>(nullable: true),
+                    DevisesPayementId = table.Column<int>(nullable: true),
+                    TypePayments = table.Column<int>(nullable: false),
+                    NumeroDeCompte = table.Column<string>(nullable: true),
+                    IntituleDuCompte = table.Column<string>(nullable: true),
+                    BankInfosId = table.Column<int>(nullable: false),
+                    ResponsableCommerciale = table.Column<string>(nullable: true),
+                    VilleId = table.Column<int>(nullable: false),
+                    VillesId = table.Column<int>(nullable: true),
+                    DocumentsFournisseursId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppFournisseurs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppFournisseurs_AppBankInfos_BankInfosId",
+                        column: x => x.BankInfosId,
+                        principalTable: "AppBankInfos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppFournisseurs_AppDevises_DevisesPayementId",
+                        column: x => x.DevisesPayementId,
+                        principalTable: "AppDevises",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppFournisseurs_AppDocumentsFournisseurs_DocumentsFournisseursId",
+                        column: x => x.DocumentsFournisseursId,
+                        principalTable: "AppDocumentsFournisseurs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppFournisseurs_AppVilles_VillesId",
+                        column: x => x.VillesId,
+                        principalTable: "AppVilles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppSecteursFournisseurs",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FournisseursId = table.Column<int>(nullable: true),
+                    SecteursId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppSecteursFournisseurs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppSecteursFournisseurs_AppFournisseurs_FournisseursId",
+                        column: x => x.FournisseursId,
+                        principalTable: "AppFournisseurs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppSecteursFournisseurs_AppSecteurs_SecteursId",
+                        column: x => x.SecteursId,
+                        principalTable: "AppSecteurs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppBankInfos_BankName",
+                table: "AppBankInfos",
+                column: "BankName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppBankInfos_VillesId",
+                table: "AppBankInfos",
+                column: "VillesId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AppCustomers_Name",
                 table: "AppCustomers",
                 column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppDevises_Label",
+                table: "AppDevises",
+                column: "Label");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFournisseurs_BankInfosId",
+                table: "AppFournisseurs",
+                column: "BankInfosId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFournisseurs_DevisesPayementId",
+                table: "AppFournisseurs",
+                column: "DevisesPayementId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFournisseurs_DocumentsFournisseursId",
+                table: "AppFournisseurs",
+                column: "DocumentsFournisseursId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFournisseurs_Titre",
+                table: "AppFournisseurs",
+                column: "Titre");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppFournisseurs_VillesId",
+                table: "AppFournisseurs",
+                column: "VillesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppOrderDetails_OrderId",
@@ -446,6 +719,11 @@ namespace Atomics_Manager.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppPays_Name",
+                table: "AppPays",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppProducts_Name",
                 table: "AppProducts",
                 column: "Name");
@@ -459,6 +737,31 @@ namespace Atomics_Manager.Migrations
                 name: "IX_AppProducts_ProductCategoryId",
                 table: "AppProducts",
                 column: "ProductCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppSecteurs_Name",
+                table: "AppSecteurs",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppSecteursFournisseurs_FournisseursId",
+                table: "AppSecteursFournisseurs",
+                column: "FournisseursId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppSecteursFournisseurs_SecteursId",
+                table: "AppSecteursFournisseurs",
+                column: "SecteursId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppVilles_Name",
+                table: "AppVilles",
+                column: "Name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppVilles_PaysId",
+                table: "AppVilles",
+                column: "PaysId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -540,6 +843,9 @@ namespace Atomics_Manager.Migrations
                 name: "AppOrderDetails");
 
             migrationBuilder.DropTable(
+                name: "AppSecteursFournisseurs");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -555,6 +861,9 @@ namespace Atomics_Manager.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Demandes");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
 
             migrationBuilder.DropTable(
@@ -565,6 +874,12 @@ namespace Atomics_Manager.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppProducts");
+
+            migrationBuilder.DropTable(
+                name: "AppFournisseurs");
+
+            migrationBuilder.DropTable(
+                name: "AppSecteurs");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -582,7 +897,22 @@ namespace Atomics_Manager.Migrations
                 name: "AppProductCategories");
 
             migrationBuilder.DropTable(
+                name: "AppBankInfos");
+
+            migrationBuilder.DropTable(
+                name: "AppDevises");
+
+            migrationBuilder.DropTable(
+                name: "AppDocumentsFournisseurs");
+
+            migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
+
+            migrationBuilder.DropTable(
+                name: "AppVilles");
+
+            migrationBuilder.DropTable(
+                name: "AppPays");
         }
     }
 }

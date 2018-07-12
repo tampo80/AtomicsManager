@@ -1,3 +1,127 @@
-<p>
-  add-fournisseurs-dialog works!
-</p>
+<div class="mat-elevation-z2">
+
+
+
+
+  
+
+  <mat-toolbar color="primary">
+   Céer un Fournisseur
+
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<mat-card>
+
+
+<mat-card-content>
+ 
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
+  <mat-step [stepControl]="firstFormGroup">
+    <form [formGroup]="firstFormGroup" >
+      <ng-template matStepLabel>Informations générales</ng-template>
+      <div fxLayout
+                fxLayout
+                fxLayout.xs="column"
+                fxLayoutAlign="center"
+                fxLayoutGap="70px"
+                fxLayoutGap.xs="0">
+              
+
+                <div fxFlex="40%">
+                  <mat-form-field class="example-full-width">
+                    <input  matInput placeholder="Last name, First name" formControlName="titre" required>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input  matInput placeholder="Nom de la société" formControlName="nomSociete" required>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                   
+                    <mat-select formControlName="formeJuridique" placeholder="Forme juridique">
+                        <mat-option *ngFor="let forme of formeJuridiques" [value]="forme.value">
+                          {{forme.label}}
+                        </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                {{formeJuridique |json}}
+                <div fxFlex="30%">
+                  <mat-form-field class="example-full-width">
+                   <mat-select multiple formControlName="secteurs" placeholder="Secteurs d'activités">
+                       <mat-option *ngFor="let sercteur of secteurs" [value]="sercteur.id">
+                        {{sercteur.name}}
+                       </mat-option>
+                   </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                   <mat-select formControlName="devises" placeholder="devise de payement">
+                       <mat-option *ngFor="let devise of devises" [value]="devise.id">
+                           {{devise.symbole}}
+                       </mat-option>
+                   </mat-select>
+                  </mat-form-field>
+                  <mat-form-field>
+                   
+                        <input type="file" id="userFile" (change)="onSelectFile($event)" #fileInput style="display: none"> 
+                        <input matInput formControlName="contract" placeholder="Fichier" readonly >
+                
+                   
+                  </mat-form-field>
+                  <mat-form-field>
+                     
+                      <button mat-raised-button (click)="selectFile()" color="primary" formControlName="contract">...</button>
+                  </mat-form-field>
+                 
+                </div>
+         
+              
+              </div>
+
+    
+     
+     
+      <div>
+        <button mat-button matStepperNext>Suivant</button>
+      </div>
+   
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Contacts</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="phoneNumber" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="email" required>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Address" formControlName="codePostale" required>
+      </mat-form-field>
+      
+      <div>
+        <button mat-button matStepperPrevious>Précédent</button>
+        <button mat-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Informations Bancaires</ng-template>
+    You are now done.
+    <div>
+      <button mat-button matStepperPrevious>Précédent</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+</mat-card-content>
+  
+<mat-card-actions align="end">
+  
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+    
+</mat-card-actions>
+
+</mat-card>

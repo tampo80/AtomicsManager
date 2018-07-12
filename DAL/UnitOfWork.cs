@@ -27,6 +27,11 @@ namespace DAL
 
         ISecteursRepository _Secteurs;
 
+        IFournisseursRepository _Fournisseurs;
+        ISecteursFournisseurs _SecteursFournisseurs;
+
+        IDocumentsFournisseursRepository _DocumentsFournisseurs;
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -131,6 +136,37 @@ namespace DAL
             }
         }
 
+
+        public IFournisseursRepository Fournisseurs
+        {
+            get
+            {
+                if (_Fournisseurs == null)
+                    _Fournisseurs = new FournisseursRepository(_context);
+
+                return _Fournisseurs;
+            }
+        }
+        public ISecteursFournisseurs SecteursFournisseurs
+        {
+            get
+            {
+                if (_SecteursFournisseurs == null)
+                    _SecteursFournisseurs = new SecteursFournisseursRepository(_context);
+
+                return _SecteursFournisseurs;
+            }
+        }
+        public IDocumentsFournisseursRepository DocumentsFournisseurs
+        {
+            get
+            {
+                if (_DocumentsFournisseurs == null)
+                    _DocumentsFournisseurs = new DocumentsFournisseursRepository(_context);
+
+                return _DocumentsFournisseurs;
+            }
+        }
         public int SaveChanges()
         {
             return _context.SaveChanges();

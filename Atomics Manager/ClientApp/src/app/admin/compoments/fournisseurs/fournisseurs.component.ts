@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { Fournisseurs } from '../../models/fournisseurs';
+import { Fournisseurs } from '../../models/fournisseurs.model';
 import { EditFournisseursDialogComponent } from './dialog/edit/edit-fournisseurs-dialog/edit-fournisseurs-dialog.component';
 import { AddFournisseursDialogComponent } from './dialog/add/add-fournisseurs-dialog/add-fournisseurs-dialog.component';
 import { MessageboxService } from '../../services/messagebox.service';
@@ -19,7 +19,7 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','name','description','actions'];
+  displayedColumns = ['id','titre','nomSociete','formeJuridique','email','phoneNumber','codePostale','adresse','villesName','secteurs','actions'];
   isLoading:boolean;
   constructor(private fournisseursService:FournisseursService,private messageboxService:MessageboxService,private dialog: MatDialog) { }
 
@@ -57,14 +57,14 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
 
   deleteFournisseurs(fournisseurs?:Fournisseurs){
   
-  this.messageboxService.ShowMessage("Avertissement","Supprimer "+fournisseurs.name,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
+  this.messageboxService.ShowMessage("Avertissement","Supprimer "+fournisseurs.titre,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
       
     this.result = res
     console.log(res);
     if (this.result.result=="yes") {
       this.fournisseursService.deleteFournisseurs(fournisseurs.id).subscribe(res=>{
         if (res!=null) {
-          this.messageboxService.ShowMessage("Information",fournisseurs.name+" Supprimer avec succès",fournisseurs.name,0,false,1,'500px',"info",'primary');
+          this.messageboxService.ShowMessage("Information",fournisseurs.titre+" Supprimer avec succès",fournisseurs.titre,0,false,1,'500px',"info",'primary');
           this.getFournisseurs();
         }
       
@@ -73,7 +73,7 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
       },err=>{
                   if (err!=null) {
                     console.log(err);
-                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+fournisseurs.name+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+fournisseurs.titre+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
                   }
 
       }
@@ -91,7 +91,11 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
 
     const dialogRef = this.dialog.open(AddFournisseursDialogComponent,{
       data:{fournisseurs:""},
-     width:'600px',
+     width:'75%',
+     position:{
+       right:'50px',
+       
+     },
      disableClose:true
     });
 
@@ -117,7 +121,7 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
     dialogRef.afterClosed().subscribe(res=>{
       if (res.result===1) {
         this.getFournisseurs();
-        this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",fournisseurs.name,0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",fournisseurs.titre,0,false,1,'500px',"info",'primary');
       }
     }
 

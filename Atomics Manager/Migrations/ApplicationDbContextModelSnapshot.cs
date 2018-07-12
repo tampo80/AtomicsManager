@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Atomics_Manager.Migrations
+namespace AtomicsManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -139,6 +139,8 @@ namespace Atomics_Manager.Migrations
 
                     b.Property<string>("Email");
 
+                    b.Property<string>("IBAN");
+
                     b.Property<string>("TelephoneNumbers");
 
                     b.Property<string>("UpdatedBy")
@@ -255,6 +257,34 @@ namespace Atomics_Manager.Migrations
                     b.ToTable("AppDevises");
                 });
 
+            modelBuilder.Entity("DAL.Models.DocumentsFournisseurs", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("DocumentName");
+
+                    b.Property<int>("FournisseurId");
+
+                    b.Property<string>("Location");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.Property<int>("typeDocFournisseurs");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppDocumentsFournisseurs");
+                });
+
             modelBuilder.Entity("DAL.Models.Fournisseurs", b =>
                 {
                     b.Property<int>("Id")
@@ -264,7 +294,7 @@ namespace Atomics_Manager.Migrations
 
                     b.Property<string>("AlternatePhoneNumber");
 
-                    b.Property<int?>("BankInfosId");
+                    b.Property<int>("BankInfosId");
 
                     b.Property<string>("CodePostale");
 
@@ -275,13 +305,27 @@ namespace Atomics_Manager.Migrations
 
                     b.Property<int?>("DevisesPayementId");
 
+                    b.Property<int>("DocumentsFournisseursId");
+
                     b.Property<string>("Email");
 
+                    b.Property<string>("Emailcommande");
+
+                    b.Property<string>("FormeJuridique");
+
                     b.Property<string>("IntituleDuCompte");
+
+                    b.Property<string>("NomSociete");
+
+                    b.Property<string>("NumTVAintracommunautare");
 
                     b.Property<string>("NumeroDeCompte");
 
                     b.Property<string>("PhoneNumber");
+
+                    b.Property<string>("ResponsableCommerciale");
+
+                    b.Property<string>("TelCommande");
 
                     b.Property<int>("Titre");
 
@@ -301,6 +345,9 @@ namespace Atomics_Manager.Migrations
                     b.HasIndex("BankInfosId");
 
                     b.HasIndex("DevisesPayementId");
+
+                    b.HasIndex("DocumentsFournisseursId")
+                        .IsUnique();
 
                     b.HasIndex("Titre");
 
@@ -545,7 +592,7 @@ namespace Atomics_Manager.Migrations
 
                     b.HasIndex("SecteursId");
 
-                    b.ToTable("SecteursFournisseurs");
+                    b.ToTable("AppSecteursFournisseurs");
                 });
 
             modelBuilder.Entity("DAL.Models.Villes", b =>
@@ -808,11 +855,17 @@ namespace Atomics_Manager.Migrations
                 {
                     b.HasOne("DAL.Models.BankInfos", "BankInfos")
                         .WithMany()
-                        .HasForeignKey("BankInfosId");
+                        .HasForeignKey("BankInfosId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.Devises", "DevisesPayement")
                         .WithMany()
                         .HasForeignKey("DevisesPayementId");
+
+                    b.HasOne("DAL.Models.DocumentsFournisseurs", "DocumentsFournisseurs")
+                        .WithOne("Fournisseurs")
+                        .HasForeignKey("DAL.Models.Fournisseurs", "DocumentsFournisseursId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.Villes", "Villes")
                         .WithMany("Fournisseurs")
