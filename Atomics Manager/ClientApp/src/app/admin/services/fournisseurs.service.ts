@@ -5,6 +5,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
 import { Observable } from 'rxjs';
 import { Fournisseurs } from '../models/fournisseurs.model';
+import { EditFournisseurs } from '../models/edit-fournisseurs';
 
 
 @Injectable({
@@ -40,8 +41,11 @@ deleteFournisseurs(FournisseursId?:number):Observable<{}>{
   return this.http.delete(ConfigService.rootUrl+this._fournisseursUrl+"/"+FournisseursId,this.getRequestHeaders());
  }
 
- addFournisseurs(fournisseurs:Fournisseurs):Observable<Fournisseurs>{
-   return this.http.post<Fournisseurs>(ConfigService.rootUrl+this._fournisseursUrl,JSON.stringify(fournisseurs),this.getRequestHeaders());
+ addFournisseurs(fournisseurs:FormData):Observable<EditFournisseurs>{
+   console.log(fournisseurs);
+  
+
+   return this.http.post<EditFournisseurs>(ConfigService.rootUrl+this._fournisseursUrl,fournisseurs);
  };
 
 

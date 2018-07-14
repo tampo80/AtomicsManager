@@ -32,6 +32,12 @@ namespace Atomics_Manager.Controllers
             return Ok(Mapper.Map<IEnumerable<VillesViewModel>>(allVilles));
         }
 
+        [HttpGet("bypaysid/{id}")]
+        public IActionResult bypaysid(int id)
+        {
+            var allVilles = _unitOfWork.Villes.GetAllIncluding(e => e.Pays).Where(f=>f.Pays.Id==id);
+            return Ok(Mapper.Map<IEnumerable<VillesViewModel>>(allVilles));
+        }
         // GET: api/Villes/5
         [HttpGet("{id}", Name = "Get")]
         public string Get(int id)

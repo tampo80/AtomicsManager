@@ -38,6 +38,11 @@ getVilles():Observable<Villes[]> {
                 
 }
 
+getVillesByPaysId(id?:number):Observable<Villes[]> {
+  return this.http.get<Villes[]>(ConfigService.rootUrl+this._villesUrl+"/bypaysid/"+id,this.getRequestHeaders());
+                
+}
+
 deleteVilles(VillesId?:number):Observable<{}>{
 
   return this.http.delete(ConfigService.rootUrl+this._villesUrl+"/"+VillesId,this.getRequestHeaders());

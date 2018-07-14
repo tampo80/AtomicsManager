@@ -7,7 +7,7 @@
 
   <mat-toolbar color="primary">
    Céer un Fournisseur
-
+   <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar> <mat-progress-spinner mode="determinate"  color="primary" [strokeWidth]="4"></mat-progress-spinner>
 </mat-toolbar>
 
 <mat-divider></mat-divider>
@@ -31,58 +31,67 @@
 
                 <div fxFlex="40%">
                   <mat-form-field class="example-full-width">
-                    <input  matInput placeholder="Last name, First name" formControlName="titre" required>
+                    <input  matInput placeholder="Nom court" formControlName="titre" required>
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
                     <input  matInput placeholder="Nom de la société" formControlName="nomSociete" required>
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
                    
-                    <mat-select formControlName="formeJuridique" placeholder="Forme juridique">
+                    <mat-select formControlName="formeJuridique" placeholder="Forme juridique" required>
                         <mat-option *ngFor="let forme of formeJuridiques" [value]="forme.value">
                           {{forme.label}}
                         </mat-option>
                     </mat-select>
                   </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                    <input  matInput placeholder="DG de la société" formControlName="nomDg" required >
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                      <input  matInput placeholder="Téléphone du DG" formControlName="telDg" required>
+                    </mat-form-field>
                 </div>
-                {{formeJuridique |json}}
+               
                 <div fxFlex="30%">
                   <mat-form-field class="example-full-width">
-                   <mat-select multiple formControlName="secteurs" placeholder="Secteurs d'activités">
-                       <mat-option *ngFor="let sercteur of secteurs" [value]="sercteur.id">
+                   <mat-select multiple formControlName="secteurs" placeholder="Secteurs d'activités" required>
+                       <mat-option *ngFor="let sercteur of secteurs" [value]="sercteur">
                         {{sercteur.name}}
                        </mat-option>
                    </mat-select>
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
-                   <mat-select formControlName="devises" placeholder="devise de payement">
-                       <mat-option *ngFor="let devise of devises" [value]="devise.id">
+                   <mat-select formControlName="devises" placeholder="devise de payement" required>
+                       <mat-option *ngFor="let devise of devises" [value]="devise">
                            {{devise.symbole}}
                        </mat-option>
                    </mat-select>
-                  </mat-form-field>
-                  <mat-form-field>
+                  </mat-form-field >
+                  <input type="file" id="userFile" (change)="onSelectFile($event)" #fileInput style="display: none" required> 
+                  <mat-form-field class="example-full-width">
                    
-                        <input type="file" id="userFile" (change)="onSelectFile($event)" #fileInput style="display: none"> 
-                        <input matInput formControlName="contract" placeholder="Fichier" readonly >
-                
-                   
+                      
+                        <input matInput formControlName="contract" placeholder="Le contract physique" readonly (click)="selectFile()" required>
+                       
+                        <button (click)="selectFile()" mat-mini-fab matSuffix>
+
+                          <mat-icon >attach_file</mat-icon>
+                        </button>
+                       
                   </mat-form-field>
-                  <mat-form-field>
-                     
-                      <button mat-raised-button (click)="selectFile()" color="primary" formControlName="contract">...</button>
-                  </mat-form-field>
-                 
+                  
                 </div>
          
               
               </div>
 
-    
      
-     
-      <div>
-        <button mat-button matStepperNext>Suivant</button>
+     <mat-divider mat-inset></mat-divider>
+      <div class="padding">
+       
+        <button class="paddingbutton" mat-raised-button matStepperNext color="primary"> Suivant</button>
       </div>
    
     </form>
@@ -90,30 +99,158 @@
   <mat-step [stepControl]="secondFormGroup">
     <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Contacts</ng-template>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="phoneNumber" required>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="email" required>
-      </mat-form-field>
-      <mat-form-field>
-        <input matInput placeholder="Address" formControlName="codePostale" required>
-      </mat-form-field>
       
-      <div>
-        <button mat-button matStepperPrevious>Précédent</button>
-        <button mat-button matStepperNext>Suivant</button>
+      <div fxLayout
+      fxLayout
+      fxLayout.xs="column"
+      fxLayoutAlign="center"
+      fxLayoutGap="70px"
+      fxLayoutGap.xs="0">
+    
+
+      <div fxFlex="40%">
+        <mat-form-field class="example-full-width">
+          <input  matInput placeholder="Téléphone" formControlName="phoneNumber" required >
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input  matInput placeholder="Adresse mail" formControlName="email" required>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+        
+          <mat-select formControlName="pays" placeholder="Pays" (selectionChange)="getVillesByPaysId($event.value.id)">
+              <mat-option *ngFor="let pays of lesPays" [value]="pays">
+                {{pays.name}}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+         
+            <mat-select  formControlName="ville" placeholder="Ville" required>
+                <mat-option *ngFor="let ville of villesParPays" [value]="ville">
+                 {{ville.name}}
+                </mat-option>
+            </mat-select>
+           
+           </mat-form-field>
+           <mat-form-field class="example-full-width">
+              <input  matInput placeholder="Adresse" formControlName="adresse" required>
+            </mat-form-field>
+          
+      </div>
+     
+      <div fxFlex="30%">
+       
+
+          
+            <mat-form-field class="example-full-width">
+                <input  matInput placeholder="code postal" formControlName="codePostale" required>
+              </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <input  matInput placeholder="Mail de commmande" formControlName="emailcommande" required>
+            </mat-form-field>
+    
+            <mat-form-field class="example-full-width">
+                  <input  matInput placeholder="Téléphone de commande" formControlName="telCommande" required >
+            </mat-form-field>
+       
+        
+      </div>
+      
+
+
+    
+    </div>
+
+    <mat-divider mat-inset></mat-divider>
+      <div class="padding">
+        <button class="paddingbutton" mat-raised-button matStepperPrevious color="accent">Précédent</button>
+        <button class="paddingbutton" mat-raised-button matStepperNext color="primary" matStepperNext>Suivant</button>
       </div>
     </form>
   </mat-step>
-  <mat-step>
+  <mat-step [stepControl]="thiredFormGroup">
+      <form [formGroup]="thiredFormGroup">
     <ng-template matStepLabel>Informations Bancaires</ng-template>
-    You are now done.
-    <div>
-      <button mat-button matStepperPrevious>Précédent</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
+    <div fxLayout
+    fxLayout
+    fxLayout.xs="column"
+    fxLayoutAlign="center"
+    fxLayoutGap="70px"
+    fxLayoutGap.xs="0">
+  
+
+    <div fxFlex="40%">
+      <mat-form-field class="example-full-width">
+        <input  matInput placeholder="Nom de la banque" formControlName="bankName" required>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input  matInput placeholder="Adresse mail" formControlName="emailbk" required>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+      
+        <mat-select formControlName="paysbk" placeholder="Pays" (selectionChange)="getVillesByPaysId($event.value.id)" required>
+            <mat-option *ngFor="let pays of lesPays" [value]="pays">
+              {{pays.name}}
+            </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+       
+          <mat-select  formControlName="villebk" placeholder="Ville" required>
+              <mat-option *ngFor="let ville of villesParPays" [value]="ville">
+               {{ville.name}}
+              </mat-option>
+          </mat-select>
+         
+         </mat-form-field>
+         <mat-form-field class="example-full-width">
+            <input  matInput placeholder="Téléphone de la banque" formControlName="tel" required>
+          </mat-form-field>
+          
+        
     </div>
+   
+    <div fxFlex="30%">
+     
+
+       <mat-form-field class="example-full-width">
+         <mat-select formControlName="typePayement" placeholder="Type de payements" required>
+             <mat-option *ngFor="let choice of typePayement" [value]="choice.value">
+                 {{choice.Label}}
+             </mat-option>
+         </mat-select>
+       </mat-form-field>
+        <mat-form-field class="example-full-width">
+            <input  matInput placeholder="Numéro de compte" formControlName="accountNumber" required>
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+              <input  matInput placeholder="Intitulé du compte" formControlName="accountName" required>
+            </mat-form-field>
+          <mat-form-field class="example-full-width">
+              <input  matInput placeholder="IBAN" formControlName="iban"required >
+          </mat-form-field>
+  
+          <mat-form-field class="example-full-width">
+                <input  matInput placeholder="Adresse de la banque" formControlName="adressebk" required>
+          </mat-form-field>
+     
+      
+    </div>
+    
+
+
+  
+  </div>
+
+    
+  <mat-divider mat-inset></mat-divider>
+    <div class="padding">
+      <button class="paddingbutton" mat-raised-button matStepperPrevious color="accent">Précédent</button>
+      <button class="paddingbutton" mat-raised-button color="primary" (click)="addFournisseurs()">Créer</button>
+    </div>
+  </form>
   </mat-step>
+
 </mat-horizontal-stepper>
 
 </mat-card-content>

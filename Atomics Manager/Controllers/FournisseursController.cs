@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Atomics_Manager.ViewModels;
 using AutoMapper;
 using DAL;
@@ -54,7 +55,8 @@ namespace Atomics_Manager.Controllers
 
         // POST api/values
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] FournisseursViewModel fournisseurs)
+        public async Task<IActionResult> Post([FromForm] EditFournisseursViewModel fournisseurs)
+
         {
             if (ModelState.IsValid)
             {

@@ -44,7 +44,7 @@ namespace Atomics_Manager
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("Atomics Manager"));
+                options.UseNpgsql(Configuration["ConnectionStrings:DefaultConnection"], b => b.MigrationsAssembly("Atomics Manager"));
                 options.UseOpenIddict();
 
             }

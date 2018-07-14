@@ -39,7 +39,7 @@ namespace DAL.Models
         public string IntituleDuCompte { get; set; }
 
 
-        public int BankInfosId { get; set; }
+       
         public BankInfos BankInfos { get; set; }
 
         public string ResponsableCommerciale { get; set; }
@@ -48,7 +48,7 @@ namespace DAL.Models
 
         //navigation
 
-        public int VilleId { get; set; }
+       
         public Villes Villes { get; set; }
 
         public int DocumentsFournisseursId { get; set; }

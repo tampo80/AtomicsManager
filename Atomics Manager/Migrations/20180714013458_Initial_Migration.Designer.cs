@@ -3,22 +3,23 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AtomicsManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180711093252_Initial")]
-    partial class Initial
+    [Migration("20180714013458_Initial_Migration")]
+    partial class Initial_Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.0-rtm-30799")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("DAL.Models.ApplicationRole", b =>
                 {
@@ -48,8 +49,7 @@ namespace AtomicsManager.Migrations
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
+                        .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -115,8 +115,7 @@ namespace AtomicsManager.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+                        .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -296,7 +295,7 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("AlternatePhoneNumber");
 
-                    b.Property<int>("BankInfosId");
+                    b.Property<int?>("BankInfosId");
 
                     b.Property<string>("CodePostale");
 
@@ -337,8 +336,6 @@ namespace AtomicsManager.Migrations
                         .HasMaxLength(256);
 
                     b.Property<DateTime>("UpdatedDate");
-
-                    b.Property<int>("VilleId");
 
                     b.Property<int?>("VillesId");
 
@@ -839,8 +836,7 @@ namespace AtomicsManager.Migrations
                     b.HasIndex("AuthorizationId");
 
                     b.HasIndex("ReferenceId")
-                        .IsUnique()
-                        .HasFilter("[ReferenceId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("OpenIddictTokens");
                 });
@@ -857,8 +853,7 @@ namespace AtomicsManager.Migrations
                 {
                     b.HasOne("DAL.Models.BankInfos", "BankInfos")
                         .WithMany()
-                        .HasForeignKey("BankInfosId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("BankInfosId");
 
                     b.HasOne("DAL.Models.Devises", "DevisesPayement")
                         .WithMany()
