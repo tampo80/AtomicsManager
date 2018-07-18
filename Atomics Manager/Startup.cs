@@ -120,7 +120,9 @@ namespace Atomics_Manager
                     Flow = "password",
                     TokenUrl = "/connect/token"
                 });
+                c.OperationFilter<FileUploadOperation>();
             });
+
 
             services.AddAuthorization(options =>
             {

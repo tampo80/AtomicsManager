@@ -138,6 +138,8 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("Email");
 
+                    b.Property<int>("FournisseursId");
+
                     b.Property<string>("IBAN");
 
                     b.Property<string>("TelephoneNumbers");
@@ -147,11 +149,14 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("UpdatedDate");
 
-                    b.Property<int>("VillesId");
+                    b.Property<int?>("VillesId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BankName");
+
+                    b.HasIndex("FournisseursId")
+                        .IsUnique();
 
                     b.HasIndex("VillesId");
 
@@ -268,9 +273,9 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("DocumentName");
 
-                    b.Property<int>("FournisseurId");
+                    b.Property<byte[]>("Documents");
 
-                    b.Property<string>("Location");
+                    b.Property<int?>("FournisseursId");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256);
@@ -280,6 +285,8 @@ namespace AtomicsManager.Migrations
                     b.Property<int>("typeDocFournisseurs");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FournisseursId");
 
                     b.ToTable("AppDocumentsFournisseurs");
                 });
@@ -293,8 +300,6 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("AlternatePhoneNumber");
 
-                    b.Property<int?>("BankInfosId");
-
                     b.Property<string>("CodePostale");
 
                     b.Property<string>("CreatedBy")
@@ -302,9 +307,7 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<int?>("DevisesPayementId");
-
-                    b.Property<int>("DocumentsFournisseursId");
+                    b.Property<int?>("DevisesId");
 
                     b.Property<string>("Email");
 
@@ -312,21 +315,19 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("FormeJuridique");
 
-                    b.Property<string>("IntituleDuCompte");
+                    b.Property<string>("NomDg");
 
                     b.Property<string>("NomSociete");
 
                     b.Property<string>("NumTVAintracommunautare");
 
-                    b.Property<string>("NumeroDeCompte");
-
                     b.Property<string>("PhoneNumber");
-
-                    b.Property<string>("ResponsableCommerciale");
 
                     b.Property<string>("TelCommande");
 
-                    b.Property<int>("Titre");
+                    b.Property<string>("TelDg");
+
+                    b.Property<string>("Titre");
 
                     b.Property<int>("TypePayments");
 
@@ -339,12 +340,7 @@ namespace AtomicsManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BankInfosId");
-
-                    b.HasIndex("DevisesPayementId");
-
-                    b.HasIndex("DocumentsFournisseursId")
-                        .IsUnique();
+                    b.HasIndex("DevisesId");
 
                     b.HasIndex("Titre");
 
@@ -566,26 +562,21 @@ namespace AtomicsManager.Migrations
 
             modelBuilder.Entity("DAL.Models.SecteursFournisseurs", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                    b.Property<int>("FournisseursId");
+
+                    b.Property<int>("SecteursId");
 
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256);
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<int?>("FournisseursId");
-
-                    b.Property<int?>("SecteursId");
-
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256);
 
                     b.Property<DateTime>("UpdatedDate");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("FournisseursId");
+                    b.HasKey("FournisseursId", "SecteursId");
 
                     b.HasIndex("SecteursId");
 
@@ -841,26 +832,28 @@ namespace AtomicsManager.Migrations
 
             modelBuilder.Entity("DAL.Models.BankInfos", b =>
                 {
+                    b.HasOne("DAL.Models.Fournisseurs", "Fournisseurs")
+                        .WithOne("BankInfos")
+                        .HasForeignKey("DAL.Models.BankInfos", "FournisseursId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("DAL.Models.Villes", "Villes")
                         .WithMany("BankInfos")
-                        .HasForeignKey("VillesId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("VillesId");
+                });
+
+            modelBuilder.Entity("DAL.Models.DocumentsFournisseurs", b =>
+                {
+                    b.HasOne("DAL.Models.Fournisseurs", "Fournisseurs")
+                        .WithMany("DocumentsFournisseurs")
+                        .HasForeignKey("FournisseursId");
                 });
 
             modelBuilder.Entity("DAL.Models.Fournisseurs", b =>
                 {
-                    b.HasOne("DAL.Models.BankInfos", "BankInfos")
-                        .WithMany()
-                        .HasForeignKey("BankInfosId");
-
-                    b.HasOne("DAL.Models.Devises", "DevisesPayement")
-                        .WithMany()
-                        .HasForeignKey("DevisesPayementId");
-
-                    b.HasOne("DAL.Models.DocumentsFournisseurs", "DocumentsFournisseurs")
-                        .WithOne("Fournisseurs")
-                        .HasForeignKey("DAL.Models.Fournisseurs", "DocumentsFournisseursId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("DAL.Models.Devises", "Devises")
+                        .WithMany("Fournisseurs")
+                        .HasForeignKey("DevisesId");
 
                     b.HasOne("DAL.Models.Villes", "Villes")
                         .WithMany("Fournisseurs")
@@ -908,12 +901,14 @@ namespace AtomicsManager.Migrations
             modelBuilder.Entity("DAL.Models.SecteursFournisseurs", b =>
                 {
                     b.HasOne("DAL.Models.Fournisseurs", "Fournisseurs")
-                        .WithMany("Secteurs")
-                        .HasForeignKey("FournisseursId");
+                        .WithMany("SecteursFournisseurs")
+                        .HasForeignKey("FournisseursId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.Secteurs", "Secteurs")
-                        .WithMany("Fournisseurs")
-                        .HasForeignKey("SecteursId");
+                        .WithMany("SecteursFournisseurs")
+                        .HasForeignKey("SecteursId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DAL.Models.Villes", b =>

@@ -6,8 +6,8 @@
   
 
   <mat-toolbar color="primary">
-   Céer un Fournisseur
-   <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar> <mat-progress-spinner mode="determinate"  color="primary" [strokeWidth]="4"></mat-progress-spinner>
+   Céer un nouveau fournisseur
+   <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar> 
 </mat-toolbar>
 
 <mat-divider></mat-divider>
@@ -30,15 +30,21 @@
               
 
                 <div fxFlex="40%">
+                
                   <mat-form-field class="example-full-width">
-                    <input  matInput placeholder="Nom court" formControlName="titre" required>
+                    <input  [errorStateMatcher]="matcher"  matInput placeholder="Nom court" formControlName="titre" required>
+                    <mat-error *ngIf="formErrors.titre">{{formErrors.titre}}</mat-error>
+                    <mat-error *ngIf="firstFormGroup.hasError('required')">{{formErrors.titre}}</mat-error>
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
-                    <input  matInput placeholder="Nom de la société" formControlName="nomSociete" required>
+                    <input  [errorStateMatcher]="matcher" matInput placeholder="Nom de la société" formControlName="nomSociete" required>
+                    <mat-error *ngIf="formErrors.nomSociete">{{formErrors.nomSociete}}</mat-error>
+                    <mat-error *ngIf="firstFormGroup.hasError('required')">{{formErrors.nomSociete}}</mat-error>
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
-                   
-                    <mat-select formControlName="formeJuridique" placeholder="Forme juridique" required>
+                      <mat-error *ngIf="formErrors.formeJuridique">{{formErrors.formeJuridique}}</mat-error>
+                      <mat-error *ngIf="firstFormGroup.hasError('required')">{{formErrors.formeJuridique}}</mat-error>
+                    <mat-select  [errorStateMatcher]="matcher" formControlName="formeJuridique" placeholder="Forme juridique" required>
                         <mat-option *ngFor="let forme of formeJuridiques" [value]="forme.value">
                           {{forme.label}}
                         </mat-option>
@@ -46,40 +52,50 @@
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
-                    <input  matInput placeholder="DG de la société" formControlName="nomDg" required >
+                    <input  [errorStateMatcher]="matcher" matInput placeholder="DG de la société" formControlName="nomDg" required >
+                    <mat-error *ngIf="formErrors.nomDg">{{formErrors.nomDg}}</mat-error>
+                    <mat-error *ngIf="firstFormGroup.hasError('required')">{{formErrors.nomDg}}</mat-error>
                   </mat-form-field>
 
                   <mat-form-field class="example-full-width">
-                      <input  matInput placeholder="Téléphone du DG" formControlName="telDg" required>
+                      <input  [errorStateMatcher]="matcher"  matInput placeholder="Téléphone du DG" formControlName="telDg" required>
+                      <mat-error *ngIf="formErrors.telDg">{{formErrors.telDg}}</mat-error>
+                      <mat-error *ngIf="firstFormGroup.hasError('required')">{{formErrors.telDg}}</mat-error>
                     </mat-form-field>
                 </div>
                
                 <div fxFlex="30%">
                   <mat-form-field class="example-full-width">
-                   <mat-select multiple formControlName="secteurs" placeholder="Secteurs d'activités" required>
-                       <mat-option *ngFor="let sercteur of secteurs" [value]="sercteur">
+                   <mat-select  multiple formControlName="secteurs" placeholder="Secteurs d'activités" required>
+                       <mat-option *ngFor="let sercteur of secteurs" [value]="sercteur.id">
                         {{sercteur.name}}
                        </mat-option>
                    </mat-select>
+                   <mat-error *ngIf="formErrors.secteurs">{{formErrors.secteurs}}</mat-error>
+                   <mat-error *ngIf="firstFormGroup.hasError('required')">{{formErrors.secteurs}}</mat-error>
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
-                   <mat-select formControlName="devises" placeholder="devise de payement" required>
+                   <mat-select  formControlName="devises" placeholder="devise de payement" required>
                        <mat-option *ngFor="let devise of devises" [value]="devise">
                            {{devise.symbole}}
                        </mat-option>
                    </mat-select>
+                   <mat-error *ngIf="formErrors.devises">{{formErrors.devises}}</mat-error>
+                   <mat-error *ngIf="firstFormGroup.hasError('required')">{{formErrors.devises}}</mat-error>
                   </mat-form-field >
-                  <input type="file" id="userFile" (change)="onSelectFile($event)" #fileInput style="display: none" required> 
+                  <input  type="file" id="userFile" (change)="onSelectFile($event)" #fileInput style="display: none" required> 
+                  
                   <mat-form-field class="example-full-width">
                    
                       
-                        <input matInput formControlName="contract" placeholder="Le contract physique" readonly (click)="selectFile()" required>
+                        <input matInput [errorStateMatcher]="matcher" formControlName="contract" placeholder="Le contract physique" readonly (click)="selectFile()" required>
                        
                         <button (click)="selectFile()" mat-mini-fab matSuffix>
 
                           <mat-icon >attach_file</mat-icon>
                         </button>
-                       
+                        <mat-error *ngIf="formErrors.contract">{{formErrors.contract}}</mat-error>
+                      <mat-error *ngIf="firstFormGroup.hasError('required')">{{formErrors.contract}}</mat-error>
                   </mat-form-field>
                   
                 </div>
@@ -89,10 +105,19 @@
 
      
      <mat-divider mat-inset></mat-divider>
-      <div class="padding">
-       
-        <button class="paddingbutton" mat-raised-button matStepperNext color="primary"> Suivant</button>
-      </div>
+
+     <table width="100%">
+       <tr>
+         <td>
+            <button mat-raised-button    (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+         
+         </td>
+         <td class="paddingbuttonClose">
+            <button class="paddingbutton" mat-raised-button matStepperNext color="primary" (click)="onValueChangedfirst()"> Suivant</button>
+         </td>
+       </tr>
+     </table>
+      
    
     </form>
   </mat-step>
@@ -110,30 +135,40 @@
 
       <div fxFlex="40%">
         <mat-form-field class="example-full-width">
-          <input  matInput placeholder="Téléphone" formControlName="phoneNumber" required >
+          <input  matInput placeholder="Téléphone" [errorStateMatcher]="matcher" formControlName="phoneNumber" required >
+          <mat-error *ngIf="formErrors.phoneNumber">{{formErrors.phoneNumber}}</mat-error>
+          <mat-error *ngIf="secondFormGroup.hasError('required')">{{formErrors.phoneNumber}}</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
-          <input  matInput placeholder="Adresse mail" formControlName="email" required>
+          <input  matInput placeholder="Adresse mail" [errorStateMatcher]="matcher" formControlName="email" required>
+          <mat-error *ngIf="formErrors.email">{{formErrors.email}}</mat-error>
+          <mat-error *ngIf="secondFormGroup.hasError('required')">{{formErrors.email}}</mat-error>
+          <mat-error *ngIf="!secondFormGroup.hasError('required') && secondFormGroup.hasError('email')">{{formErrors.email}}</mat-error>
         </mat-form-field>
         <mat-form-field class="example-full-width">
         
-          <mat-select formControlName="pays" placeholder="Pays" (selectionChange)="getVillesByPaysId($event.value.id)">
+          <mat-select formControlName="pays" placeholder="Pays" [errorStateMatcher]="matcher" (selectionChange)="getVillesByPaysId($event.value.id)">
               <mat-option *ngFor="let pays of lesPays" [value]="pays">
                 {{pays.name}}
               </mat-option>
           </mat-select>
+          <mat-error *ngIf="formErrors.pays">{{formErrors.pays}}</mat-error>
+          <mat-error *ngIf="secondFormGroup.hasError('required')">{{formErrors.pays}}</mat-error>
         </mat-form-field>
-        <mat-form-field class="example-full-width">
+        <mat-form-field class="example-full-width" >
          
-            <mat-select  formControlName="ville" placeholder="Ville" required>
+            <mat-select  formControlName="ville" placeholder="Ville" required [errorStateMatcher]="matcher">
                 <mat-option *ngFor="let ville of villesParPays" [value]="ville">
                  {{ville.name}}
                 </mat-option>
             </mat-select>
-           
+          <mat-error *ngIf="formErrors.ville">{{formErrors.ville}}</mat-error>
+          <mat-error *ngIf="secondFormGroup.hasError('required')">{{formErrors.ville}}</mat-error>
            </mat-form-field>
            <mat-form-field class="example-full-width">
-              <input  matInput placeholder="Adresse" formControlName="adresse" required>
+              <input  matInput placeholder="Adresse" formControlName="adresse" required [errorStateMatcher]="matcher">
+              <mat-error *ngIf="formErrors.adresse">{{formErrors.adresse}}</mat-error>
+              <mat-error *ngIf="secondFormGroup.hasError('required')">{{formErrors.adresse}}</mat-error>
             </mat-form-field>
           
       </div>
@@ -143,15 +178,22 @@
 
           
             <mat-form-field class="example-full-width">
-                <input  matInput placeholder="code postal" formControlName="codePostale" required>
+                <input  matInput placeholder="code postal" formControlName="codePostale" required [errorStateMatcher]="matcher">
+                <mat-error *ngIf="formErrors.codePostale">{{formErrors.codePostale}}</mat-error>
+                <mat-error *ngIf="secondFormGroup.hasError('required')">{{formErrors.codePostale}}</mat-error>
               </mat-form-field>
             <mat-form-field class="example-full-width">
-                <input  matInput placeholder="Mail de commmande" formControlName="emailcommande" required>
+                <input  matInput placeholder="Mail de commmande" formControlName="emailcommande" required [errorStateMatcher]="matcher">
+                <mat-error *ngIf="formErrors.emailcommande">{{formErrors.emailcommande}}</mat-error>
+                <mat-error *ngIf="secondFormGroup.hasError('required')">{{formErrors.emailcommande}}</mat-error>
+                <mat-error *ngIf="!secondFormGroup.hasError('required') && secondFormGroup.hasError('email')">{{formErrors.emailcommande}}</mat-error>
             </mat-form-field>
     
             <mat-form-field class="example-full-width">
-                  <input  matInput placeholder="Téléphone de commande" formControlName="telCommande" required >
-            </mat-form-field>
+                  <input  matInput placeholder="Téléphone de commande" formControlName="telCommande" required [errorStateMatcher]="matcher">
+                  <mat-error *ngIf="formErrors.telCommande">{{formErrors.telCommande}}</mat-error>
+                  <mat-error *ngIf="secondFormGroup.hasError('required')">{{formErrors.telCommande}}</mat-error>
+                </mat-form-field>
        
         
       </div>
@@ -162,10 +204,22 @@
     </div>
 
     <mat-divider mat-inset></mat-divider>
-      <div class="padding">
-        <button class="paddingbutton" mat-raised-button matStepperPrevious color="accent">Précédent</button>
-        <button class="paddingbutton" mat-raised-button matStepperNext color="primary" matStepperNext>Suivant</button>
-      </div>
+      <table width="100%">
+        <tr>
+          <td>
+            <button mat-raised-button   align="end" (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+          </td>
+          <td> 
+              <button class="paddingbutton" mat-raised-button matStepperPrevious color="accent">Précédent</button>
+           </td>
+          <td class="paddingbuttonClose">
+              <button class="paddingbutton" mat-raised-button matStepperNext color="primary" (click)="onValueChangedsecond()"  matStepperNext>Suivant</button>
+          </td>
+        </tr>
+        
+       
+      
+      </table>
     </form>
   </mat-step>
   <mat-step [stepControl]="thiredFormGroup">
@@ -181,30 +235,40 @@
 
     <div fxFlex="40%">
       <mat-form-field class="example-full-width">
-        <input  matInput placeholder="Nom de la banque" formControlName="bankName" required>
+        <input  matInput placeholder="Nom de la banque" formControlName="bankName" required [errorStateMatcher]="matcher">
+        <mat-error *ngIf="formErrors.bankName">{{formErrors.bankName}}</mat-error>
+        <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.bankName}}</mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width">
-        <input  matInput placeholder="Adresse mail" formControlName="emailbk" required>
+        <input  matInput placeholder="Adresse mail" formControlName="emailbk" required [errorStateMatcher]="matcher">
+        <mat-error *ngIf="formErrors.emailbk">{{formErrors.emailbk}}</mat-error>
+                <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.emailbk}}</mat-error>
+                <mat-error *ngIf="!thiredFormGroup.hasError('required') && thiredFormGroup.hasError('email')">{{formErrors.emailbk}}</mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width">
       
-        <mat-select formControlName="paysbk" placeholder="Pays" (selectionChange)="getVillesByPaysId($event.value.id)" required>
+        <mat-select formControlName="paysbk" placeholder="Pays" (selectionChange)="getVillesByPaysId($event.value.id)" required [errorStateMatcher]="matcher">
             <mat-option *ngFor="let pays of lesPays" [value]="pays">
               {{pays.name}}
             </mat-option>
         </mat-select>
+        <mat-error *ngIf="formErrors.paysbk">{{formErrors.paysbk}}</mat-error>
+        <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.paysbk}}</mat-error>
       </mat-form-field>
       <mat-form-field class="example-full-width">
        
-          <mat-select  formControlName="villebk" placeholder="Ville" required>
+          <mat-select  formControlName="villebk" placeholder="Ville" required [errorStateMatcher]="matcher">
               <mat-option *ngFor="let ville of villesParPays" [value]="ville">
                {{ville.name}}
               </mat-option>
           </mat-select>
-         
+          <mat-error *ngIf="formErrors.villebk">{{formErrors.villebk}}</mat-error>
+          <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.villebk}}</mat-error>
          </mat-form-field>
          <mat-form-field class="example-full-width">
-            <input  matInput placeholder="Téléphone de la banque" formControlName="tel" required>
+            <input  matInput placeholder="Téléphone de la banque" formControlName="tel" required [errorStateMatcher]="matcher">
+            <mat-error *ngIf="formErrors.tel">{{formErrors.tel}}</mat-error>
+        <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.tel}}</mat-error>
           </mat-form-field>
           
         
@@ -214,24 +278,34 @@
      
 
        <mat-form-field class="example-full-width">
-         <mat-select formControlName="typePayement" placeholder="Type de payements" required>
+         <mat-select formControlName="typePayement" placeholder="Type de payements" required [errorStateMatcher]="matcher">
              <mat-option *ngFor="let choice of typePayement" [value]="choice.value">
                  {{choice.Label}}
              </mat-option>
          </mat-select>
+         <mat-error *ngIf="formErrors.typePayement">{{formErrors.typePayement}}</mat-error>
+        <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.typePayement}}</mat-error>
        </mat-form-field>
         <mat-form-field class="example-full-width">
-            <input  matInput placeholder="Numéro de compte" formControlName="accountNumber" required>
+            <input  matInput placeholder="Numéro de compte" formControlName="accountNumber" required [errorStateMatcher]="matcher">
+            <mat-error *ngIf="formErrors.accountNumber">{{formErrors.accountNumber}}</mat-error>
+        <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.accountNumber}}</mat-error>
           </mat-form-field>
           <mat-form-field class="example-full-width">
-              <input  matInput placeholder="Intitulé du compte" formControlName="accountName" required>
+              <input  matInput placeholder="Intitulé du compte" formControlName="accountName" required [errorStateMatcher]="matcher">
+              <mat-error *ngIf="formErrors.accountName">{{formErrors.accountName}}</mat-error>
+        <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.accountName}}</mat-error>
             </mat-form-field>
           <mat-form-field class="example-full-width">
-              <input  matInput placeholder="IBAN" formControlName="iban"required >
+              <input  matInput placeholder="IBAN" formControlName="iban"required [errorStateMatcher]="matcher">
+              <mat-error *ngIf="formErrors.iban">{{formErrors.iban}}</mat-error>
+        <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.iban}}</mat-error>
           </mat-form-field>
   
           <mat-form-field class="example-full-width">
-                <input  matInput placeholder="Adresse de la banque" formControlName="adressebk" required>
+                <input  matInput placeholder="Adresse de la banque" formControlName="adressebk" required [errorStateMatcher]="matcher">
+                <mat-error *ngIf="formErrors.adressebk">{{formErrors.adressebk}}</mat-error>
+                <mat-error *ngIf="thiredFormGroup.hasError('required')">{{formErrors.adressebk}}</mat-error>
           </mat-form-field>
      
       
@@ -244,10 +318,19 @@
 
     
   <mat-divider mat-inset></mat-divider>
-    <div class="padding">
-      <button class="paddingbutton" mat-raised-button matStepperPrevious color="accent">Précédent</button>
-      <button class="paddingbutton" mat-raised-button color="primary" (click)="addFournisseurs()">Créer</button>
-    </div>
+    <table width="100%">
+      <tr>
+        <td>
+            <button mat-raised-button class="paddingbuttonClose"  align="end" (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+        </td>
+        <td>      <button class="paddingbutton" mat-raised-button matStepperPrevious color="accent">Précédent</button></td>
+        <td class="paddingbuttonClose"> <button class="paddingbutton" mat-raised-button color="primary"  (click)="addFournisseurs()">Créer</button></td>
+      </tr>
+
+     
+      
+    </table>
+
   </form>
   </mat-step>
 
@@ -255,10 +338,6 @@
 
 </mat-card-content>
   
-<mat-card-actions align="end">
-  
-    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
-    
-</mat-card-actions>
+
 
 </mat-card>

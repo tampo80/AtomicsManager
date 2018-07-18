@@ -5,6 +5,7 @@ import { AddFournisseursDialogComponent } from './dialog/add/add-fournisseurs-di
 import { MessageboxService } from '../../services/messagebox.service';
 import { MatDialog, MatTableDataSource, MatPaginator, MatSort } from '@angular/material';
 import { FournisseursService } from '../../services/fournisseurs.service';
+import { FormeJuridique } from '../../models/forme-juridique';
 
 @Component({
   selector: 'app-fournisseurs',
@@ -13,13 +14,49 @@ import { FournisseursService } from '../../services/fournisseurs.service';
 })
 export class FournisseursComponent implements OnInit ,AfterViewInit {
 
+
+ 
+
+
   private Fournisseurs:Fournisseurs[];
 
+  formeJuridiques:FormeJuridique[]=[
+    {
+      value:0,label:"EURL"
+    },
+    {
+      value:1,label:"SARL"
+    },
+    {
+      value:2,label:"SELAR"
+    },
+    {
+      value:3,label:"SA"
+    }
+    ,
+    {
+      value:4,label:"SAS"
+    }
+    ,
+    {
+      value:3,label:"SASU"
+    },
+    {
+      value:4,label:"SNC"
+    }
+    ,
+    {
+      value:5,label:"SCP"
+    }
+    
+    
+    
+  ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','titre','nomSociete','formeJuridique','email','phoneNumber','codePostale','adresse','villesName','secteurs','actions'];
+  displayedColumns = ['id','nomSociete','formeJuridique','email','phoneNumber','adresse','villesName','secteurs','actions'];
   isLoading:boolean;
   constructor(private fournisseursService:FournisseursService,private messageboxService:MessageboxService,private dialog: MatDialog) { }
 
@@ -51,6 +88,12 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
+
+  getformJuridique(value?:number)
+
+  {
+    return this.formeJuridiques.find(e=>e.value==value);
+  }
   rowClicked(row: any): void {
     console.log(row);
   }
@@ -91,9 +134,9 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
 
     const dialogRef = this.dialog.open(AddFournisseursDialogComponent,{
       data:{fournisseurs:""},
-     width:'75%',
+     width:'70%',
      position:{
-       right:'50px',
+       right:'130px',
        
      },
      disableClose:true
@@ -111,22 +154,32 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
     );
   }
   EditFournisseurs(fournisseurs?:Fournisseurs){
-
-    const dialogRef = this.dialog.open(EditFournisseursDialogComponent,{
-      data:{fournisseurs:fournisseurs},
-     width:'600px',
-     disableClose:true
-    });
-
-    dialogRef.afterClosed().subscribe(res=>{
-      if (res.result===1) {
-        this.getFournisseurs();
-        this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",fournisseurs.titre,0,false,1,'500px',"info",'primary');
+    
+    this.fournisseursService.getFournisseursById(fournisseurs.id).subscribe(
+      res=>{
+        const dialogRef = this.dialog.open(EditFournisseursDialogComponent,{
+          data:{fournisseurs:res},
+         width:'70%',
+         position:{
+          right:'150px',
+          
+        },
+         disableClose:true
+        });
+    
+        dialogRef.afterClosed().subscribe(res=>{
+          if (res.result===1) {
+            this.getFournisseurs();
+            this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",fournisseurs.titre,0,false,1,'500px',"info",'primary');
+          }
+        }
+    
+    
+        );
       }
-    }
-
-
     );
+
+
   }
 
 

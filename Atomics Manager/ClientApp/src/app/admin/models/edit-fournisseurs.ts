@@ -2,12 +2,13 @@ import { Secteurs } from "./secteurs";
 import { Devises } from "./devises";
 import { Pays } from "./pays.model";
 import { Villes } from "./villes";
+import { FormeJuridique } from "./forme-juridique";
 
 export class EditFournisseurs {
 
     constructor( titre?:string,
          nomSociete?:string,
-         formeJuridique?:string,
+         formeJuridique?:number,
          secteurs?:Secteurs[],
          contract?:any,
          devises?:Devises,
@@ -63,7 +64,7 @@ export class EditFournisseurs {
     }
      public titre:string;
      public nomSociete:string;
-     public formeJuridique:string;
+     public formeJuridique:number;
      public secteurs:Secteurs[];
      public contract:any;
      public devises:Devises;

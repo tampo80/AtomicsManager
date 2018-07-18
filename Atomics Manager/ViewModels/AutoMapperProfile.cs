@@ -73,6 +73,22 @@ namespace Atomics_Manager.ViewModels
             CreateMap<Secteurs, SecteursViewModel>()
 
             .ReverseMap();
+
+            CreateMap<Fournisseurs, EditFournisseurViewModel>()
+            
+           
+
+            .ReverseMap();
+
+            CreateMap<Fournisseurs, EditFournisseursViewModel>()
+           .ForMember(f => f.Contract, map => map.Ignore());
+
+
+            CreateMap<Fournisseurs, FournisseursViewModel>()
+           .ForMember(f => f.Secteurs, map => map.Ignore())
+
+
+           .ReverseMap();
         }
     }
 }

@@ -20,7 +20,11 @@ namespace DAL.Models
         //navigation
        
 
-        public int VillesId { get; set; }
+        
         public Villes Villes { get; set; }
+   
+        public int FournisseursId { get; set; }
+        public Fournisseurs Fournisseurs { get; set; }
+
     }
 }

@@ -29,7 +29,8 @@ namespace DAL
 
         IFournisseursRepository _Fournisseurs;
         ISecteursFournisseurs _SecteursFournisseurs;
-
+        
+        IBankInfosRepository _BankInfosRepository;
         IDocumentsFournisseursRepository _DocumentsFournisseurs;
 
         public UnitOfWork(ApplicationDbContext context)
@@ -133,6 +134,18 @@ namespace DAL
                     _Secteurs = new SecteursRepository(_context);
 
                 return _Secteurs;
+            }
+        }
+
+
+ public IBankInfosRepository BankInfos
+        {
+            get
+            {
+                if (_BankInfosRepository == null)
+                    _BankInfosRepository = new BankInfosRepository(_context);
+
+                return _BankInfosRepository;
             }
         }
 

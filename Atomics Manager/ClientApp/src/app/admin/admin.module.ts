@@ -48,6 +48,7 @@ import { AddSecteursDialogComponent } from './compoments/secteurs/dialog/add/add
 import { EditSecteursDialogComponent } from './compoments/secteurs/dialog/edit/edit-secteurs-dialog/edit-secteurs-dialog.component';
 import { AddFournisseursDialogComponent } from './compoments/fournisseurs/dialog/add/add-fournisseurs-dialog/add-fournisseurs-dialog.component';
 import { EditFournisseursDialogComponent } from './compoments/fournisseurs/dialog/edit/edit-fournisseurs-dialog/edit-fournisseurs-dialog.component';
+import { ProfileComponent } from './me/profile/profile.component';
 
 
 
@@ -100,6 +101,7 @@ import { EditFournisseursDialogComponent } from './compoments/fournisseurs/dialo
     EditSecteursDialogComponent,
     AddFournisseursDialogComponent,
     EditFournisseursDialogComponent,
+    ProfileComponent,
     
   ],
   exports: [

@@ -96,20 +96,31 @@ namespace DAL
             builder.Entity<BankInfos>().HasIndex(p => p.BankName);
             builder.Entity<BankInfos>().ToTable($"App{nameof(this.BankInfos)}");
 
-            builder.Entity<Secteurs>().HasIndex(p => p.Name);
-
-            builder.Entity<Secteurs>().ToTable($"App{nameof(this.Secteurs)}");
-
-            builder.Entity<Fournisseurs>().HasIndex(p => p.Titre);
-
-            builder.Entity<Fournisseurs>().ToTable($"App{nameof(this.Fournisseurs)}");
-
+          
             builder.Entity<Devises>().HasIndex(p => p.Label);
 
             builder.Entity<Devises>().ToTable($"App{nameof(this.Devises)}");
 
 
-          
+            builder.Entity<Secteurs>().HasIndex(p => p.Name);
+
+            builder.Entity<Secteurs>().ToTable($"App{nameof(this.Secteurs)}");
+
+            builder.Entity<Fournisseurs>().HasIndex(p => p.Titre);
+            builder.Entity<Fournisseurs>().HasOne(e=>e.BankInfos)
+                                          .WithOne(e=>e.Fournisseurs)
+                                          .HasForeignKey<BankInfos>(bf=>bf.FournisseursId);
+
+            builder.Entity<Fournisseurs>().ToTable($"App{nameof(this.Fournisseurs)}");
+
+            builder.Entity<SecteursFournisseurs>().HasKey(sf => new {sf.FournisseursId,sf.SecteursId });
+            builder.Entity<SecteursFournisseurs>().HasOne(sf => sf.Fournisseurs)
+                                                  .WithMany(f => f.SecteursFournisseurs)
+                                                  .HasForeignKey(sf => sf.FournisseursId);
+
+            builder.Entity<SecteursFournisseurs>().HasOne(sf => sf.Secteurs)
+                                                 .WithMany(f => f.SecteursFournisseurs)
+                                                 .HasForeignKey(sf => sf.SecteursId);
 
             builder.Entity<SecteursFournisseurs>().ToTable($"App{nameof(this.SecteursFournisseurs)}");
 

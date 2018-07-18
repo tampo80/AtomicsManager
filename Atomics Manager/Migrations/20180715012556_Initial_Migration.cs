@@ -52,26 +52,6 @@ namespace AtomicsManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppDocumentsFournisseurs",
-                columns: table => new
-                {
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    DocumentName = table.Column<string>(nullable: true),
-                    Location = table.Column<string>(nullable: true),
-                    typeDocFournisseurs = table.Column<int>(nullable: false),
-                    FournisseurId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppDocumentsFournisseurs", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AppPays",
                 columns: table => new
                 {
@@ -466,7 +446,7 @@ namespace AtomicsManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppBankInfos",
+                name: "AppFournisseurs",
                 columns: table => new
                 {
                     CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
@@ -475,24 +455,38 @@ namespace AtomicsManager.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    BankName = table.Column<string>(nullable: true),
-                    AccountNumber = table.Column<string>(nullable: true),
-                    AccountName = table.Column<string>(nullable: true),
-                    IBAN = table.Column<string>(nullable: true),
-                    Adrresse = table.Column<string>(nullable: true),
+                    Titre = table.Column<string>(nullable: true),
+                    FormeJuridique = table.Column<string>(nullable: true),
+                    NomSociete = table.Column<string>(nullable: true),
+                    DevisesId = table.Column<int>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
+                    NumTVAintracommunautare = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    TelephoneNumbers = table.Column<string>(nullable: true),
-                    VillesId = table.Column<int>(nullable: false)
+                    Emailcommande = table.Column<string>(nullable: true),
+                    TelCommande = table.Column<string>(nullable: true),
+                    AlternatePhoneNumber = table.Column<string>(nullable: true),
+                    CodePostale = table.Column<string>(nullable: true),
+                    Adresse = table.Column<string>(nullable: true),
+                    NomDg = table.Column<string>(nullable: true),
+                    TelDg = table.Column<string>(nullable: true),
+                    TypePayments = table.Column<int>(nullable: false),
+                    VillesId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppBankInfos", x => x.Id);
+                    table.PrimaryKey("PK_AppFournisseurs", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppBankInfos_AppVilles_VillesId",
+                        name: "FK_AppFournisseurs_AppDevises_DevisesId",
+                        column: x => x.DevisesId,
+                        principalTable: "AppDevises",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AppFournisseurs_AppVilles_VillesId",
                         column: x => x.VillesId,
                         principalTable: "AppVilles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -563,7 +557,7 @@ namespace AtomicsManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppFournisseurs",
+                name: "AppBankInfos",
                 columns: table => new
                 {
                     CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
@@ -572,51 +566,55 @@ namespace AtomicsManager.Migrations
                     CreatedDate = table.Column<DateTime>(nullable: false),
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    Titre = table.Column<int>(nullable: false),
-                    FormeJuridique = table.Column<string>(nullable: true),
-                    NomSociete = table.Column<string>(nullable: true),
-                    NumTVAintracommunautare = table.Column<string>(nullable: true),
+                    BankName = table.Column<string>(nullable: true),
+                    AccountNumber = table.Column<string>(nullable: true),
+                    AccountName = table.Column<string>(nullable: true),
+                    IBAN = table.Column<string>(nullable: true),
+                    Adrresse = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
-                    Emailcommande = table.Column<string>(nullable: true),
-                    TelCommande = table.Column<string>(nullable: true),
-                    AlternatePhoneNumber = table.Column<string>(nullable: true),
-                    CodePostale = table.Column<string>(nullable: true),
-                    Adresse = table.Column<string>(nullable: true),
-                    DevisesPayementId = table.Column<int>(nullable: true),
-                    TypePayments = table.Column<int>(nullable: false),
-                    NumeroDeCompte = table.Column<string>(nullable: true),
-                    IntituleDuCompte = table.Column<string>(nullable: true),
-                    BankInfosId = table.Column<int>(nullable: true),
-                    ResponsableCommerciale = table.Column<string>(nullable: true),
+                    TelephoneNumbers = table.Column<string>(nullable: true),
                     VillesId = table.Column<int>(nullable: true),
-                    DocumentsFournisseursId = table.Column<int>(nullable: false)
+                    FournisseursId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppFournisseurs", x => x.Id);
+                    table.PrimaryKey("PK_AppBankInfos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppFournisseurs_AppBankInfos_BankInfosId",
-                        column: x => x.BankInfosId,
-                        principalTable: "AppBankInfos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AppFournisseurs_AppDevises_DevisesPayementId",
-                        column: x => x.DevisesPayementId,
-                        principalTable: "AppDevises",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AppFournisseurs_AppDocumentsFournisseurs_DocumentsFournisse~",
-                        column: x => x.DocumentsFournisseursId,
-                        principalTable: "AppDocumentsFournisseurs",
+                        name: "FK_AppBankInfos_AppFournisseurs_FournisseursId",
+                        column: x => x.FournisseursId,
+                        principalTable: "AppFournisseurs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AppFournisseurs_AppVilles_VillesId",
+                        name: "FK_AppBankInfos_AppVilles_VillesId",
                         column: x => x.VillesId,
                         principalTable: "AppVilles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppDocumentsFournisseurs",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    DocumentName = table.Column<string>(nullable: true),
+                    Documents = table.Column<byte[]>(nullable: true),
+                    typeDocFournisseurs = table.Column<int>(nullable: false),
+                    FournisseursId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppDocumentsFournisseurs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppDocumentsFournisseurs_AppFournisseurs_FournisseursId",
+                        column: x => x.FournisseursId,
+                        principalTable: "AppFournisseurs",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -629,32 +627,36 @@ namespace AtomicsManager.Migrations
                     UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
                     UpdatedDate = table.Column<DateTime>(nullable: false),
                     CreatedDate = table.Column<DateTime>(nullable: false),
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    FournisseursId = table.Column<int>(nullable: true),
-                    SecteursId = table.Column<int>(nullable: true)
+                    FournisseursId = table.Column<int>(nullable: false),
+                    SecteursId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppSecteursFournisseurs", x => x.Id);
+                    table.PrimaryKey("PK_AppSecteursFournisseurs", x => new { x.FournisseursId, x.SecteursId });
                     table.ForeignKey(
                         name: "FK_AppSecteursFournisseurs_AppFournisseurs_FournisseursId",
                         column: x => x.FournisseursId,
                         principalTable: "AppFournisseurs",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AppSecteursFournisseurs_AppSecteurs_SecteursId",
                         column: x => x.SecteursId,
                         principalTable: "AppSecteurs",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppBankInfos_BankName",
                 table: "AppBankInfos",
                 column: "BankName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppBankInfos_FournisseursId",
+                table: "AppBankInfos",
+                column: "FournisseursId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppBankInfos_VillesId",
@@ -672,20 +674,14 @@ namespace AtomicsManager.Migrations
                 column: "Label");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppFournisseurs_BankInfosId",
-                table: "AppFournisseurs",
-                column: "BankInfosId");
+                name: "IX_AppDocumentsFournisseurs_FournisseursId",
+                table: "AppDocumentsFournisseurs",
+                column: "FournisseursId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppFournisseurs_DevisesPayementId",
+                name: "IX_AppFournisseurs_DevisesId",
                 table: "AppFournisseurs",
-                column: "DevisesPayementId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppFournisseurs_DocumentsFournisseursId",
-                table: "AppFournisseurs",
-                column: "DocumentsFournisseursId",
-                unique: true);
+                column: "DevisesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppFournisseurs_Titre",
@@ -741,11 +737,6 @@ namespace AtomicsManager.Migrations
                 name: "IX_AppSecteurs_Name",
                 table: "AppSecteurs",
                 column: "Name");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppSecteursFournisseurs_FournisseursId",
-                table: "AppSecteursFournisseurs",
-                column: "FournisseursId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppSecteursFournisseurs_SecteursId",
@@ -836,6 +827,12 @@ namespace AtomicsManager.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "AppBankInfos");
+
+            migrationBuilder.DropTable(
+                name: "AppDocumentsFournisseurs");
+
+            migrationBuilder.DropTable(
                 name: "AppOrderDetails");
 
             migrationBuilder.DropTable(
@@ -893,19 +890,13 @@ namespace AtomicsManager.Migrations
                 name: "AppProductCategories");
 
             migrationBuilder.DropTable(
-                name: "AppBankInfos");
-
-            migrationBuilder.DropTable(
                 name: "AppDevises");
 
             migrationBuilder.DropTable(
-                name: "AppDocumentsFournisseurs");
+                name: "AppVilles");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictApplications");
-
-            migrationBuilder.DropTable(
-                name: "AppVilles");
 
             migrationBuilder.DropTable(
                 name: "AppPays");

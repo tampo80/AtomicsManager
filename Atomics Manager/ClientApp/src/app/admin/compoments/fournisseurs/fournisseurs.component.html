@@ -8,14 +8,11 @@
 
   <div class="mat-elevation-z8">
           <mat-table [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
-              <ng-container matColumnDef="id">
+              <ng-container matColumnDef="id" class="mat-column-index">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index"> {{i+1}} </mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="titre">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Titre </mat-header-cell>
-                    <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.titre}} </mat-cell>
-                  </ng-container>
+               
               <ng-container matColumnDef="nomSociete">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Société  </mat-header-cell>
                 <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.nomSociete}} </mat-cell>
@@ -23,7 +20,7 @@
               
                 <ng-container matColumnDef="formeJuridique">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Forme juridique </mat-header-cell>
-                    <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.formeJuridique}} </mat-cell>
+                    <mat-cell *matCellDef="let fournisseurs"> {{getformJuridique(fournisseurs.formeJuridique).label}} </mat-cell>
                   </ng-container>
               <ng-container matColumnDef="email">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Mail </mat-header-cell>
@@ -34,10 +31,7 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Tél </mat-header-cell>
                   <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.phoneNumber}} </mat-cell>
                 </ng-container>
-            <ng-container matColumnDef="codePostale">
-              <mat-header-cell *matHeaderCellDef mat-sort-header> BP </mat-header-cell>
-              <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.codePostale}} </mat-cell>
-            </ng-container>
+           
           
             <ng-container matColumnDef="adresse">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Adresse </mat-header-cell>
@@ -61,11 +55,17 @@
                   </mat-header-cell>
             
                   <mat-cell *matCellDef="let fournisseurs" class="lastcell">
+                   
+                    
+
                     <button mat-icon-button color="accent" matTooltip="Editer les informations" (click)="EditFournisseurs(fournisseurs)">
                       <mat-icon aria-label="Edit">edit</mat-icon>
                     </button>
 
-                    
+                    <button mat-icon-button color="primary" matTooltip="Editer les informations" (click)="EditFournisseurs(fournisseurs)">
+                      <mat-icon aria-label="Edit">business</mat-icon>
+                    </button>
+                   
             
                     <button mat-icon-button color="warn" matTooltip="Suprimer l'utilisateur" (click)="deleteFournisseurs(fournisseurs)">
                       <mat-icon aria-label="Delete">delete</mat-icon>

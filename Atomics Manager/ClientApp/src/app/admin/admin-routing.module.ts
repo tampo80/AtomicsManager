@@ -10,6 +10,7 @@ import { VillesComponent } from './compoments/villes/villes.component';
 import { DevisesComponent } from './compoments/devises/devises.component';
 import { SecteursComponent } from './compoments/secteurs/secteurs.component';
 import { FournisseursComponent } from './compoments/fournisseurs/fournisseurs.component';
+import { ProfileComponent } from './me/profile/profile.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -17,6 +18,7 @@ import { FournisseursComponent } from './compoments/fournisseurs/fournisseurs.co
       path: '',
       component: AdminComponent,
       children: [
+        { path: 'manage-me', component: ProfileComponent },
         { path: 'manage-users', component: UsersComponent },
         { path: 'manage-villes', component: VillesComponent },
         { path: 'manage-pays', component: PaysComponent },

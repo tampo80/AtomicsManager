@@ -37,3 +37,15 @@
   .paddingbutton{
     margin: 12px;
   }
+
+  .mat-column-index {
+    flex: 0 0 100px !important;
+    white-space: unset !important;
+  }
+
+  .paddingbuttonClose{
+    margin: 12px;
+    display: flex;
+    -ms-flex-align: end;
+    justify-content: end;
+  }

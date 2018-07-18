@@ -15,6 +15,8 @@ import { VillesService } from '../../../../../services/villes.service';
 import { EditFournisseurs } from '../../../../../models/edit-fournisseurs';
 import { Fournisseurs } from '../../../../../models/fournisseurs.model';
 import { FournisseursService } from '../../../../../services/fournisseurs.service';
+import { MessageboxService } from '../../../../../services/messagebox.service';
+import { FormErrorStateMatcher } from '../../../../../formErrorStateMatcher/form-error-state-matcher';
 
 @Component({
   selector: 'app-add-fournisseurs-dialog',
@@ -27,7 +29,7 @@ export class AddFournisseursDialogComponent implements OnInit {
 
   @ViewChild('fileInput')
   fileInput: ElementRef;
-  isLinear = false;
+  isLinear = true;
   isVillesLoading=false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -36,6 +38,8 @@ export class AddFournisseursDialogComponent implements OnInit {
   secteurs:Secteurs[];
   lesPays:Pays[];
   villesParPays:Villes[];
+
+
 
 
   file: File;
@@ -58,63 +62,172 @@ export class AddFournisseursDialogComponent implements OnInit {
   ];
   formeJuridiques:FormeJuridique[]=[
     {
-      value:0,label:"Etablissement"
+      value:0,label:"EURL"
     },
     {
-      value:1,label:"SARL SA"
+      value:1,label:"SARL"
     },
     {
-      value:2,label:"SARL U"
+      value:2,label:"SELAR"
+    },
+    {
+      value:3,label:"SA"
     }
+    ,
+    {
+      value:4,label:"SAS"
+    }
+    ,
+    {
+      value:3,label:"SASU"
+    },
+    {
+      value:4,label:"SNC"
+    }
+    ,
+    {
+      value:5,label:"SCP"
+    }
+
+
+    
     
     
     
   ];
-  constructor(private fourniseurService:FournisseursService, private devisesService:DevisesService,private sercteursService:SecteursService,private paysServices:PaysService,private villesServices:VillesService, private _formBuilder: FormBuilder,public dialogRef: MatDialogRef<AddFournisseursDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  matcher = new FormErrorStateMatcher();
+
+
+  formErrors = {
+    titre: '',
+    nomSociete: '',
+    formeJuridique: '',
+    secteurs:'',
+    contract:'',
+    devises:'',
+    nomDg:'',
+    telDg:'',
+    phoneNumber:'',
+    email:'',
+    emailbk:'',
+    emailcommande:'',
+    tel:'',
+    telCommande:'',
+    codePostale:'',
+    adresse:'',
+    paysbk:'',
+    pays:'',
+    ville:'',
+    villebk:'',
+    bankName:'',
+    accountName:'',
+    accountNumber:'',
+    iban:'',
+    adressebk:'',
+    typePayement:'',
+    
+  };
+  validationMessages = {
+    titre: {       required: 'Le titre de la société ne peu pas être vide !' 	  },
+    nomSociete: {       required: 'Le nom de la société ne peu pas être vide !' 	  },
+    formeJuridique: {       required: 'La forme juridique doit être rensiengnée !' 	  },
+    secteurs:{       required: 'Ce champs est obligatoir !' 	  },
+    contract:{       required: 'Ce champs est obligatoir !'  	  },
+    devises:{       required: 'Ce champs est obligatoir !'  	  },
+    nomDg:{       required: 'Ce champs est obligatoir !'  	  },
+    telDg:{       required: 'Ce champs est obligatoir !'  	  },
+    phoneNumber:{       required: 'Ce champs est obligatoir !'  	  },
+    email:{       
+      required: 'Ce champs est obligatoir !' ,
+      email:"L'adresse de messagerie n'est pas valide !" 	  },
+    emailbk:{      
+      required: 'Ce champs est obligatoir !' ,
+      email:"L'adresse de messagerie n'est pas valide !" 	  },
+    emailcommande:{       
+      required: 'Ce champs est obligatoir !',
+      email:"L'adresse de messagerie n'est pas valide !" 	  },  	 
+    tel:{       required: 'Ce champs est obligatoir !'  	  },
+    telCommande:{       required: 'Ce champs est obligatoir !'  	  },
+    codePostale:{       required: 'Ce champs est obligatoir !'  	  },
+    adresse:{       required: 'Ce champs est obligatoir !'  	  },
+    paysbk:{       required: 'Ce champs est obligatoir !'  	  },
+    pays:{       required: 'Ce champs est obligatoir !'  	  },
+    ville:{       required: 'Ce champs est obligatoir !'  	  },
+    villebk:{       required: 'Ce champs est obligatoir !'  	  },
+    bankName:{       required: 'Ce champs est obligatoir !'  	  },
+    accountName:{       required: 'Ce champs est obligatoir !'  	  },
+    accountNumber:{       required: 'Ce champs est obligatoir !'  	  },
+    iban:{       required: 'Ce champs est obligatoir !'  	  },
+    adressebk:{       required: 'Ce champs est obligatoir !'  	  },
+    typePayement:{       required: 'Ce champs est obligatoir !'  	  },
+  };
+
+
+  constructor(private messageboxService:MessageboxService, private fourniseurService:FournisseursService, private devisesService:DevisesService,private sercteursService:SecteursService,private paysServices:PaysService,private villesServices:VillesService, private _formBuilder: FormBuilder,public dialogRef: MatDialogRef<AddFournisseursDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any)
+   {
+     this.createForm();
+   }
 
   ngOnInit() {
     
     this.getDevise();
     this.getSecteurs();
     this.getPays();
-    this.firstFormGroup = this._formBuilder.group({
-      titre:['',Validators.required],
-      nomSociete:['',Validators.required],
-      formeJuridique:['',Validators.required],
-      secteurs: ['', Validators.required],
-      contract:['',Validators.required],
-      devises:['',Validators.required],
-      nomDg:['',[Validators.required]],
-      telDg:['',[Validators.required]]
 
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      
-      phoneNumber:['',[Validators.required]],
-      email:['',[Validators.required,Validators.email]],
-      emailcommande:['',[Validators.required,Validators.email]],
-      telCommande:['',[Validators.required]],
-      codePostale:['',[Validators.required]],
-      adresse:['',[Validators.required]],
-      villesName:['',[Validators.required]],
-      pays:['',[Validators.required]],
-      ville:['',[Validators.required]],
-     
-    });
-    this.thiredFormGroup = this._formBuilder.group({
-      bankName:['',[Validators.required]],
-      accountNumber:['',[Validators.required]],
-      accountName:['',[Validators.required]],
-      iban:['',[Validators.required]],
-      adressebk:['',[Validators.required]],
-      emailbk:['',[Validators.required,Validators.email]],
-      paysbk:['',[Validators.required]],
-      villebk:['',[Validators.required]],
-      tel:['',[Validators.required]],
-      typePayement:['',[Validators.required]],
-
-    });
+   
   }
+
+
+createForm()
+{
+  this.firstFormGroup = this._formBuilder.group({
+    titre:['',Validators.required],
+    nomSociete:['',Validators.required],
+    formeJuridique:['',Validators.required],
+    secteurs: ['', Validators.required],
+    contract:['',Validators.required],
+    devises:['',Validators.required],
+    nomDg:['',[Validators.required]],
+    telDg:['',[Validators.required]]
+
+  });
+  this.secondFormGroup = this._formBuilder.group({
+    
+    phoneNumber:['',[Validators.required]],
+    email:['',[Validators.required,Validators.email]],
+    emailcommande:['',[Validators.required,Validators.email]],
+    telCommande:['',[Validators.required]],
+    codePostale:['',[Validators.required]],
+    adresse:['',[Validators.required]],
+   
+    pays:['',[Validators.required]],
+    ville:['',[Validators.required]],
+   
+  });
+  this.thiredFormGroup = this._formBuilder.group({
+    bankName:['',[Validators.required]],
+    accountNumber:['',[Validators.required]],
+    accountName:['',[Validators.required]],
+    iban:['',[Validators.required]],
+    adressebk:['',[Validators.required]],
+    emailbk:['',[Validators.required,Validators.email]],
+    paysbk:['',[Validators.required]],
+    villebk:['',[Validators.required]],
+    tel:['',[Validators.required]],
+    typePayement:['',[Validators.required]],
+
+  });
+
+
+  this.firstFormGroup.valueChanges.subscribe(data => this.onValueChangedfirst(data));
+  this.onValueChangedfirst();
+  this.secondFormGroup.valueChanges.subscribe(data => this.onValueChangedsecond(data));
+  this.onValueChangedsecond();
+  this.thiredFormGroup.valueChanges.subscribe(data => this.onValueChanged3(data));
+  this.onValueChanged3();
+}
+
   selectFile(): void {
     this.fileInput.nativeElement.click();
   }
@@ -164,16 +277,16 @@ export class AddFournisseursDialogComponent implements OnInit {
   fournisseursData.append("formeJuridique", this.firstFormGroup.get('formeJuridique').value);
   fournisseursData.append("secteurs", this.firstFormGroup.get("secteurs").value);
   fournisseursData.append("contract",this.file,this.file.name);
-  fournisseursData.append("devises", this.firstFormGroup.get("devises").value);
+  fournisseursData.append("devises",JSON.stringify (this.firstFormGroup.get("devises").value));
   fournisseursData.append("phoneNumber", this.secondFormGroup.get('phoneNumber').value);
   fournisseursData.append("email", this.secondFormGroup.get("email").value);
   fournisseursData.append("emailcommande", this.secondFormGroup.get('emailcommande').value);
   fournisseursData.append("telCommande", this.secondFormGroup.get("telCommande").value);
   fournisseursData.append("codePostale", this.secondFormGroup.get('codePostale').value);
   fournisseursData.append("adresse", this.secondFormGroup.get("adresse").value);
-  fournisseursData.append("villesName", this.secondFormGroup.get('villesName').value);
-  fournisseursData.append("ville", this.secondFormGroup.get("ville").value);
-  fournisseursData.append("pays", this.secondFormGroup.get('pays').value);
+ 
+  fournisseursData.append("ville", JSON.stringify(this.secondFormGroup.get("ville").value));
+  fournisseursData.append("pays", JSON.stringify(this.secondFormGroup.get('pays').value));
   fournisseursData.append("nomDg", this.firstFormGroup.get("nomDg").value);
   fournisseursData.append("telDg", this.firstFormGroup.get('telDg').value);
   fournisseursData.append("bankName", this.thiredFormGroup.get("bankName").value);
@@ -181,8 +294,8 @@ export class AddFournisseursDialogComponent implements OnInit {
   fournisseursData.append("accountName", this.thiredFormGroup.get("accountName").value);
   fournisseursData.append("iban", this.thiredFormGroup.get('iban').value);
   fournisseursData.append("emailbk", this.thiredFormGroup.get("emailbk").value);
-  fournisseursData.append("villebk", this.thiredFormGroup.get('villebk').value);
-  fournisseursData.append("paysbk", this.thiredFormGroup.get("paysbk").value);
+  fournisseursData.append("villebk", JSON.stringify(this.thiredFormGroup.get('villebk').value));
+  fournisseursData.append("paysbk", JSON.stringify(this.thiredFormGroup.get("paysbk").value));
   fournisseursData.append("adressebk", this.thiredFormGroup.get("adressebk").value);
   fournisseursData.append("tel", this.thiredFormGroup.get("tel").value);
   fournisseursData.append("typePayement", this.thiredFormGroup.get('typePayement').value);
@@ -235,10 +348,32 @@ export class AddFournisseursDialogComponent implements OnInit {
   addFournisseurs()
   {
     
-    let monFournisseurs=this.creatFormdata();
-    console.log(monFournisseurs);
+  
+    this.onValueChanged3();
+if (!this.thiredFormGroup.invalid) {
+  let monFournisseurs=this.creatFormdata();
+  console.log(monFournisseurs);
+  
+  this.fourniseurService.addFournisseurs(monFournisseurs).subscribe(
+
+    res=>{
+     
+      
+      this.dialogRef.close({result:1});
+       
+     },
+   err=>{
     
-    this.fourniseurService.addFournisseurs(monFournisseurs).subscribe();
+     if (err.statuts===400) {
+      // this.erroMessage=err.error;
+       this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+err.error,"",0,false,1,'520px',"warning",'warn')
+     }
+          
+       }  
+  );
+  
+}
+   
   }
 
   onSelectFile(event) {
@@ -246,6 +381,72 @@ export class AddFournisseursDialogComponent implements OnInit {
       this.file = event.target.files[0];
       this.firstFormGroup.get('contract').setValue(this.file.name); 
       this.fileInformation = null;
+    }
+  }
+
+
+
+
+  onValueChangedfirst(data?: any) {
+    if (!this.firstFormGroup) {
+      return;
+    }
+    const form = this.firstFormGroup;
+    for (const field in this.formErrors) {
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field)) {
+        this.formErrors[field] = '';
+        const control = form.get(field);
+        if (control  && !control.valid) {
+          const messages = this.validationMessages[field];
+          for (const key in control.errors) {
+            if (Object.prototype.hasOwnProperty.call(control.errors, key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  onValueChangedsecond(data?: any) {
+    if (!this.secondFormGroup) {
+      return;
+    }
+    const form = this.secondFormGroup;
+    for (const field in this.formErrors) {
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field)) {
+        this.formErrors[field] = '';
+        const control = form.get(field);
+        if (control  && !control.valid) {
+          const messages = this.validationMessages[field];
+          for (const key in control.errors) {
+            if (Object.prototype.hasOwnProperty.call(control.errors, key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
+    }
+  }
+
+  onValueChanged3(data?: any) {
+    if (!this.thiredFormGroup) {
+      return;
+    }
+    const form = this.thiredFormGroup;
+    for (const field in this.formErrors) {
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field)) {
+        this.formErrors[field] = '';
+        const control = form.get(field);
+        if (control  && !control.valid) {
+          const messages = this.validationMessages[field];
+          for (const key in control.errors) {
+            if (Object.prototype.hasOwnProperty.call(control.errors, key)) {
+              this.formErrors[field] += messages[key] + ' ';
+            }
+          }
+        }
+      }
     }
   }
   

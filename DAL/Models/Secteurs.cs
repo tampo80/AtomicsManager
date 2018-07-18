@@ -8,7 +8,7 @@ namespace DAL.Models
     {
         public Secteurs()
         {
-            this.Fournisseurs = new HashSet<SecteursFournisseurs>();
+            this.SecteursFournisseurs = new HashSet<SecteursFournisseurs>();
         }
 
         public int Id { get; set; }
@@ -17,6 +17,6 @@ namespace DAL.Models
 
         //navigation
 
-        public ICollection<SecteursFournisseurs> Fournisseurs { get; set; }
+        public ICollection<SecteursFournisseurs> SecteursFournisseurs { get; set; }
     }
 }

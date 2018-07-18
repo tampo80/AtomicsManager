@@ -35,7 +35,7 @@ namespace Atomics_Manager.ViewModels
 
       
         public string VillesName { get; set; }
-
+        public string DevisesSymbole { get; set; }
 
         public string[] Secteurs { get; set; }
     }

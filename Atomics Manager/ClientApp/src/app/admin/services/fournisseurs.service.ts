@@ -36,6 +36,12 @@ getFournisseurs():Observable<Fournisseurs[]> {
                 
 }
 
+
+getFournisseursById(id?:number):Observable<EditFournisseurs> {
+  return this.http.get<EditFournisseurs>(ConfigService.rootUrl+this._fournisseursUrl+"/"+id,this.getRequestHeaders());
+                
+}
+
 deleteFournisseurs(FournisseursId?:number):Observable<{}>{
 
   return this.http.delete(ConfigService.rootUrl+this._fournisseursUrl+"/"+FournisseursId,this.getRequestHeaders());
@@ -49,8 +55,8 @@ deleteFournisseurs(FournisseursId?:number):Observable<{}>{
  };
 
 
- updateFournisseurs(fournisseurs:Fournisseurs):Observable<Fournisseurs>{
-  return this.http.put<Fournisseurs>(ConfigService.rootUrl+this._fournisseursUrl+"/"+fournisseurs.id,JSON.stringify(fournisseurs),this.getRequestHeaders());
+ updateFournisseurs(fournisseurs:FormData,id:number):Observable<Fournisseurs>{
+  return this.http.put<Fournisseurs>(ConfigService.rootUrl+this._fournisseursUrl+"/"+id,fournisseurs);
 };
 
 
