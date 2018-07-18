@@ -1,4 +1,4 @@
-﻿// ====================================================
+// ====================================================
 // More Templates: https://www.ebenmonney.com/templates
 // Email: support@ebenmonney.com
 // ====================================================
@@ -6,11 +6,8 @@
 using System;
 using System.Linq;
 
-
-namespace Atomics_Manager.ViewModels
-{
-    public class ProductViewModel
-    {
+namespace Atomics_Manager.ViewModels {
+    public class ProductViewModel {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }

@@ -1,20 +1,17 @@
-﻿// ====================================================
+// ====================================================
 // More Templates: https://www.ebenmonney.com/templates
 // Email: support@ebenmonney.com
 // ====================================================
 
-using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FluentValidation;
 
-
-namespace Atomics_Manager.ViewModels
-{
-    public class CustomerViewModel
-    {
+namespace Atomics_Manager.ViewModels {
+    public class CustomerViewModel {
         public int Id { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -26,15 +23,10 @@ namespace Atomics_Manager.ViewModels
         public ICollection<OrderViewModel> Orders { get; set; }
     }
 
-
-
-
-    public class CustomerViewModelValidator : AbstractValidator<CustomerViewModel>
-    {
-        public CustomerViewModelValidator()
-        {
-            RuleFor(register => register.Name).NotEmpty().WithMessage("Customer name cannot be empty");
-            RuleFor(register => register.Gender).NotEmpty().WithMessage("Gender cannot be empty");
+    public class CustomerViewModelValidator : AbstractValidator<CustomerViewModel> {
+        public CustomerViewModelValidator () {
+            RuleFor (register => register.Name).NotEmpty ().WithMessage ("Customer name cannot be empty");
+            RuleFor (register => register.Gender).NotEmpty ().WithMessage ("Gender cannot be empty");
         }
     }
 }

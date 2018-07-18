@@ -1,15 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
-namespace Atomics_Manager.ViewModels.interfaces
-{
-  public  interface IFormFile
-    {
+namespace Atomics_Manager.ViewModels.interfaces {
+    public interface IFormFile {
         string ContentType { get; }
         string ContentDisposition { get; }
         IHeaderDictionary Headers { get; }
@@ -17,10 +15,10 @@ namespace Atomics_Manager.ViewModels.interfaces
         string Name { get; }
         string FileName { get; }
 
-        void CopyTo(Stream target);
+        void CopyTo (Stream target);
 
-        Task CopyToAsync(Stream target, CancellationToken cancellationToken = default(CancellationToken));
+        Task CopyToAsync (Stream target, CancellationToken cancellationToken = default (CancellationToken));
 
-        Stream OpenreadStream();
+        Stream OpenreadStream ();
     }
 }

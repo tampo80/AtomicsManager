@@ -1,4 +1,4 @@
-﻿// ====================================================
+// ====================================================
 // More Templates: https://www.ebenmonney.com/templates
 // Email: support@ebenmonney.com
 // ====================================================
@@ -9,18 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Atomics_Manager.ViewModels
-{
-    public class PageHeader
-    {
-        public PageHeader(int currentPage, int itemsPerPage, int totalItems, int totalPages)
-        {
+namespace Atomics_Manager.ViewModels {
+    public class PageHeader {
+        public PageHeader (int currentPage, int itemsPerPage, int totalItems, int totalPages) {
             this.CurrentPage = currentPage;
             this.ItemsPerPage = itemsPerPage;
             this.TotalItems = totalItems;
             this.TotalPages = totalPages;
         }
-
 
         public int CurrentPage { get; set; }
         public int ItemsPerPage { get; set; }
