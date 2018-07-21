@@ -1,8 +1,10 @@
+<perfect-scrollbar style="max-width: 600px; max-height: 96%;">
 <app-side-logo></app-side-logo>
+
 
 <mat-accordion multi="false">
     <mat-expansion-panel *ngFor="let navigationGroup of navigationService.currentnavigationList" [expanded]="navigationService.selectedNavigationGroup == navigationGroup">
-        <mat-expansion-panel-header  collapsedHeight="45px" expandedHeight="45px" > 
+        <mat-expansion-panel-header  collapsedHeight="45px" expandedHeight="45px" >
             <mat-panel-title>
                 <mat-icon>{{navigationGroup.icon}}</mat-icon>
             </mat-panel-title>
@@ -19,6 +21,7 @@
         </mat-nav-list>
     </mat-expansion-panel>
 </mat-accordion>
+</perfect-scrollbar>
 
 <span fxFill></span>
 <app-side-actions></app-side-actions>

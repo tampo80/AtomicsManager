@@ -5,37 +5,50 @@
       <div mat-card-image class="profile-image"></div>
       <div class="profile-image-avatar text-center">
         <img class="avatar"
-             src="https://lh5.googleusercontent.com/-hcRNe540rco/AAAAAAAAAAI/AAAAAAAAAAk/DfS45tpAR-A/photo.jpg">
+             src="../../../../assets/logo.png">
       </div>
       <mat-card-content class="text-center">
         <h4 class="mat-card-title"> <span *ngIf="userService.currentUser.friendlyName">{{userService.currentUser.friendlyName}}</span></h4>
         <h6 class="mat-card-subtitle"> <span *ngIf="userService.currentUser.jobTitle">{{userService.currentUser.jobTitle}}</span></h6>
+
       </mat-card-content>
+      <mat-action-row class="center text-center">
+          <button color="accent" mat-raised-button (click)="EditPassword()">Changer de mot de passe</button>
+      </mat-action-row>
     </mat-card>
   </div>
 
 
   <mat-card fxFlex>
-    <mat-card-title>我的信息</mat-card-title>
+    <mat-card-title>Profil de l'utilisateur</mat-card-title>
     <mat-card-content>
-      <form fxLayout="column" #formContact="ngForm">
+      <form fxLayout="column" (ngSubmit)="onSubmit()" [formGroup]="formuserProfile">
         <mat-form-field class="full-width">
-          <input matInput placeholder="您的名字" name="name" ngModel required minlength="4" maxlength="10">
+          <input matInput placeholder="Poste occupé" formControlName="jobTitle" required >
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput placeholder="您的邮箱" name="email" ngModel required>
+          <input matInput placeholder="Nom d'utilisateur" formControlName="userName" required>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput placeholder="您的手机" name="phone" ngModel required>
+          <input matInput placeholder="Adresse électronique"  formControlName="email" required>
+        </mat-form-field>
+        <mat-form-field class="full-width readonly-wrapper">
+          <mat-select multiple formControlName="roles" class="readonly-block readonly-wrapper" placeholder="Les rôles" required [compareWith]="compareRoles" >
+              <mat-option *ngFor="let role of lesRoles" [value]="role.name" disabled>
+                  {{role.name}}
+              </mat-option>
+          </mat-select>
+
         </mat-form-field>
         <mat-form-field class="full-width">
-          <input matInput placeholder="请您的网址" name="website ngModel" required>
+          <input matInput placeholder="Nom complet"  formControlName="fullName" required>
         </mat-form-field>
         <mat-form-field class="full-width">
-          <textarea matInput placeholder="留言" rows="3" name="message" ngModel required></textarea>
+          <input matInput placeholder="Téléphone #"  formControlName="phoneNumber" required>
         </mat-form-field>
-        <button mat-raised-button color="primary" type="submit" [disabled]="!formContact.valid">更新资料</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!formuserProfile.valid">Appliquer</button>
       </form>
+
     </mat-card-content>
   </mat-card>
 </div>

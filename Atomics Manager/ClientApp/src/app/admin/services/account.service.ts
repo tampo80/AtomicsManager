@@ -32,7 +32,7 @@ export class AccountService {
   constructor(private router: Router, private http: HttpClient,private userService:UserService) {
 
 
-   
+
    }
 
 
@@ -50,15 +50,20 @@ export class AccountService {
 
    getUsers():Observable<User[]> {
     return this.http.get<User[]>(ConfigService.rootUrl+this._usersUrl,this.getRequestHeaders());
-                    
-                    
+
+
 }
 
+getUserMe():Observable<UserEdit> {
+  return this.http.get<UserEdit>(ConfigService.rootUrl+this._currentUserUrl,this.getRequestHeaders());
+
+
+}
 
 getPermisions():Observable<Permission[]> {
   return this.http.get<Permission[]>(ConfigService.rootUrl+this._permissionsUrl,this.getRequestHeaders());
-                  
-                  
+
+
 }
 
  getUser(userId:string):Observable<{}> {
@@ -90,7 +95,9 @@ getUserByName(userName:string):Observable<{}> {
   };
 
   //roles management
-
+  updateMe(user:UserEdit):Observable<UserEdit>{
+    return this.http.put<UserEdit>(ConfigService.rootUrl+this._currentUserUrl,JSON.stringify(user),this.getRequestHeaders());
+  };
 getRoles():Observable<Role[]>{
 
   return this.http.get<Role[]>(ConfigService.rootUrl+this._rolesUrl,this.getRequestHeaders());

@@ -10,6 +10,14 @@
                 "${workspaceFolder}/Atomics Manager/Atomics Manager.csproj"
             ],
             "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "watch",
+            "args": [
+                "run"
+            ],
+            "isWatching":true
+
         }
     ]
 }

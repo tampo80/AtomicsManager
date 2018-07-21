@@ -11,6 +11,7 @@ import { DevisesComponent } from './compoments/devises/devises.component';
 import { SecteursComponent } from './compoments/secteurs/secteurs.component';
 import { FournisseursComponent } from './compoments/fournisseurs/fournisseurs.component';
 import { ProfileComponent } from './me/profile/profile.component';
+import { EntrepriseComponent } from './compoments/entreprise/entreprise.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -18,6 +19,7 @@ import { ProfileComponent } from './me/profile/profile.component';
       path: '',
       component: AdminComponent,
       children: [
+        { path: 'manage-entreprise', component: EntrepriseComponent },
         { path: 'manage-me', component: ProfileComponent },
         { path: 'manage-users', component: UsersComponent },
         { path: 'manage-villes', component: VillesComponent },

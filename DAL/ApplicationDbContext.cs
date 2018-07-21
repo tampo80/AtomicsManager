@@ -37,7 +37,7 @@ namespace DAL
         public DbSet<SecteursFournisseurs> SecteursFournisseurs { get; set; }
         public DbSet<DocumentsFournisseurs> DocumentsFournisseurs { get; set; }
 
-       
+        public DbSet<Entreprise> Entreprise { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
@@ -125,6 +125,8 @@ namespace DAL
             builder.Entity<SecteursFournisseurs>().ToTable($"App{nameof(this.SecteursFournisseurs)}");
 
             builder.Entity<DocumentsFournisseurs>().ToTable($"App{nameof(this.DocumentsFournisseurs)}");
+
+            builder.Entity<Entreprise>().ToTable($"App{nameof(this.Entreprise)}");
         }
 
 

@@ -49,9 +49,18 @@ import { EditSecteursDialogComponent } from './compoments/secteurs/dialog/edit/e
 import { AddFournisseursDialogComponent } from './compoments/fournisseurs/dialog/add/add-fournisseurs-dialog/add-fournisseurs-dialog.component';
 import { EditFournisseursDialogComponent } from './compoments/fournisseurs/dialog/edit/edit-fournisseurs-dialog/edit-fournisseurs-dialog.component';
 import { ProfileComponent } from './me/profile/profile.component';
+import { EditPasswordComponent } from './me/profile/dialogs/edit-password/edit-password.component';
+import { HTTP_INTERCEPTORS } from '../../../node_modules/@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfigInterface } from '../../../node_modules/ngx-perfect-scrollbar';
+
+import { FileSizePipe } from './pipes/file-size.pipe';
 
 
 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   imports: [
@@ -66,7 +75,9 @@ import { ProfileComponent } from './me/profile/profile.component';
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    CompomentsModule
+    CompomentsModule,
+    PerfectScrollbarModule,
+
   ],
   declarations: [
     AdminComponent,
@@ -102,7 +113,10 @@ import { ProfileComponent } from './me/profile/profile.component';
     AddFournisseursDialogComponent,
     EditFournisseursDialogComponent,
     ProfileComponent,
-    
+    EditPasswordComponent,
+
+    FileSizePipe,
+
   ],
   exports: [
     MessageBoxDialogComponent
@@ -118,13 +132,23 @@ import { ProfileComponent } from './me/profile/profile.component';
     {
       provide: ErrorHandler,
       useClass: GlobalErrorInterceptor
+    },
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : AuthInterceptor,
+      multi : true
+    },
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
+
   ],
   entryComponents: [
     AlertToolbarDialog,
     MessageBoxDialogComponent,
     AddDialogComponent,
-    
+
     EditDialogComponent,
     AddRolesDialogComponent,
     EditRolesDialogComponent,
@@ -138,6 +162,7 @@ import { ProfileComponent } from './me/profile/profile.component';
     EditSecteursDialogComponent,
     AddFournisseursDialogComponent,
     EditFournisseursDialogComponent,
+    EditPasswordComponent
   ]
 })
 export class AdminModule { }

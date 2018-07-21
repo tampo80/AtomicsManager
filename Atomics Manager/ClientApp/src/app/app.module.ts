@@ -13,10 +13,12 @@ import { UserService } from './admin/services/user.service';
 import { HttpClientModule ,HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthInterceptor } from './admin/auth/auth.interceptor';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
-   
+
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import { AuthInterceptor } from './admin/auth/auth.interceptor';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-   
+
+
   ],
   providers: [AuthGuard,UserService,
     {
@@ -34,7 +37,6 @@ import { AuthInterceptor } from './admin/auth/auth.interceptor';
       useClass : AuthInterceptor,
       multi : true
     }
-  
   ],
   bootstrap: [AppComponent]
 })

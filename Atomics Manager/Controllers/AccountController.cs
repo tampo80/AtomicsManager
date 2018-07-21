@@ -131,7 +131,7 @@ namespace Atomics_Manager.Controllers {
                 if (Utilities.GetUserId (this.User) == id && (appUser.UserName != user.UserName || !string.IsNullOrWhiteSpace (user.NewPassword))) {
                     if (!await _accountManager.CheckPasswordAsync (appUser, user.CurrentPassword)) {
                         isValid = false;
-                        AddErrors (new string[] { "The username/password couple is invalid." });
+                        AddErrors (new string[] { "Le mot de passe actuel n'est pa valide." });
                     }
                 }
 

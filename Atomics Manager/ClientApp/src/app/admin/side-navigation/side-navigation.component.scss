@@ -38,7 +38,7 @@
     .mat-selection-list .mat-list-item .mat-list-item-content {
         height: 40px !important;
         color:$customforegraond;
-        
+
     }
     .mat-expansion-panel-body {
         padding: 0 !important;
@@ -49,10 +49,24 @@
         // color: mat-color($primary, 50);
         height: 40px !important;
     }
-    
+
     /*
     .mat-list-item:active {
         color: red !important;
         background: red !important;
     }*/
+    .navigation-container {
+      flex-direction: column;
+      box-sizing: border-box;
+      display: flex;
+      height: 100%;
+    }
+
+    .navigation-scrollbar-container {
+      flex-direction: column;
+      box-sizing: border-box;
+      display: flex;
+      height: 100%;
+
+    }
 }

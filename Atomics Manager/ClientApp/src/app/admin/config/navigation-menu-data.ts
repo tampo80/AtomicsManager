@@ -1,5 +1,6 @@
 import { NavigationGroup } from "../domain/navigation-group";
 
+
 // TODO: Split by modules
 
 export const NAVIGATION_MENU_DATA: NavigationGroup[] = [{
@@ -53,11 +54,11 @@ permissions:[
     icon: "accessibility_new",
     name: "Admin",
     items: [
-        
+
         {
             routerLink: "manage-users",
             name: "Utilisateurs"
-        }, 
+        },
         {
             routerLink: "manage-roles",
             name: "Les roles"
@@ -67,9 +68,21 @@ permissions:[
             name: "Les Profils"
         },
         {
-            routerLink: "under-construction",
+            routerLink: "manage-entreprise",
             name: "Société"
         },
+        {
+          routerLink: "manage-roles",
+          name: "Les roles"
+      },
+      {
+          routerLink: "under-construction",
+          name: "Les Profils"
+      },
+      {
+          routerLink: "manage-entreprise",
+          name: "Société"
+      }
 ],
 permissions:[
     {
@@ -184,3 +197,5 @@ permissions:[
 
 
 ];
+
+

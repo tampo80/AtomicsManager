@@ -33,6 +33,8 @@ namespace DAL
         IBankInfosRepository _BankInfosRepository;
         IDocumentsFournisseursRepository _DocumentsFournisseurs;
 
+        IEntrepriseRepository _Entreprise;
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -178,6 +180,17 @@ namespace DAL
                     _DocumentsFournisseurs = new DocumentsFournisseursRepository(_context);
 
                 return _DocumentsFournisseurs;
+            }
+        }
+
+        public IEntrepriseRepository Entreprise
+        {
+            get
+            {
+                if (_Entreprise == null)
+                    _Entreprise = new EntrepriseRepository(_context);
+
+                return _Entreprise;
             }
         }
         public int SaveChanges()

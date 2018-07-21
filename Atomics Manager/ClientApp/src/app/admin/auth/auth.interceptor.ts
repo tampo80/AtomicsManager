@@ -4,11 +4,12 @@ import { UserService } from "../services/user.service";
 import 'rxjs/add/operator/do';
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { MatSnackBar } from "../../../../node_modules/@angular/material";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(private router: Router) { }
+    constructor(private router: Router,private snackBar:MatSnackBar) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.headers.get('No-Auth') == "True")
@@ -23,12 +24,18 @@ export class AuthInterceptor implements HttpInterceptor {
                 succ => { },
                 err => {
                     if (err.status === 401)
+                    this.snackBar.open('Le session est expirée  reconnexion réquis ):','SESSION',{
+                      duration:4000
+                    });
                         this.router.navigateByUrl('/login');
                 }
                 );
         }
         else {
             this.router.navigateByUrl('/login');
+            this.snackBar.open('Le session est expirée  reconnexion réquis ):','SESSION',{
+              duration:4000
+            });
         }
     }
 }
