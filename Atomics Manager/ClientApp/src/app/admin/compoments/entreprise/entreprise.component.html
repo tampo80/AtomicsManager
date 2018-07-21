@@ -2,13 +2,14 @@
     <div fxLayout="row">
       <div class="profile m-r-20" fxFlex="340px">
         <mat-card fxFlex>
+
           <div mat-card-image class="profile-image"></div>
           <div class="profile-image-avatar text-center">
-            <img class="avatar" [src]="imageToShow"
+            <img class="" [src]="imageToShow"
             alt="Place image title"
             *ngIf="!isImageLoading; else noImageFound">
        <ng-template #noImageFound>
-            <img src="fallbackImage.png" alt="Fallbackimage">
+            <img src="../../../../assets/logo.png" alt="Fallbackimage">
        </ng-template>
           </div>
           <input
@@ -19,7 +20,7 @@
         <button (click)="onUpload()">Upload!</button>
         </mat-card>
       </div>
-
+      <button type="button" (click)="getImageFromService()">Get Image</button>
 
       <mat-card fxFlex>
         <mat-card-title></mat-card-title>

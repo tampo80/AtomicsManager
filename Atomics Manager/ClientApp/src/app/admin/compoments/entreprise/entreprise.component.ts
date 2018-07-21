@@ -7,6 +7,7 @@ import { FORME_JURIDIQUE } from '../../config';
 import { MatSnackBar } from '../../../../../node_modules/@angular/material';
 import { ImagesService } from '../../services/images.service';
 import { ConfigService } from '../../services/config.service';
+import { DomSanitizer } from '../../../../../node_modules/@angular/platform-browser';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class EntrepriseComponent implements OnInit {
   isImageLoading: boolean;
   selectedFile: File;
 
-  constructor( private entrepriseService:EntrepriseService,private fb:FormBuilder,private imageService:ImagesService,private snackbar:MatSnackBar) {
+  constructor( private domSanitaize:DomSanitizer, private entrepriseService:EntrepriseService,private fb:FormBuilder,private imageService:ImagesService,private snackbar:MatSnackBar) {
     this.formeJuridique=FORME_JURIDIQUE;
     this.createForm();
     this.getEntreprise();
@@ -39,7 +40,8 @@ export class EntrepriseComponent implements OnInit {
 createImageFromBlob(image: Blob) {
    let reader = new FileReader();
    reader.addEventListener("load", () => {
-      this.imageToShow = reader.result;
+     console.log(reader.result);
+      this.imageToShow =this.domSanitaize.bypassSecurityTrustUrl(reader.result);
    }, false);
 
    if (image) {
@@ -52,6 +54,7 @@ createImageFromBlob(image: Blob) {
       this.imageService.getImage(this.imgUrl).subscribe(data => {
         this.createImageFromBlob(data);
         this.isImageLoading = false;
+
       }, error => {
         this.isImageLoading = false;
         console.log(error);

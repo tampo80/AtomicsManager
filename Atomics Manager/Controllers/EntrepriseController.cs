@@ -40,8 +40,9 @@ namespace Atomics_Manager.Controllers
         public IActionResult Getlogo()
         {
             var Entreprise = _unitOfWork.Entreprise.GetAll().SingleOrDefault(e=>e.Id==e.Id);
-
-            return Ok(Mapper.Map<EntrepriseViewModel>(Entreprise).Logo);
+            byte[] Logo=Entreprise.Logo;
+            string Slogo=Convert.ToBase64String(Logo);
+            return Ok(Slogo);
         }
 
         // GET: api/Entreprise/5
@@ -79,14 +80,14 @@ namespace Atomics_Manager.Controllers
 
 
          [HttpPost("uploadLogo")]
-        public async Task<IActionResult> uploadLogo([FromBody] logoViewModel logo)
+        public async Task<IActionResult> uploadLogo([FromForm] logoViewModel logo)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     
-                    Entreprise _entreprise =await _unitOfWork.Entreprise.GetSingleOrDefaultAsync(e=>e.Id==logo.Id);
+                    Entreprise _entreprise =await _unitOfWork.Entreprise.GetSingleOrDefaultAsync(e=>e.Id==Convert.ToInt32(logo.Id));
                    
                       using (var memoryStream = new MemoryStream ()) {
                         await logo.Logo.CopyToAsync (memoryStream);

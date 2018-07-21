@@ -4,7 +4,7 @@ namespace Atomics_Manager.ViewModels
 {
     public class logoViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public IFormFile Logo { get; set; }
     }
 }

@@ -55,6 +55,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfigInterface } from '../../../node_modules/ngx-perfect-scrollbar';
 
 import { FileSizePipe } from './pipes/file-size.pipe';
+import { ImagesService } from './services/images.service';
 
 
 
@@ -129,6 +130,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpErrorHandler,
     AccountService,
     DevisesService,
+    ImagesService,
     {
       provide: ErrorHandler,
       useClass: GlobalErrorInterceptor

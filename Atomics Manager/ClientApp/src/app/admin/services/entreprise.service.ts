@@ -31,7 +31,10 @@ export class EntrepriseService {
 
 
 uploadLogo(image:any):Observable<{}>{
-  return this.http.post<Entreprise>(ConfigService.rootUrl+this._entreprisesUrl+"/uploadLogo",image);
+  return this.http.post<Entreprise>(ConfigService.rootUrl+this._entreprisesUrl+"/uploadLogo",image,{
+    reportProgress: true,
+    observe: 'events'
+  });
 }
 
 getEntreprises():Observable<Entreprise> {
