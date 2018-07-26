@@ -38,6 +38,13 @@ namespace DAL
         public DbSet<DocumentsFournisseurs> DocumentsFournisseurs { get; set; }
 
         public DbSet<Entreprise> Entreprise { get; set; }
+        public DbSet<Services> Services { get; set; }
+        public DbSet<Departements> Departements { get; set; }
+        public DbSet<Agences> Agences { get; set; }
+
+        public DbSet<ApprobationLevel> ApprobationLevel { get; set; }
+        public DbSet<APGmembers> APGmembers { get; set; }
+       
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
@@ -54,6 +61,12 @@ namespace DAL
             builder.Entity<ApplicationRole>().HasMany(r => r.Claims).WithOne().HasForeignKey(c => c.RoleId).IsRequired().OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ApplicationRole>().HasMany(r => r.Users).WithOne().HasForeignKey(r => r.RoleId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 
+
+            builder.Entity<ApplicationUser>().HasOne(e => e.EntrepriseUserInfos)
+                                             .WithOne(a => a.ApplicationUser)
+                                             .HasForeignKey<EntrepriseUserInfos>(a => a.ApplicationUserId);
+
+
             builder.Entity<Customer>().Property(c => c.Name).IsRequired().HasMaxLength(100);
             builder.Entity<Customer>().HasIndex(c => c.Name);
             builder.Entity<Customer>().Property(c => c.Email).HasMaxLength(100);
@@ -69,7 +82,7 @@ namespace DAL
             builder.Entity<Product>().HasIndex(p => p.Name);
             builder.Entity<Product>().Property(p => p.Description).HasMaxLength(500);
             builder.Entity<Product>().Property(p => p.Icon).IsUnicode(false).HasMaxLength(256);
-            builder.Entity<Product>().HasOne(p => p.Parent).WithMany(p => p.Children).OnDelete(DeleteBehavior.Restrict);
+           
             builder.Entity<Product>().ToTable($"App{nameof(this.Products)}");
 
             builder.Entity<Order>().Property(o => o.Comments).HasMaxLength(500);
@@ -127,6 +140,28 @@ namespace DAL
             builder.Entity<DocumentsFournisseurs>().ToTable($"App{nameof(this.DocumentsFournisseurs)}");
 
             builder.Entity<Entreprise>().ToTable($"App{nameof(this.Entreprise)}");
+
+
+
+            builder.Entity<Agences>().ToTable($"App{nameof(this.Agences)}");
+
+
+
+            builder.Entity<Services>().ToTable($"App{nameof(this.Services)}");
+
+
+            builder.Entity<Departements>().ToTable($"App{nameof(this.Departements)}");
+
+
+            builder.Entity<APGmembers>().ToTable($"App{nameof(this.APGmembers)}");
+
+
+            builder.Entity<ApprobationLevel>().ToTable($"App{nameof(this.ApprobationLevel)}");
+
+              builder.Entity<Demandes>().ToTable($"App{nameof(this.Demandes)}");
+
+
+
         }
 
 

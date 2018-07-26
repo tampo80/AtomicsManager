@@ -35,6 +35,20 @@ namespace DAL
 
         IEntrepriseRepository _Entreprise;
 
+
+        IServicesRepository _Services;
+        IAgencesRepository _Agences;
+        IDepartementsRepository _Departements;
+
+
+        IAPGmembersRepository _APGmembers;
+
+        IApprobationLevelRepository _ApprobationLevel;
+
+        IProductCategoryRepository _ProductCategory;
+
+        IProductRepository _Product;
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -193,6 +207,96 @@ namespace DAL
                 return _Entreprise;
             }
         }
+
+
+        public IAgencesRepository Agences
+        {
+            get
+            {
+                if (_Agences == null)
+                    _Agences = new AgencesRepository(_context);
+
+                return _Agences;
+            }
+        }
+
+
+
+
+     
+
+
+        public IDepartementsRepository Departements
+        {
+            get
+            {
+                if (_Departements == null)
+                    _Departements = new DepartementsRepository(_context);
+
+                return _Departements;
+            }
+        }
+
+
+
+        public IServicesRepository Services
+        {
+            get
+            {
+                if (_Services == null)
+                    _Services = new ServicesRepository(_context);
+
+                return _Services;
+            }
+        }
+
+
+        public IAPGmembersRepository APGmembers
+        {
+            get
+            {
+                if (_APGmembers == null)
+                    _APGmembers = new APGmembersRepository(_context);
+
+                return _APGmembers;
+            }
+        }
+
+        public IApprobationLevelRepository ApprobationLevel
+        {
+            get
+            {
+                if (_ApprobationLevel == null)
+                    _ApprobationLevel = new ApprobationLevelRepository(_context);
+
+                return _ApprobationLevel;
+            }
+        }
+
+
+        public IProductCategoryRepository ProductCategory
+        {
+            get
+            {
+                if (_ProductCategory == null)
+                    _ProductCategory = new ProductCategoryRepository(_context);
+
+                return _ProductCategory;
+            }
+        }
+
+
+        public IProductRepository Product
+        {
+            get
+            {
+                if (_Product == null)
+                    _Product = new ProductRepository(_context);
+
+                return _Product;
+            }
+        }
+
         public int SaveChanges()
         {
             return _context.SaveChanges();

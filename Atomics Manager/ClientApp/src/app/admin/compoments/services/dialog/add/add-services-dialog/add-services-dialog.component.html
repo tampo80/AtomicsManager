@@ -1,0 +1,77 @@
+
+
+   <mat-toolbar color="primary">
+      Ajouter un nouveau services
+      <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
+  </mat-toolbar>
+
+  <mat-divider></mat-divider>
+
+  <mat-card>
+
+
+  <mat-card-content>
+      <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="ServicesForm" >
+
+
+
+
+
+
+
+
+
+
+
+                    <mat-form-field class="example-full-width">
+                            <input [errorStateMatcher]="matcher" matInput   placeholder="Nom"  formControlName='name' required>
+                            <mat-error *ngIf="formErrors.name  ">{{formErrors.name}}</mat-error>
+                            <mat-error *ngIf="ServicesForm.hasError('name') && ServicesForm.get('name').errors.required && !formErrors.name">{{validationMessages.name.required}}</mat-error>
+
+                    </mat-form-field>
+
+
+                    <mat-form-field class="example-full-width">
+                        <textarea [errorStateMatcher]="matcher" matInput   placeholder="Description"  formControlName='description' required></textarea>
+                        <mat-error *ngIf="formErrors.description  ">{{formErrors.description}}</mat-error>
+                        <mat-error *ngIf="ServicesForm.hasError('description') && ServicesForm.get('description').errors.required && !formErrors.description">{{validationMessages.description.required}}</mat-error>
+
+                    </mat-form-field>
+
+
+                   <mat-form-field class="example-full-width">
+
+                      <mat-select formControlName="departements" placeholder="départements" [errorStateMatcher]="matcher" >
+                          <mat-option *ngFor="let departements of lesDepartements" [value]="departements.id">
+                            {{departements.name}}
+                          </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="formErrors.departements">{{formErrors.departements}}</mat-error>
+                      <mat-error *ngIf="ServicesForm.hasError('required')">{{formErrors.departements}}</mat-error>
+                    </mat-form-field>
+
+
+
+
+                    <br>
+
+
+
+
+
+
+
+
+
+
+
+      </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+      <button mat-raised-button (click)="onSubmit()" [disabled]="!ServicesForm.valid" color="primary" >Ajouter</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+
+  </mat-card-actions>
+
+  </mat-card>

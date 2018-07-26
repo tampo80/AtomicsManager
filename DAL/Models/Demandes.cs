@@ -8,7 +8,18 @@ namespace DAL.Models
     {
         public int Id { get; set; }
         public string userId { get; set; }
+        public ApplicationUser user { get; set; }
         public DateTime DateDemande { get; set; }
         public string Motif { get; set; }
+        public decimal Montant { get; set; }
+        public TypeLignesBudgetaires TypeLigne { get; set; }
+        public Naturedemande Nature { get; set; }
+        public DateTime DateLivraisonPrevu { get; set; }
+        public DateTime DateLivraison { get; set; }
+
+        public int FournisseursId { get; set; }
+        public Fournisseurs Fournisseurs { get; set; }
+
+
     }
 }

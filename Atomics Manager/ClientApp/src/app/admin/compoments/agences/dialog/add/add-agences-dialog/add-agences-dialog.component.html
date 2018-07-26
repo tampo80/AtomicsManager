@@ -1,0 +1,87 @@
+
+
+   <mat-toolbar color="primary">
+      Ajouter un nouveau département
+      <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
+  </mat-toolbar>
+
+  <mat-divider></mat-divider>
+
+  <mat-card>
+
+
+  <mat-card-content>
+      <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="AgencesForm" >
+
+
+
+
+
+
+
+
+
+
+
+                    <mat-form-field class="example-full-width">
+                            <input [errorStateMatcher]="matcher" matInput   placeholder="Nom"  formControlName='name' required>
+                            <mat-error *ngIf="formErrors.name  ">{{formErrors.name}}</mat-error>
+                            <mat-error *ngIf="AgencesForm.hasError('name') && AgencesForm.get('name').errors.required && !formErrors.name">{{validationMessages.name.required}}</mat-error>
+
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                        <input [errorStateMatcher]="matcher" matInput   placeholder="Tel"  formControlName='tel' required>
+                        <mat-error *ngIf="formErrors.tel  ">{{formErrors.name}}</mat-error>
+                        <mat-error *ngIf="AgencesForm.hasError('tel') && AgencesForm.get('tel').errors.required && !formErrors.tel">{{validationMessages.tel.required}}</mat-error>
+
+                </mat-form-field>
+                <mat-form-field class="example-full-width">
+                    <input [errorStateMatcher]="matcher" matInput   placeholder="Adresse"  formControlName='adresse' required>
+                    <mat-error *ngIf="formErrors.adresse  ">{{formErrors.adresse}}</mat-error>
+                    <mat-error *ngIf="AgencesForm.hasError('adresse') && AgencesForm.get('adresse').errors.required && !formErrors.adresse">{{validationMessages.adresse.required}}</mat-error>
+
+            </mat-form-field>
+
+                   <mat-form-field class="example-full-width">
+
+                      <mat-select formControlName="pays" placeholder="Pays" [errorStateMatcher]="matcher" (selectionChange)="getVillesByPaysId($event.value)">
+                          <mat-option *ngFor="let pays of lesPays" [value]="pays.id">
+                            {{pays.name}}
+                          </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="formErrors.pays">{{formErrors.pays}}</mat-error>
+                      <mat-error *ngIf="AgencesForm.hasError('required')">{{formErrors.pays}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width" >
+
+                        <mat-select  formControlName="ville" placeholder="Ville" required [errorStateMatcher]="matcher">
+                            <mat-option *ngFor="let ville of villesParPays" [value]="ville.id">
+                             {{ville.name}}
+                            </mat-option>
+                        </mat-select>
+                      <mat-error *ngIf="formErrors.ville">{{formErrors.ville}}</mat-error>
+                      <mat-error *ngIf="AgencesForm.hasError('required')">{{formErrors.ville}}</mat-error>
+                       </mat-form-field>
+
+                    <br>
+
+
+
+
+
+
+
+
+
+
+
+      </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+      <button mat-raised-button (click)="onSubmit()" [disabled]="!AgencesForm.valid" color="primary" >Ajouter</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+
+  </mat-card-actions>
+
+  </mat-card>

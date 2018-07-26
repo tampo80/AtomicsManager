@@ -55,6 +55,8 @@ namespace DAL.Models
         /// <summary>
         /// Demo Navigation property for orders this user has processed
         /// </summary>
-        public ICollection<Order> Orders { get; set; }
+        public ICollection<Demandes> Demandes { get; set; }
+
+        public EntrepriseUserInfos EntrepriseUserInfos { get; set; }
     }
 }

@@ -23,16 +23,18 @@ export class AuthInterceptor implements HttpInterceptor {
                 .do(
                 succ => { },
                 err => {
-                    if (err.status === 401)
-                    this.snackBar.open('Le session est expirée  reconnexion réquis ):','SESSION',{
-                      duration:4000
-                    });
-                        this.router.navigateByUrl('/login');
+                    if (err.status === 401){
+                      this.snackBar.open('Le session est expirée  reconnexion réquis ):','SESSION',{
+                        duration:4000
+                      });
+                          this.router.navigateByUrl('/login');
+                    }
+
                 }
                 );
         }
         else {
-            this.router.navigateByUrl('/login');
+            //this.router.navigateByUrl('/login');
             this.snackBar.open('Le session est expirée  reconnexion réquis ):','SESSION',{
               duration:4000
             });

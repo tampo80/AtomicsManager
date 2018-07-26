@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '../../../../node_modules/@angular/router';
-import { HttpHeaders, HttpClient } from '../../../../node_modules/@angular/common/http';
+import { HttpHeaders, HttpClient, HttpRequest, HttpEvent } from '../../../../node_modules/@angular/common/http';
 import { ConfigService } from './config.service';
 import { Observable } from '../../../../node_modules/rxjs';
 import { Entreprise } from '../models/entreprise-model';
+
 
 
 @Injectable({
@@ -30,11 +31,11 @@ export class EntrepriseService {
 }
 
 
-uploadLogo(image:any):Observable<{}>{
-  return this.http.post<Entreprise>(ConfigService.rootUrl+this._entreprisesUrl+"/uploadLogo",image,{
-    reportProgress: true,
-    observe: 'events'
-  });
+uploadLogo(image:any):Observable<HttpEvent<any>>{
+
+  const req=new HttpRequest('POST',ConfigService.rootUrl+this._entreprisesUrl+"/uploadLogo",image,{reportProgress: true});
+
+  return this.http.request(req);
 }
 
 getEntreprises():Observable<Entreprise> {

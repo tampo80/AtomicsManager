@@ -9,8 +9,8 @@ export class ImagesService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getImage(imageUrl: string): Observable<Blob> {
-    return this.httpClient.get(imageUrl, { responseType: 'blob' });
+  getImage(imageUrl: string): Observable<string> {
+    return this.httpClient.get<string>(imageUrl);
   }
 
 }

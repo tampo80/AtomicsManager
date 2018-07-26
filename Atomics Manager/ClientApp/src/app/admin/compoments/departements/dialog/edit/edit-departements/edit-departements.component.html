@@ -1,0 +1,63 @@
+
+
+   <mat-toolbar color="primary">
+      Editer le département
+
+  </mat-toolbar>
+
+  <mat-divider></mat-divider>
+
+  <mat-card>
+
+
+  <mat-card-content>
+      <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="DepartementsForm" >
+
+
+
+
+
+
+
+
+
+
+
+                    <mat-form-field class="example-full-width">
+                            <input [errorStateMatcher]="matcher" matInput   placeholder="Nom"  formControlName='name' >
+                            <mat-error *ngIf="formErrors.name  ">{{formErrors.name}}</mat-error>
+                            <mat-error *ngIf="DepartementsForm.hasError('name') && DepartementsForm.get('name').errors.required && !formErrors.name">{{validationMessages.name.required}}</mat-error>
+
+                    </mat-form-field>
+
+                    <mat-form-field class="example-full-width">
+                       <mat-input-container floatPlaceholder="auto">
+                           <textarea matInput matTextareaAutosize formControlName="description"
+                                     placeholder=""></textarea>
+                       </mat-input-container>
+                       <mat-error *ngIf="formErrors.description">{{formErrors.description}}</mat-error>
+
+                   </mat-form-field>
+
+                    <br>
+
+
+
+
+
+
+
+
+
+
+
+      </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+      <button mat-raised-button (click)="onSubmit()" [disabled]="!DepartementsForm.valid" color="primary" >Modifier</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+
+  </mat-card-actions>
+
+  </mat-card>

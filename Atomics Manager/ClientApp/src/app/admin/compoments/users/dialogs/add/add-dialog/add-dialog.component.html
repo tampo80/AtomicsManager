@@ -2,26 +2,26 @@
 
    <mat-toolbar color="primary">
         Ajouter un nouvel utilisateur
-   
+
     </mat-toolbar>
 
     <mat-divider></mat-divider>
     <hr>
 <mat-card>
- 
-    
+
+
     <mat-card-content>
         <form class="example-form" (ngSubmit)="submit" #formControl="ngForm">
 
-           
-         
+
+
                 <div fxLayout
                 fxLayout
                 fxLayout.xs="column"
                 fxLayoutAlign="center"
                 fxLayoutGap="10px"
                 fxLayoutGap.xs="0">
-              
+
                           <div fxFlex="49%">
                                 <mat-form-field class="example-full-width">
                                         <input matInput   placeholder="Profession" [(ngModel)]="data.user.jobTitle" name="jobTitle" required >
@@ -40,58 +40,58 @@
                                         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
                                    </mat-form-field>
                           </div>
-                             
+
                           <div fxFlex="49%">
                                 <mat-form-field class="example-full-width">
                                         <input matInput #inputstate  placeholder="Nom complet" [(ngModel)]="data.user.fullName" name="fullName"  required >
-                          
+
                                       <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                                     
+
                                     </mat-form-field>
                                     <mat-form-field class="example-full-width">
                                         <input matInput #inputstate  placeholder="Mot de passe " [(ngModel)]="data.user.newPassword" name="newPassword" type="password"  required >
                                         <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                                        
+
                                     </mat-form-field>
-                                   
-                                
-                                    
+
+
+
                                     <mat-form-field class="example-full-width">
                                           <input matInput #inputstate  placeholder="Confirmation du mot de passe" [(ngModel)]="data.user.confirmPassword" name="confirmPassword" type="password" required >
                                           <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
-                                          
-                                    </mat-form-field>   
+
+                                    </mat-form-field>
 
                                     <mat-form-field class="example-full-width">
-                                            <mat-select placeholder="Rôles" [formControl]="roleformControl" multiple [(ngModel)]="data.user.roles"  (focusout)="onOut()">
+                                            <mat-select placeholder="Rôles" [formControl]="roleformControl" multiple [(ngModel)]="data.user.roles"  >
                                                 <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
                                             </mat-select>
-                                           
-                                           
+
+
                                     </mat-form-field>
-                                    
-                                     
-                                   
+
+
+
                                           <mat-checkbox [(ngModel)]="data.user.isEnabled"  matInput color="primary" [ngModelOptions]="{standalone: true}">Activé</mat-checkbox>
-                                        
-                                      
+
+
                           </div>
-        
+
                 </div>
-        
-               
-         
-              
-              
-             
-            
-        
+
+
+
+
+
+
+
+
         </form>
     </mat-card-content>
     <mat-card-actions align="end">
         <button mat-raised-button [type]="submit" [disabled]="!formControl.valid" color="primary"  (click)="confirmAdd()">Ajouter</button>
         <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
-        
+
     </mat-card-actions>
-   
+
 </mat-card>

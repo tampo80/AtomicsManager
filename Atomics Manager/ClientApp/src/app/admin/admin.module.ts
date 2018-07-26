@@ -56,6 +56,8 @@ import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfi
 
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { ImagesService } from './services/images.service';
+import { AddDepartementsComponent } from './compoments/departements/dialog/add/add-departements/add-departements.component';
+import { EditDepartementsComponent } from './compoments/departements/dialog/edit/edit-departements/edit-departements.component';
 
 
 
@@ -164,7 +166,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditSecteursDialogComponent,
     AddFournisseursDialogComponent,
     EditFournisseursDialogComponent,
-    EditPasswordComponent
+    EditPasswordComponent,
+
   ]
 })
 export class AdminModule { }

@@ -10,6 +10,8 @@ namespace DAL.Models
         {
             this.SecteursFournisseurs = new HashSet<SecteursFournisseurs>();
             this.DocumentsFournisseurs = new HashSet<DocumentsFournisseurs>();
+            this.Demandes = new HashSet<Demandes>();
+            this.Product = new HashSet<Product>();
         }
 
         public int Id { get; set; }
@@ -53,5 +55,9 @@ namespace DAL.Models
         public ICollection<DocumentsFournisseurs> DocumentsFournisseurs { get; set; }
 
         public ICollection<SecteursFournisseurs> SecteursFournisseurs { get; set; }
+
+        public ICollection<Demandes> Demandes { get; set; }
+
+        public ICollection<Product> Product { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtomicsManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180722172650_init")]
-    partial class init
+    [Migration("20180725134749_update2")]
+    partial class update2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,6 +39,8 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<string>("Tel");
+
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256);
 
@@ -51,6 +53,34 @@ namespace AtomicsManager.Migrations
                     b.HasIndex("VillesId");
 
                     b.ToTable("AppAgences");
+                });
+
+            modelBuilder.Entity("DAL.Models.APGmembers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ApprobationLevelId");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("MemberId");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprobationLevelId");
+
+                    b.HasIndex("MemberId");
+
+                    b.ToTable("AppAPGmembers");
                 });
 
             modelBuilder.Entity("DAL.Models.ApplicationRole", b =>
@@ -93,8 +123,6 @@ namespace AtomicsManager.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<int?>("AgencesId");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
@@ -104,16 +132,12 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<int?>("DepartementsId");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
 
                     b.Property<string>("FullName");
-
-                    b.Property<int>("HeadId");
 
                     b.Property<bool>("IsEnabled");
 
@@ -137,8 +161,6 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("SecurityStamp");
 
-                    b.Property<int?>("ServicesId1");
-
                     b.Property<bool>("TwoFactorEnabled");
 
                     b.Property<string>("UpdatedBy");
@@ -150,13 +172,6 @@ namespace AtomicsManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AgencesId");
-
-                    b.HasIndex("DepartementsId");
-
-                    b.HasIndex("HeadId")
-                        .IsUnique();
-
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
 
@@ -164,9 +179,35 @@ namespace AtomicsManager.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
-                    b.HasIndex("ServicesId1");
-
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("DAL.Models.ApprobationLevel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<decimal>("ExpensLimite");
+
+                    b.Property<int>("Level");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("TypeApprovalGroup");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppApprobationLevel");
                 });
 
             modelBuilder.Entity("DAL.Models.BankInfos", b =>
@@ -270,7 +311,19 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("DateDemande");
 
+                    b.Property<DateTime>("DateLivraison");
+
+                    b.Property<DateTime>("DateLivraisonPrevu");
+
+                    b.Property<int>("FournisseursId");
+
+                    b.Property<decimal>("Montant");
+
                     b.Property<string>("Motif");
+
+                    b.Property<int>("Nature");
+
+                    b.Property<int>("TypeLigne");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256);
@@ -281,7 +334,11 @@ namespace AtomicsManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Demandes");
+                    b.HasIndex("FournisseursId");
+
+                    b.HasIndex("userId");
+
+                    b.ToTable("AppDemandes");
                 });
 
             modelBuilder.Entity("DAL.Models.Departements", b =>
@@ -414,11 +471,16 @@ namespace AtomicsManager.Migrations
 
                     b.Property<int?>("AgencesId");
 
+                    b.Property<string>("ApplicationUserId");
+
                     b.Property<int>("ServicesId");
 
                     b.HasKey("Id");
 
                     b.HasIndex("AgencesId");
+
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
 
                     b.HasIndex("ServicesId");
 
@@ -599,6 +661,8 @@ namespace AtomicsManager.Migrations
                     b.Property<string>("Description")
                         .HasMaxLength(500);
 
+                    b.Property<int>("FournisseursId");
+
                     b.Property<string>("Icon")
                         .HasMaxLength(256)
                         .IsUnicode(false);
@@ -611,13 +675,7 @@ namespace AtomicsManager.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<int?>("ParentId");
-
                     b.Property<int>("ProductCategoryId");
-
-                    b.Property<decimal>("SellingPrice");
-
-                    b.Property<int>("UnitsInStock");
 
                     b.Property<string>("UpdatedBy")
                         .HasMaxLength(256);
@@ -626,9 +684,9 @@ namespace AtomicsManager.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name");
+                    b.HasIndex("FournisseursId");
 
-                    b.HasIndex("ParentId");
+                    b.HasIndex("Name");
 
                     b.HasIndex("ProductCategoryId");
 
@@ -724,13 +782,17 @@ namespace AtomicsManager.Migrations
 
                     b.Property<int?>("DepartementsId");
 
-                    b.Property<string>("Descritption");
+                    b.Property<string>("Description");
+
+                    b.Property<string>("HeadId");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
 
                     b.HasIndex("DepartementsId");
+
+                    b.HasIndex("HeadId");
 
                     b.ToTable("AppServices");
                 });
@@ -985,29 +1047,21 @@ namespace AtomicsManager.Migrations
             modelBuilder.Entity("DAL.Models.Agences", b =>
                 {
                     b.HasOne("DAL.Models.Villes", "Villes")
-                        .WithMany("Agences")
+                        .WithMany()
                         .HasForeignKey("VillesId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DAL.Models.ApplicationUser", b =>
+            modelBuilder.Entity("DAL.Models.APGmembers", b =>
                 {
-                    b.HasOne("DAL.Models.Agences", "Agences")
-                        .WithMany("ApplicationUser")
-                        .HasForeignKey("AgencesId");
-
-                    b.HasOne("DAL.Models.Departements", "Departements")
-                        .WithMany()
-                        .HasForeignKey("DepartementsId");
-
-                    b.HasOne("DAL.Models.Services", "Services")
-                        .WithOne("Head")
-                        .HasForeignKey("DAL.Models.ApplicationUser", "HeadId")
+                    b.HasOne("DAL.Models.ApprobationLevel", "ApprobationLevel")
+                        .WithMany("APGmembers")
+                        .HasForeignKey("ApprobationLevelId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("DAL.Models.Services")
-                        .WithMany("ApplicationUser")
-                        .HasForeignKey("ServicesId1");
+                    b.HasOne("DAL.Models.ApplicationUser", "Member")
+                        .WithMany()
+                        .HasForeignKey("MemberId");
                 });
 
             modelBuilder.Entity("DAL.Models.BankInfos", b =>
@@ -1020,6 +1074,18 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.Villes", "Villes")
                         .WithMany("BankInfos")
                         .HasForeignKey("VillesId");
+                });
+
+            modelBuilder.Entity("DAL.Models.Demandes", b =>
+                {
+                    b.HasOne("DAL.Models.Fournisseurs", "Fournisseurs")
+                        .WithMany("Demandes")
+                        .HasForeignKey("FournisseursId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.ApplicationUser", "user")
+                        .WithMany("Demandes")
+                        .HasForeignKey("userId");
                 });
 
             modelBuilder.Entity("DAL.Models.Departements", b =>
@@ -1039,11 +1105,15 @@ namespace AtomicsManager.Migrations
             modelBuilder.Entity("DAL.Models.EntrepriseUserInfos", b =>
                 {
                     b.HasOne("DAL.Models.Agences", "Agences")
-                        .WithMany()
+                        .WithMany("EntrepriseUserInfos")
                         .HasForeignKey("AgencesId");
 
+                    b.HasOne("DAL.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("EntrepriseUserInfos")
+                        .HasForeignKey("DAL.Models.EntrepriseUserInfos", "ApplicationUserId");
+
                     b.HasOne("DAL.Models.Services", "Services")
-                        .WithMany()
+                        .WithMany("EntrepriseUserInfos")
                         .HasForeignKey("ServicesId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -1062,7 +1132,7 @@ namespace AtomicsManager.Migrations
             modelBuilder.Entity("DAL.Models.Order", b =>
                 {
                     b.HasOne("DAL.Models.ApplicationUser", "Cashier")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("CashierId");
 
                     b.HasOne("DAL.Models.Customer", "Customer")
@@ -1079,17 +1149,17 @@ namespace AtomicsManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.Product", "Product")
-                        .WithMany("OrderDetails")
+                        .WithMany()
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DAL.Models.Product", b =>
                 {
-                    b.HasOne("DAL.Models.Product", "Parent")
-                        .WithMany("Children")
-                        .HasForeignKey("ParentId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("DAL.Models.Fournisseurs", "Fournisseurs")
+                        .WithMany("Product")
+                        .HasForeignKey("FournisseursId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.ProductCategory", "ProductCategory")
                         .WithMany("Products")
@@ -1115,6 +1185,10 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.Departements", "Departements")
                         .WithMany("Services")
                         .HasForeignKey("DepartementsId");
+
+                    b.HasOne("DAL.Models.ApplicationUser", "Head")
+                        .WithMany()
+                        .HasForeignKey("HeadId");
                 });
 
             modelBuilder.Entity("DAL.Models.Villes", b =>

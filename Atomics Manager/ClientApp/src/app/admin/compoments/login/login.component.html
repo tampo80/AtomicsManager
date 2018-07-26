@@ -1,13 +1,13 @@
-<!-- 
+<!--
     Login template using Angular Material
-    @author Shashank Tiwari 
+    @author Shashank Tiwari
 -->
 <div class="wrapper" height="100%">
 
 
 <!-- Application header starts -->
 <div class="app-header">
-  <h1 class="app-heading">{{title}}</h1>
+  <h1 class="app-heading"></h1>
 </div>
 <!-- Application header ends -->
 
@@ -27,7 +27,7 @@
           <!-- Template Body starts -->
           <div class="login-box-body">
                 <div *ngIf="isLoginError" class="color-erreur center error-message">
-                        <mat-icon color="warn">error</mat-icon> <span >Nom d'utilisateur ou mot de passe incorrect</span> 
+                        <mat-icon color="warn">error</mat-icon> <span >Nom d'utilisateur ou mot de passe incorrect</span>
                 </div>
                 <br/>
            <form #loginForm="ngForm" class="col s12 white" (ngSubmit)="OnSubmit(UserName.value,Password.value)">
@@ -57,16 +57,16 @@
               </mat-grid-list>
               <!-- Markup for getting Password ends -->
               <mat-progress-bar *ngIf="isLoading" mode='indeterminate' color="primary">
-                
+
             </mat-progress-bar>
             <br>
-              <button mat-raised-button class="login-button " [disabled]="!loginForm.valid" type="submit" > 
+              <button mat-raised-button class="login-button " [disabled]="!loginForm.valid" type="submit" >
                   Connextion
               </button>
             </form>
           </div>
           <!-- Template Body ends -->
-         
+
       </div>
   </mat-grid-tile>
   <!-- Writing markup for login ends -->

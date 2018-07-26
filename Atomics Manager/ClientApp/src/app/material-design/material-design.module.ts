@@ -35,7 +35,7 @@ import {
   MatStepperModule,
 } from '@angular/material';
 
-import { MatFileUploadModule } from 'angular-material-fileupload';
+
 
 @NgModule({
   exports: [
@@ -70,7 +70,7 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatToolbarModule,
     MatTooltipModule,
     MatStepperModule,
-    MatFileUploadModule
+
   ]
 })
 export class MaterialDesignModule {

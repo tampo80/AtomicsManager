@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace Atomics_Manager.Helpers
 {
     public interface IAttachmentType
@@ -109,6 +112,8 @@ namespace Atomics_Manager.Helpers
             return this.extension;
         }
     }
-}
+    
+
+    }
 
 }

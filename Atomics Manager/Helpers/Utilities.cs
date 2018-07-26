@@ -67,5 +67,22 @@ namespace Atomics_Manager.Helpers
                 .Select(c => c.Value)
                 .ToArray();
         }
+
+     private static readonly IDictionary<string, IAttachmentType> mimeMap =
+     new Dictionary<string, IAttachmentType>(StringComparer.OrdinalIgnoreCase)
+     {
+            { "IVBOR", AttachmentType.Photo },
+            { "/9J/4", AttachmentType.Photo },
+            { "AAAAF", AttachmentType.Video },
+            { "JVBER", AttachmentType.Document }
+     };
+        public static IAttachmentType GetMimeType(this string value)
+        {
+            IAttachmentType result;
+
+            return string.IsNullOrEmpty(value)
+                ? AttachmentType.UnknownMime
+                : (mimeMap.TryGetValue(value.Substring(0, 5), out result) ? result : AttachmentType.Unknown);
+        }
     }
 }

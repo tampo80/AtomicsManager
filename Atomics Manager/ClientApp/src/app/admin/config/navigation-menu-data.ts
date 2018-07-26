@@ -71,18 +71,7 @@ permissions:[
             routerLink: "manage-entreprise",
             name: "Société"
         },
-        {
-          routerLink: "manage-roles",
-          name: "Les roles"
-      },
-      {
-          routerLink: "under-construction",
-          name: "Les Profils"
-      },
-      {
-          routerLink: "manage-entreprise",
-          name: "Société"
-      }
+
 ],
 permissions:[
     {
@@ -94,13 +83,24 @@ permissions:[
 {
     icon: "local_shipping",
     name: "Fournisseurs",
-    items: [{
+    items: [
+      {
         routerLink: "manage-fournisseurs",
         name: "Les fournisseurs"
-    }, {
+      },
+     {
         routerLink: "manage-secteurs",
         name: "Secteurs d'activités"
-    }],
+     },
+     {
+      routerLink: "manage-categories",
+      name: "Les catégories"
+    },
+   {
+      routerLink: "manage-catalogues",
+      name: "Le catalogue"
+   }
+  ],
     permissions:[
         {
             name:"audit.view",
@@ -139,11 +139,15 @@ permissions:[
                 name: "villes"
             },
             {
-                routerLink: "under-construction",
+              routerLink: "manage-departements",
+              name: "Départmements"
+           },
+            {
+                routerLink: "manage-agences",
                 name: "Agences/points"
             },
             {
-                routerLink: "under-construction",
+                routerLink: "manage-services",
                 name: "Services"
             }
 

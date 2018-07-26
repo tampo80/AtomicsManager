@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Atomics_Manager.Helpers;
 using Atomics_Manager.ViewModels;
 using AutoMapper;
 using DAL;
@@ -40,8 +41,22 @@ namespace Atomics_Manager.Controllers
         public IActionResult Getlogo()
         {
             var Entreprise = _unitOfWork.Entreprise.GetAll().SingleOrDefault(e=>e.Id==e.Id);
-            byte[] Logo=Entreprise.Logo;
-            string Slogo=Convert.ToBase64String(Logo);
+            byte[] Logo = new byte[0];
+            string Slogo = string.Empty;
+                try
+                {
+                Logo = Entreprise.Logo;
+                Slogo = Convert.ToBase64String(Logo);
+                IAttachmentType Mime = Utilities.GetMimeType(Slogo);
+
+                Slogo = "data:" + Mime.MimeType + ";base64," + Slogo;
+               }
+                catch (Exception ex)
+                {
+
+                
+                }
+           
             return Ok(Slogo);
         }
 
@@ -116,9 +131,18 @@ namespace Atomics_Manager.Controllers
                 try
                 {
 
-                    Entreprise _entreprise = Mapper.Map<Entreprise>(entreprise);
-                    //var _entreprise=_unitOfWork.Entreprise.GetSingleOrDefault(e=>e.Id==id);
+                    //Entreprise _entreprise = Mapper.Map<Entreprise>(entreprise);
+                    var _entreprise=_unitOfWork.Entreprise.GetSingleOrDefault(e=>e.Id==id);
+
+                    _entreprise.Adresse=entreprise.Adresse;
+                    _entreprise.email=entreprise.email;
+                    _entreprise.FormeJuridique=entreprise.FormeJuridique;
+                    _entreprise.Name=entreprise.Name;
+                    _entreprise.Tel=entreprise.Tel;
+                    _entreprise.titre=entreprise.titre;
+                    _entreprise.webSite=entreprise.webSite;
                    // _entreprise.Name="rrtt";
+
                     _unitOfWork.Entreprise.Update(_entreprise);
 
                     await _unitOfWork.SaveChangesAsync();
@@ -169,5 +193,6 @@ namespace Atomics_Manager.Controllers
                 return BadRequest(ModelState);
             }
         }
+
     }
 }

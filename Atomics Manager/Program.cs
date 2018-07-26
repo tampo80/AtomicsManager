@@ -40,6 +40,7 @@ namespace Atomics_Manager
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                 .UseUrls("http://localhost:2829")
                 .UseStartup<Startup>()
                 .Build();
     }

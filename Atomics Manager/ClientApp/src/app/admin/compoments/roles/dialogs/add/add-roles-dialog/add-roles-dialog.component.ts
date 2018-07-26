@@ -41,7 +41,7 @@ export class AddRolesDialogComponent implements OnInit {
   submit() {
     // emppty stuff
     }
-  
+
     onNoClick(): void {
       this.dialogRef.close({result:0});;
     }
@@ -51,12 +51,12 @@ export class AddRolesDialogComponent implements OnInit {
     ]);
 
 
-    private selectAll() {
+    public selectAll() {
       this.permissions.forEach(p => this.selectedValues[p.value] = true);
   }
 
 
-  private selectNone() {
+  public selectNone() {
       this.permissions.forEach(p => this.selectedValues[p.value] = false);
   }
 
@@ -70,20 +70,20 @@ export class AddRolesDialogComponent implements OnInit {
     this.accountService.addRole(this.data.role).subscribe(
 
       res=>{
-     
-      
+
+
         this.dialogRef.close({result:1});
-         
+
        },
      err=>{
-      
+
        if (err.statuts===400) {
         // this.erroMessage=err.error;
          this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+err.error,"",0,false,1,'520px',"warning",'warn')
        }
-            
-         }  
+
+         }
     );
   }
-   
+
 }

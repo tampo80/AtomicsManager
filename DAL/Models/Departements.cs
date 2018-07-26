@@ -11,6 +11,7 @@ namespace DAL.Models
 
         //navigation
          public ICollection<Services> Services { get; set; }
+
          public EntrepriseUserInfos Head { get; set; }
          public string HeadId { get; set; }
 

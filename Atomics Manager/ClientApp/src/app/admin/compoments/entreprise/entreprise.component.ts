@@ -8,6 +8,7 @@ import { MatSnackBar } from '../../../../../node_modules/@angular/material';
 import { ImagesService } from '../../services/images.service';
 import { ConfigService } from '../../services/config.service';
 import { DomSanitizer } from '../../../../../node_modules/@angular/platform-browser';
+import { HttpEventType } from '../../../../../node_modules/@angular/common/http';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class EntrepriseComponent implements OnInit {
   imageToShow: any;
   isImageLoading: boolean;
   selectedFile: File;
-
+  uploadProgress:number=0;
   constructor( private domSanitaize:DomSanitizer, private entrepriseService:EntrepriseService,private fb:FormBuilder,private imageService:ImagesService,private snackbar:MatSnackBar) {
     this.formeJuridique=FORME_JURIDIQUE;
     this.createForm();
@@ -52,7 +53,7 @@ createImageFromBlob(image: Blob) {
   getImageFromService() {
       this.isImageLoading = true;
       this.imageService.getImage(this.imgUrl).subscribe(data => {
-        this.createImageFromBlob(data);
+        this.imageToShow=data;
         this.isImageLoading = false;
 
       }, error => {
@@ -119,6 +120,8 @@ createImageFromBlob(image: Blob) {
 
   onFileChanged(event) {
     this.selectedFile = event.target.files[0]
+    this.imageToShow=null;
+    this.createImageFromBlob(this.selectedFile);
   }
 
   onUpload() {
@@ -126,9 +129,21 @@ createImageFromBlob(image: Blob) {
     const uploadData = new FormData();
     uploadData.append('id',this.entrepries.id.toString());
     uploadData.append('logo', this.selectedFile, this.selectedFile.name);
-
+    this.uploadProgress=0;
    this.entrepriseService.uploadLogo(uploadData).subscribe(event=>{
-    console.log(event);
+
+    if (event.type==HttpEventType.UploadProgress) {
+       this.uploadProgress=Math.round(100 * event.loaded / event.total);
+    }else if (event.type==HttpEventType.Response) {
+      this.getImageFromService();
+      this.snackbar.open('Information mis à jour avec succés !','LOGO',{
+        duration:4000
+      });
+      this.uploadProgress=0;
+      this.selectedFile=null;
+    }
+
+
    }
 
   );

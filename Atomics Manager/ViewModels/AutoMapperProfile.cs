@@ -83,12 +83,29 @@ namespace Atomics_Manager.ViewModels {
 
                 .ReverseMap ();
             CreateMap<Entreprise, EntrepriseViewModel> ()
-                .ForMember (f => f.Logo, map => map.Ignore ())
-                 .ReverseMap ();
-
-            CreateMap<Entreprise, Entreprise> ()
+            
+                .ReverseMap ();
+            CreateMap<Entreprise, EditEntrepriseViewModel>()
                
-                 .ReverseMap ();
+                .ReverseMap();
+
+            CreateMap<Departements, DepartementsViewModel>()
+
+              .ReverseMap();
+
+             
+            CreateMap<Agences, AgencesViewModel>()
+
+              .ReverseMap();
+
+            CreateMap<Services, ServicesViewModel>()
+
+              .ReverseMap();
+
+             CreateMap<ProductCategory, CategoriesViewModel>()
+
+              .ReverseMap();
+
         }
     }
 }

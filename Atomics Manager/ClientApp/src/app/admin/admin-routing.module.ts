@@ -12,6 +12,12 @@ import { SecteursComponent } from './compoments/secteurs/secteurs.component';
 import { FournisseursComponent } from './compoments/fournisseurs/fournisseurs.component';
 import { ProfileComponent } from './me/profile/profile.component';
 import { EntrepriseComponent } from './compoments/entreprise/entreprise.component';
+import { AgencesComponent } from './compoments/agences/agences.component';
+import { Departements } from './models/departements';
+import { DepartementsComponent } from './compoments/departements/departements.component';
+import { ServicesComponent } from './compoments/services/services.component';
+import { ArticlesComponent } from './compoments/articles/articles.component';
+import { CategoriesComponent } from './compoments/categories/categories.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -19,6 +25,11 @@ import { EntrepriseComponent } from './compoments/entreprise/entreprise.componen
       path: '',
       component: AdminComponent,
       children: [
+        { path: 'manage-categories', component: CategoriesComponent },
+        { path: 'manage-catalogues', component: ArticlesComponent },
+        { path: 'manage-agences', component: AgencesComponent },
+        { path: 'manage-departements', component: DepartementsComponent },
+        { path: 'manage-services', component: ServicesComponent },
         { path: 'manage-entreprise', component: EntrepriseComponent },
         { path: 'manage-me', component: ProfileComponent },
         { path: 'manage-users', component: UsersComponent },

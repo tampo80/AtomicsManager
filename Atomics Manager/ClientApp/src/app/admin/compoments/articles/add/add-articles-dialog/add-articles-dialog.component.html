@@ -1,0 +1,91 @@
+
+
+   <mat-toolbar color="primary">
+    Ajouter un nouveau articles
+    <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<mat-card>
+
+
+<mat-card-content>
+    <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="ArticlesForm" >
+
+
+
+
+
+
+
+
+
+
+
+                  <mat-form-field class="example-full-width">
+                          <input [errorStateMatcher]="matcher" matInput   placeholder="Nom"  formControlName='name' required>
+                          <mat-error *ngIf="formErrors.name  ">{{formErrors.name}}</mat-error>
+                          <mat-error *ngIf="ArticlesForm.hasError('name') && ArticlesForm.get('name').errors.required && !formErrors.name">{{validationMessages.name.required}}</mat-error>
+
+                  </mat-form-field>
+                  <mat-form-field class="example-full-width">
+                    <input [errorStateMatcher]="matcher" matInput   placeholder="Prix"  formControlName='buyingPrice' required>
+                    <mat-error *ngIf="formErrors.buyingPrice  ">{{formErrors.buyingPrice}}</mat-error>
+                    <mat-error *ngIf="ArticlesForm.hasError('buyingPrice') && ArticlesForm.get('buyingPrice').errors.required && !formErrors.buyingPrice">{{validationMessages.buyingPrice.required}}</mat-error>
+
+                  </mat-form-field>
+
+                  <mat-form-field class="example-full-width">
+                      <textarea [errorStateMatcher]="matcher" matInput   placeholder="Description"  formControlName='description' required></textarea>
+                      <mat-error *ngIf="formErrors.description  ">{{formErrors.description}}</mat-error>
+                      <mat-error *ngIf="ArticlesForm.hasError('description') && ArticlesForm.get('description').errors.required && !formErrors.description">{{validationMessages.description.required}}</mat-error>
+
+                  </mat-form-field>
+
+
+                 <mat-form-field class="example-full-width">
+
+                    <mat-select formControlName="categories" placeholder="Catégories" [errorStateMatcher]="matcher" >
+                        <mat-option *ngFor="let categories of lesCategories" [value]="categories.id">
+                          {{categories.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="formErrors.categories">{{formErrors.categories}}</mat-error>
+                    <mat-error *ngIf="ArticlesForm.hasError('required')">{{formErrors.categories}}</mat-error>
+                  </mat-form-field>
+
+
+                  <mat-form-field class="example-full-width">
+                  <mat-select formControlName="fournisseurs" placeholder="Fournisseurs" [errorStateMatcher]="matcher" >
+                    <mat-option *ngFor="let fournisseurs of lesFournisseurs" [value]="fournisseurs.id">
+                      {{fournisseurs.titre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="formErrors.fournisseurs">{{formErrors.fournisseurs}}</mat-error>
+                <mat-error *ngIf="ArticlesForm.hasError('required')">{{formErrors.fournisseurs}}</mat-error>
+              </mat-form-field>
+
+
+                  <br>
+
+
+
+
+
+
+
+
+
+
+
+    </form>
+</mat-card-content>
+
+<mat-card-actions align="end">
+    <button mat-raised-button (click)="onSubmit()" [disabled]="!ArticlesForm.valid" color="primary" >Ajouter</button>
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+
+</mat-card-actions>
+
+</mat-card>

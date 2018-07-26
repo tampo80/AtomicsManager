@@ -19,5 +19,8 @@ namespace DAL.Models
         //Optionale
         public int ServicesId { get; set; }
         public Services Services { get; set; }
+
+        public string ApplicationUserId { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

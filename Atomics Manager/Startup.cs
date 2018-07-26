@@ -27,7 +27,7 @@ using System.Collections.Generic;
 using Atomics_Manager.ViewModels;
 using Atomics_Manager.Authorization;
 using Atomics_Manager.Helpers;
-using Swashbuckle.AspNetCore.Swagger;
+//using Swashbuckle.AspNetCore.Swagger;
 namespace Atomics_Manager
 {
     public class Startup

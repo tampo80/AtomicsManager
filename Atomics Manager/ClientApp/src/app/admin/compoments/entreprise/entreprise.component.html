@@ -5,22 +5,23 @@
 
           <div mat-card-image class="profile-image"></div>
           <div class="profile-image-avatar text-center">
-            <img class="" [src]="imageToShow"
-            alt="Place image title"
-            *ngIf="!isImageLoading; else noImageFound">
-       <ng-template #noImageFound>
-            <img src="../../../../assets/logo.png" alt="Fallbackimage">
-       </ng-template>
+            <mat-progress-bar *ngIf="isImageLoading" mode="indeterminate"></mat-progress-bar>
+            <img class="avatar" [src]="imageToShow"
+            alt="Place image title" (click)="fileInput.click()" matTooltip="Cliquer pour charger le logo">
           </div>
+
           <input
           style="display: none"
           type="file" (change)="onFileChanged($event)"
           #fileInput>
-        <button (click)="fileInput.click()">Select File</button>
-        <button (click)="onUpload()">Upload!</button>
+        <mat-progress-bar mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress>0" color="primary"></mat-progress-bar>
+        <button mat-mini-fab (click)="onUpload()" color="primary" *ngIf="selectedFile">
+            <mat-icon class="mat-18">done</mat-icon>
+        </button>
+
         </mat-card>
       </div>
-      <button type="button" (click)="getImageFromService()">Get Image</button>
+
 
       <mat-card fxFlex>
         <mat-card-title></mat-card-title>

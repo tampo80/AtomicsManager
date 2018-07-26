@@ -27,5 +27,8 @@ namespace Atomics_Manager.Helpers
             response.Headers.Add("Application-Error", message);
             response.Headers.Add("access-control-expose-headers", "Application-Error");// CORS
         }
+
+
+     
     }
 }

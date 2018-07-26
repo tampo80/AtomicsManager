@@ -32,6 +32,22 @@ namespace DAL
 
         IEntrepriseRepository Entreprise { get; }
 
+
+        IServicesRepository Services { get; }
+        IDepartementsRepository Departements { get; }
+
+        IAgencesRepository Agences { get; }
+
+
+        IAPGmembersRepository APGmembers { get; }
+
+        IApprobationLevelRepository ApprobationLevel { get; }
+
+        IProductCategoryRepository ProductCategory { get; }
+
+        IProductRepository Product { get; }
+
+
         int SaveChanges();
         Task<int> SaveChangesAsync();
     }
