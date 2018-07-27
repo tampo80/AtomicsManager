@@ -3,8 +3,8 @@ import { FormErrorStateMatcher } from '../../../../../formErrorStateMatcher/form
 import { Departements } from '../../../../../models/departements';
 import { MessageboxService } from '../../../../../services/messagebox.service';
 import { DepartementsService } from '../../../../../services/departements.service';
-import { FormBuilder, FormGroup, Validators } from '../../../../../../../../node_modules/@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../../../node_modules/@angular/material';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-edit-departements',

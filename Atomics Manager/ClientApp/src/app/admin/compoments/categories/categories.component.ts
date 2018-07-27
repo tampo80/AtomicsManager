@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Categories } from '../../models/categories';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '../../../../../node_modules/@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { MessageboxService } from '../../services/messagebox.service';
 import { AddCategoriesDialogComponent } from './dialog/add/add-categories-dialog/add-categories-dialog.component';
 import { EditCategoriesDialogComponent } from './dialog/edit/edit-categories-dialog/edit-categories-dialog.component';

@@ -26,3 +26,47 @@
 .pad{
   padding: 1em;
 }
+
+
+
+.profile-image {
+  background: linear-gradient(90deg,#06665b,#118b7b);
+  height: 60px;
+}
+.profile-image-avatar {
+  margin-top: -80px;
+  margin-bottom: 20px;
+
+  > .avatar {
+    border-radius: 1%;
+    max-width: 300px;
+    max-height: 200px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.page{
+  padding: 3%;
+}
+.center{
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  text-align: center;
+}
+
+.icone{
+  width: 280px;
+  max-height: 160px;
+  align-items: center;
+}
+.card{
+  padding-top: 25px;
+  height: 230px;
+  justify-content: center;
+  vertical-align: -webkit-baseline-middle;
+}

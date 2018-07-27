@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Agences } from '../models/agences';
-import { Observable } from '../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { ConfigService } from './config.service';
-import { HttpHeaders, HttpClient } from '../../../../node_modules/@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
-import { Router } from '../../../../node_modules/@angular/router';
+import { Router } from '@angular/router';
 import { EditAgences } from '../models/edit-agences';
 
 @Injectable({

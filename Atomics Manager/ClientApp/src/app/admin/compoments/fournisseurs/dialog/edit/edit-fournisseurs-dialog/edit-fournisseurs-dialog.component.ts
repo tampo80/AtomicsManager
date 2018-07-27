@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '../../../../../../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Devises } from '../../../../../models/devises';
 import { Secteurs } from '../../../../../models/secteurs';
 import { Pays } from '../../../../../models/pays.model';
@@ -14,7 +14,7 @@ import { SecteursService } from '../../../../../services/secteurs.service';
 import { DevisesService } from '../../../../../services/devises.service';
 import { PaysService } from '../../../../../services/pays.service';
 import { VillesService } from '../../../../../services/villes.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { EditFournisseurs } from '../../../../../models/edit-fournisseurs';
 
 @Component({

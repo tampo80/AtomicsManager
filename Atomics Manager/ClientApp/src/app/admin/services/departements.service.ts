@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Router } from '../../../../node_modules/@angular/router';
-import { HttpHeaders, HttpClient } from '../../../../node_modules/@angular/common/http';
+import { Router } from '@angular/router';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
-import { Observable } from '../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { Departements } from '../models/departements';
 
 @Injectable({

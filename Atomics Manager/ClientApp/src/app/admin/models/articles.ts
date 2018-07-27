@@ -7,6 +7,6 @@ export class Articles {
   ProductCategoryId:number;
   fournisseursName:string;
   fournisseursId:number;
-  icone:string;
+  iIcon:string;
 
 }

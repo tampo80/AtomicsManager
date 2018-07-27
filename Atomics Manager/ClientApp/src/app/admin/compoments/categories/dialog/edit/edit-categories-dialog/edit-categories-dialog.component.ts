@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '../../../../../../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Categories } from '../../../../../models/categories';
 import { MessageboxService } from '../../../../../services/messagebox.service';
 import { CategoriesService } from '../../../../../services/categories.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-edit-categories-dialog',

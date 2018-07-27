@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Atomics_Manager.ViewModels;
@@ -28,7 +29,7 @@ namespace Atomics_Manager.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var allProduct = _unitOfWork.Product.GetAllIncluding(e => e.ProductCategory);
+            var allProduct = _unitOfWork.Product.GetAllIncluding(e => e.ProductCategory,j=>j.Fournisseurs);
             return Ok(Mapper.Map<IEnumerable<ProductViewModel>>(allProduct));
         }
 
@@ -36,16 +37,26 @@ namespace Atomics_Manager.Controllers
 
         // POST: api/Product
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] ProductViewModel product)
+        public async Task<IActionResult> Post([FromForm] ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-
+                    if (product.IIcon!=null)
+                    {
+                         using (var memoryStream = new MemoryStream ()) {
+                        await product.IIcon.CopyToAsync (memoryStream);
+                        product.Icon = memoryStream.ToArray ();
+                    }
+                       
+                       
+                    }
                     Product _product = Mapper.Map<Product>(product);
                     ProductCategory productCategory = _unitOfWork.ProductCategory.GetSingleOrDefault(e => e.Id == product.ProductCategoryId);
                     _product.ProductCategory = productCategory;
+                    Fournisseurs _fournisseurs=_unitOfWork.Fournisseurs.GetSingleOrDefault(e=>e.Id==product.FournisseursId);
+                    _product.Fournisseurs=_fournisseurs;
                     _product.Name = _product.Name.ToUpper();
                     await _unitOfWork.Product.AddAsync(_product);
                     return Ok(await _unitOfWork.SaveChangesAsync());

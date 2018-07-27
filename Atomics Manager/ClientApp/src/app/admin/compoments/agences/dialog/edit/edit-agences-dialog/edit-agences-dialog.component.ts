@@ -2,12 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormErrorStateMatcher } from '../../../../../formErrorStateMatcher/form-error-state-matcher';
 import { Pays } from '../../../../../models/pays.model';
 import { Villes } from '../../../../../models/villes';
-import { FormGroup, Validators, FormBuilder } from '../../../../../../../../node_modules/@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { MessageboxService } from '../../../../../services/messagebox.service';
 import { AgencesService } from '../../../../../services/agences.service';
 import { PaysService } from '../../../../../services/pays.service';
 import { VillesService } from '../../../../../services/villes.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { EditAgences } from '../../../../../models/edit-agences';
 import { Agences } from '../../../../../models/agences';
 

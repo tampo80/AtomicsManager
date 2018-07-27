@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '../../../../../../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MessageboxService } from '../../../../../services/messagebox.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Departements } from '../../../../../models/departements';
 import { DepartementsService } from '../../../../../services/departements.service';
 import { FormErrorStateMatcher } from '../../../../../formErrorStateMatcher/form-error-state-matcher';

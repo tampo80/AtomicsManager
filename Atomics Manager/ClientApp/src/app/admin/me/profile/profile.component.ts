@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { AccountService } from '../../services/account.service';
-import { FormBuilder, FormGroup, Validators } from '../../../../../node_modules/@angular/forms';
-import { fbind } from '../../../../../node_modules/@types/q';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { fbind } from 'q';
 import { UserEdit } from '../../models/user-edit.model';
 import { DbKeyService } from '../../services/db-key.service';
 import { Role } from '../../models/role.model';
-import { MatSnackBar, MatDialog } from '../../../../../node_modules/@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { EditPasswordComponent } from './dialogs/edit-password/edit-password.component';
-import { error } from '../../../../../node_modules/protractor';
+import { error } from 'protractor';
 import { GlobalErrorInterceptor } from '../../interceptors/global-error.interceptor';
 
 

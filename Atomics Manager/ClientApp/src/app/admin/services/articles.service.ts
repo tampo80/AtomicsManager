@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Router } from '../../../../node_modules/@angular/router';
-import { HttpClient, HttpHeaders } from '../../../../node_modules/@angular/common/http';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common/http';
 import { ConfigService } from './config.service';
-import { Observable } from '../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { Articles } from '../models/articles';
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,8 +44,14 @@ deleteArticles(ArticlesId?:number):Observable<{}>{
   return this.http.delete(ConfigService.rootUrl+this._articlesUrl+"/"+ArticlesId,this.getRequestHeaders());
  }
 
- addArticles(articles:Articles):Observable<Articles>{
-   return this.http.post<Articles>(ConfigService.rootUrl+this._articlesUrl,JSON.stringify(articles),this.getRequestHeaders());
+ addArticles(articles:FormData):Observable<HttpEvent<any>>{
+
+   const req=new HttpRequest('POST',ConfigService.rootUrl+this._articlesUrl,articles,{
+
+    reportProgress:true
+   });
+
+   return this.http.request(req);
  };
 
 

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
-import { HttpHeaders, HttpClient } from '../../../../node_modules/@angular/common/http';
-import { Observable } from '../../../../node_modules/rxjs';
-import { Router } from '../../../../node_modules/@angular/router';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { Services } from '../models/services';
 
 @Injectable({

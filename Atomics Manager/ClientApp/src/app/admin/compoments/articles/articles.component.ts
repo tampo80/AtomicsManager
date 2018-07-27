@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '../../../../../node_modules/@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { Articles } from '../../models/articles';
 import { MessageboxService } from '../../services/messagebox.service';
 import { AddArticlesDialogComponent } from './add/add-articles-dialog/add-articles-dialog.component';
@@ -19,7 +19,7 @@ export class ArticlesComponent implements OnInit  , AfterViewInit {
     @ViewChild(MatSort) sort: MatSort;
     public result: any;
     dataSource = new MatTableDataSource();
-    displayedColumns = ['id','name','ProductCategoryName','description','buyingPrice','actions'];
+    displayedColumns = ['id','name','productCategoryName','description','fournisseursTitre','buyingPrice','actions'];
     isLoading:boolean;
 
     constructor(private articlesService:ArticlesService,private messageboxService:MessageboxService,private dialog: MatDialog) {
@@ -94,7 +94,7 @@ export class ArticlesComponent implements OnInit  , AfterViewInit {
 
       const dialogRef = this.dialog.open(AddArticlesDialogComponent,{
         data:{articles:""},
-       width:'600px',
+       width:'800px',
        disableClose:true
       });
 

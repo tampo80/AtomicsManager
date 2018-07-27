@@ -12,7 +12,7 @@ import { BankInfosComponent } from './bank-infos/bank-infos.component';
 
 
 import { EntrepriseComponent } from './entreprise/entreprise.component';
-import { FlexLayoutModule } from '../../../../node_modules/@angular/flex-layout';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { AgencesComponent } from './agences/agences.component';
 import { DepartementsComponent } from './departements/departements.component';
 import { ServicesComponent } from './services/services.component';
@@ -28,11 +28,21 @@ import { AddCategoriesDialogComponent } from './categories/dialog/add/add-catego
 import { EditCategoriesDialogComponent } from './categories/dialog/edit/edit-categories-dialog/edit-categories-dialog.component';
 import { AddArticlesDialogComponent } from './articles/add/add-articles-dialog/add-articles-dialog.component';
 import { EditArticlesDialogComponent } from './articles/edit/edit-articles-dialog/edit-articles-dialog.component';
-
+import { CurrencyMaskModule } from "ng2-currency-mask";
 
 //import { AccountService } from '../services/account.service';
 
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from "ng2-currency-mask/src/currency-mask.config";
 
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+    align: "right",
+    allowNegative: true,
+    decimal: " ",
+    precision: 2,
+    prefix: "",
+    suffix: " CFA",
+    thousands: "."
+};
 
 @NgModule({
   imports: [
@@ -41,6 +51,7 @@ import { EditArticlesDialogComponent } from './articles/edit/edit-articles-dialo
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
+    CurrencyMaskModule
   ],
   declarations: [
     LoginComponent,
@@ -79,7 +90,7 @@ import { EditArticlesDialogComponent } from './articles/edit/edit-articles-dialo
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers:[
     NavigationService,
-
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
 
   ],
   entryComponents:[

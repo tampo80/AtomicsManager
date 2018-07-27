@@ -15,9 +15,9 @@
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Service </mat-header-cell>
                     <mat-cell *matCellDef="let articles"> {{articles.name}} </mat-cell>
                   </ng-container>
-              <ng-container matColumnDef="ProductCategoryName">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Departements </mat-header-cell>
-                <mat-cell *matCellDef="let articles"> {{articles.ProductCategoryName}} </mat-cell>
+              <ng-container matColumnDef="productCategoryName">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Catégories </mat-header-cell>
+                <mat-cell *matCellDef="let articles"> {{articles.productCategoryName}} </mat-cell>
               </ng-container>
               <ng-container matColumnDef="description">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
@@ -25,10 +25,14 @@
                 </ng-container>
 
               <ng-container matColumnDef="buyingPrice">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Chef du articles </mat-header-cell>
-                  <mat-cell *matCellDef="let articles"> {{articles.buyingPrice}} </mat-cell>
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Prix</mat-header-cell>
+                  <mat-cell *matCellDef="let articles"> {{articles.buyingPrice  | currency:'XOF ':true:'2.2-4'}} </mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="fournisseursTitre">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Fournisseurs </mat-header-cell>
+                    <mat-cell *matCellDef="let articles"> {{articles.fournisseursTitre}} </mat-cell>
+                  </ng-container>
               <ng-container matColumnDef="actions" >
                   <mat-header-cell *matHeaderCellDef class="lastcell">
                     <button mat-mini-fab color="primary" matTooltip="Nouveau articles" (click)="addNewArticles(articles)">

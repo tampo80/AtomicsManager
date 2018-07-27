@@ -50,15 +50,13 @@ import { AddFournisseursDialogComponent } from './compoments/fournisseurs/dialog
 import { EditFournisseursDialogComponent } from './compoments/fournisseurs/dialog/edit/edit-fournisseurs-dialog/edit-fournisseurs-dialog.component';
 import { ProfileComponent } from './me/profile/profile.component';
 import { EditPasswordComponent } from './me/profile/dialogs/edit-password/edit-password.component';
-import { HTTP_INTERCEPTORS } from '../../../node_modules/@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfigInterface } from '../../../node_modules/ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { ImagesService } from './services/images.service';
-import { AddDepartementsComponent } from './compoments/departements/dialog/add/add-departements/add-departements.component';
-import { EditDepartementsComponent } from './compoments/departements/dialog/edit/edit-departements/edit-departements.component';
-
+import { CurrencyMaskDirective } from './directives/currency-mask.directive';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -119,6 +117,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditPasswordComponent,
 
     FileSizePipe,
+
+    CurrencyMaskDirective,
 
   ],
   exports: [

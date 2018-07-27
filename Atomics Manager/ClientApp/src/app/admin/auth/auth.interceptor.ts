@@ -4,7 +4,7 @@ import { UserService } from "../services/user.service";
 import 'rxjs/add/operator/do';
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { MatSnackBar } from "../../../../node_modules/@angular/material";
+import { MatSnackBar } from "@angular/material";
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {

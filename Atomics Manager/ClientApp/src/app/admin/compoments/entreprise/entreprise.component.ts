@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Entreprise } from '../../models/entreprise-model';
 import { EntrepriseService } from '../../services/entreprise.service';
-import { FormBuilder, FormGroup, Validators } from '../../../../../node_modules/@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormeJuridique } from '../../models/forme-juridique';
 import { FORME_JURIDIQUE } from '../../config';
-import { MatSnackBar } from '../../../../../node_modules/@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { ImagesService } from '../../services/images.service';
 import { ConfigService } from '../../services/config.service';
-import { DomSanitizer } from '../../../../../node_modules/@angular/platform-browser';
-import { HttpEventType } from '../../../../../node_modules/@angular/common/http';
+import { DomSanitizer } from '@angular/platform-browser';
+import { HttpEventType } from '@angular/common/http';
 
 
 @Component({
@@ -18,21 +18,21 @@ import { HttpEventType } from '../../../../../node_modules/@angular/common/http'
 })
 export class EntrepriseComponent implements OnInit {
 
-  EntrepriseForm:FormGroup;
-  formeJuridique:FormeJuridique[];
-  imgUrl: string =ConfigService.rootUrl+ '/api/entreprise/getlogo';
+  EntrepriseForm:  FormGroup;
+  formeJuridique:  FormeJuridique[];
+  imgUrl: string = ConfigService.rootUrl + '/api/entreprise/getlogo';
 
   imageToShow: any;
   isImageLoading: boolean;
   selectedFile: File;
   uploadProgress:number=0;
-  constructor( private domSanitaize:DomSanitizer, private entrepriseService:EntrepriseService,private fb:FormBuilder,private imageService:ImagesService,private snackbar:MatSnackBar) {
-    this.formeJuridique=FORME_JURIDIQUE;
+  constructor( private domSanitaize: DomSanitizer, private entrepriseService: EntrepriseService,private fb:FormBuilder,private imageService:ImagesService,private snackbar:MatSnackBar) {
+    this.formeJuridique= FORME_JURIDIQUE;
     this.createForm();
     this.getEntreprise();
     this.getImageFromService();
   }
-  entrepries:Entreprise;
+  entrepries: Entreprise;
 
 
   ngOnInit() {

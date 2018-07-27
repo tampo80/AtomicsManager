@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '../../../../../node_modules/@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { MessageboxService } from '../../services/messagebox.service';
 import { AddServicesDialogComponent } from './dialog/add/add-services-dialog/add-services-dialog.component';
 import { EditServicesDialogComponent } from './dialog/edit/edit-services-dialog/edit-services-dialog.component';

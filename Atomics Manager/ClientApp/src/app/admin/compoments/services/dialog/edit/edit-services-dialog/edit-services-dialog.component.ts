@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Departements } from '../../../../../models/departements';
-import { FormGroup, Validators, FormBuilder } from '../../../../../../../../node_modules/@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Services } from '../../../../../models/services';
 import { FormErrorStateMatcher } from '../../../../../formErrorStateMatcher/form-error-state-matcher';
 import { MessageboxService } from '../../../../../services/messagebox.service';
 import { ServicesService } from '../../../../../services/services.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '../../../../../../../../node_modules/@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { DepartementsService } from '../../../../../services/departements.service';
 
 @Component({

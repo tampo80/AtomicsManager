@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Departements } from '../../models/departements';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '../../../../../node_modules/@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { DepartementsService } from '../../services/departements.service';
 import { MessageboxService } from '../../services/messagebox.service';
 import { AddDepartementsComponent } from './dialog/add/add-departements/add-departements.component';

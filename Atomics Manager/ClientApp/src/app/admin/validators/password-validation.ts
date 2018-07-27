@@ -1,4 +1,4 @@
-import { AbstractControl } from "../../../../node_modules/@angular/forms";
+import { AbstractControl } from "@angular/forms";
 
 export class PasswordValidation {
   static MatchPassword(AC: AbstractControl) {
