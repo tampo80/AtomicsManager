@@ -2,8 +2,13 @@
   <mat-sidenav #sidenav opened="true" mode="side" class="mat-elevation-z10">
     <app-side-navigation></app-side-navigation>
   </mat-sidenav>
+  <div class="sidenav-container" fxLayout="column">
     <app-toolbar [sidenav]="sidenav"></app-toolbar>
-    <div class="content">
+    <div  class="main-container" #scrollContainer>
       <router-outlet></router-outlet>
+
     </div>
+    <app-footer>ddddddd</app-footer>
+  </div>
+
 </mat-sidenav-container>

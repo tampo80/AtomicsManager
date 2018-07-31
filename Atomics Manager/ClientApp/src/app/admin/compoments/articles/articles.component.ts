@@ -114,7 +114,7 @@ export class ArticlesComponent implements OnInit  , AfterViewInit {
        console.log(articles);
       const dialogRef = this.dialog.open(EditArticlesDialogComponent,{
         data:{articles:articles},
-       width:'600px',
+       width:'800px',
        disableClose:true
       });
 

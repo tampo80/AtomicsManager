@@ -55,10 +55,15 @@ deleteArticles(ArticlesId?:number):Observable<{}>{
  };
 
 
- updateArticles(articles:Articles):Observable<Articles>{
-  return this.http.put<Articles>(ConfigService.rootUrl+this._articlesUrl+"/"+articles.id,JSON.stringify(articles),this.getRequestHeaders());
-};
+ updateArticles(articles:FormData,id:any):Observable<HttpEvent<any>>{
 
+  const req=new HttpRequest('PUT',ConfigService.rootUrl+this._articlesUrl+"/"+id,articles,{
+
+   reportProgress:true
+  });
+
+  return this.http.request(req);
+};
 
 isExiste(articlesName:string)
 {

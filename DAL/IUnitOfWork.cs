@@ -28,7 +28,7 @@ namespace DAL
         ISecteursFournisseurs SecteursFournisseurs { get; }
 
         IDocumentsFournisseursRepository DocumentsFournisseurs { get; }
-        IBankInfosRepository BankInfos {get;}
+        IBankInfosRepository BankInfos { get; }
 
         IEntrepriseRepository Entreprise { get; }
 
@@ -47,6 +47,7 @@ namespace DAL
 
         IProductRepository Product { get; }
 
+        IEntrepriseUserInfosRepository EntrepriseUserInfos  { get;}
 
         int SaveChanges();
         Task<int> SaveChangesAsync();

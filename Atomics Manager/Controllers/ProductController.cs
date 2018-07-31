@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Atomics_Manager.Helpers;
 using Atomics_Manager.ViewModels;
 using AutoMapper;
 using DAL;
@@ -30,9 +31,33 @@ namespace Atomics_Manager.Controllers
         public IActionResult Get()
         {
             var allProduct = _unitOfWork.Product.GetAllIncluding(e => e.ProductCategory,j=>j.Fournisseurs);
-            return Ok(Mapper.Map<IEnumerable<ProductViewModel>>(allProduct));
+            return Ok(Mapper.Map<IEnumerable<ProductViewModel>>(allProduct).Select(e=>{
+                e.Sicone=getIcone(e.Icon);
+                return e;
+            }));
         }
+    
 
+        private string getIcone(byte[] icone)
+        {
+             //icone = new byte[0];
+            string Sicone = string.Empty;
+                try
+                {
+                
+                Sicone = Convert.ToBase64String(icone);
+                IAttachmentType Mime = Utilities.GetMimeType(Sicone);
+
+                Sicone = "data:" + Mime.MimeType + ";base64," + Sicone;
+               }
+                catch (Exception ex)
+                {
+
+                
+                }
+                return Sicone;
+        }
+       
        
 
         // POST: api/Product
@@ -72,17 +97,34 @@ namespace Atomics_Manager.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] ProductViewModel product)
+        public async Task<IActionResult> Put( int id,[FromForm] ProductViewModel product)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
 
-                    Product _product = Mapper.Map<Product>(product);
+                    if (product.IIcon!=null)
+                    {
+                         using (var memoryStream = new MemoryStream ()) {
+                        await product.IIcon.CopyToAsync (memoryStream);
+                        product.Icon = memoryStream.ToArray ();
+                    }
+                       
+                       
+                    }
+                    Product _product = _unitOfWork.Product.GetSingleOrDefault(e=>e.Id==product.Id);
                     ProductCategory productCategory = _unitOfWork.ProductCategory.GetSingleOrDefault(e => e.Id == product.ProductCategoryId);
                     _product.ProductCategory = productCategory;
-                    _product.Name = _product.Name.ToUpper();
+                    Fournisseurs _fournisseurs=_unitOfWork.Fournisseurs.GetSingleOrDefault(e=>e.Id==product.FournisseursId);
+                    _product.Fournisseurs=_fournisseurs;
+                    _product.Name = product.Name.ToUpper();
+                    _product.Icon=product.Icon;
+                    _product.BuyingPrice = product.BuyingPrice;
+                    _product.DateModified = DateTime.Now;
+                    _product.Description = product.Description;
+                    _product.UpdatedBy = User.Identity.Name;
+                    
                     _unitOfWork.Product.Update(_product);
 
                     await _unitOfWork.SaveChangesAsync();

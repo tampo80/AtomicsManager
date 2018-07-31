@@ -57,9 +57,10 @@ export class AddArticlesDialogComponent implements OnInit {
       name: '',
       categories:'',
       description:'',
-
+      buyingPrice:'',
 
     };
+
     matcher = new FormErrorStateMatcher();
     devises:string;
     constructor(private snackbar:MatSnackBar, private imageService:ImagesService,private domSanitize:DomSanitizer,  private fournisseursServces:FournisseursService, private messageboxService:MessageboxService,public articlesService:ArticlesService,private categoriesServices:CategoriesService, private fb: FormBuilder,public dialogRef: MatDialogRef<AddArticlesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
@@ -150,7 +151,7 @@ export class AddArticlesDialogComponent implements OnInit {
         icone:[''],
       });
 
-      this.ArticlesForm.valueChanges.subscribe(data => this.onValueChanged(data));
+      this.ArticlesForm.valueChanges.subscribe(data => {this.onValueChanged(data);});
       this.onValueChanged();
   }
    onNoClick(): void {
@@ -161,15 +162,15 @@ export class AddArticlesDialogComponent implements OnInit {
     //  alert("p");
     let articles:Articles=new Articles();
 
-    articles.ProductCategoryId=this.ArticlesForm.get('categories').value.id;
+    articles.productCategoryId=this.ArticlesForm.get('categories').value.id;
     articles.name=this.ArticlesForm.get('name').value;
     articles.description=this.ArticlesForm.get('description').value;
     articles.fournisseursId=this.ArticlesForm.get('fournisseurs').value.id;
-
+    articles.buyingPrice=this.ArticlesForm.get('buyingPrice').value;
 
      this.formData=new FormData();
     this.formData.append('iIcon',this.selectedFile,this.selectedFile.name);
-    this.formData.append('ProductCategoryId',articles.ProductCategoryId.toString());
+    this.formData.append('productCategoryId',articles.productCategoryId.toString());
     this.formData.append('name',articles.name);
     this.formData.append('description',articles.description);
     this.formData.append('fournisseursId',articles.fournisseursId.toString());

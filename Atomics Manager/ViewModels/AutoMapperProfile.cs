@@ -111,6 +111,18 @@ namespace Atomics_Manager.ViewModels {
 
               .ReverseMap();
 
+             CreateMap<EntrepriseUserInfos, EntrepriseUserInfosViewModel>()
+
+              .ReverseMap();
+
+            CreateMap<ApprobationLevel, ApprobationLevelViewModel>()
+
+              .ReverseMap();
+
+            CreateMap<Demandes, DemandesViewModel>()
+
+            .ReverseMap();
+
         }
     }
 }

@@ -34,5 +34,7 @@ namespace DAL.Models
        
         public int FournisseursId { get; set; }
         public Fournisseurs Fournisseurs { get; set; }
+
+        public ICollection<Demandes> Demandes { get; set; }
     }
 }

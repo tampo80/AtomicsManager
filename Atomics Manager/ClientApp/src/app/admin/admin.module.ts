@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { ErrorHandler, NgModule } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialDesignModule } from '../material-design/material-design.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -56,8 +56,16 @@ import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfi
 
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { ImagesService } from './services/images.service';
-import { CurrencyMaskDirective } from './directives/currency-mask.directive';
 
+import localeFr from '@angular/common/locales/fr';
+import { DemandesCataloguesComponent } from './demandes/demandes-catalogues/demandes-catalogues.component';
+import { CatalogViewComponent } from './demandes/demandes-catalogues/catalog-view/catalog-view.component';
+import { WidgetStateComponent } from './widget/widget-state/widget-state.component';
+import { FooterComponent } from './footer/footer.component';
+import { IniDemandeComponent } from './demandes/ini-demande/ini-demande.component';
+import { DetaillesDemandeComponent } from './demandes/detailles-demande/detailles-demande.component';
+
+registerLocaleData(localeFr);
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -118,7 +126,21 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     FileSizePipe,
 
-    CurrencyMaskDirective,
+    DemandesCataloguesComponent,
+
+    CatalogViewComponent,
+
+    WidgetStateComponent,
+
+    FooterComponent,
+
+    IniDemandeComponent,
+
+    DetaillesDemandeComponent,
+
+
+
+
 
   ],
   exports: [
@@ -132,7 +154,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpErrorHandler,
     AccountService,
     DevisesService,
+
     ImagesService,
+    {
+      provide: LOCALE_ID,
+      useValue: "fr-FR"
+    },
     {
       provide: ErrorHandler,
       useClass: GlobalErrorInterceptor
@@ -167,6 +194,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AddFournisseursDialogComponent,
     EditFournisseursDialogComponent,
     EditPasswordComponent,
+    DetaillesDemandeComponent,
+    IniDemandeComponent
 
   ]
 })

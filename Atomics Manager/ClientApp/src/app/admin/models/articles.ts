@@ -4,9 +4,10 @@ export class Articles {
   description:string;
   buyingPrice:string;
   ProductCategoryName:string;
-  ProductCategoryId:number;
+  productCategoryId:number;
   fournisseursName:string;
   fournisseursId:number;
-  iIcon:string;
+  sicone:string;
+
 
 }

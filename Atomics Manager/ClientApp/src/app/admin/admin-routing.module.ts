@@ -18,6 +18,10 @@ import { DepartementsComponent } from './compoments/departements/departements.co
 import { ServicesComponent } from './compoments/services/services.component';
 import { ArticlesComponent } from './compoments/articles/articles.component';
 import { CategoriesComponent } from './compoments/categories/categories.component';
+import { APGembersComponent } from './compoments/a-pgembers/a-pgembers.component';
+import { ProfilComponent } from './compoments/profil/profil.component';
+import { ApprobationLevelComponent } from './compoments/approbation-level/approbation-level.component';
+import { DemandesCataloguesComponent } from './demandes/demandes-catalogues/demandes-catalogues.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -25,6 +29,10 @@ import { CategoriesComponent } from './compoments/categories/categories.componen
       path: '',
       component: AdminComponent,
       children: [
+        {path:'manage-approuval-level',component:ApprobationLevelComponent},
+        { path: 'manage-profil', component: ProfilComponent },
+        {path:'manage-demande-catalogues',component:DemandesCataloguesComponent},
+        { path: 'manage-approuval-group', component: APGembersComponent },
         { path: 'manage-categories', component: CategoriesComponent },
         { path: 'manage-catalogues', component: ArticlesComponent },
         { path: 'manage-agences', component: AgencesComponent },

@@ -9,6 +9,7 @@ import { UserEdit } from '../../models/user-edit.model';
 import { EditDialogComponent } from './dialogs/edit/edit-dialog/edit-dialog.component';
 import { GlobalErrorInterceptor } from '../../interceptors/global-error.interceptor';
 import { AlertService } from '../../services/alert.service';
+import { SetUserPositionComponent } from './dialogs/set-user-position/set-user-position.component';
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
@@ -24,7 +25,7 @@ export class UsersComponent implements OnInit,AfterViewInit {
     dataSource = new MatTableDataSource();
     displayedColumns = ['id','jobTitle','userName', 'email', 'phoneNumber', 'fullName','roles','actions'];
 
-  constructor(public accountService:AccountService,private alertService: AlertService,private messageboxService:MessageboxService,private dialog: MatDialog) { 
+  constructor(public accountService:AccountService,private alertService: AlertService,private messageboxService:MessageboxService,private dialog: MatDialog) {
 
     this.Error=new GlobalErrorInterceptor(alertService);
   }
@@ -32,8 +33,8 @@ export class UsersComponent implements OnInit,AfterViewInit {
 
 
   ngOnInit() {
-   
-    
+
+
     this.getUsers()
   }
 
@@ -52,12 +53,12 @@ export class UsersComponent implements OnInit,AfterViewInit {
     this.dataSource.filter = filterValue;
   }
 
- 
+
 
   deleteUser(user:User){
 
     this.messageboxService.ShowMessage("Avertissement","Supprimer l'utilisateur "+user.userName,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
-      
+
       this.result = res
       console.log(res);
       if (this.result.result=="yes") {
@@ -66,10 +67,30 @@ export class UsersComponent implements OnInit,AfterViewInit {
           this.getUsers();
         }
         );
-       
+
       }
-    
+
     });
+  }
+
+  setUserposition(user?:UserEdit){
+
+    const dialogRef = this.dialog.open(SetUserPositionComponent,{
+      data:{user:user},
+     width:'600px',
+     disableClose:true
+    });
+
+    dialogRef.afterClosed().subscribe(res=>{
+      console.log(res);
+      if (res.result===1) {
+        this.getUsers();
+        this.messageboxService.ShowMessage("Information","assignation effectué avec succès",user.friendlyName,0,false,1,'500px',"info",'primary');
+      }
+    }
+
+
+    );
   }
 
   addNewUser(user?:UserEdit){
@@ -130,9 +151,9 @@ export class UsersComponent implements OnInit,AfterViewInit {
         return;
       }
     }
-  
+
   );
   }
-  
+
 }
 

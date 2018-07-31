@@ -1,3 +1,136 @@
-<p>
-  edit-articles-dialog works!
-</p>
+
+
+   <mat-toolbar color="primary">
+      Ajouter un nouveau articles
+      <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
+  </mat-toolbar>
+
+  <mat-divider></mat-divider>
+
+  <mat-card>
+
+
+  <mat-card-content>
+      <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="ArticlesForm" >
+
+
+
+
+        <div fxLayout
+        fxLayout
+        fxLayout.xs="column"
+        fxLayoutAlign="center"
+        fxLayoutGap="10px"
+        fxLayoutGap.xs="0">
+
+
+        <div fxFlex="49%">
+
+
+
+                    <mat-form-field class="example-full-width">
+                            <input [errorStateMatcher]="matcher" matInput   placeholder="Nom"  formControlName='name' required>
+                            <mat-error *ngIf="formErrors.name  ">{{formErrors.name}}</mat-error>
+                            <mat-error *ngIf="ArticlesForm.hasError('name') && ArticlesForm.get('name').errors.required && !formErrors.name">{{validationMessages.name.required}}</mat-error>
+
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                      <input [errorStateMatcher]="matcher" matInput  currencyMask  placeholder="Prix"  formControlName='buyingPrice' required>
+
+                      <mat-error *ngIf="formErrors.buyingPrice  ">{{formErrors.buyingPrice}}</mat-error>
+                      <mat-error *ngIf="ArticlesForm.hasError('buyingPrice') && ArticlesForm.get('buyingPrice').errors.required && !formErrors.buyingPrice">{{validationMessages.buyingPrice.required}}</mat-error>
+
+                    </mat-form-field>
+
+
+
+                   <mat-form-field class="example-full-width">
+
+                    <input type="text" placeholder="Catégories"  matInput formControlName="categories" [matAutocomplete]="autoFournisseurs">
+                    <mat-autocomplete autoActiveFirstOption #autoFournisseurs="matAutocomplete" [displayWith]="displayFn">
+                      <mat-option *ngFor="let option of filteredCategories | async" [value]="option">
+                        {{option.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+                      <mat-error *ngIf="formErrors.categories">{{formErrors.categories}}</mat-error>
+                      <mat-error *ngIf="ArticlesForm.hasError('required')">{{formErrors.categories}}</mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="example-full-width">
+                      <textarea [errorStateMatcher]="matcher" matInput   placeholder="Description"  formControlName='description' required></textarea>
+                      <mat-error *ngIf="formErrors.description  ">{{formErrors.description}}</mat-error>
+                      <mat-error *ngIf="ArticlesForm.hasError('description') && ArticlesForm.get('description').errors.required && !formErrors.description">{{validationMessages.description.required}}</mat-error>
+
+                    </mat-form-field>
+
+        </div>
+        <div fxFlex="49%">
+  <table>
+    <tr>
+      <td>
+          <mat-form-field class="example-full-width">
+
+              <input type="text" placeholder="Fournisseurs"  matInput formControlName="fournisseurs" [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn2">
+                <mat-option *ngFor="let option of filteredFournisseurs | async" [value]="option">
+                  {{option.titre}}
+                </mat-option>
+              </mat-autocomplete>
+                <mat-error *ngIf="formErrors.fournisseurs">{{formErrors.fournisseurs}}</mat-error>
+                <mat-error *ngIf="ArticlesForm.hasError('required')">{{formErrors.fournisseurs}}</mat-error>
+            </mat-form-field>
+      </td>
+
+    </tr>
+    <tr><td>
+        <div class="card center" fxFlex="340px">
+            <mat-card fxFlex>
+
+
+              <div class="text-center center">
+                <mat-progress-bar *ngIf="isImageLoading" mode="indeterminate"></mat-progress-bar>
+                <img class="icone" [src]="imageToShow"
+                     alt="Place image title" (click)="fileInput.click()" matTooltip="Cliquer pour charger le logo" >
+              </div>
+
+              <input
+                style="display: none"
+                type="file" (change)="onFileChanged($event)"
+                #fileInput formControlName="icone">
+              <mat-progress-bar mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress>0" color="primary"></mat-progress-bar>
+
+
+            </mat-card>
+          </div>
+    </td></tr>
+  </table>
+
+
+
+
+  <br/>
+
+
+
+                    <br>
+
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+      </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+      <button mat-raised-button (click)="onSubmit()" [disabled]="!ArticlesForm.valid" color="primary" >Modifier</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+
+  </mat-card-actions>
+
+  </mat-card>

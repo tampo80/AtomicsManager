@@ -26,7 +26,7 @@
 
               <ng-container matColumnDef="buyingPrice">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Prix</mat-header-cell>
-                  <mat-cell *matCellDef="let articles"> {{articles.buyingPrice  | currency:'XOF ':true:'2.2-4'}} </mat-cell>
+                  <mat-cell *matCellDef="let articles"> {{articles.buyingPrice  | currency:'XOF':true}} </mat-cell>
                 </ng-container>
 
                 <ng-container matColumnDef="fournisseursTitre">
@@ -57,9 +57,11 @@
 
           </mat-table>
 
-          <mat-paginator  [pageSize]="10" [pageSizeOptions]="[5, 10, 25]">
+          <mat-paginator  [pageSize]="8" [pageSizeOptions]="[5, 10, 25]">
             </mat-paginator>
 
 
 </div>
+<mat-divider></mat-divider>
+<button mat-raised-button (click)="onClick" color="primary">Importer les articles</button>
  </div>

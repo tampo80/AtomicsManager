@@ -25,5 +25,6 @@ namespace Atomics_Manager.ViewModels {
         public string FournisseursTitre { get; set; }
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
+        public string  Sicone { get; set; }     
     }
 }

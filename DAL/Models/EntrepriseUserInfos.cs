@@ -9,12 +9,13 @@ namespace DAL.Models
 {
     public class EntrepriseUserInfos
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
 
         public Agences Agences { get; set; }
-
+        public int AgencesId { get; set; }
         //for head departements
         public Departements Departements { get; set; }
+        public int DepartementsId { get; set; }
 
         //Optionale
         public int ServicesId { get; set; }

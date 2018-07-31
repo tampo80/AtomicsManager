@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtomicsManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180725193354_update3")]
-    partial class update3
+    [Migration("20180728234108_update2")]
+    partial class update2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -353,8 +353,6 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("HeadId");
-
                     b.Property<string>("Name");
 
                     b.Property<string>("UpdatedBy")
@@ -363,9 +361,6 @@ namespace AtomicsManager.Migrations
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HeadId")
-                        .IsUnique();
 
                     b.ToTable("AppDepartements");
                 });
@@ -466,12 +461,14 @@ namespace AtomicsManager.Migrations
 
             modelBuilder.Entity("DAL.Models.EntrepriseUserInfos", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("AgencesId");
 
                     b.Property<string>("ApplicationUserId");
+
+                    b.Property<int>("DepartementsId");
 
                     b.Property<int>("ServicesId");
 
@@ -482,9 +479,12 @@ namespace AtomicsManager.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
+                    b.HasIndex("DepartementsId")
+                        .IsUnique();
+
                     b.HasIndex("ServicesId");
 
-                    b.ToTable("EntrepriseUserInfos");
+                    b.ToTable("AppEntrepriseUserInfos");
                 });
 
             modelBuilder.Entity("DAL.Models.Fournisseurs", b =>
@@ -663,7 +663,7 @@ namespace AtomicsManager.Migrations
 
                     b.Property<int>("FournisseursId");
 
-                    b.Property<string>("Icon")
+                    b.Property<byte[]>("Icon")
                         .HasMaxLength(256)
                         .IsUnicode(false);
 
@@ -1088,13 +1088,6 @@ namespace AtomicsManager.Migrations
                         .HasForeignKey("userId");
                 });
 
-            modelBuilder.Entity("DAL.Models.Departements", b =>
-                {
-                    b.HasOne("DAL.Models.EntrepriseUserInfos", "Head")
-                        .WithOne("Departements")
-                        .HasForeignKey("DAL.Models.Departements", "HeadId");
-                });
-
             modelBuilder.Entity("DAL.Models.DocumentsFournisseurs", b =>
                 {
                     b.HasOne("DAL.Models.Fournisseurs", "Fournisseurs")
@@ -1111,6 +1104,11 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.ApplicationUser", "ApplicationUser")
                         .WithOne("EntrepriseUserInfos")
                         .HasForeignKey("DAL.Models.EntrepriseUserInfos", "ApplicationUserId");
+
+                    b.HasOne("DAL.Models.Departements", "Departements")
+                        .WithOne("Head")
+                        .HasForeignKey("DAL.Models.EntrepriseUserInfos", "DepartementsId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.Services", "Services")
                         .WithMany("EntrepriseUserInfos")

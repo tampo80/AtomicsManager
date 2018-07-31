@@ -44,7 +44,8 @@ namespace DAL
 
         public DbSet<ApprobationLevel> ApprobationLevel { get; set; }
         public DbSet<APGmembers> APGmembers { get; set; }
-       
+
+        public DbSet<EntrepriseUserInfos> EntrepriseUserInfos { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
@@ -65,6 +66,10 @@ namespace DAL
             builder.Entity<ApplicationUser>().HasOne(e => e.EntrepriseUserInfos)
                                              .WithOne(a => a.ApplicationUser)
                                              .HasForeignKey<EntrepriseUserInfos>(a => a.ApplicationUserId);
+
+            // builder.Entity<Departements>().HasOne(e => e.Head)
+            //                                 .WithMany(a => a.Departements)
+            //                                 .HasForeignKey<EntrepriseUserInfos>(a => a.DepartementsId);
 
 
             builder.Entity<Customer>().Property(c => c.Name).IsRequired().HasMaxLength(100);
@@ -158,9 +163,9 @@ namespace DAL
 
             builder.Entity<ApprobationLevel>().ToTable($"App{nameof(this.ApprobationLevel)}");
 
-              builder.Entity<Demandes>().ToTable($"App{nameof(this.Demandes)}");
+            builder.Entity<Demandes>().ToTable($"App{nameof(this.Demandes)}");
 
-
+            builder.Entity<EntrepriseUserInfos>().ToTable($"App{nameof(this.EntrepriseUserInfos)}");
 
         }
 

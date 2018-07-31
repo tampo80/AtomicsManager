@@ -1,0 +1,85 @@
+<mat-toolbar color="primary">
+  Ajouter un nouveau services
+  <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<mat-card>
+
+
+  <mat-card-content>
+    <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="ApprobationLevelForm">
+
+
+
+
+
+
+
+
+
+
+
+      <mat-form-field class="example-full-width">
+        <input [errorStateMatcher]="matcher" matInput placeholder="Désignation" formControlName='name' required>
+        <mat-error *ngIf="formErrors.name  ">{{formErrors.name}}</mat-error>
+        <mat-error *ngIf="ApprobationLevelForm.hasError('name') && ApprobationLevelForm.get('name').errors.required && !formErrors.name">{{validationMessages.name.required}}</mat-error>
+
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <input [errorStateMatcher]="matcher" matInput placeholder="Limite" formControlName='expensLimite' currencyMask required>
+        <mat-error *ngIf="formErrors.expensLimite  ">{{formErrors.expensLimite}}</mat-error>
+        <mat-error *ngIf="ApprobationLevelForm.hasError('expensLimite') && ApprobationLevelForm.get('expensLimite').errors.required && !formErrors.expensLimite">{{validationMessages.expensLimite.required}}</mat-error>
+
+      </mat-form-field>
+
+
+
+      <mat-form-field class="example-full-width">
+
+        <mat-select formControlName="typeApprovalGroup" placeholder="Type de group d'approbation" [errorStateMatcher]="matcher">
+          <mat-option *ngFor="let _typeApproval of typeApproval" [value]="_typeApproval.value">
+            {{_typeApproval.label}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formErrors.typeApprovalGroup">{{formErrors.typeApprovalGroup}}</mat-error>
+        <mat-error *ngIf="ApprobationLevelForm.hasError('required')">{{formErrors.typeApprovalGroup}}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+
+        <mat-select formControlName="level" placeholder="Le niveaux" [errorStateMatcher]="matcher">
+          <mat-option *ngFor="let _level of lesNiveaux" [value]="_level">
+            {{_level}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="formErrors.level">{{formErrors.level}}</mat-error>
+        <mat-error *ngIf="ApprobationLevelForm.hasError('required')">{{formErrors.level}}</mat-error>
+      </mat-form-field>
+
+
+
+      <br>
+
+
+
+
+
+
+
+
+
+
+
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-raised-button (click)="onSubmit()" [disabled]="!ApprobationLevelForm.valid" color="primary">Ajouter</button>
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+
+  </mat-card-actions>
+
+</mat-card>

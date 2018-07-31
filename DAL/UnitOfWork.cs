@@ -48,6 +48,7 @@ namespace DAL
         IProductCategoryRepository _ProductCategory;
 
         IProductRepository _Product;
+        IEntrepriseUserInfosRepository _EntrepriseUserInfos;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -294,6 +295,18 @@ namespace DAL
                     _Product = new ProductRepository(_context);
 
                 return _Product;
+            }
+        }
+
+
+        public IEntrepriseUserInfosRepository EntrepriseUserInfos
+        {
+            get
+            {
+                if (_EntrepriseUserInfos == null)
+                    _EntrepriseUserInfos = new EntrepriseUserInfosRepository(_context);
+
+                return _EntrepriseUserInfos;
             }
         }
 

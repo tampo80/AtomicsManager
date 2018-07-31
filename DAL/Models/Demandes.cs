@@ -17,8 +17,8 @@ namespace DAL.Models
         public DateTime DateLivraisonPrevu { get; set; }
         public DateTime DateLivraison { get; set; }
 
-        public int FournisseursId { get; set; }
-        public Fournisseurs Fournisseurs { get; set; }
+        public int ProductId { get; set; }
+        public Product Product { get; set; }
 
 
     }

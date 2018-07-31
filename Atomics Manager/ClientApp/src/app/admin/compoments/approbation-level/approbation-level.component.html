@@ -1,0 +1,61 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<div class="mat-row page mat-elevation-z2" width="80%">
+
+
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+          <mat-table [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+              <ng-container matColumnDef="id">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
+                  <mat-cell *matCellDef="let row; let i=index"> {{i+1}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Désignation </mat-header-cell>
+                    <mat-cell *matCellDef="let approbationLevel"> {{approbationLevel.name}} </mat-cell>
+                  </ng-container>
+              <ng-container matColumnDef="expensLimite">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Limite </mat-header-cell>
+                <mat-cell *matCellDef="let approbationLevel"> {{approbationLevel.expensLimite| currency:'XOF':true}} </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="level">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Niveau d'approbation </mat-header-cell>
+                  <mat-cell *matCellDef="let approbationLevel"> {{approbationLevel.level}} </mat-cell>
+                </ng-container>
+
+              <ng-container matColumnDef="typeApprovalGroup">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>type de niveau </mat-header-cell>
+                  <mat-cell *matCellDef="let approbationLevel"> {{getTypeApprobation(approbationLevel.typeApprovalGroup)}} </mat-cell>
+                </ng-container>
+
+              <ng-container matColumnDef="actions" >
+                  <mat-header-cell *matHeaderCellDef class="lastcell">
+                    <button mat-mini-fab color="primary" matTooltip="Nouveau approbationLevel" (click)="addNewApprobationLevel(approbationLevel)">
+                      <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
+                    </button>
+                  </mat-header-cell>
+
+                  <mat-cell *matCellDef="let approbationLevel" class="lastcell">
+                    <button mat-icon-button color="accent" matTooltip="Editer les informations" (click)="EditApprobationLevel(approbationLevel)">
+                      <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+
+
+
+                    <button mat-icon-button color="warn" matTooltip="Suprimer l'utilisateur" (click)="deleteApprobationLevel(approbationLevel)">
+                      <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+                  </mat-cell>
+                </ng-container>
+              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+          </mat-table>
+
+          <mat-paginator  [pageSize]="8" [pageSizeOptions]="[5, 10, 25]">
+            </mat-paginator>
+
+
+</div>
+ </div>

@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtomicsManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180725134749_update2")]
-    partial class update2
+    [Migration("20180728230312_update")]
+    partial class update
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -353,7 +353,7 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("HeadId");
+                    b.Property<int>("HeadId");
 
                     b.Property<string>("Name");
 
@@ -466,7 +466,7 @@ namespace AtomicsManager.Migrations
 
             modelBuilder.Entity("DAL.Models.EntrepriseUserInfos", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int?>("AgencesId");
@@ -484,7 +484,7 @@ namespace AtomicsManager.Migrations
 
                     b.HasIndex("ServicesId");
 
-                    b.ToTable("EntrepriseUserInfos");
+                    b.ToTable("AppEntrepriseUserInfos");
                 });
 
             modelBuilder.Entity("DAL.Models.Fournisseurs", b =>
@@ -663,7 +663,7 @@ namespace AtomicsManager.Migrations
 
                     b.Property<int>("FournisseursId");
 
-                    b.Property<string>("Icon")
+                    b.Property<byte[]>("Icon")
                         .HasMaxLength(256)
                         .IsUnicode(false);
 
@@ -1092,7 +1092,8 @@ namespace AtomicsManager.Migrations
                 {
                     b.HasOne("DAL.Models.EntrepriseUserInfos", "Head")
                         .WithOne("Departements")
-                        .HasForeignKey("DAL.Models.Departements", "HeadId");
+                        .HasForeignKey("DAL.Models.Departements", "HeadId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DAL.Models.DocumentsFournisseurs", b =>

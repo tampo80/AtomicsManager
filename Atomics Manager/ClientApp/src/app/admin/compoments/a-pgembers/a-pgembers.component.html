@@ -1,0 +1,14 @@
+<mat-chip-list>
+    <mat-chip (select)="onSelect1">bienfoali ttyttytytytytyt</mat-chip>
+    <mat-chip (select)="onSelect2">Chip 2</mat-chip>
+</mat-chip-list>
+<button mat-button [matMenuTriggerFor]="menuRef">
+    Trigger
+</button>
+
+<mat-menu #menuRef="matMenu" x-position="after" y-position="below"
+          [overlapTrigger]="false">
+    <a mat-menu-item href="item" *ngFor="let item of items">
+        item
+    </a>
+</mat-menu>

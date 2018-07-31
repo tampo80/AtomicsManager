@@ -1,0 +1,68 @@
+
+
+   <mat-toolbar color="primary">
+      Initier la démandes
+      <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
+  </mat-toolbar>
+
+  <mat-divider></mat-divider>
+
+  <mat-card>
+
+<h3>{{data.articles.name}}</h3>
+<table>
+  <tr>
+    <td>Coût de l'achat :</td>
+    <td><h4 class="accent">{{data.articles.buyingPrice| currency:'XOF':'symbol'}}</h4></td>
+  </tr>
+  <tr>
+    <td>Description</td>
+    <td><h5>{{data.articles.description}}</h5></td>
+  </tr>
+</table>
+<p></p>
+  <mat-card-content>
+      <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="demandeForm" >
+
+
+
+
+
+
+
+
+
+
+
+                    <mat-form-field class="example-full-width">
+                            <textarea [errorStateMatcher]="matcher" matInput   placeholder="Motif évoqué"  formControlName='motif' required></textarea>
+                            <mat-error *ngIf="formErrors.motif  ">{{formErrors.motif}}</mat-error>
+                            <mat-error *ngIf="demandeForm.hasError('motif') && demandeForm.get('motif').errors.required && !formErrors.motif">{{validationMessages.motif.required}}</mat-error>
+
+                    </mat-form-field>
+
+
+
+
+                    <br>
+
+
+
+
+
+
+
+
+
+
+
+      </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+      <button mat-raised-button (click)="createDemande()" [disabled]="!demandeForm.valid" color="primary" >Créer la démande</button>
+      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+
+  </mat-card-actions>
+
+  </mat-card>

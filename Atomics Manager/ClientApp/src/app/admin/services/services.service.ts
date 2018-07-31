@@ -34,8 +34,8 @@ getServices():Observable<Services[]> {
 
 }
 
-getServicesByPaysId(id?:number):Observable<Services[]> {
-  return this.http.get<Services[]>(ConfigService.rootUrl+this._servicesUrl+"/bypaysid/"+id,this.getRequestHeaders());
+getServicesByDepartementsId(id?:number):Observable<Services[]> {
+  return this.http.get<Services[]>(ConfigService.rootUrl+this._servicesUrl+"/bydepartementsid/"+id,this.getRequestHeaders());
 
 }
 

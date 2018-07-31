@@ -35,8 +35,8 @@
 
                   </mat-form-field>
                   <mat-form-field class="example-full-width">
-                    <input [errorStateMatcher]="matcher" matInput  appCurrencyMask   placeholder="Prix"  formControlName='buyingPrice' required>
-                    <span matSuffix>{{devises}}</span>
+                    <input [errorStateMatcher]="matcher" matInput  currencyMask  placeholder="Prix"  formControlName='buyingPrice' required>
+
                     <mat-error *ngIf="formErrors.buyingPrice  ">{{formErrors.buyingPrice}}</mat-error>
                     <mat-error *ngIf="ArticlesForm.hasError('buyingPrice') && ArticlesForm.get('buyingPrice').errors.required && !formErrors.buyingPrice">{{validationMessages.buyingPrice.required}}</mat-error>
 
@@ -97,15 +97,12 @@
               type="file" (change)="onFileChanged($event)"
               #fileInput formControlName="icone">
             <mat-progress-bar mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress>0" color="primary"></mat-progress-bar>
-            <button mat-mini-fab (click)="onUpload()" color="primary" *ngIf="selectedFile">
-              <mat-icon class="mat-18">done</mat-icon>
-            </button>
+
 
           </mat-card>
         </div>
   </td></tr>
 </table>
-
 
 
 

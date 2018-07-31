@@ -313,13 +313,15 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("DateLivraisonPrevu");
 
-                    b.Property<int>("FournisseursId");
+                    b.Property<int?>("FournisseursId");
 
                     b.Property<decimal>("Montant");
 
                     b.Property<string>("Motif");
 
                     b.Property<int>("Nature");
+
+                    b.Property<int>("ProductId");
 
                     b.Property<int>("TypeLigne");
 
@@ -333,6 +335,8 @@ namespace AtomicsManager.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FournisseursId");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("userId");
 
@@ -351,8 +355,6 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<string>("HeadId");
-
                     b.Property<string>("Name");
 
                     b.Property<string>("UpdatedBy")
@@ -361,9 +363,6 @@ namespace AtomicsManager.Migrations
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("HeadId")
-                        .IsUnique();
 
                     b.ToTable("AppDepartements");
                 });
@@ -464,12 +463,14 @@ namespace AtomicsManager.Migrations
 
             modelBuilder.Entity("DAL.Models.EntrepriseUserInfos", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("AgencesId");
+                    b.Property<int>("AgencesId");
 
                     b.Property<string>("ApplicationUserId");
+
+                    b.Property<int>("DepartementsId");
 
                     b.Property<int>("ServicesId");
 
@@ -480,9 +481,11 @@ namespace AtomicsManager.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
+                    b.HasIndex("DepartementsId");
+
                     b.HasIndex("ServicesId");
 
-                    b.ToTable("EntrepriseUserInfos");
+                    b.ToTable("AppEntrepriseUserInfos");
                 });
 
             modelBuilder.Entity("DAL.Models.Fournisseurs", b =>
@@ -1076,21 +1079,18 @@ namespace AtomicsManager.Migrations
 
             modelBuilder.Entity("DAL.Models.Demandes", b =>
                 {
-                    b.HasOne("DAL.Models.Fournisseurs", "Fournisseurs")
+                    b.HasOne("DAL.Models.Fournisseurs")
                         .WithMany("Demandes")
-                        .HasForeignKey("FournisseursId")
+                        .HasForeignKey("FournisseursId");
+
+                    b.HasOne("DAL.Models.Product", "Product")
+                        .WithMany("Demandes")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.ApplicationUser", "user")
                         .WithMany("Demandes")
                         .HasForeignKey("userId");
-                });
-
-            modelBuilder.Entity("DAL.Models.Departements", b =>
-                {
-                    b.HasOne("DAL.Models.EntrepriseUserInfos", "Head")
-                        .WithOne("Departements")
-                        .HasForeignKey("DAL.Models.Departements", "HeadId");
                 });
 
             modelBuilder.Entity("DAL.Models.DocumentsFournisseurs", b =>
@@ -1104,11 +1104,17 @@ namespace AtomicsManager.Migrations
                 {
                     b.HasOne("DAL.Models.Agences", "Agences")
                         .WithMany("EntrepriseUserInfos")
-                        .HasForeignKey("AgencesId");
+                        .HasForeignKey("AgencesId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.ApplicationUser", "ApplicationUser")
                         .WithOne("EntrepriseUserInfos")
                         .HasForeignKey("DAL.Models.EntrepriseUserInfos", "ApplicationUserId");
+
+                    b.HasOne("DAL.Models.Departements", "Departements")
+                        .WithMany("Head")
+                        .HasForeignKey("DepartementsId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.Services", "Services")
                         .WithMany("EntrepriseUserInfos")

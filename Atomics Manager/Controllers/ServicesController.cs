@@ -96,6 +96,12 @@ namespace Atomics_Manager.Controllers
             }
         }
 
+        [HttpGet ("bydepartementsid/{id}")]
+        public IActionResult bydepartementsid (int id) {
+            var allServices = _unitOfWork.Services.GetAllIncluding (e => e.Departements).Where (f => f.Departements.Id == id);
+            return Ok (Mapper.Map<IEnumerable<ServicesViewModel>> (allServices));
+        }
+
         // DELETE api/values/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)

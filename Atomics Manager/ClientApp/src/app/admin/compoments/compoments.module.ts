@@ -33,15 +33,24 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 //import { AccountService } from '../services/account.service';
 
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from "ng2-currency-mask/src/currency-mask.config";
+import { CurrencyMaskService } from '../services/currency-mask.service';
+import { CurrencyMaskDirective } from '../directives/currency-mask.directive';
+import { UdpCurrencyMaskPipe } from '../pipes/udp-currency-mask.pipe';
+import { APGembersComponent } from './a-pgembers/a-pgembers.component';
+import { ProfilComponent } from './profil/profil.component';
+import { SetUserPositionComponent } from './users/dialogs/set-user-position/set-user-position.component';
+import { ApprobationLevelComponent } from './approbation-level/approbation-level.component';
+import { AddApprobationLevelDialogComponent } from './approbation-level/dialog/add/add-approbation-level-dialog/add-approbation-level-dialog.component';
+import { EditApprobationLevelDialogComponent } from './approbation-level/dialog/edit/edit-approbation-level-dialog/edit-approbation-level-dialog.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     align: "right",
     allowNegative: true,
     decimal: " ",
-    precision: 2,
+    precision: 0,
     prefix: "",
     suffix: " CFA",
-    thousands: "."
+    thousands: " "
 };
 
 @NgModule({
@@ -51,7 +60,9 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     FormsModule,
     ReactiveFormsModule,
     FlexLayoutModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
+
+
   ],
   declarations: [
     LoginComponent,
@@ -75,7 +86,14 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AddCategoriesDialogComponent,
     EditCategoriesDialogComponent,
     AddArticlesDialogComponent,
-    EditArticlesDialogComponent
+    EditArticlesDialogComponent,
+    CurrencyMaskDirective,
+    APGembersComponent,
+    ProfilComponent,
+    SetUserPositionComponent,
+    ApprobationLevelComponent,
+    AddApprobationLevelDialogComponent,
+    EditApprobationLevelDialogComponent
 
 
 
@@ -90,9 +108,12 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers:[
     NavigationService,
+    CurrencyMaskService,
+
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig }
 
   ],
+  exports: [CurrencyMaskDirective],
   entryComponents:[
     AddDepartementsComponent,
     EditDepartementsComponent,
@@ -103,7 +124,11 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AddCategoriesDialogComponent,
     EditCategoriesDialogComponent,
     AddArticlesDialogComponent,
-    EditArticlesDialogComponent
+    EditArticlesDialogComponent,
+    SetUserPositionComponent,
+    AddApprobationLevelDialogComponent,
+    EditApprobationLevelDialogComponent
+
 
   ]
 

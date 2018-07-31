@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AtomicsManager.Migrations
 {
-    public partial class umdate : Migration
+    public partial class update : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -604,6 +604,43 @@ namespace AtomicsManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AppDemandes",
+                columns: table => new
+                {
+                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
+                    UpdatedDate = table.Column<DateTime>(nullable: false),
+                    CreatedDate = table.Column<DateTime>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    userId = table.Column<string>(nullable: true),
+                    DateDemande = table.Column<DateTime>(nullable: false),
+                    Motif = table.Column<string>(nullable: true),
+                    Montant = table.Column<decimal>(nullable: false),
+                    TypeLigne = table.Column<int>(nullable: false),
+                    Nature = table.Column<int>(nullable: false),
+                    DateLivraisonPrevu = table.Column<DateTime>(nullable: false),
+                    DateLivraison = table.Column<DateTime>(nullable: false),
+                    FournisseursId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppDemandes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppDemandes_AppFournisseurs_FournisseursId",
+                        column: x => x.FournisseursId,
+                        principalTable: "AppFournisseurs",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AppDemandes_AspNetUsers_userId",
+                        column: x => x.userId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AppDocumentsFournisseurs",
                 columns: table => new
                 {
@@ -641,7 +678,7 @@ namespace AtomicsManager.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     Description = table.Column<string>(maxLength: 500, nullable: true),
-                    Icon = table.Column<string>(unicode: false, maxLength: 256, nullable: true),
+                    Icon = table.Column<byte[]>(unicode: false, maxLength: 256, nullable: true),
                     BuyingPrice = table.Column<decimal>(nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
                     IsDiscontinued = table.Column<bool>(nullable: false),
@@ -696,43 +733,6 @@ namespace AtomicsManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Demandes",
-                columns: table => new
-                {
-                    CreatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UpdatedBy = table.Column<string>(maxLength: 256, nullable: true),
-                    UpdatedDate = table.Column<DateTime>(nullable: false),
-                    CreatedDate = table.Column<DateTime>(nullable: false),
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
-                    userId = table.Column<string>(nullable: true),
-                    DateDemande = table.Column<DateTime>(nullable: false),
-                    Motif = table.Column<string>(nullable: true),
-                    Montant = table.Column<decimal>(nullable: false),
-                    TypeLigne = table.Column<int>(nullable: false),
-                    Nature = table.Column<int>(nullable: false),
-                    DateLivraisonPrevu = table.Column<DateTime>(nullable: false),
-                    DateLivraison = table.Column<DateTime>(nullable: false),
-                    FournisseursId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Demandes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Demandes_AppFournisseurs_FournisseursId",
-                        column: x => x.FournisseursId,
-                        principalTable: "AppFournisseurs",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Demandes_AspNetUsers_userId",
-                        column: x => x.userId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AppOrderDetails",
                 columns: table => new
                 {
@@ -766,25 +766,26 @@ namespace AtomicsManager.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EntrepriseUserInfos",
+                name: "AppEntrepriseUserInfos",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     AgencesId = table.Column<int>(nullable: true),
                     ServicesId = table.Column<int>(nullable: false),
                     ApplicationUserId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EntrepriseUserInfos", x => x.Id);
+                    table.PrimaryKey("PK_AppEntrepriseUserInfos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EntrepriseUserInfos_AppAgences_AgencesId",
+                        name: "FK_AppEntrepriseUserInfos_AppAgences_AgencesId",
                         column: x => x.AgencesId,
                         principalTable: "AppAgences",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_EntrepriseUserInfos_AspNetUsers_ApplicationUserId",
+                        name: "FK_AppEntrepriseUserInfos_AspNetUsers_ApplicationUserId",
                         column: x => x.ApplicationUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -803,17 +804,17 @@ namespace AtomicsManager.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Name = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: true),
-                    HeadId = table.Column<string>(nullable: true)
+                    HeadId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AppDepartements", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppDepartements_EntrepriseUserInfos_HeadId",
+                        name: "FK_AppDepartements_AppEntrepriseUserInfos_HeadId",
                         column: x => x.HeadId,
-                        principalTable: "EntrepriseUserInfos",
+                        principalTable: "AppEntrepriseUserInfos",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -881,6 +882,16 @@ namespace AtomicsManager.Migrations
                 column: "Name");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AppDemandes_FournisseursId",
+                table: "AppDemandes",
+                column: "FournisseursId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppDemandes_userId",
+                table: "AppDemandes",
+                column: "userId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AppDepartements_HeadId",
                 table: "AppDepartements",
                 column: "HeadId",
@@ -895,6 +906,22 @@ namespace AtomicsManager.Migrations
                 name: "IX_AppDocumentsFournisseurs_FournisseursId",
                 table: "AppDocumentsFournisseurs",
                 column: "FournisseursId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppEntrepriseUserInfos_AgencesId",
+                table: "AppEntrepriseUserInfos",
+                column: "AgencesId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppEntrepriseUserInfos_ApplicationUserId",
+                table: "AppEntrepriseUserInfos",
+                column: "ApplicationUserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AppEntrepriseUserInfos_ServicesId",
+                table: "AppEntrepriseUserInfos",
+                column: "ServicesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppFournisseurs_DevisesId",
@@ -1019,32 +1046,6 @@ namespace AtomicsManager.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Demandes_FournisseursId",
-                table: "Demandes",
-                column: "FournisseursId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Demandes_userId",
-                table: "Demandes",
-                column: "userId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EntrepriseUserInfos_AgencesId",
-                table: "EntrepriseUserInfos",
-                column: "AgencesId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EntrepriseUserInfos_ApplicationUserId",
-                table: "EntrepriseUserInfos",
-                column: "ApplicationUserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EntrepriseUserInfos_ServicesId",
-                table: "EntrepriseUserInfos",
-                column: "ServicesId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_OpenIddictApplications_ClientId",
                 table: "OpenIddictApplications",
                 column: "ClientId",
@@ -1078,8 +1079,8 @@ namespace AtomicsManager.Migrations
                 unique: true);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_EntrepriseUserInfos_AppServices_ServicesId",
-                table: "EntrepriseUserInfos",
+                name: "FK_AppEntrepriseUserInfos_AppServices_ServicesId",
+                table: "AppEntrepriseUserInfos",
                 column: "ServicesId",
                 principalTable: "AppServices",
                 principalColumn: "Id",
@@ -1093,15 +1094,15 @@ namespace AtomicsManager.Migrations
                 table: "AppAgences");
 
             migrationBuilder.DropForeignKey(
+                name: "FK_AppEntrepriseUserInfos_AspNetUsers_ApplicationUserId",
+                table: "AppEntrepriseUserInfos");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_AppServices_AspNetUsers_HeadId",
                 table: "AppServices");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_EntrepriseUserInfos_AspNetUsers_ApplicationUserId",
-                table: "EntrepriseUserInfos");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_AppDepartements_EntrepriseUserInfos_HeadId",
+                name: "FK_AppDepartements_AppEntrepriseUserInfos_HeadId",
                 table: "AppDepartements");
 
             migrationBuilder.DropTable(
@@ -1109,6 +1110,9 @@ namespace AtomicsManager.Migrations
 
             migrationBuilder.DropTable(
                 name: "AppBankInfos");
+
+            migrationBuilder.DropTable(
+                name: "AppDemandes");
 
             migrationBuilder.DropTable(
                 name: "AppDocumentsFournisseurs");
@@ -1136,9 +1140,6 @@ namespace AtomicsManager.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
-
-            migrationBuilder.DropTable(
-                name: "Demandes");
 
             migrationBuilder.DropTable(
                 name: "OpenIddictScopes");
@@ -1189,7 +1190,7 @@ namespace AtomicsManager.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
-                name: "EntrepriseUserInfos");
+                name: "AppEntrepriseUserInfos");
 
             migrationBuilder.DropTable(
                 name: "AppAgences");

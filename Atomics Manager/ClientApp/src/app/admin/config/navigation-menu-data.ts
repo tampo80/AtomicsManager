@@ -29,7 +29,7 @@ export const NAVIGATION_MENU_DATA: NavigationGroup[] = [{
     name: "Mes demandes",
     items: [
         {
-        routerLink: "under-construction",
+        routerLink: "manage-demande-catalogues",
         name: "Initier une démande"
         },
         {
@@ -64,13 +64,19 @@ permissions:[
             name: "Les roles"
         },
         {
-            routerLink: "under-construction",
-            name: "Les Profils"
+            routerLink: "manage-approuval-level",
+            name: "Les niveaux d'approbation"
         },
+
+
         {
-            routerLink: "manage-entreprise",
-            name: "Société"
-        },
+          routerLink: "manage-approuval-group",
+          name: "Groupes d'approbation"
+      },
+      {
+          routerLink: "manage-entreprise",
+          name: "Société"
+      },
 
 ],
 permissions:[

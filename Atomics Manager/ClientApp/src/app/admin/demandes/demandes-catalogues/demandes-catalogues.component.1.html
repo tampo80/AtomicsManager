@@ -1,0 +1,38 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<div class="mat-row page mat-elevation-z2" width="80%">
+      <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+      <div class="mat-elevation-z8">
+  <mat-tab-group [selectedIndex]="selectedIndex">
+        <mat-tab label="Demandes d'achat">
+
+            <!-- <ng-container class="product-card" *ngIf="lesArticlesFilter.length; else notHeaveProducts">
+                <mat-card class="product-card" *ngFor="let product of lesArticlesFilter">
+                  <mat-card-header>
+                    <mat-card-title>
+                      <h3>{{ product.name }}</h3>
+                    </mat-card-title>
+                  </mat-card-header>
+                  <img mat-card-image [src]="product.sicone" width="123px" [alt]="product.name" [title]="product.name">
+                  <mat-card-content>
+                    <p>{{ product.description }}</p>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-raised-button color="accent" (click)="addItemToCard(product)">Add to card</button>
+                  </mat-card-actions>
+                </mat-card>
+              </ng-container> -->
+
+
+
+          <button mat-button (click)="onNextStepTriggered()">下一步</button>
+        </mat-tab>
+        <mat-tab label="Demandes de traveaux" [disabled]="step1">
+
+          <button mat-button>下一步</button>
+        </mat-tab>
+
+      </mat-tab-group>
+    </div>
+</div>
