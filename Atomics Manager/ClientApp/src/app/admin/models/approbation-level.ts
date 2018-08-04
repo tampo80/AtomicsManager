@@ -7,6 +7,6 @@ export class ApprobationLevel {
   expensLimite:string;
   level:number;
   typeApprovalGroup:TypeApprovalGroup;
-
+  shared:boolean;
 }
 

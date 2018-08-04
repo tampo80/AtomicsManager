@@ -39,7 +39,7 @@ namespace Atomics_Manager.Controllers
             EntrepriseUserInfos eUinfos=null;
             if (id != null)
             {
-                eUinfos = _unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e => e.ApplicationUserId == id);
+                eUinfos = _unitOfWork.EntrepriseUserInfos.GetAllIncluding(e=>e.Services,a=>a.Agences,d=>d.Departements).SingleOrDefault(e => e.ApplicationUserId == id);
             //    if (Res.ToList().Count() > 0)
             //    {
             //        return Ok(true);

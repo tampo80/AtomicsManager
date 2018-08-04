@@ -10,7 +10,8 @@ namespace Atomics_Manager.ViewModels
     {
         public int Id { get; set; }
         public string userId { get; set; }
-       
+        public string userUserName { get; set; }     
+        public string userFullName { get; set; }
         public DateTime DateDemande { get; set; }
         public string Motif { get; set; }
         public decimal Montant { get; set; }
@@ -18,10 +19,11 @@ namespace Atomics_Manager.ViewModels
         public Naturedemande Nature { get; set; }
         public DateTime DateLivraisonPrevu { get; set; }
         public DateTime DateLivraison { get; set; }
-
+        public ApprobationSatut Statut { get; set; }
         public int FournisseursId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
+         public int Quantite { get; set; }
 
     }
 }

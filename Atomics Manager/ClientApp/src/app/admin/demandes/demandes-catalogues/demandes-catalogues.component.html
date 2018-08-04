@@ -1,62 +1,52 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <div class="mat-row page mat-elevation-z2" width="80%">
-      <mat-form-field>
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-      </mat-form-field>
-      <div class="mat-elevation-z8">
-  <mat-tab-group [selectedIndex]="selectedIndex">
-        <mat-tab label="Demandes d'achat">
-
-            <!-- <ng-container class="product-card" *ngIf="lesArticlesFilter.length; else notHeaveProducts">
-                <mat-card class="product-card" *ngFor="let product of lesArticlesFilter">
-                  <mat-card-header>
-                    <mat-card-title>
-                      <h3>{{ product.name }}</h3>
-                    </mat-card-title>
-                  </mat-card-header>
-                  <img mat-card-image [src]="product.sicone" width="123px" [alt]="product.name" [title]="product.name">
-                  <mat-card-content>
-                    <p>{{ product.description }}</p>
-                  </mat-card-content>
-                  <mat-card-actions>
-                    <button mat-raised-button color="accent" (click)="addItemToCard(product)">Add to card</button>
-                  </mat-card-actions>
-                </mat-card>
-              </ng-container> -->
-              <div class="basic-container">
-
-              <mat-grid-list cols="4" rowHeight="fit" gutterSize="3px" [style.height]="'700px'">
-                <mat-grid-tile *ngFor="let product of lesArticlesFilter" >
-                    <mat-card class="product-card">
-                        <mat-card-header>
-                          <mat-card-title>
-                            <h4 (click)="detaillesDmande(product)"> {{ product.name }}</h4>
-                          </mat-card-title>
-                        </mat-card-header>
-                        <img class="card-item" (click)="detaillesDmande(product)" [src]="product.sicone" width="120px" height="100px" [alt]="product.name" [title]="product.name">
-                        <mat-card-content>
-                          <p class="description">{{ product.description }}</p>
-                        </mat-card-content>
-                        <mat-card-actions>
-
-                          <button mat-raised-button color="accent" (click)="createDemande(product)">Démander</button>
-                          {{ product.buyingPrice |currency:'XOF':'symbol' }}
-                        </mat-card-actions>
-                      </mat-card>
-                </mat-grid-tile>
-              </mat-grid-list>
-
-          </div>
-
-
-
-          <button mat-button (click)="onNextStepTriggered()">下一步</button>
-        </mat-tab>
-        <mat-tab label="Demandes de traveaux" [disabled]="step1">
-
-          <button mat-button>下一步</button>
-        </mat-tab>
-
-      </mat-tab-group>
+    <div class="search mat-elevation-z2" fxLayout="row" style="margin-bottom: 12px;">
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <mat-icon>search</mat-icon>
+        </div>
+    <input matInput type="search" autocomplete="off" spellcheck="false"  (keyup)="applyFilter($event.target.value)" placeholder="Recherche...">
     </div>
+  <div class="mat-elevation-z8">
+    <mat-tab-group [selectedIndex]="selectedIndex">
+      <mat-tab label="Demandes d'achat">
+
+        <div fxLayout="row wrap">
+          <div fxFlex="100" fxFlex.gt-mat="20" fxFlex.gt-sm="33.3" fxFlex.gt-xs="50" *ngFor="let navigation of currentNum">
+            <!--  <stbui-loading-skeleton></stbui-loading-skeleton> -->
+          </div>
+<div fxLayout="row wrap" style="margin:20px;" *ngIf="lesArticlesFilter.length<=0"> <h3> Aucun élément ne corresponds à cette recherche ...</h3> </div>
+          <div fxFlex="100" fxFlex.gt-mat="20" fxFlex.gt-sm="22.3" fxFlex.gt-xs="30" *ngFor="let product of lesArticlesFilter">
+            <mat-card class="nav-item">
+              <div class="nav-item-mask">
+                <div class="nav-item-logo" [style.background-image]="mkeTrustedImage(product.sicone)"></div>
+              </div>
+
+              <mat-card-header>
+                <mat-card-title class="nav-title">
+                  <h4>{{ product.name }}</h4>
+                </mat-card-title>
+                <mat-card-subtitle>
+                    <h4>{{ product.buyingPrice|currency:'XOF':'symbol' }}</h4>
+                </mat-card-subtitle>
+              </mat-card-header>
+              <mat-card-content flex>
+               {{ product.description|truncate :50 }}
+              </mat-card-content>
+              <mat-card-actions align="end" >
+                <button mat-raised-button (click)="createDemande(product)" color="accent" >Démander</button>
+              </mat-card-actions>
+            </mat-card>
+          </div>
+        </div>
+
+
+        <button mat-button (click)="onNextStepTriggered()"></button>
+      </mat-tab>
+      <mat-tab label="Demandes de traveaux" [disabled]="step1">
+
+        <button mat-button></button>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
 </div>

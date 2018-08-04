@@ -57,13 +57,20 @@ import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarModule, PerfectScrollbarConfi
 import { FileSizePipe } from './pipes/file-size.pipe';
 import { ImagesService } from './services/images.service';
 
+import { TruncateModule } from 'ng2-truncate';
+
 import localeFr from '@angular/common/locales/fr';
 import { DemandesCataloguesComponent } from './demandes/demandes-catalogues/demandes-catalogues.component';
 import { CatalogViewComponent } from './demandes/demandes-catalogues/catalog-view/catalog-view.component';
 import { WidgetStateComponent } from './widget/widget-state/widget-state.component';
 import { FooterComponent } from './footer/footer.component';
 import { IniDemandeComponent } from './demandes/ini-demande/ini-demande.component';
-import { DetaillesDemandeComponent } from './demandes/detailles-demande/detailles-demande.component';
+
+import { MesDemandesComponent } from './demandes/mes-demandes/mes-demandes.component';
+import { DetailOwndemandesComponent } from './demandes/mes-demandes/detail-owndemandes/detail-owndemandes.component';
+import { DetaildemandesInComponent } from './demandes/detaildemandes-in/detaildemandes-in.component';
+import { DemandesInComponent } from './demandes/demandes-in/demandes-in.component';
+import { DetailsDemandesInComponent } from './demandes/demandes-in/details-demandes-in/details-demandes-in.component';
 
 registerLocaleData(localeFr);
 
@@ -86,6 +93,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatButtonModule,
     CompomentsModule,
     PerfectScrollbarModule,
+    TruncateModule
 
   ],
   declarations: [
@@ -136,7 +144,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
     IniDemandeComponent,
 
-    DetaillesDemandeComponent,
+
+    MesDemandesComponent,
+
+    DetailOwndemandesComponent,
+
+    DetaildemandesInComponent,
+
+    DemandesInComponent,
+
+    DetailsDemandesInComponent,
 
 
 
@@ -194,7 +211,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AddFournisseursDialogComponent,
     EditFournisseursDialogComponent,
     EditPasswordComponent,
-    DetaillesDemandeComponent,
+    DetailOwndemandesComponent,
     IniDemandeComponent
 
   ]

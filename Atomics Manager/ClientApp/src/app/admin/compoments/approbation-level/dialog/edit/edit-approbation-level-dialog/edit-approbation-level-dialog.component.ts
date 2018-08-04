@@ -48,6 +48,7 @@ export class EditApprobationLevelDialogComponent implements OnInit {
   ];
   matcher = new FormErrorStateMatcher();
   typeApproval:TypeApprovalGroup[]=TYPE_APPROVAL_GROUP;
+  shard:boolean;
   constructor(private messageboxService:MessageboxService,public approbationLevelService:ApprobationLevelService, private fb: FormBuilder,public dialogRef: MatDialogRef<EditApprobationLevelDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
    // data.approbationLevel=new ApprobationLevel();
 
@@ -72,7 +73,7 @@ createForm()
       expensLimite:[ this.data.approbationLevel.expensLimite,Validators.required],
       level:[ this.data.approbationLevel.level,Validators.required],
       typeApprovalGroup:[ this.data.approbationLevel.typeApprovalGroup,Validators.required],
-
+      shared:[this.data.approbationLevel.shared,Validators.required]
     });
 
     this.ApprobationLevelForm.valueChanges.subscribe(data => this.onValueChanged(data));
@@ -91,6 +92,7 @@ onSubmit() {
   approbationLevel.level=this.ApprobationLevelForm.get('level').value;
   approbationLevel.expensLimite=this.ApprobationLevelForm.get('expensLimite').value;
   approbationLevel.typeApprovalGroup=this.ApprobationLevelForm.get('typeApprovalGroup').value;
+  approbationLevel.shared=this.ApprobationLevelForm.get('shared').value;
 
 
   this.approbationLevelService.updateApprobationLevel(approbationLevel).subscribe(

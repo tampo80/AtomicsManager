@@ -12,5 +12,6 @@ namespace Atomics_Manager.ViewModels{
         public int Level { get; set; }
         public decimal ExpensLimite { get; set; }
         public TypeApprovalGroup TypeApprovalGroup { get; set; }
+        public bool Shared { get; set; }
     }
 }

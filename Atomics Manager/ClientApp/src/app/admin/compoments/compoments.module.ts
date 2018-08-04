@@ -42,6 +42,7 @@ import { SetUserPositionComponent } from './users/dialogs/set-user-position/set-
 import { ApprobationLevelComponent } from './approbation-level/approbation-level.component';
 import { AddApprobationLevelDialogComponent } from './approbation-level/dialog/add/add-approbation-level-dialog/add-approbation-level-dialog.component';
 import { EditApprobationLevelDialogComponent } from './approbation-level/dialog/edit/edit-approbation-level-dialog/edit-approbation-level-dialog.component';
+import { GourpAddComponent } from './approbation-level/dialog/groupadd/gourp-add/gourp-add.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     align: "right",
@@ -93,7 +94,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     SetUserPositionComponent,
     ApprobationLevelComponent,
     AddApprobationLevelDialogComponent,
-    EditApprobationLevelDialogComponent
+    EditApprobationLevelDialogComponent,
+    GourpAddComponent
 
 
 
@@ -127,8 +129,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     EditArticlesDialogComponent,
     SetUserPositionComponent,
     AddApprobationLevelDialogComponent,
-    EditApprobationLevelDialogComponent
-
+    EditApprobationLevelDialogComponent,
+    GourpAddComponent
 
   ]
 

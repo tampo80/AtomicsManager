@@ -16,6 +16,9 @@ import { ConfigService } from '../../../../services/config.service';
 import { ImagesService } from '../../../../services/images.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpEventType } from '@angular/common/http';
+
+import {ImageCropperComponent, CropperSettings} from 'ngx-img-cropper';
+
 @Component({
   selector: 'app-add-articles-dialog',
   templateUrl: './add-articles-dialog.component.html',
@@ -63,9 +66,23 @@ export class AddArticlesDialogComponent implements OnInit {
 
     matcher = new FormErrorStateMatcher();
     devises:string;
+
+    datas: any;
+    cropperSettings: CropperSettings;
+
     constructor(private snackbar:MatSnackBar, private imageService:ImagesService,private domSanitize:DomSanitizer,  private fournisseursServces:FournisseursService, private messageboxService:MessageboxService,public articlesService:ArticlesService,private categoriesServices:CategoriesService, private fb: FormBuilder,public dialogRef: MatDialogRef<AddArticlesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
       data.articles=new Articles();
      this.devises=ConfigService.Devise;
+
+     this.cropperSettings = new CropperSettings();
+        this.cropperSettings.width = 100;
+        this.cropperSettings.height = 100;
+        this.cropperSettings.croppedWidth = 100;
+        this.cropperSettings.croppedHeight = 100;
+        this.cropperSettings.canvasWidth = 400;
+        this.cropperSettings.canvasHeight = 300;
+
+        this.datas = {};
     }
 
     ngOnInit() {
@@ -215,9 +232,7 @@ export class AddArticlesDialogComponent implements OnInit {
     );
      }
 
-     displayFn(categories?: Categories): string | undefined {
-      return categories ? categories.name : undefined;
-    }
+
 
     displayFn2(fournisseurs?: Fournisseurs): string | undefined {
       return fournisseurs ? fournisseurs.titre : undefined;

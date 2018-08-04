@@ -29,6 +29,11 @@
                   <mat-cell *matCellDef="let approbationLevel"> {{getTypeApprobation(approbationLevel.typeApprovalGroup)}} </mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="shared">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Public? </mat-header-cell>
+                  <mat-cell *matCellDef="let approbationLevel"> {{getType(approbationLevel.shared)}} </mat-cell>
+                </ng-container>
+
               <ng-container matColumnDef="actions" >
                   <mat-header-cell *matHeaderCellDef class="lastcell">
                     <button mat-mini-fab color="primary" matTooltip="Nouveau approbationLevel" (click)="addNewApprobationLevel(approbationLevel)">
@@ -41,7 +46,9 @@
                       <mat-icon aria-label="Edit">edit</mat-icon>
                     </button>
 
-
+                    <button mat-icon-button color="primary" matTooltip="Gérer les membres du groupe" (click)="manageGroupMembers(approbationLevel)">
+                      <mat-icon aria-label="ajouter un membre">group_add</mat-icon>
+                    </button>
 
                     <button mat-icon-button color="warn" matTooltip="Suprimer l'utilisateur" (click)="deleteApprobationLevel(approbationLevel)">
                       <mat-icon aria-label="Delete">delete</mat-icon>

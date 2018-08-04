@@ -30,13 +30,21 @@ namespace Atomics_Manager.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var allProduct = _unitOfWork.Product.GetAllIncluding(e => e.ProductCategory,j=>j.Fournisseurs);
+            var allProduct = _unitOfWork.Products.GetAllIncluding(e => e.ProductCategory,j=>j.Fournisseurs);
             return Ok(Mapper.Map<IEnumerable<ProductViewModel>>(allProduct).Select(e=>{
                 e.Sicone=getIcone(e.Icon);
                 return e;
             }));
         }
-    
+     [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var allProduct = _unitOfWork.Products.GetAllIncluding(e => e.ProductCategory,j=>j.Fournisseurs).SingleOrDefault(e=>e.Id==id);
+            var product=Mapper.Map<ProductViewModel>(allProduct);
+            product.Sicone=getIcone(product.Icon);
+           
+            return Ok(product);
+        }
 
         private string getIcone(byte[] icone)
         {
@@ -83,7 +91,7 @@ namespace Atomics_Manager.Controllers
                     Fournisseurs _fournisseurs=_unitOfWork.Fournisseurs.GetSingleOrDefault(e=>e.Id==product.FournisseursId);
                     _product.Fournisseurs=_fournisseurs;
                     _product.Name = _product.Name.ToUpper();
-                    await _unitOfWork.Product.AddAsync(_product);
+                    await _unitOfWork.Products.AddAsync(_product);
                     return Ok(await _unitOfWork.SaveChangesAsync());
 
                 }
@@ -113,19 +121,19 @@ namespace Atomics_Manager.Controllers
                        
                        
                     }
-                    Product _product = _unitOfWork.Product.GetSingleOrDefault(e=>e.Id==product.Id);
+                    Product _product = _unitOfWork.Products.GetSingleOrDefault(e=>e.Id==product.Id);
                     ProductCategory productCategory = _unitOfWork.ProductCategory.GetSingleOrDefault(e => e.Id == product.ProductCategoryId);
                     _product.ProductCategory = productCategory;
                     Fournisseurs _fournisseurs=_unitOfWork.Fournisseurs.GetSingleOrDefault(e=>e.Id==product.FournisseursId);
                     _product.Fournisseurs=_fournisseurs;
                     _product.Name = product.Name.ToUpper();
-                    _product.Icon=product.Icon;
+                    _product.Icon=product.IIcon==null?_product.Icon:product.Icon;
                     _product.BuyingPrice = product.BuyingPrice;
                     _product.DateModified = DateTime.Now;
                     _product.Description = product.Description;
                     _product.UpdatedBy = User.Identity.Name;
                     
-                    _unitOfWork.Product.Update(_product);
+                    _unitOfWork.Products.Update(_product);
 
                     await _unitOfWork.SaveChangesAsync();
                     return Ok("OK");
@@ -151,10 +159,10 @@ namespace Atomics_Manager.Controllers
             {
                 try
                 {
-                    Product _product = _unitOfWork.Product.GetSingleOrDefault(e => e.Id == id);
+                    Product _product = _unitOfWork.Products.GetSingleOrDefault(e => e.Id == id);
                     if (_product != null)
                     {
-                        _unitOfWork.Product.Remove(_product);
+                        _unitOfWork.Products.Remove(_product);
                         await _unitOfWork.SaveChangesAsync();
                         return Ok("OK");
                     }

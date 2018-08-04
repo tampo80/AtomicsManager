@@ -15,9 +15,11 @@ namespace DAL.Models
         public int Level { get; set; }
         public decimal ExpensLimite { get; set; }
         public TypeApprovalGroup TypeApprovalGroup { get; set; }
-
+       
+        public bool Shared { get; set; }
         //navigation
 
         public ICollection<APGmembers> APGmembers { get; set; }
+        public ICollection<ApprobationWorkflow> ApprobationWorkflow { get; set; }
     }
 }

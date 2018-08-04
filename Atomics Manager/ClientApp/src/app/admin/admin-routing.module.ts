@@ -22,6 +22,8 @@ import { APGembersComponent } from './compoments/a-pgembers/a-pgembers.component
 import { ProfilComponent } from './compoments/profil/profil.component';
 import { ApprobationLevelComponent } from './compoments/approbation-level/approbation-level.component';
 import { DemandesCataloguesComponent } from './demandes/demandes-catalogues/demandes-catalogues.component';
+import { MesDemandesComponent } from './demandes/mes-demandes/mes-demandes.component';
+import { DemandesInComponent } from './demandes/demandes-in/demandes-in.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -29,7 +31,10 @@ import { DemandesCataloguesComponent } from './demandes/demandes-catalogues/dema
       path: '',
       component: AdminComponent,
       children: [
+        {path:'',redirectTo:'dashboard',pathMatch:'full'},
         {path:'manage-approuval-level',component:ApprobationLevelComponent},
+        {path:'manage-demandesin',pathMatch:'full',component:DemandesInComponent},
+        {path:'manage-mesdemandes',pathMatch:'full',component:MesDemandesComponent},
         { path: 'manage-profil', component: ProfilComponent },
         {path:'manage-demande-catalogues',component:DemandesCataloguesComponent},
         { path: 'manage-approuval-group', component: APGembersComponent },

@@ -50,6 +50,8 @@ namespace DAL
         IProductRepository _Product;
         IEntrepriseUserInfosRepository _EntrepriseUserInfos;
 
+         IApprobationWorkflowRepository _ApprobationWorkflow;
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -222,6 +224,16 @@ namespace DAL
         }
 
 
+    public IApprobationWorkflowRepository ApprobationWorkflow
+            {
+                get
+                {
+                    if (_ApprobationWorkflow == null)
+                        _ApprobationWorkflow = new ApprobationWorkflowRepository(_context);
+
+                    return _ApprobationWorkflow;
+                }
+            }
 
 
      
@@ -286,17 +298,6 @@ namespace DAL
             }
         }
 
-
-        public IProductRepository Product
-        {
-            get
-            {
-                if (_Product == null)
-                    _Product = new ProductRepository(_context);
-
-                return _Product;
-            }
-        }
 
 
         public IEntrepriseUserInfosRepository EntrepriseUserInfos

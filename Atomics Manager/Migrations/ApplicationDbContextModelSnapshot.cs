@@ -196,6 +196,8 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("Name");
 
+                    b.Property<bool>("Shared");
+
                     b.Property<int>("TypeApprovalGroup");
 
                     b.Property<string>("UpdatedBy")
@@ -206,6 +208,34 @@ namespace AtomicsManager.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppApprobationLevel");
+                });
+
+            modelBuilder.Entity("DAL.Models.ApprobationWorkflow", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("ApprobationDate");
+
+                    b.Property<int>("DemandesId");
+
+                    b.Property<int>("GlobalStatut");
+
+                    b.Property<int?>("LevelId");
+
+                    b.Property<int>("LevelStatut");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemandesId");
+
+                    b.HasIndex("LevelId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AppApprobationWorkflow");
                 });
 
             modelBuilder.Entity("DAL.Models.BankInfos", b =>
@@ -322,6 +352,10 @@ namespace AtomicsManager.Migrations
                     b.Property<int>("Nature");
 
                     b.Property<int>("ProductId");
+
+                    b.Property<int>("Quantite");
+
+                    b.Property<int>("Statut");
 
                     b.Property<int>("TypeLigne");
 
@@ -1063,6 +1097,22 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.ApplicationUser", "Member")
                         .WithMany()
                         .HasForeignKey("MemberId");
+                });
+
+            modelBuilder.Entity("DAL.Models.ApprobationWorkflow", b =>
+                {
+                    b.HasOne("DAL.Models.Demandes", "Demandes")
+                        .WithMany("ApprobationWorkflow")
+                        .HasForeignKey("DemandesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.ApprobationLevel", "Level")
+                        .WithMany("ApprobationWorkflow")
+                        .HasForeignKey("LevelId");
+
+                    b.HasOne("DAL.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("DAL.Models.BankInfos", b =>

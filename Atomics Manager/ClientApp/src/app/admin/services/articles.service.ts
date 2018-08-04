@@ -39,6 +39,11 @@ getArticlesByPaysId(id?:number):Observable<Articles[]> {
 
 }
 
+
+getArticlesById(id?:number):Observable<Articles> {
+  return this.http.get<Articles>(ConfigService.rootUrl+this._articlesUrl+"/"+id,this.getRequestHeaders());
+
+}
 deleteArticles(ArticlesId?:number):Observable<{}>{
 
   return this.http.delete(ConfigService.rootUrl+this._articlesUrl+"/"+ArticlesId,this.getRequestHeaders());

@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Articles } from '../../models/articles';
 import { ArticlesService } from '../../services/articles.service';
 import { MatDialog } from '../../../../../node_modules/@angular/material';
-import { DetaillesDemandeComponent } from '../detailles-demande/detailles-demande.component';
+
 import { MessageboxService } from '../../services/messagebox.service';
 import { IniDemandeComponent } from '../ini-demande/ini-demande.component';
+import { DomSanitizer } from '../../../../../node_modules/@angular/platform-browser';
+import { Route, Router } from '../../../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-demandes-catalogues',
@@ -14,7 +16,7 @@ import { IniDemandeComponent } from '../ini-demande/ini-demande.component';
 export class DemandesCataloguesComponent implements OnInit {
   lesArticles:Articles[]=[];
   lesArticlesFilter:Articles[]=[];
-  constructor(private messageboxService:MessageboxService ,private articlesServices:ArticlesService,private dialog:MatDialog) {
+  constructor(private router:Router, private domSanitize:DomSanitizer, private messageboxService:MessageboxService ,private articlesServices:ArticlesService,private dialog:MatDialog) {
 this.getArticles();
   }
 
@@ -26,6 +28,12 @@ getArticles()
     this.lesArticles=res;
   });
 
+}
+mkeTrustedImage(item)
+{
+  const imageString=item.replace(/\\n/g,'');
+  const style='url('+imageString+')';
+  return this.domSanitize.bypassSecurityTrustStyle(style);
 }
 
 _filterCateGories(value: string): Articles[] {
@@ -47,25 +55,11 @@ applyFilter(filterValue: string) {
   }
 
 }
-detaillesDmande(articles:Articles)
-{
-  const dialogRef = this.dialog.open(DetaillesDemandeComponent,{
-    data:{articles:articles},
-   width:'600px',
-   disableClose:true
-  });
-
-  dialogRef.afterClosed().subscribe(res=>{
-    console.log(res);
-    if (res.result===1) {
-
-      this.messageboxService.ShowMessage("Information","assignation effectué avec succès",articles.name,0,false,1,'500px',"info",'primary');
-    }
-  }
 
 
-  );
-}
+
+
+
 
 createDemande(product:Articles)
 {
@@ -80,6 +74,7 @@ createDemande(product:Articles)
     if (res.result===1) {
       this.lesArticlesFilter=[];
       this.messageboxService.ShowMessage("Information","assignation effectué avec succès",product.name,0,false,1,'500px',"info",'primary');
+      this.router.navigate(['/admin/manage-mesdemandes']);
     }
   }
 

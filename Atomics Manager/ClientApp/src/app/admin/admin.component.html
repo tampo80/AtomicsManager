@@ -5,10 +5,11 @@
   <div class="sidenav-container" fxLayout="column">
     <app-toolbar [sidenav]="sidenav"></app-toolbar>
     <div  class="main-container" #scrollContainer>
+        <perfect-scrollbar style="max-height: 96%;">
       <router-outlet></router-outlet>
-
+</perfect-scrollbar>
     </div>
-    <app-footer>ddddddd</app-footer>
+    <app-footer></app-footer>
   </div>
 
 </mat-sidenav-container>

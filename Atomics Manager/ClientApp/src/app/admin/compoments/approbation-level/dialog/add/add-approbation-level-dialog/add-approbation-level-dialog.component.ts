@@ -71,6 +71,7 @@ createForm()
       expensLimite:['',Validators.required],
       level:['',Validators.required],
       typeApprovalGroup:['',Validators.required],
+      shared:[false,Validators.required]
 
     });
 
@@ -90,7 +91,7 @@ onSubmit() {
   approbationLevel.level=this.ApprobationLevelForm.get('level').value;
   approbationLevel.expensLimite=this.ApprobationLevelForm.get('expensLimite').value;
   approbationLevel.typeApprovalGroup=this.ApprobationLevelForm.get('typeApprovalGroup').value;
-
+  approbationLevel.shared=this.ApprobationLevelForm.get('shared').value;
 
   this.approbationLevelService.addApprobationLevel(approbationLevel).subscribe(
 

@@ -33,12 +33,12 @@ export const NAVIGATION_MENU_DATA: NavigationGroup[] = [{
         name: "Initier une démande"
         },
         {
-            routerLink: "under-construction",
+            routerLink: "manage-mesdemandes",
             name: "Démandes initiées"
         },
         {
-            routerLink: "under-construction",
-            name: "Demande reçus"
+            routerLink: "manage-demandesin",
+            name: "Démandes reçus"
         }
 
 
@@ -71,7 +71,7 @@ permissions:[
 
         {
           routerLink: "manage-approuval-group",
-          name: "Groupes d'approbation"
+          name: "Workflow des démandes"
       },
       {
           routerLink: "manage-entreprise",

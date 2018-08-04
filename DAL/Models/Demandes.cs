@@ -9,6 +9,7 @@ namespace DAL.Models
         public int Id { get; set; }
         public string userId { get; set; }
         public ApplicationUser user { get; set; }
+        
         public DateTime DateDemande { get; set; }
         public string Motif { get; set; }
         public decimal Montant { get; set; }
@@ -20,6 +21,12 @@ namespace DAL.Models
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
+        public int Quantite { get; set; }
+
+        public ApprobationSatut Statut { get; set; }
+
+
+        public ICollection<ApprobationWorkflow> ApprobationWorkflow { get; set; }
 
     }
 }

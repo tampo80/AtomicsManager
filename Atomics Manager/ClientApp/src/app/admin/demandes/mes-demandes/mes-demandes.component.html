@@ -1,0 +1,60 @@
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<div class="mat-row page mat-elevation-z2" width="80%">
+
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+  <div class="mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+      <ng-container matColumnDef="id">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
+        <mat-cell *matCellDef="let row; let i=index"> {{i+1}}
+
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="productName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> La démande </mat-header-cell>
+        <mat-cell *matCellDef="let demande"> {{demande.productName}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="userFullName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> De </mat-header-cell>
+        <mat-cell *matCellDef="let demande"> {{demande.userFullName}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="montant">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Montant </mat-header-cell>
+        <mat-cell *matCellDef="let demande"> {{demande.montant|currency:'XOF':'symbol'}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="statut">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Statut </mat-header-cell>
+        <mat-cell *matCellDef="let demande" class="progrsStat"><mat-icon mat-tooltip="Statut" class="mat-18">{{getStatut(demande.statut)}}</mat-icon>  </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="dateDemande">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Date de la démande </mat-header-cell>
+        <mat-cell *matCellDef="let demande"> {{demande.dateDemande| date:'dd MMMM yyyy à HH:mm'}} </mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef class="lastcell">
+
+        </mat-header-cell>
+
+        <mat-cell *matCellDef="let demande" class="lastcell">
+          <button mat-icon-button color="primary" matTooltip="Régarder" (click)="demandesView(demande)">
+            <mat-icon aria-label="Edit">remove_red_eye</mat-icon>
+          </button>
+
+
+
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </mat-table>
+
+    <mat-paginator [pageSize]="8" [pageSizeOptions]="[5, 10, 25]">
+    </mat-paginator>
+
+
+  </div>

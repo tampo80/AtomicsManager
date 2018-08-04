@@ -7,6 +7,7 @@ import { AddApprobationLevelDialogComponent } from './dialog/add/add-approbation
 import { EditApprobationLevelDialogComponent } from './dialog/edit/edit-approbation-level-dialog/edit-approbation-level-dialog.component';
 import { TypeApprovalGroup } from '../../models/type-approval-group';
 import { TYPE_APPROVAL_GROUP } from '../../config';
+import { GourpAddComponent } from './dialog/groupadd/gourp-add/gourp-add.component';
 
 @Component({
   selector: 'app-approbation-level',
@@ -22,7 +23,7 @@ export class ApprobationLevelComponent implements OnInit , AfterViewInit {
     @ViewChild(MatSort) sort: MatSort;
     public result: any;
     dataSource = new MatTableDataSource();
-    displayedColumns = ['id','name','expensLimite','level','typeApprovalGroup','actions'];
+    displayedColumns = ['id','name','expensLimite','level','typeApprovalGroup','shared','actions'];
     isLoading:boolean;
     typeApproval:TypeApprovalGroup[]=TYPE_APPROVAL_GROUP;
     constructor(private approbationLevelService:ApprobationLevelService,private messageboxService:MessageboxService,private dialog: MatDialog) {
@@ -34,6 +35,20 @@ export class ApprobationLevelComponent implements OnInit , AfterViewInit {
       this.isLoading=true;
     }
 
+    getType(value:boolean)
+    {
+      let res:string="";
+      switch (value) {
+        case true:
+          res= "Partagé";
+          break;
+        case false:
+          res="Non Partagé";
+        default:
+          break;
+      }
+      return res;
+    }
     ngAfterViewInit() {
 
       this.dataSource.paginator = this.paginator;
@@ -110,6 +125,26 @@ export class ApprobationLevelComponent implements OnInit , AfterViewInit {
         if (res.result===1) {
           this.getApprobationLevel();
           this.messageboxService.ShowMessage("Information","ApprobationLevel ajouter avec succès","",0,false,1,'500px',"info",'primary');
+        }
+      }
+
+
+      );
+    }
+
+    manageGroupMembers(approbationLevel:ApprobationLevel){
+
+      const dialogRef = this.dialog.open(GourpAddComponent,{
+        data:{approbationLevel:approbationLevel},
+       width:'800px',
+       disableClose:true
+      });
+
+      dialogRef.afterClosed().subscribe(res=>{
+        console.log(res);
+        if (res.result===1) {
+          this.getApprobationLevel();
+          this.messageboxService.ShowMessage("Information"," Opération appliquée  avec succès","",0,false,1,'500px',"info",'primary');
         }
       }
 

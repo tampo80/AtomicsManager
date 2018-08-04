@@ -47,6 +47,9 @@ namespace DAL
 
         public DbSet<EntrepriseUserInfos> EntrepriseUserInfos { get; set; }
 
+
+       public DbSet<ApprobationWorkflow> ApprobationWorkflow { get; set; }
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
 
@@ -166,6 +169,8 @@ namespace DAL
             builder.Entity<Demandes>().ToTable($"App{nameof(this.Demandes)}");
 
             builder.Entity<EntrepriseUserInfos>().ToTable($"App{nameof(this.EntrepriseUserInfos)}");
+
+            builder.Entity<ApprobationWorkflow>().ToTable($"App{nameof(this.ApprobationWorkflow)}");
 
         }
 

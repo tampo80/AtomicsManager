@@ -29,11 +29,16 @@ export class DemandeService {
     return { headers: headers };
 }
 
-getDemandes():Observable<Demandes[]> {
+getDemandesOut():Observable<Demandes[]> {
   return this.http.get<Demandes[]>(ConfigService.rootUrl+this._demandesUrl,this.getRequestHeaders());
 
 }
 
+
+getDemandesIn():Observable<Demandes[]> {
+  return this.http.get<Demandes[]>(ConfigService.rootUrl+this._demandesUrl,this.getRequestHeaders());
+
+}
 getDemandesByPaysId(id?:number):Observable<Demandes[]> {
   return this.http.get<Demandes[]>(ConfigService.rootUrl+this._demandesUrl+"/bypaysid/"+id,this.getRequestHeaders());
 

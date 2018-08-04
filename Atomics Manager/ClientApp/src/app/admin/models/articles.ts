@@ -3,9 +3,9 @@ export class Articles {
   name:string;
   description:string;
   buyingPrice:string;
-  ProductCategoryName:string;
+  productCategoryName:string;
   productCategoryId:number;
-  fournisseursName:string;
+  fournisseursTitre:string;
   fournisseursId:number;
   sicone:string;
 

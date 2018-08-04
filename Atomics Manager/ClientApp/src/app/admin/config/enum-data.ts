@@ -1,5 +1,6 @@
 import { FormeJuridique } from "../models/forme-juridique";
 import { TypeApprovalGroup } from "../models/type-approval-group";
+import { GenericPairkeyValue } from "../models/generic-pairkey-value";
 
 export const FORME_JURIDIQUE:FormeJuridique[]=[
   {
@@ -57,4 +58,16 @@ export const  TYPE_APPROVAL_GROUP:TypeApprovalGroup[]=[
   },
 
 
+];
+
+export const STATUT:GenericPairkeyValue[]=[
+  {
+    value:0,label:"transfer_within_a_station "
+  },
+  {
+    value:1,label:"Rejété "
+  },
+  {
+    value:2,label:"Approuvée "
+  },
 ];

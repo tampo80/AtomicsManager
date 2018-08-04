@@ -11,7 +11,10 @@ mat-row:nth-child(even){
   background-color: #ffffff;
 }
 mat-row:nth-child(odd){
-  background-color: #e0e0e0;
+  background-color: #eff0f0;
 }
 
+mat-row:hover{
+  background-color:#e0e0e0;
+}
 

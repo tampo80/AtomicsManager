@@ -45,9 +45,11 @@ namespace DAL
 
         IProductCategoryRepository ProductCategory { get; }
 
-        IProductRepository Product { get; }
+       
 
         IEntrepriseUserInfosRepository EntrepriseUserInfos  { get;}
+
+         IApprobationWorkflowRepository ApprobationWorkflow  { get;}
 
         int SaveChanges();
         Task<int> SaveChangesAsync();

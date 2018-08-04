@@ -1,0 +1,42 @@
+<mat-toolbar color="primary">
+  Gestion des membres des groupes d'approbations
+  <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
+</mat-toolbar>
+
+<mat-divider></mat-divider>
+
+<mat-card>
+
+
+  <mat-card-content>
+
+     <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="aPGMemebersForm">
+      <mat-form-field class="example-full-width">
+
+        <input [matChipInputFor]="membersChpis" type="text" placeholder="Membre"   matInput formControlName="members" [matAutocomplete]="auto">
+        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="getSelected($event.option.value)">
+          <mat-option *ngFor="let option of filteredUsers | async" [value]="option">
+            {{option.userName}}
+          </mat-option>
+        </mat-autocomplete>
+
+      </mat-form-field>
+     </form>
+     <mat-divider></mat-divider>
+     <mat-chip-list #membersChpis >
+         <mat-chip (select)="onSelect" *ngFor="let apgmemeber of apgmembers" [selectable]="true" color="accent" [removable]="true" (remove)="remove(apgmemeber)" >
+             {{apgmemeber.memberFullName}}
+
+             <mat-icon matChipRemove (click)="remove(apgmemeber)">cancel</mat-icon>
+         </mat-chip>
+     </mat-chip-list>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-raised-button (click)="applyGroup()" [disabled]="" color="primary">Ajouter</button>
+
+    <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+
+  </mat-card-actions>
+
+</mat-card>

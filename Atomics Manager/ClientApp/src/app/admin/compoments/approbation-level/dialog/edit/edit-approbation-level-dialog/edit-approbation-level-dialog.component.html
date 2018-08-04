@@ -59,11 +59,12 @@
         <mat-error *ngIf="ApprobationLevelForm.hasError('required')">{{formErrors.level}}</mat-error>
       </mat-form-field>
 
+      <mat-from-field>
+          <mat-checkbox  formControlName="shared" [value]="shared" color="primary" >Partagé</mat-checkbox>
 
+      </mat-from-field>
 
       <br>
-
-
 
 
 

@@ -39,19 +39,35 @@ export class IniDemandeComponent implements OnInit {
   };
   matcher = new FormErrorStateMatcher();
 
-  constructor(private demandeServices:DemandeService, private userServices:UserService, private fb:FormBuilder, public dialogRef: MatDialogRef<IniDemandeComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { }
+  demande:Demandes=new Demandes();
+  constructor(private demandeServices:DemandeService, private userServices:UserService, private fb:FormBuilder, public dialogRef: MatDialogRef<IniDemandeComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+
+
+  }
 
   ngOnInit() {
     this.createForm();
+    this.demande.dateDemande=new Date();
+    this.demande.fournisseursId=this.data.articles.fournisseursId;
+    this.demande.montant=this.data.articles.buyingPrice;
+    this.demande.motif=this.demandeForm.get('motif').value;
+    this.demande.nature = 0;
+    this.demande.productId = this.data.articles.id;
+    this.demande.quantite=this.demandeForm.get('quantite').value;
+    this.demande.userId = this.userServices.currentUser.id;
   }
 
   createForm()
   {
     this.demandeForm=this.fb.group({
        motif:['',Validators.required],
+       quantite:[1,Validators.required]
     });
     this.demandeForm.valueChanges.subscribe(data => this.onValueChanged(data));
     this.onValueChanged();
+    this.demandeForm.get('quantite').valueChanges.subscribe(value=>{
+      this.demande.montant=value*this.data.articles.buyingPrice;
+    });
   }
 
   onNoClick(): void {
@@ -60,16 +76,16 @@ export class IniDemandeComponent implements OnInit {
 
   createDemande()
   {
-  const  demande:Demandes=new Demandes();
-  demande.dateDemande=new Date();
-  demande.fournisseursId=this.data.articles.fournisseursId;
-  demande.montant=this.data.articles.buyingPrice;
-  demande.motif=this.demandeForm.get('motif').value;
-  demande.nature = 0;
-  demande.productId = this.data.articles.id;
 
-  demande.userId = this.userServices.currentUser.id;
-    this.demandeServices.addDemandes(demande).subscribe(res => {
+  this.demande.dateDemande=new Date();
+  this.demande.fournisseursId=this.data.articles.fournisseursId;
+
+  this.demande.motif=this.demandeForm.get('motif').value;
+  this.demande.nature = 0;
+  this.demande.productId = this.data.articles.id;
+  this.demande.quantite=this.demandeForm.get('quantite').value;
+  this.demande.userId = this.userServices.currentUser.id;
+    this.demandeServices.addDemandes(this.demande).subscribe(res => {
       this.dialogRef.close({result:1});
     });
 
