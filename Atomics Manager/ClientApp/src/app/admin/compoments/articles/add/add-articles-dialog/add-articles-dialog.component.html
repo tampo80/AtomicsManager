@@ -11,7 +11,7 @@
 
 
 <mat-card-content>
-    <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="ArticlesForm" >
+    <form class="example-form"  [formGroup]="ArticlesForm" >
 
 
 
@@ -86,23 +86,21 @@
           <mat-card fxFlex>
 
 
+
             <div class="text-center center">
               <mat-progress-bar *ngIf="isImageLoading" mode="indeterminate"></mat-progress-bar>
               <img class="icone" [src]="imageToShow"
-                   alt="Place image title" (click)="fileInput.click()" matTooltip="Cliquer pour charger le logo" >
+                   alt="Place image title" (click)="croppe()" matTooltip="Cliquer pour charger le logo" >
             </div>
-            <div>
-              <img-cropper [image]="datas" [settings]="cropperSettings"></img-cropper><br>
-              <img [src]="datas.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
-          </div>
+
             <input
               style="display: none"
               type="file" (change)="onFileChanged($event)"
               #fileInput formControlName="icone">
             <mat-progress-bar mode="determinate" [value]="uploadProgress" *ngIf="uploadProgress>0" color="primary"></mat-progress-bar>
-
-
           </mat-card>
+          <br>
+
         </div>
   </td></tr>
 </table>

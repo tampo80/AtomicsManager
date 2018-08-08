@@ -13,7 +13,7 @@
         </mat-cell>
       </ng-container>
       <ng-container matColumnDef="productName">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> La démande </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> La demande </mat-header-cell>
         <mat-cell *matCellDef="let demande"> {{demande.productName}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="userFullName">
@@ -30,7 +30,7 @@
       </ng-container>
 
       <ng-container matColumnDef="dateDemande">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Date de la démande </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Date de la demande </mat-header-cell>
         <mat-cell *matCellDef="let demande"> {{demande.dateDemande| date:'dd MMMM yyyy à HH:mm'}} </mat-cell>
       </ng-container>
 

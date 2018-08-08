@@ -212,7 +212,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditFournisseursDialogComponent,
     EditPasswordComponent,
     DetailOwndemandesComponent,
-    IniDemandeComponent
+    IniDemandeComponent,
+    DetailsDemandesInComponent
 
   ]
 })

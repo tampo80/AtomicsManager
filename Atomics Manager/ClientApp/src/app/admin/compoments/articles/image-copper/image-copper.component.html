@@ -1,0 +1,27 @@
+
+<div>
+  <input type="file" (change)="fileChangeEvent($event)" />
+
+  <div>
+    <image-cropper
+
+        [imageChangedEvent]="imageChangedEvent"
+        [maintainAspectRatio]="true"
+        [aspectRatio]="4 / 3"
+        [resizeToWidth]="300"
+        format="jpeg"
+        (imageCroppedBase64)="imageCroppedBase64($event)"
+        (imageLoaded)="imageLoaded()"
+        (loadImageFailed)="loadImageFailed()"
+        style="max-height: 33vh"
+        [style.display]="cropperReady ? null : 'none'"
+        (imageCroppedFile)="imageCroppedFile($event)"
+    ></image-cropper>
+  </div>
+  <img [src]="croppedImage" width="200px"/>
+  <mat-divider></mat-divider>
+  <div class="action-box">
+    <button class="action" mat-raised-button (click)="onNoClick()" color="accent">Fermer</button>
+    <button  class="action" mat-raised-button (click)="apply()" color="primary">Selectionner</button>
+  </div>
+</div>

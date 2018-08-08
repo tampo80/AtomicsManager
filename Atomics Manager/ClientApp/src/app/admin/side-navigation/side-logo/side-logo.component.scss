@@ -1,7 +1,12 @@
 .logo {
     margin: 20px;
+    justify-content: center;
+    align-content: center;
+    display: flex;
 }
 
 img {
-    width: 120px;
+    width: 150px;
+    align-content: center;
+    justify-content: center;
 }

@@ -7,7 +7,7 @@ import { Articles } from '../../../../models/articles';
 import { ArticlesService } from '../../../../services/articles.service';
 import { CategoriesService } from '../../../../services/categories.service';
 import { MessageboxService } from '../../../../services/messagebox.service';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar, MatDialog } from '@angular/material';
 import { FournisseursService } from '../../../../services/fournisseurs.service';
 import { Fournisseurs } from '../../../../models/fournisseurs.model';
 import { Observable } from 'rxjs';
@@ -16,8 +16,11 @@ import { ConfigService } from '../../../../services/config.service';
 import { ImagesService } from '../../../../services/images.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { HttpEventType } from '@angular/common/http';
+import { ImageCopperComponent } from '../../image-copper/image-copper.component';
+import { DEFAULTIMG } from '../../../../config';
+import { ImageUtils } from '../../image-utils';
 
-import {ImageCropperComponent, CropperSettings} from 'ngx-img-cropper';
+
 
 @Component({
   selector: 'app-add-articles-dialog',
@@ -68,21 +71,20 @@ export class AddArticlesDialogComponent implements OnInit {
     devises:string;
 
     datas: any;
-    cropperSettings: CropperSettings;
 
-    constructor(private snackbar:MatSnackBar, private imageService:ImagesService,private domSanitize:DomSanitizer,  private fournisseursServces:FournisseursService, private messageboxService:MessageboxService,public articlesService:ArticlesService,private categoriesServices:CategoriesService, private fb: FormBuilder,public dialogRef: MatDialogRef<AddArticlesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+
+
+    imageChangedEvent: any = '';
+    croppedImage: any = '';
+    cropperReady = false;
+
+    constructor(private dialog: MatDialog,private snackbar:MatSnackBar, private imageService:ImagesService,private domSanitize:DomSanitizer,  private fournisseursServces:FournisseursService, private messageboxService:MessageboxService,public articlesService:ArticlesService,private categoriesServices:CategoriesService, private fb: FormBuilder,public dialogRef: MatDialogRef<AddArticlesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
       data.articles=new Articles();
      this.devises=ConfigService.Devise;
-
-     this.cropperSettings = new CropperSettings();
-        this.cropperSettings.width = 100;
-        this.cropperSettings.height = 100;
-        this.cropperSettings.croppedWidth = 100;
-        this.cropperSettings.croppedHeight = 100;
-        this.cropperSettings.canvasWidth = 400;
-        this.cropperSettings.canvasHeight = 300;
-
-        this.datas = {};
+     //this.selectedFile=new Blob();
+     this.imageToShow =domSanitize.bypassSecurityTrustUrl(DEFAULTIMG);
+     this.selectedFile=ImageUtils.toBlob(DEFAULTIMG,"default.png");
+     console.log(this.selectedFile);
     }
 
     ngOnInit() {
@@ -186,7 +188,7 @@ export class AddArticlesDialogComponent implements OnInit {
     articles.buyingPrice=this.ArticlesForm.get('buyingPrice').value;
 
      this.formData=new FormData();
-    this.formData.append('iIcon',this.selectedFile,this.selectedFile.name);
+    this.formData.append('iIcon', this.selectedFile,this.selectedFile.name);
     this.formData.append('productCategoryId',articles.productCategoryId.toString());
     this.formData.append('name',articles.name);
     this.formData.append('description',articles.description);
@@ -238,12 +240,38 @@ export class AddArticlesDialogComponent implements OnInit {
       return fournisseurs ? fournisseurs.titre : undefined;
     }
 
+    displayFn(categories?: Categories): string | undefined {
+      return categories ? categories.name : undefined;
+    }
 
     onFileChanged(event) {
       this.selectedFile = event.target.files[0]
       this.imageToShow=null;
       this.createImageFromBlob(this.selectedFile);
     }
+
+
+  fileChangeEvent(event: any): void {
+    this.selectedFile = event.target.files[0];
+    this.isImageLoading=true;
+      this.imageChangedEvent = event;
+  }
+  imageCroppedBase64(image: string) {
+    console.log(image);
+      this.croppedImage = image;
+  }
+
+  imageCroppedFile(image:File)
+  {
+    this.selectedFile=image;
+  }
+  imageLoaded() {
+    this.cropperReady = true;
+    this.isImageLoading=false;
+  }
+  imageLoadFailed () {
+    console.log('Load failed');
+  }
 
      onValueChanged(data?: any) {
       if (!this.createForm) {
@@ -264,5 +292,29 @@ export class AddArticlesDialogComponent implements OnInit {
           }
         }
       }
+    }
+
+
+
+    croppe(){
+
+      const dialogRef = this.dialog.open(ImageCopperComponent,{
+        data:{articles:""},
+        width:'800px',
+       disableClose:true
+      });
+
+      dialogRef.afterClosed().subscribe(res=>{
+        console.log(res);
+        if (res.result!=0) {
+
+          this.imageToShow=res.result.base64;
+          console.log(this.imageToShow)
+          this.selectedFile=res.result.blob;
+        }
+      }
+
+
+      );
     }
   }

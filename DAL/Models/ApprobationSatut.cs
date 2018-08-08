@@ -4,7 +4,8 @@ namespace DAL.Models
     {
         PENDING,
         REJET,
-        APPROUVE
+        APPROUVE,
+        OWNREJECT
 
     }
 }

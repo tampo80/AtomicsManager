@@ -123,6 +123,11 @@ namespace Atomics_Manager.ViewModels {
 
             .ReverseMap();
 
+
+            CreateMap<ApprobationWorkflow, ApprobationWorkflowViewModel>()
+
+            .ReverseMap();
+
         }
     }
 }

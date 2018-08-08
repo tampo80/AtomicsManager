@@ -43,6 +43,8 @@ import { ApprobationLevelComponent } from './approbation-level/approbation-level
 import { AddApprobationLevelDialogComponent } from './approbation-level/dialog/add/add-approbation-level-dialog/add-approbation-level-dialog.component';
 import { EditApprobationLevelDialogComponent } from './approbation-level/dialog/edit/edit-approbation-level-dialog/edit-approbation-level-dialog.component';
 import { GourpAddComponent } from './approbation-level/dialog/groupadd/gourp-add/gourp-add.component';
+import { ImageCropperModule } from '../../../../node_modules/ngx-image-cropper';
+import { ImageCopperComponent } from './articles/image-copper/image-copper.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     align: "right",
@@ -62,7 +64,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ReactiveFormsModule,
     FlexLayoutModule,
     CurrencyMaskModule,
-
+    ImageCropperModule,
 
   ],
   declarations: [
@@ -95,7 +97,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     ApprobationLevelComponent,
     AddApprobationLevelDialogComponent,
     EditApprobationLevelDialogComponent,
-    GourpAddComponent
+    GourpAddComponent,
+    ImageCopperComponent
 
 
 
@@ -130,7 +133,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     SetUserPositionComponent,
     AddApprobationLevelDialogComponent,
     EditApprobationLevelDialogComponent,
-    GourpAddComponent
+    GourpAddComponent,
+    ImageCopperComponent
 
   ]
 

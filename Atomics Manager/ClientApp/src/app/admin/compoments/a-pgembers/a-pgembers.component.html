@@ -1,14 +1,18 @@
-<mat-chip-list>
-    <mat-chip (select)="onSelect1">bienfoali ttyttytytytytyt</mat-chip>
-    <mat-chip (select)="onSelect2">Chip 2</mat-chip>
-</mat-chip-list>
-<button mat-button [matMenuTriggerFor]="menuRef">
-    Trigger
-</button>
+<input type="file" (change)="fileChangeEvent($event)" />
 
-<mat-menu #menuRef="matMenu" x-position="after" y-position="below"
-          [overlapTrigger]="false">
-    <a mat-menu-item href="item" *ngFor="let item of items">
-        item
-    </a>
-</mat-menu>
+<div>
+  <image-cropper
+
+      [imageChangedEvent]="imageChangedEvent"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="4 / 3"
+      [resizeToWidth]="128"
+      format="jpeg"
+      (imageCroppedBase64)="imageCroppedBase64($event)"
+      (imageLoaded)="imageLoaded()"
+      (loadImageFailed)="loadImageFailed()"
+      style="max-height: 33vh"
+      [style.display]="cropperReady ? null : 'none'"
+  ></image-cropper>
+</div>
+<img [src]="croppedImage" />

@@ -10,7 +10,7 @@ using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-
+using Newtonsoft.Json;
 namespace Atomics_Manager.Controllers
 {
     [Produces("application/json")]
@@ -42,12 +42,129 @@ namespace Atomics_Manager.Controllers
 
 
        [HttpGet("in")]
-       public IActionResult GetIn()
+       public async Task<IActionResult> GetIn()
         {
-            var allDemandes = _unitOfWork.Demandes.GetAllIncluding(e=>e.Product,f=>f.user);
-            return Ok(Mapper.Map<IEnumerable<DemandesViewModel>>(allDemandes));
+            if (User.Identity.Name == null)
+            {
+                return Unauthorized();
+            }
+            string usersId = await getCurrentUserId();
+            var WORKFLOW=await _unitOfWork.ApprobationLevel.GetAllAsyn();
+            WORKFLOW=WORKFLOW.OrderBy(e=>e.Level).ToList();
+
+            List<Demandes> DemandesIn=new List<Demandes>();
+            foreach (var level in WORKFLOW)
+            {
+                switch (level.TypeApprovalGroup)
+                {
+                    case TypeApprovalGroup.HEADSERVICE:
+                        if (IsHeadService(usersId))
+                        {
+
+                            DemandesIn = DemandesIn.Union(_unitOfWork.Demandes.GetAllIncluding(e => e.Product, f => f.user)).Where(e => e.Statut == ApprobationSatut.PENDING).ToList();
+
+                        }
+                        break;
+                    case TypeApprovalGroup.HEADDEPARTEMENT:
+                        break;
+                    case TypeApprovalGroup.GENERIQUE:
+                        break;
+                    case TypeApprovalGroup.SERVICEGENERAUX:
+                        break;
+                    case TypeApprovalGroup.CONTROLFINANCIER:
+                        break;
+                    case TypeApprovalGroup.EXPERTS:
+                        break;
+                    default:
+                        break;
+                }
+                
+            
+            }
+            
+
+            
+            return Ok(Mapper.Map<IEnumerable<DemandesViewModel>>(DemandesIn).Select(a=>{
+                
+                a.ServiceName=getUserService(a.userId);
+                a.AgenceName=getUserAgence(a.userId);
+                return a;
+            }));
         }
        
+       [HttpGet("level")]
+       public async Task<IActionResult> BuildWorkFlow()
+       {
+              var WORKFLOW=await _unitOfWork.ApprobationLevel.GetAllAsyn();
+              return Ok(WORKFLOW.ToList().OrderBy(e=>e.Level));
+       }
+
+
+        public string getUserService(string userid)
+        {
+          var entrepriseUserInfos=_unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e=>e.ApplicationUserId==userid);
+          string ServiceName=string.Empty;
+          if (entrepriseUserInfos!=null)
+          {
+              ServiceName=entrepriseUserInfos.Services.Name;
+          }
+
+          return ServiceName;
+        }
+
+         public string getUserAgence(string userid)
+         {
+          var entrepriseUserInfos=_unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e=>e.ApplicationUserId==userid);
+          string AgenceName=string.Empty;
+          if (entrepriseUserInfos!=null)
+          {
+                AgenceName = _unitOfWork.Agences.GetSingleOrDefault(e=>e.Id==entrepriseUserInfos.AgencesId).Name;
+          }
+
+          return AgenceName;
+        }
+        public EntrepriseUserInfos getUserInfos(string usersId)
+        {
+
+            return _unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e => e.ApplicationUserId == usersId);
+        }
+
+        public bool IsHeadService(string UserId)
+        {
+            int serviceId = _unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e=>e.ApplicationUserId==UserId).ServicesId;
+
+            var service = _unitOfWork.Services.GetSingleOrDefault(e => e.Id == serviceId);
+
+            if (service!=null)
+
+            {
+                if (service.Head!=null)
+                {
+                    string headId = service.Head.Id;
+                    if (headId != string.Empty)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+                
+            }
+            else
+            {
+                return false;
+            }
+
+           
+
+        }
+
         // POST api/values
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] DemandesViewModel demandes)

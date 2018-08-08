@@ -5,7 +5,7 @@ import { Fournisseurs } from '../../../../models/fournisseurs.model';
 import { FormGroup, FormBuilder, Validators } from '../../../../../../../node_modules/@angular/forms';
 import { ConfigService } from '../../../../services/config.service';
 import { FormErrorStateMatcher } from '../../../../formErrorStateMatcher/form-error-state-matcher';
-import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../../node_modules/@angular/material';
+import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '../../../../../../../node_modules/@angular/material';
 import { Articles } from '../../../../models/articles';
 import { ImagesService } from '../../../../services/images.service';
 import { DomSanitizer } from '../../../../../../../node_modules/@angular/platform-browser';
@@ -15,6 +15,7 @@ import { ArticlesService } from '../../../../services/articles.service';
 import { CategoriesService } from '../../../../services/categories.service';
 import { startWith, map } from '../../../../../../../node_modules/rxjs/operators';
 import { HttpEventType } from '../../../../../../../node_modules/@angular/common/http';
+import { ImageCopperComponent } from '../../image-copper/image-copper.component';
 
 @Component({
   selector: 'app-edit-articles-dialog',
@@ -62,7 +63,7 @@ export class EditArticlesDialogComponent implements OnInit {
 MatSnackBar
   matcher = new FormErrorStateMatcher();
   devises:string;MatDialogRef
-  constructor(private snackbar:MatSnackBar, private imageService:ImagesService,private domSanitize:DomSanitizer,  private fournisseursServces:FournisseursService, private messageboxService:MessageboxService,public articlesService:ArticlesService,private categoriesServices:CategoriesService, private fb: FormBuilder,public dialogRef: MatDialogRef<EditArticlesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private dialog: MatDialog,private snackbar:MatSnackBar, private imageService:ImagesService,private domSanitize:DomSanitizer,  private fournisseursServces:FournisseursService, private messageboxService:MessageboxService,public articlesService:ArticlesService,private categoriesServices:CategoriesService, private fb: FormBuilder,public dialogRef: MatDialogRef<EditArticlesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
     //data.articles=new Articles();
    this.devises=ConfigService.Devise;
   }
@@ -251,6 +252,29 @@ onSubmit() {
     this.createImageFromBlob(this.selectedFile);
   }
 
+
+
+  croppe(){
+
+    const dialogRef = this.dialog.open(ImageCopperComponent,{
+      data:{articles:""},
+      width:'800px',
+     disableClose:true
+    });
+
+    dialogRef.afterClosed().subscribe(res=>{
+      console.log(res);
+      if (res.result!=0) {
+
+        this.imageToShow=res.result.base64;
+        console.log(this.imageToShow)
+        this.selectedFile=res.result.blob;
+      }
+    }
+
+
+    );
+  }
    onValueChanged(data?: any) {
     if (!this.createForm) {
       return;

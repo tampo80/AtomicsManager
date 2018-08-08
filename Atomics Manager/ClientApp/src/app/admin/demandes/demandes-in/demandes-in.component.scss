@@ -1,0 +1,62 @@
+table {
+	width: 100%;
+  }
+
+  .mat-form-field {
+
+	width: 100%;
+  }
+
+  td, th {
+	width: 25%;
+  }
+
+  .page{
+	  padding: 2%;
+  }
+
+  .lastcell{
+    display: flex;
+    flex: 0 0 50px !important;
+    justify-content: flex-end;
+
+  }
+  .mat-column- {
+    display: flex;
+
+    justify-content: center center;
+    }
+
+    .mat-column-id {
+      display: flex;
+      flex: 0 0 50px !important;
+      justify-content: flex-start;
+      width: 50px;
+      }
+    .mat-column-statut {
+      display: flex;
+      flex: 0 0 50px !important;
+      white-space: unset !important;
+      justify-content:center center;
+      }
+
+    .progrsStat{
+      color: red;
+      font-size: 14;
+      font-stretch: condensed;
+    }
+
+
+    .right.mat-cell {
+      display: flex;
+      justify-content: flex-end;
+  }
+  .right.mat-header-cell {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 0;
+      padding-left: 24px;
+  }
+  .right.mat-header-cell:last-child {
+      margin-right: 0;
+  }

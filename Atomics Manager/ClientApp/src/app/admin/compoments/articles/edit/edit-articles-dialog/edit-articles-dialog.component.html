@@ -89,7 +89,7 @@
               <div class="text-center center">
                 <mat-progress-bar *ngIf="isImageLoading" mode="indeterminate"></mat-progress-bar>
                 <img class="icone" [src]="imageToShow"
-                     alt="Place image title" (click)="fileInput.click()" matTooltip="Cliquer pour charger le logo" >
+                     alt="Place image title" (click)="croppe()" matTooltip="Cliquer pour charger le logo" >
               </div>
 
               <input

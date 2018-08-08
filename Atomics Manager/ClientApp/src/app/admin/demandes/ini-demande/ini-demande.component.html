@@ -1,7 +1,7 @@
 
 
    <mat-toolbar color="primary">
-      Initier la démandes
+      Initier la demandes
       <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
   </mat-toolbar>
 
@@ -66,7 +66,7 @@
   </mat-card-content>
 
   <mat-card-actions align="end">
-      <button mat-raised-button (click)="createDemande()" [disabled]="!demandeForm.valid" color="primary" >Créer la démande</button>
+      <button mat-raised-button (click)="createDemande()" [disabled]="!demandeForm.valid" color="primary" >Créer la demande</button>
       <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
 
   </mat-card-actions>

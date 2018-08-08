@@ -23,7 +23,14 @@ namespace Atomics_Manager.ViewModels
         public int FournisseursId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-         public int Quantite { get; set; }
+        public int Quantite { get; set; }
+
+        public string ServiceName { get; set; }
+        public string DepartementName { get; set; }
+
+        public string AgenceName { get; set; }    
+
+
 
     }
 }

@@ -9,7 +9,8 @@
   nature : number ;
   dateLivraisonPrevu :Date ;
   dateLivraison :Date ;
-
+  serviceName:string;
+  agenceName:string;
   fournisseursId: number;
   productId: number;
   productName:string;

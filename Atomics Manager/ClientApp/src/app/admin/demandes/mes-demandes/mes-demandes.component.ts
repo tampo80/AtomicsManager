@@ -114,8 +114,8 @@ demandesView(demande:Demandes){
   dialogRef.afterClosed().subscribe(res=>{
     console.log(res);
     if (res.result===1) {
-      //this.getDepartements();
-      this.messageboxService.ShowMessage("Information","Departements ajouter avec succès","",0,false,1,'500px',"info",'primary');
+      this.getMesdemandesOut();
+      ///this.messageboxService.ShowMessage("Information","Departements ajouter avec succès","",0,false,1,'500px',"info",'primary');
     }
   }
 

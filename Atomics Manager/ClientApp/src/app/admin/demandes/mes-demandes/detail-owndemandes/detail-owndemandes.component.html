@@ -3,7 +3,7 @@
   <mat-card>
       <mat-card-header>
           <img matCardAvatar [src]="productDetails.sicone">
-          <mat-card-title>Détails de la démandes</mat-card-title>
+          <mat-card-title>Détails de la demandes</mat-card-title>
           <mat-card-subtitle>{{userInfo.departementName}}</mat-card-subtitle>
           <mat-card-subtitle>Service {{userInfo.servicesName}}</mat-card-subtitle>
           <mat-card-subtitle>Agence {{userInfo.agencesName}}</mat-card-subtitle>
@@ -32,7 +32,7 @@
                   <td></td>
                 </tr>
                 <tr>
-                  <td>Date de la démande</td>
+                  <td>Date de la demande</td>
                   <td>{{demande.dateDemande| date:'dd MMMM yyyy à HH:mm'}}</td>
                   <td></td>
                 </tr>
@@ -61,7 +61,7 @@
                     {{productDetails.description}}
 
             </fieldset>
-            <fieldset class="fieldset">
+            <fieldset class="fieldset" *ngIf="demande.statut==0">
               <legend>Commentaire</legend>
                 <form  [formGroup]="demadeForm" >
                     <mat-form-field class="example-full-width" >
@@ -83,7 +83,7 @@
 </div>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-raised-button (click)="onClick" color="warn">
+        <button mat-raised-button [disabled]="!demadeForm.valid||demande.statut>0" (click)="cancelDemande()" color="warn">
             Annuler
             <mat-icon class="mat-18">remove</mat-icon>
 

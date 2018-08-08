@@ -7,6 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class APGembersComponent implements OnInit {
 
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  cropperReady = false;
+
+  fileChangeEvent(event: any): void {
+      this.imageChangedEvent = event;
+  }
+  imageCroppedBase64(image: string) {
+      this.croppedImage = image;
+  }
+  imageLoaded() {
+    this.cropperReady = true;
+  }
+  imageLoadFailed () {
+    console.log('Load failed');
+  }
   constructor() { }
 
   ngOnInit() {

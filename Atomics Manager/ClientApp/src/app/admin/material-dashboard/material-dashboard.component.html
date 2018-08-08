@@ -55,7 +55,7 @@
 
   <div class="card mat-elevation-z2 m-b-20 row">
     <div class="card-header" fxLayout="row" fxLayoutAlign="space-between center">
-      <div>Mes démandes en cours ...</div>
+      <div>Mes demandes en cours ...</div>
       <div fxLayout="row">
         <button mat-icon-button>
           <mat-icon>more_vert</mat-icon>
@@ -72,7 +72,7 @@
                       <mat-cell *matCellDef="let row; let i=index"> {{i+1}} <mat-icon class="mat-18"color="warn" >notifications</mat-icon></mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="productName">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> La démande </mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef mat-sort-header> La demande </mat-header-cell>
                         <mat-cell *matCellDef="let demande"> {{demande.productName}} </mat-cell>
                       </ng-container>
                       <ng-container matColumnDef="userFullName">
@@ -89,7 +89,7 @@
                     </ng-container>
 
                   <ng-container matColumnDef="dateDemande">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Date de la démande </mat-header-cell>
+                      <mat-header-cell *matHeaderCellDef mat-sort-header>Date de la demande </mat-header-cell>
                       <mat-cell *matCellDef="let demande"> {{demande.dateDemande| date:'dd MMMM yyyy à HH:mm'}} </mat-cell>
                     </ng-container>
 

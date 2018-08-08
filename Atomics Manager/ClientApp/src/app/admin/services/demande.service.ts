@@ -36,7 +36,7 @@ getDemandesOut():Observable<Demandes[]> {
 
 
 getDemandesIn():Observable<Demandes[]> {
-  return this.http.get<Demandes[]>(ConfigService.rootUrl+this._demandesUrl,this.getRequestHeaders());
+  return this.http.get<Demandes[]>(ConfigService.rootUrl+this._demandesUrl+"/in",this.getRequestHeaders());
 
 }
 getDemandesByPaysId(id?:number):Observable<Demandes[]> {

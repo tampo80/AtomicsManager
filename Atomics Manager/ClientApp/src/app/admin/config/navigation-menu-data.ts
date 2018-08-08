@@ -30,15 +30,15 @@ export const NAVIGATION_MENU_DATA: NavigationGroup[] = [{
     items: [
         {
         routerLink: "manage-demande-catalogues",
-        name: "Initier une démande"
+        name: "Initier une demande"
         },
         {
             routerLink: "manage-mesdemandes",
-            name: "Démandes initiées"
+            name: "Demandes initiées"
         },
         {
             routerLink: "manage-demandesin",
-            name: "Démandes reçus"
+            name: "Demandes reçus"
         }
 
 
@@ -71,7 +71,7 @@ permissions:[
 
         {
           routerLink: "manage-approuval-group",
-          name: "Workflow des démandes"
+          name: "Workflow des demandes"
       },
       {
           routerLink: "manage-entreprise",
@@ -120,7 +120,7 @@ permissions:[
     name: "Repportings",
     items: [{
         routerLink: "under-construction",
-        name: "Statistique des démandes"
+        name: "Statistique des demandes"
     }, {
         routerLink: "under-construction",
         name: "les graphiques"
