@@ -7,6 +7,7 @@ import { MessageboxService } from '../../services/messagebox.service';
 import { IniDemandeComponent } from '../ini-demande/ini-demande.component';
 import { DomSanitizer } from '../../../../../node_modules/@angular/platform-browser';
 import { Route, Router } from '../../../../../node_modules/@angular/router';
+import { ApprobationLevel } from '../../models/approbation-level';
 
 @Component({
   selector: 'app-demandes-catalogues',
@@ -16,6 +17,7 @@ import { Route, Router } from '../../../../../node_modules/@angular/router';
 export class DemandesCataloguesComponent implements OnInit {
   lesArticles:Articles[]=[];
   lesArticlesFilter:Articles[]=[];
+
   constructor(private router:Router, private domSanitize:DomSanitizer, private messageboxService:MessageboxService ,private articlesServices:ArticlesService,private dialog:MatDialog) {
 this.getArticles();
   }
@@ -65,7 +67,7 @@ createDemande(product:Articles)
 {
   const dialogRef = this.dialog.open(IniDemandeComponent,{
     data:{articles:product},
-   width:'600px',
+   width:'700px',
    disableClose:true
   });
 

@@ -32,6 +32,11 @@ getApprobationLevel():Observable<ApprobationLevel[]> {
 
 }
 
+getExpertApprobationLevel():Observable<ApprobationLevel[]> {
+  return this.http.get<ApprobationLevel[]>(ConfigService.rootUrl+this._approbationLevelUrl+"/expertise",this.getRequestHeaders());
+
+}
+
 getApprobationLevelByPaysId(id?:number):Observable<ApprobationLevel[]> {
   return this.http.get<ApprobationLevel[]>(ConfigService.rootUrl+this._approbationLevelUrl+"/bypaysid/"+id,this.getRequestHeaders());
 

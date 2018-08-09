@@ -34,6 +34,13 @@ namespace Atomics_Manager.Controllers
             return Ok(Mapper.Map<IEnumerable<ApprobationWorkflowViewModel>>(allApprobationWorkflow));
         }
 
+        [HttpGet("{DemandeId}")]
+        public IActionResult GetByDemandesId(int DemandeId)
+        {
+            var allApprobationWorkflow = _unitOfWork.ApprobationWorkflow.GetAllIncluding(u=>u.User).Where(e=>e.DemandesId==DemandeId);
+            return Ok(Mapper.Map<IEnumerable<ApprobationWorkflowViewModel>>(allApprobationWorkflow));
+        }
+
         //[HttpGet("Isavailable/{name}")]
         //public IActionResult Isavailable([FromRoute] string name)
         //{
@@ -54,6 +61,43 @@ namespace Atomics_Manager.Controllers
         //}
 
         // POST api/values
+
+        public ApprobationLevel APL(ApprobationSatut statut,int demandId)
+        {
+            var workflowState = _unitOfWork.ApprobationWorkflow.GetAllIncluding(e=>e.Level).Where(d=>d.DemandesId==demandId).OrderBy(l=>l.Level.Level);
+            ApprobationLevel apl = new ApprobationLevel();
+            if (workflowState==null || workflowState.Count()<=0)
+            {
+
+                switch (statut)
+                {
+                    case ApprobationSatut.EXPERTISE:
+                        apl = _unitOfWork.ApprobationLevel.GetSingleOrDefault(e => e.TypeApprovalGroup == TypeApprovalGroup.HEADSERVICE);
+                        break;
+                    case ApprobationSatut.PENDING:
+                        apl = _unitOfWork.ApprobationLevel.GetSingleOrDefault(e => e.TypeApprovalGroup == TypeApprovalGroup.HEADSERVICE);
+
+                        break;
+                    case ApprobationSatut.REJET:
+                        apl = _unitOfWork.ApprobationLevel.GetSingleOrDefault(e => e.TypeApprovalGroup == TypeApprovalGroup.ALLUERS);
+                        break;
+                    case ApprobationSatut.APPROUVE:
+                        apl = _unitOfWork.ApprobationLevel.GetSingleOrDefault(e => e.TypeApprovalGroup == TypeApprovalGroup.SERVICEGENERAUX);
+                        break;
+                    case ApprobationSatut.OWNREJECT:
+                        apl = _unitOfWork.ApprobationLevel.GetSingleOrDefault(e => e.TypeApprovalGroup == TypeApprovalGroup.ALLUERS);
+                        break;
+                    case ApprobationSatut.DELIVRED:
+                        apl = _unitOfWork.ApprobationLevel.GetSingleOrDefault(e => e.TypeApprovalGroup == TypeApprovalGroup.ALLUERS);
+                        break;
+                    default:
+                        break;
+                }
+               
+            }
+
+            return apl;
+        }
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] ApprobationWorkflowViewModel approbationWorkflow)
         {
@@ -64,10 +108,12 @@ namespace Atomics_Manager.Controllers
                     ApprobationWorkflow _approbationWorkflow = Mapper.Map<ApprobationWorkflow>(approbationWorkflow);
                     _approbationWorkflow.UserId =await getCurrentUserId();
                     //to correct
-                    ApprobationLevel apl = _unitOfWork.ApprobationLevel.GetSingleOrDefault(e=>e.Id==e.Id);
+                  
                     Demandes _demande = _unitOfWork.Demandes.GetSingleOrDefault(e => e.Id == approbationWorkflow.DemandesId);
+                    ApprobationLevel apl =_unitOfWork.ApprobationLevel.GetSingleOrDefault(e=>e.Id==APL(_demande.Statut,_demande.Id).Id);
                     _demande.Statut = approbationWorkflow.GlobalStatut;
                     _approbationWorkflow.Level = apl;
+                    
                     _unitOfWork.ApprobationWorkflow.Add(_approbationWorkflow);
                     await _unitOfWork.SaveChangesAsync();
                     return Ok("OK");

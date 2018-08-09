@@ -26,7 +26,7 @@ export class MesDemandesComponent implements OnInit {
 
    getStatut(value)
    {
-     return STATUT.find(e=>e.value==value).label;
+     return STATUT.find(e=>e.value==value);
    }
 
    getMesdemandesOut()

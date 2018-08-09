@@ -5,6 +5,8 @@ import { FormErrorStateMatcher } from '../../formErrorStateMatcher/form-error-st
 import { Demandes } from '../../models/demandes';
 import { UserService } from '../../services/user.service';
 import { DemandeService } from '../../services/demande.service';
+import { ApprobationLevelService } from '../../services/approbation-level.service';
+import { ApprobationLevel } from '../../models/approbation-level';
 
 @Component({
   selector: 'app-ini-demande',
@@ -40,12 +42,15 @@ export class IniDemandeComponent implements OnInit {
   matcher = new FormErrorStateMatcher();
 
   demande:Demandes=new Demandes();
-  constructor(private demandeServices:DemandeService, private userServices:UserService, private fb:FormBuilder, public dialogRef: MatDialogRef<IniDemandeComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  expertAPL:ApprobationLevel[]=[];
+  SYSTEM_EXPERTS:ApprobationLevel;
+  constructor(private approbationLevelService:ApprobationLevelService, private demandeServices:DemandeService, private userServices:UserService, private fb:FormBuilder, public dialogRef: MatDialogRef<IniDemandeComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
 
 
   }
 
   ngOnInit() {
+    this.getExpertApl();
     this.createForm();
     this.demande.dateDemande=new Date();
     this.demande.fournisseursId=this.data.articles.fournisseursId;
@@ -61,7 +66,8 @@ export class IniDemandeComponent implements OnInit {
   {
     this.demandeForm=this.fb.group({
        motif:['',Validators.required],
-       quantite:[1,Validators.required]
+       quantite:[1,Validators.required],
+       experts:[this.SYSTEM_EXPERTS],
     });
     this.demandeForm.valueChanges.subscribe(data => this.onValueChanged(data));
     this.onValueChanged();
@@ -74,6 +80,17 @@ export class IniDemandeComponent implements OnInit {
     this.dialogRef.close({result:0});;
   }
 
+
+  getExpertApl()
+  {
+    this.approbationLevelService.getExpertApprobationLevel().subscribe(res=>{
+      this.expertAPL=res;
+      this.SYSTEM_EXPERTS=this.expertAPL.find(e=>e.name=='SYSTEM_EXPERTS');
+      this.demandeForm.get('experts').setValue(this.SYSTEM_EXPERTS);
+    })
+  }
+
+
   createDemande()
   {
 
@@ -85,6 +102,7 @@ export class IniDemandeComponent implements OnInit {
   this.demande.productId = this.data.articles.id;
   this.demande.quantite=this.demandeForm.get('quantite').value;
   this.demande.userId = this.userServices.currentUser.id;
+  this.demande.expertsId=this.demandeForm.get('experts').value.id;
     this.demandeServices.addDemandes(this.demande).subscribe(res => {
       this.dialogRef.close({result:1});
     });

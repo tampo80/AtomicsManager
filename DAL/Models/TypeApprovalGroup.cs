@@ -6,12 +6,14 @@ namespace DAL.Models
 {
    public enum TypeApprovalGroup
     {
+        ALLUERS,
         HEADSERVICE,
         HEADDEPARTEMENT,
         GENERIQUE,
         SERVICEGENERAUX,
         CONTROLFINANCIER,
-        EXPERTS
+        EXPERTS,
+        HEAD
 
     }
 }

@@ -39,6 +39,16 @@
           <mat-error *ngIf="demandeForm.hasError('quantite') && demandeForm.get('quantite').errors.required && !formErrors.quantite">{{validationMessages.quantite.required}}</mat-error>
 
        </mat-form-field>
+       <mat-form-field class="example-full-width" *ngIf="expertAPL.length>0">
+         <mat-select formControlName="experts" placeholder="type d'experts">
+             <mat-option *ngFor="let expert of expertAPL" [value]="expert">
+                 {{expert.name}}
+             </mat-option>
+         </mat-select>
+        <mat-error *ngIf="formErrors.quantite  ">{{formErrors.quantite}}</mat-error>
+        <mat-error *ngIf="demandeForm.hasError('quantite') && demandeForm.get('quantite').errors.required && !formErrors.quantite">{{validationMessages.quantite.required}}</mat-error>
+
+       </mat-form-field>
 
                     <mat-form-field class="example-full-width">
                             <textarea [errorStateMatcher]="matcher" matInput   placeholder="Motif évoqué"  formControlName='motif' required></textarea>

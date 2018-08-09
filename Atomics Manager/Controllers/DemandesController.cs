@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Atomics_Manager.Helpers;
 using Atomics_Manager.ViewModels;
 using AutoMapper;
 using DAL;
@@ -36,7 +37,7 @@ namespace Atomics_Manager.Controllers
                return Unauthorized();
             }
             string usersId =await getCurrentUserId();
-            var allDemandes = _unitOfWork.Demandes.GetAllIncluding(e=>e.Product,f=>f.user).Where(e=>e.userId==usersId);
+            var allDemandes = _unitOfWork.Demandes.GetAllIncluding(e=>e.Product,f=>f.user).Where(e=>e.userId==usersId).OrderByDescending(e=>e.Id);
             return Ok(Mapper.Map<IEnumerable<DemandesViewModel>>(allDemandes));
         }
 
@@ -57,11 +58,13 @@ namespace Atomics_Manager.Controllers
             {
                 switch (level.TypeApprovalGroup)
                 {
+                    case TypeApprovalGroup.ALLUERS:
+                        break;
                     case TypeApprovalGroup.HEADSERVICE:
                         if (IsHeadService(usersId))
                         {
 
-                            DemandesIn = DemandesIn.Union(_unitOfWork.Demandes.GetAllIncluding(e => e.Product, f => f.user)).Where(e => e.Statut == ApprobationSatut.PENDING).ToList();
+                            DemandesIn = DemandesIn.Union(_unitOfWork.Demandes.GetAllIncluding(e => e.Product, f => f.user).Where(e => e.Statut == ApprobationSatut.PENDING)).ToList();
 
                         }
                         break;
@@ -74,10 +77,23 @@ namespace Atomics_Manager.Controllers
                     case TypeApprovalGroup.CONTROLFINANCIER:
                         break;
                     case TypeApprovalGroup.EXPERTS:
+                        List<ApprobationLevel> APExp = APGExperts();
+                        foreach (var item in APExp)
+                        {
+                            if (IsExpert(usersId,item.Id))
+                            {
+                                DemandesIn = DemandesIn.Union(_unitOfWork.Demandes.GetAllIncluding(e => e.Product, f => f.user).Where(e => e.Statut == ApprobationSatut.EXPERTISE && e.ExpertsId==item.Id)).ToList();
+
+                            }
+                        }
+                        break;
+
+                    case TypeApprovalGroup.HEAD:
                         break;
                     default:
                         break;
                 }
+               
                 
             
             }
@@ -100,6 +116,23 @@ namespace Atomics_Manager.Controllers
        }
 
 
+        public bool IsExpert(string userId,int ExpertGId)
+        {
+            var APGm = _unitOfWork.ApprobationLevel.GetAllIncluding(e => e.APGmembers).Where(e => e.Id == ExpertGId).SingleOrDefault();
+            if (APGm.APGmembers.FirstOrDefault(e=>e.MemberId==userId)!=null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public List<ApprobationLevel> APGExperts()
+        {
+            return _unitOfWork.ApprobationLevel.Find(e=>e.TypeApprovalGroup==TypeApprovalGroup.EXPERTS).ToList();
+        }
         public string getUserService(string userid)
         {
           var entrepriseUserInfos=_unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e=>e.ApplicationUserId==userid);
@@ -177,7 +210,16 @@ namespace Atomics_Manager.Controllers
                     Product _product=_unitOfWork.Products.GetSingleOrDefault(e=>e.Id==demandes.ProductId);
                     ApplicationUser user=await _accountManager.GetUserByIdAsync(_demandes.userId);
                     _demandes.Product=_product;
-                    _demandes.Statut=ApprobationSatut.PENDING;
+                    var statut = _unitOfWork.ApprobationLevel.GetSingleOrDefault(e => e.Id == demandes.ExpertsId);
+                    _demandes.Statut = ApprobationSatut.PENDING;
+                    if (statut!=null)
+                    {
+                        if (statut.Name.Trim() != GlobalVars.SYSTEM_EXPERTS && statut.TypeApprovalGroup==TypeApprovalGroup.EXPERTS) 
+                        {
+                            _demandes.Statut = ApprobationSatut.EXPERTISE;
+                        }
+                    }
+                  
                     
                     _unitOfWork.Demandes.Add(_demandes);
                     await _unitOfWork.SaveChangesAsync();

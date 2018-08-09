@@ -25,14 +25,19 @@ namespace Atomics_Manager.Controllers
             _logger = logger;
 
         }
-
+        
         [HttpGet]
         public IActionResult Get()
         {
-            var allApprobationLevel = _unitOfWork.ApprobationLevel.GetAll();
+            var allApprobationLevel = _unitOfWork.ApprobationLevel.GetAll().OrderBy(e=>e.Level) ;
             return Ok(Mapper.Map<IEnumerable<ApprobationLevelViewModel>>(allApprobationLevel));
         }
-
+        [HttpGet("expertise")]
+        public IActionResult GetExpert()
+        {
+            var allApprobationLevel = _unitOfWork.ApprobationLevel.Find(e=>e.TypeApprovalGroup==TypeApprovalGroup.EXPERTS);
+            return Ok(Mapper.Map<IEnumerable<ApprobationLevelViewModel>>(allApprobationLevel));
+        }
         [HttpGet("Isavailable/{name}")]
         public IActionResult Isavailable([FromRoute] string name)
         {

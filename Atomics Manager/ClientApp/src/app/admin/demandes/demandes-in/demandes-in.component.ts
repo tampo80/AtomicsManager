@@ -31,7 +31,7 @@ export class DemandesInComponent implements OnInit {
 
    getStatut(value)
    {
-     return STATUT.find(e=>e.value==value).label;
+     return STATUT.find(e=>e.value==value);
    }
 
    getMesdemandesOut()
@@ -112,7 +112,7 @@ demandesView(demande:Demandes){
 
   const dialogRef = this.dialog.open(DetailsDemandesInComponent,{
     data:{demande:demande},
-   width:'850px',
+   width:'900px',
    disableClose:true
   });
 

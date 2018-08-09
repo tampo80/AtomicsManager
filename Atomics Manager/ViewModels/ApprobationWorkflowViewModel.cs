@@ -11,8 +11,9 @@ namespace Atomics_Manager.ViewModels
         public int Id { get; set; }
         public DateTime ApprobationDate { get; set; }
         public string UserId { get; set; }
-       
 
+        public string userUserName { get; set; }
+        public string userFullName { get; set; }
         public int ApprobationLevelId  { get; set; }
 
         public ApprobationSatut LevelStatut { get; set; }

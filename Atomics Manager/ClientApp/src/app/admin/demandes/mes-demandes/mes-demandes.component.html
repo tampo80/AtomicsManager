@@ -26,7 +26,7 @@
       </ng-container>
       <ng-container matColumnDef="statut">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Statut </mat-header-cell>
-        <mat-cell *matCellDef="let demande" class="progrsStat"><mat-icon mat-tooltip="Statut" class="mat-18">{{getStatut(demande.statut)}}</mat-icon>  </mat-cell>
+        <mat-cell *matCellDef="let demande"><mat-icon [matTooltip]="getStatut(demande.statut).label" class="mat-18" [color]="getStatut(demande.statut).color">{{getStatut(demande.statut).icon}}</mat-icon>  </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="dateDemande">

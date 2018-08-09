@@ -28,8 +28,9 @@ namespace Atomics_Manager.ViewModels
         public string ServiceName { get; set; }
         public string DepartementName { get; set; }
 
-        public string AgenceName { get; set; }    
+        public string AgenceName { get; set; }
 
+        public int ExpertsId { get; set; }
 
 
     }

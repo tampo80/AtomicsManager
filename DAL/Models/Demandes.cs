@@ -25,7 +25,7 @@ namespace DAL.Models
 
         public ApprobationSatut Statut { get; set; }
 
-
+        public int ExpertsId { get; set; }
         public ICollection<ApprobationWorkflow> ApprobationWorkflow { get; set; }
 
     }

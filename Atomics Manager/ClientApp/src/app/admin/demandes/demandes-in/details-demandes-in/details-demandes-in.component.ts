@@ -27,16 +27,18 @@ export class DetailsDemandesInComponent implements OnInit {
   demadeForm:FormGroup;
   isLoading:boolean=true;
   userInfo:EntrepriseUserInfos=new EntrepriseUserInfos();
+  workFlow:ApprobationWorkflow[]=[];
   constructor(private approbationWorkflowService:ApprobationWorkflowService, private messageboxService:MessageboxService, private entrepriseUserinfos:EntrepriseUserInfosService, private articleService:ArticlesService, private demandeServices:DemandeService, private userServices:UserService, private fb:FormBuilder, public dialogRef: MatDialogRef<DetailsDemandesInComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.demande=this.data.demande;
     this.getUserInfo(this.demande.userId);
     this.getProductDetaile(this.demande.productId);
+    this.getWorkFlow(this.demande.id);
   }
 
   getStatut(value)
   {
-    return STATUT.find(e=>e.value==value).label;
+    return STATUT.find(e=>e.value==value);
 
   }
 
@@ -63,6 +65,15 @@ this.demadeForm=this.fb.group({
     )
   }
 
+
+  getWorkFlow(id)
+  {
+    this.approbationWorkflowService.getApprobationWorkflowByDemandeId(id).subscribe(
+    res=>{
+      this.workFlow=res;
+    }
+    );
+  }
   getProductDetaile(id)
   {
    this.articleService.getArticlesById(id).subscribe(res=>{
@@ -72,7 +83,31 @@ this.demadeForm=this.fb.group({
    });
   }
 
-  cancelDemande(){
+  rejectDemande(){
+    let approbationWorkflow:ApprobationWorkflow=new ApprobationWorkflow();
+    approbationWorkflow.approbationDate=new Date;
+    approbationWorkflow.comment=this.demadeForm.get('comment').value;
+    approbationWorkflow.demandesId=this.demande.id;
+    approbationWorkflow.levelStatut=1;
+    approbationWorkflow.globalStatut=1;
+
+    this.messageboxService.ShowMessage("Avertissement","rejeter cette  demandes ?","",2,false,1,'520px',"warning",'warn').subscribe(
+      res=>{
+        let r:any=res;
+        if (r.result=="yes")
+        {
+          this.approbationWorkflowService.addApprobationWorkflow(approbationWorkflow).subscribe(res=>{
+                console.log(res);
+                this.messageboxService.ShowMessage("Information","Demande rejetée avec succès",'',0,false,1,'500px',"info",'primary');
+                this.dialogRef.close({result:1});;
+          });
+
+        }
+      }
+    );
+  }
+
+  ValidateDemande(){
     let approbationWorkflow:ApprobationWorkflow=new ApprobationWorkflow();
     approbationWorkflow.approbationDate=new Date;
     approbationWorkflow.comment=this.demadeForm.get('comment').value;
@@ -80,14 +115,14 @@ this.demadeForm=this.fb.group({
     approbationWorkflow.levelStatut=3;
     approbationWorkflow.globalStatut=3;
 
-    this.messageboxService.ShowMessage("Avertissement","Annuler  la demandes ?","",2,false,1,'520px',"warning",'warn').subscribe(
+    this.messageboxService.ShowMessage("Avertissement","approuvrer cette demandes ?","",2,false,1,'520px',"warning",'primary').subscribe(
       res=>{
         let r:any=res;
         if (r.result=="yes")
         {
           this.approbationWorkflowService.addApprobationWorkflow(approbationWorkflow).subscribe(res=>{
                 console.log(res);
-                this.messageboxService.ShowMessage("Information"," annulé avec succès",'',0,false,1,'500px',"info",'primary');
+                this.messageboxService.ShowMessage("Information"," Demande aprouvée avec succès",'',0,false,1,'500px',"info",'primary');
                 this.dialogRef.close({result:1});;
           });
 

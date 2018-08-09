@@ -1,14 +1,35 @@
 
-  
+  table {
+    width: 100%;
+    }
+
+    .mat-form-field {
+
+    width: 100%;
+    }
+
+    td, th {
+    width: 100%;
+    margin: 2%;
+    padding: 2%;
+    }
+
+    .fieldset{
+      border: 1px solid rgb(71, 71, 71);
+    }
+
+    .page{
+      padding: 2%;
+    }
+
   .lastcell{
     display: flex;
     justify-content: flex-end;
   }
-  
+
   .mat-column-id {
-    
+
     flex: 0 0 50px;
-    
+
   }
 
- 

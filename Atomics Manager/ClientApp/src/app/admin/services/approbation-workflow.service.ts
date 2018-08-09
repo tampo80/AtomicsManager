@@ -31,6 +31,10 @@ getApprobationWorkflow():Observable<ApprobationWorkflow[]> {
   return this.http.get<ApprobationWorkflow[]>(ConfigService.rootUrl+this._approbationWorkflowUrl,this.getRequestHeaders());
 
 }
+getApprobationWorkflowByDemandeId(id?:number):Observable<ApprobationWorkflow[]> {
+  return this.http.get<ApprobationWorkflow[]>(ConfigService.rootUrl+this._approbationWorkflowUrl+"/"+id,this.getRequestHeaders());
+
+}
 
 getApprobationWorkflowByPaysId(id?:number):Observable<ApprobationWorkflow[]> {
   return this.http.get<ApprobationWorkflow[]>(ConfigService.rootUrl+this._approbationWorkflowUrl+"/bypaysid/"+id,this.getRequestHeaders());
