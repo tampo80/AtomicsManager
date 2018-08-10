@@ -34,6 +34,20 @@ export const FORME_JURIDIQUE:FormeJuridique[]=[
 
 
 ];
+export const TYPE_APPROVAL_ACTIONS:TypeApprovalGroup[]=[
+  {
+    value:0,label:"Approuver"
+  },
+  {
+    value:1,label:"Rejeter"
+  },
+  {
+    value:2,label:"Annuler"
+  },
+  {
+    value:3,label:"Router"
+  },
+];
 
 
 export const  TYPE_APPROVAL_GROUP:TypeApprovalGroup[]=[

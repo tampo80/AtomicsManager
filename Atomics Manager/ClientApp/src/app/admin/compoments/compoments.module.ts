@@ -45,6 +45,8 @@ import { EditApprobationLevelDialogComponent } from './approbation-level/dialog/
 import { GourpAddComponent } from './approbation-level/dialog/groupadd/gourp-add/gourp-add.component';
 import { ImageCropperModule } from '../../../../node_modules/ngx-image-cropper';
 import { ImageCopperComponent } from './articles/image-copper/image-copper.component';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     align: "right",
@@ -65,6 +67,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     FlexLayoutModule,
     CurrencyMaskModule,
     ImageCropperModule,
+    NgxGraphModule,
+    NgxChartsModule,
 
   ],
   declarations: [

@@ -13,7 +13,7 @@ namespace DAL.Models
 
         public ApprobationLevel Level { get; set; }
 
-        public ApprobationSatut LevelStatut { get; set; }
+        public AprobationActionType LevelStatut { get; set; }
 
         public ApprobationSatut GlobalStatut { get; set; }
 

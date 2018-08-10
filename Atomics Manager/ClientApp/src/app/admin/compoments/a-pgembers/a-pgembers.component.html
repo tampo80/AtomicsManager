@@ -1,18 +1,56 @@
-<input type="file" (change)="fileChangeEvent($event)" />
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<div class="mat-row page mat-elevation-z8" width="80%">
 
-<div>
-  <image-cropper
+  <mat-card>
+      <mat-card-header>
+          <mat-card-title>Title</mat-card-title>
+          <mat-card-subtitle>Subtitle</mat-card-subtitle>
+      </mat-card-header>
 
-      [imageChangedEvent]="imageChangedEvent"
-      [maintainAspectRatio]="true"
-      [aspectRatio]="4 / 3"
-      [resizeToWidth]="128"
-      format="jpeg"
-      (imageCroppedBase64)="imageCroppedBase64($event)"
-      (imageLoaded)="imageLoaded()"
-      (loadImageFailed)="loadImageFailed()"
-      style="max-height: 33vh"
-      [style.display]="cropperReady ? null : 'none'"
-  ></image-cropper>
+      <mat-card-content>
+          <ngx-graph
+  class="chart-container"
+  [links]="hierarchialGraph.links"
+  [nodes]="hierarchialGraph.nodes"
+  [legend]="true"
+  [curve]="curve"
+  [draggingEnabled]="false">
+
+    <ng-template #defsTemplate>
+      <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+        <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+      </svg:marker>
+    </ng-template>
+
+    <ng-template #nodeTemplate let-node>
+      <svg:g class="node"
+        ngx-tooltip
+        [tooltipPlacement]="'top'"
+        [tooltipType]="'tooltip'"
+        [tooltipTitle]="node.label">
+        <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.options.color" />
+        <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
+      </svg:g>
+    </ng-template>
+
+    <ng-template #linkTemplate let-link>
+      <svg:g class="edge">
+        <svg:path
+          class="line"
+          stroke-width="2"
+          marker-end="url(#arrow)" >
+        </svg:path>
+      </svg:g>
+    </ng-template>
+
+  </ngx-graph>
+      </mat-card-content>
+      <mat-card-actions align="start">
+          <button mat-button (click)="onAction1">Action1</button>
+
+      </mat-card-actions>
+
+  </mat-card>
+
+
 </div>
-<img [src]="croppedImage" />

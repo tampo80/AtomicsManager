@@ -93,7 +93,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatButtonModule,
     CompomentsModule,
     PerfectScrollbarModule,
-    TruncateModule
+    TruncateModule,
 
   ],
   declarations: [
@@ -192,6 +192,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     }
 
   ],
+
   entryComponents: [
     AlertToolbarDialog,
     MessageBoxDialogComponent,

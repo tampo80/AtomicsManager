@@ -16,7 +16,7 @@ namespace Atomics_Manager.ViewModels
         public string userFullName { get; set; }
         public int ApprobationLevelId  { get; set; }
 
-        public ApprobationSatut LevelStatut { get; set; }
+        public AprobationActionType LevelStatut { get; set; }
 
         public ApprobationSatut GlobalStatut { get; set; }
 

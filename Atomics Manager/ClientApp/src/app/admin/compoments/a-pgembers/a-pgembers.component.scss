@@ -1,0 +1,80 @@
+.graph {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .graph .edge {
+    stroke: #666;
+    fill: none; }
+    .graph .edge .edge-label {
+      stroke: none;
+      font-size: 12px;
+      fill: #666; }
+  .graph .panning-rect {
+    fill: transparent;
+    cursor: move; }
+  .graph .node-group .node:focus {
+    outline: none; }.graph {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none; }
+  .graph .edge {
+    stroke: #666;
+    fill: none; }
+    .graph .edge .edge-label {
+      stroke: none;
+      font-size: 12px;
+      fill: #666; }
+  .graph .panning-rect {
+    fill: transparent;
+    cursor: move; }
+  .graph .node-group .node:focus {
+    outline: none; }
+
+.edge {
+    path  {
+      stroke: #666 !important;
+    }
+  }
+  table {
+    width: 100%;
+    }
+
+    .mat-form-field {
+
+    width: 100%;
+    }
+
+    td, th {
+    width: 25%;
+    }
+
+    .page{
+      padding: 2%;
+    }
+
+    .lastcell{
+      display: flex;
+      justify-content: flex-end;
+    }
+    .mat-column- {
+      display: flex;
+      justify-content: flex-end;
+      }
+
+
+
+      .right.mat-cell {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .right.mat-header-cell {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 0;
+        padding-left: 24px;
+    }
+    .right.mat-header-cell:last-child {
+        margin-right: 0;
+    }

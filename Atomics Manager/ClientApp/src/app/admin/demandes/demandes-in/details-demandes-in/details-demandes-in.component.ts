@@ -89,7 +89,7 @@ this.demadeForm=this.fb.group({
     approbationWorkflow.comment=this.demadeForm.get('comment').value;
     approbationWorkflow.demandesId=this.demande.id;
     approbationWorkflow.levelStatut=1;
-    approbationWorkflow.globalStatut=1;
+    //approbationWorkflow.globalStatut=1;
 
     this.messageboxService.ShowMessage("Avertissement","rejeter cette  demandes ?","",2,false,1,'520px',"warning",'warn').subscribe(
       res=>{
@@ -112,8 +112,8 @@ this.demadeForm=this.fb.group({
     approbationWorkflow.approbationDate=new Date;
     approbationWorkflow.comment=this.demadeForm.get('comment').value;
     approbationWorkflow.demandesId=this.demande.id;
-    approbationWorkflow.levelStatut=3;
-    approbationWorkflow.globalStatut=3;
+    approbationWorkflow.levelStatut=0;
+   // approbationWorkflow.globalStatut=3;
 
     this.messageboxService.ShowMessage("Avertissement","approuvrer cette demandes ?","",2,false,1,'520px',"warning",'primary').subscribe(
       res=>{
