@@ -13,36 +13,39 @@ import { NavigationService } from '../../services/navigation.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  isLoading:boolean =false;
-  isLoginError : boolean = false;
- 
-  @ViewChild('loginForm') loginForm:NgForm;
-  constructor(public userService : UserService,private router : Router,public navigationService:NavigationService) { }
+  isLoading = false;
+  isLoginError = false;
+  public myFocusTriggeringEventEmitter: any;
+
+  @ViewChild('loginForm') loginForm: NgForm;
+  constructor(public userService: UserService, private router: Router, public navigationService: NavigationService) {
+    this.myFocusTriggeringEventEmitter = new EventEmitter<boolean>();
+  }
 
   ngOnInit() {
     this.myFocusTriggeringEventEmitter.emit(true);
   }
 
-  public myFocusTriggeringEventEmitter = new EventEmitter<boolean>();
-  
-  OnSubmit(userName,password){
-     this.isLoading =true;
+
+
+  OnSubmit(userName, password) {
+     this.isLoading = true;
      this.isLoginError = false;
 
-     this.userService.userAuthentication(userName,password).subscribe((data : any)=>{
-      localStorage.setItem('userToken',data.access_token);
+     this.userService.userAuthentication(userName, password).subscribe((data: any) =>  {
+      localStorage.setItem('userToken', data.access_token);
       this.userService.saveUserData(data);
-     
+
       this.router.navigate(['/admin']);
       this.navigationService.getNavigationList();
     },
-    (err : HttpErrorResponse)=>{
-      this.isLoading=false;
+    (err: HttpErrorResponse) =>  {
+      this.isLoading = false;
       this.isLoginError = true;
       this.loginForm.reset();
       this.myFocusTriggeringEventEmitter.emit(true);
-    //  
-      
+    //
+
     });
   }
 

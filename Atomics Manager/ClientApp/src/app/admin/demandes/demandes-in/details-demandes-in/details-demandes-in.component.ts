@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { STATUT } from '../../../config';
 import { Demandes } from '../../../models/demandes';
 import { Articles } from '../../../models/articles';
-import { FormGroup, FormBuilder, Validators } from '../../../../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { EntrepriseUserInfos } from '../../../models/entreprise-user-infos';
 import { ApprobationWorkflowService } from '../../../services/approbation-workflow.service';
 import { MessageboxService } from '../../../services/messagebox.service';
@@ -10,7 +10,7 @@ import { EntrepriseUserInfosService } from '../../../services/entreprise-user-in
 import { ArticlesService } from '../../../services/articles.service';
 import { DemandeService } from '../../../services/demande.service';
 import { UserService } from '../../../services/user.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ApprobationWorkflow } from '../../../models/approbation-workflow';
 
 @Component({

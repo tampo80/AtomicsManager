@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DemandeService } from '../services/demande.service';
 import { Demandes } from '../models/demandes';
-import { MatPaginator, MatSort, MatTableDataSource } from '../../../../node_modules/@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 
 @Component({
+  // tslint:disable-next-line:component-selector
   selector: 'material-dashboard',
   templateUrl: './material-dashboard.component.html',
   styleUrls: ['./material-dashboard.component.scss']

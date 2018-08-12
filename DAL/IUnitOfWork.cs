@@ -47,10 +47,29 @@ namespace DAL
 
        
 
-        IEntrepriseUserInfosRepository EntrepriseUserInfos  { get;}
+         IEntrepriseUserInfosRepository EntrepriseUserInfos  { get;}
 
          IApprobationWorkflowRepository ApprobationWorkflow  { get;}
 
+         IActionsRepository Actions { get;  }
+         IActionTargetRepository ActionTarget { get; }
+         IDemandesActionRepository DemandesAction { get; }
+         IDemandesStakeholdersRepository DemandesStakeholders { get; }
+         IFichierDemandesRepository FichierDemandes { get; }
+         IInfosDemandesRepository InfosDemandes { get; }
+         IActiviteRepository Activite { get; }  
+         IActiviteTargetRepository ActiviteTarget { get; }
+         IProcessAdminRepository ProcessAdmin { get; }
+         IProcessRepository Process { get; }
+         ITransitionActionsRepository TransitionActions { get; }
+         ITransitionRepository Transition { get; }
+         IEtatActiviteRepository EtatActivite { get; }
+         IEtatRepository Etat { get; }
+         IGroupeMemberRepository GroupeMember { get; }
+         IGroupRepository Group { get; }    
+
+
+         
         int SaveChanges();
         Task<int> SaveChangesAsync();
     }

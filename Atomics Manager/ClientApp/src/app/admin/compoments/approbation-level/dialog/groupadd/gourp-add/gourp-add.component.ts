@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormBuilder, FormGroup } from '../../../../../../../../node_modules/@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '../../../../../../../../node_modules/@angular/material';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { ApprobationLevelService } from '../../../../../services/approbation-level.service';
 import { MessageboxService } from '../../../../../services/messagebox.service';
 import { ApgMembers } from '../../../../../models/apg-members';
 import { AgMembersService } from '../../../../../services/ag-members.service';
 import { User } from '../../../../../models/user.model';
 import { AccountService } from '../../../../../services/account.service';
-import { Observable } from '../../../../../../../../node_modules/rxjs';
-import { map, startWith } from '../../../../../../../../node_modules/rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { ApprobationLevel } from '../../../../../models/approbation-level';
 
 @Component({

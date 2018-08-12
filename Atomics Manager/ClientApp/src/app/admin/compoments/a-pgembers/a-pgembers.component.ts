@@ -4,7 +4,7 @@ import { ApprobationLevelService } from '../../services/approbation-level.servic
 import { ApgNodes } from './apg-nodes';
 import { Apglink } from './apglink';
 import { ApprobationLevel } from '../../models/approbation-level';
-import { forEach } from '../../../../../node_modules/@angular/router/src/utils/collection';
+import { forEach } from '@angular/router/src/utils/collection';
 import { NodeLink } from './node-link';
 import { colorSets } from './color-sets';
 

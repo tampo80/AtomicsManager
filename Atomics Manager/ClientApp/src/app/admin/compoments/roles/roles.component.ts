@@ -12,18 +12,18 @@ import { EditRolesDialogComponent } from './dialogs/edit/edit-roles-dialog/edit-
   templateUrl: './roles.component.html',
   styleUrls: ['./roles.component.scss']
 })
-export class RolesComponent implements OnInit,AfterViewInit {
+export class RolesComponent implements OnInit, AfterViewInit {
 
-  roles:Role[];
-    
+  roles: Role[];
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','name','description', 'usersCount','actions'];
+  displayedColumns = ['id', 'name', 'description', 'usersCount', 'actions'];
 
-constructor(public accountService:AccountService,private messageboxService:MessageboxService,private dialog: MatDialog) { 
+constructor(public accountService: AccountService, private messageboxService: MessageboxService, private dialog: MatDialog) {
 }
 
   ngOnInit() {
@@ -49,68 +49,68 @@ constructor(public accountService:AccountService,private messageboxService:Messa
     console.log(row);
   }
 
-deleteRole(role?:Role){
-  
-  this.messageboxService.ShowMessage("Avertissement","Supprimer l'utilisateur "+role.name,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
-      
-    this.result = res
+deleteRole(role?: Role) {
+
+  this.messageboxService.ShowMessage('Avertissement', 'Supprimer l\'utilisateur ' + role.name, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
+
+    this.result = res;
     console.log(res);
-    if (this.result.result=="yes") {
-      this.accountService.deleteRoles(role.id).subscribe(res=>{
-        if (res!=null) {
-          this.messageboxService.ShowMessage("Information",role.name+" Supprimer avec succès",role.name,0,false,1,'500px',"info",'primary');
+    if (this.result.result === 'yes') {
+      this.accountService.deleteRoles(role.id).subscribe(response =>  {
+        if (response != null) {
+          this.messageboxService.ShowMessage('Information', role.name + ' Supprimer avec succès', role.name, 0, false, 1, '500px', 'info', 'primary');
           this.getRoles();
         }
-      
-        
-       
-      },err=>{
-                  if (err!=null) {
+
+
+
+      }, err =>  {
+                  if (err != null) {
                     console.log(err);
-                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+role.name+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                    this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + role.name + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                   }
 
       }
 
       );
-     
+
     }
-  
+
   });
 
 
 }
 
-  addNewRole(role?:Role){
+  addNewRole(role?: Role) {
 
-    const dialogRef = this.dialog.open(AddRolesDialogComponent,{
-      data:{role:role},
-     width:'900px',
-     disableClose:true
+    const dialogRef = this.dialog.open(AddRolesDialogComponent, {
+      data: {role: role},
+     width: '900px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
+    dialogRef.afterClosed().subscribe(res =>  {
       console.log(res);
-      if (res.result===1) {
+      if (res.result === 1) {
         this.getRoles();
-        this.messageboxService.ShowMessage("Information","rôle ajouter avec succès",role.name,0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', 'rôle ajouter avec succès', role.name, 0, false, 1, '500px', 'info', 'primary');
       }
     }
 
 
     );
   }
-  EditRole(role?:Role){
+  EditRole(role?: Role) {
 
-    const dialogRef = this.dialog.open(EditRolesDialogComponent,{
-      data:{role:role},
-     width:'900px',
-     disableClose:true
+    const dialogRef = this.dialog.open(EditRolesDialogComponent, {
+      data: {role: role},
+     width: '900px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
-      if (res.result===1) {
-        this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",role.name,0,false,1,'500px',"info",'primary');
+    dialogRef.afterClosed().subscribe(res =>  {
+      if (res.result === 1) {
+        this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', role.name, 0, false, 1, '500px', 'info', 'primary');
       }
     }
 

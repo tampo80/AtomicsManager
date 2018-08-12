@@ -14,7 +14,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class EditDepartementsComponent implements OnInit {
 
 
-  DepartementsForm:FormGroup;
+  DepartementsForm: FormGroup;
   validationMessages = {
 
     name: {
@@ -29,11 +29,11 @@ export class EditDepartementsComponent implements OnInit {
   formErrors = {
 
     name: '',
-    description:''
+    description: ''
   };
   matcher = new FormErrorStateMatcher();
 
-  constructor(private messageboxService:MessageboxService,public departementsService:DepartementsService, private fb: FormBuilder,public dialogRef: MatDialogRef<EditDepartementsComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private messageboxService: MessageboxService, public departementsService: DepartementsService, private fb: FormBuilder, public dialogRef: MatDialogRef<EditDepartementsComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     console.log(this.data);
   }
@@ -47,14 +47,13 @@ this.onValueChanged();
 
 
 
-createForm()
-{
+createForm() {
   console.log(this.data);
-  this.DepartementsForm=this.fb.group(
+  this.DepartementsForm = this.fb.group(
     {
-      id:[this.data.departements.id,Validators.required],
-      name:[this.data.departements.name,Validators.required],
-      description:[this.data.departements.description,Validators.required]
+      id: [this.data.departements.id, Validators.required],
+      name: [this.data.departements.name, Validators.required],
+      description: [this.data.departements.description, Validators.required]
 
     });
 
@@ -62,24 +61,24 @@ createForm()
     this.onValueChanged();
 }
  onNoClick(): void {
-  this.dialogRef.close({result:0});;
+  this.dialogRef.close({result: 0});
 }
 
 onSubmit() {
   //  alert("p");
   this.departementsService.updateDepartements(this.DepartementsForm.value).subscribe(
 
-    res=>{
+    res =>  {
 
 
-      this.dialogRef.close({result:1});
+      this.dialogRef.close({result: 1});
 
      },
-   err=>{
+   err =>  {
 
-     if (err.statuts===400) {
+     if (err.statuts === 400) {
       // this.erroMessage=err.error;
-       this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+err.error,"",0,false,1,'520px',"warning",'warn')
+       this.messageboxService.ShowMessage('Avertissement', 'des erreurs empechent l\'enregistrement ' + err.error, '', 0, false, 1, '520px', 'warning', 'warn');
      }
 
        }

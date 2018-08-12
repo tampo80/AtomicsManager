@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
   selector: 'app-image-copper',
@@ -7,16 +7,16 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../node_modules/@a
   styleUrls: ['./image-copper.component.scss']
 })
 export class ImageCopperComponent implements OnInit {
-
+  imageChangedEvent: any = '';
+  croppedImage: any = '';
+  cropperReady = false;
+  selectedFile: File;
   constructor(public dialogRef: MatDialogRef<ImageCopperComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
   }
 
-  imageChangedEvent: any = '';
-  croppedImage: any = '';
-  cropperReady = false;
-  selectedFile: File;
+
   fileChangeEvent(event: any): void {
       this.imageChangedEvent = event;
   }

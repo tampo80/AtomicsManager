@@ -1,6 +1,6 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { ApprobationLevel } from '../../models/approbation-level';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '../../../../../node_modules/@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { ApprobationLevelService } from '../../services/approbation-level.service';
 import { MessageboxService } from '../../services/messagebox.service';
 import { AddApprobationLevelDialogComponent } from './dialog/add/add-approbation-level-dialog/add-approbation-level-dialog.component';

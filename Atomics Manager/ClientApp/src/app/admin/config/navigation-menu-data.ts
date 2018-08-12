@@ -85,7 +85,45 @@ permissions: [
         value: false
     }
 ]
-}, ,
+}
+ ,
+ {
+  icon: 'view_headline',
+  name: 'Workflox admin',
+  items: [
+
+      {
+          routerLink: 'workflow-process',
+          name: 'Processuse'
+      },
+      {
+          routerLink: 'manage-roles',
+          name: 'Les roles'
+      },
+      {
+          routerLink: 'manage-approuval-level',
+          name: 'Les niveaux d\'approbation'
+      },
+
+
+      {
+        routerLink: 'manage-approuval-group',
+        name: 'Workflow des demandes'
+    },
+    {
+        routerLink: 'manage-entreprise',
+        name: 'Société'
+    },
+
+],
+permissions: [
+  {
+      name: 'admin.view',
+      value: false
+  }
+]
+}
+,
 {
     icon: 'local_shipping',
     name: 'Fournisseurs',

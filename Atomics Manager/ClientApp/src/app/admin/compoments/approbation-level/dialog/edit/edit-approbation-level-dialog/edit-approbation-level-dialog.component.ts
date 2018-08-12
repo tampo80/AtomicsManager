@@ -1,12 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '../../../../../../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FormErrorStateMatcher } from '../../../../../formErrorStateMatcher/form-error-state-matcher';
 import { TypeApprovalGroup } from '../../../../../models/type-approval-group';
 import { TYPE_APPROVAL_GROUP } from '../../../../../config';
 import { MessageboxService } from '../../../../../services/messagebox.service';
 import { ApprobationLevel } from '../../../../../models/approbation-level';
 import { ApprobationLevelService } from '../../../../../services/approbation-level.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../../../node_modules/@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 
 @Component({

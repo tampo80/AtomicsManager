@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MessageboxService } from '../../../../services/messagebox.service';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '../../../../../../../node_modules/@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { AccountService } from '../../../../services/account.service';
-import { FormBuilder, FormGroup, Validators } from '../../../../../../../node_modules/@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DepartementsService } from '../../../../services/departements.service';
 import { ServicesService } from '../../../../services/services.service';
 import { Departements } from '../../../../models/departements';

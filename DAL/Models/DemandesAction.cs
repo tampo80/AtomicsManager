@@ -15,7 +15,7 @@ namespace DAL.Models
 
         public Actions Actions { get; set; }
 
-        public int TrasitionId { get; set; }
+        public int TransitionId { get; set; }
         public Transition Transition { get; set; }
 
         public bool IsActive { get; set; }

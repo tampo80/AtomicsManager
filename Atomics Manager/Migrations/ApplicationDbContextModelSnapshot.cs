@@ -496,9 +496,7 @@ namespace AtomicsManager.Migrations
 
                     b.Property<bool>("IsComplete");
 
-                    b.Property<int?>("TransitionId");
-
-                    b.Property<int>("TrasitionId");
+                    b.Property<int>("TransitionId");
 
                     b.HasKey("Id");
 
@@ -941,6 +939,8 @@ namespace AtomicsManager.Migrations
                         .HasMaxLength(256);
 
                     b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Desciption");
 
                     b.Property<string>("Name");
 
@@ -1552,7 +1552,8 @@ namespace AtomicsManager.Migrations
 
                     b.HasOne("DAL.Models.Transition", "Transition")
                         .WithMany("DemandesAction")
-                        .HasForeignKey("TransitionId");
+                        .HasForeignKey("TransitionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DAL.Models.DocumentsFournisseurs", b =>

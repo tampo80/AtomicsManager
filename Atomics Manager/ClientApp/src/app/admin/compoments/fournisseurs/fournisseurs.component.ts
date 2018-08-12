@@ -12,56 +12,56 @@ import { FormeJuridique } from '../../models/forme-juridique';
   templateUrl: './fournisseurs.component.html',
   styleUrls: ['./fournisseurs.component.scss']
 })
-export class FournisseursComponent implements OnInit ,AfterViewInit {
+export class FournisseursComponent implements OnInit , AfterViewInit {
 
 
- 
 
 
-  private Fournisseurs:Fournisseurs[];
 
-  formeJuridiques:FormeJuridique[]=[
+  private Fournisseurs: Fournisseurs[];
+
+  formeJuridiques: FormeJuridique[] = [
     {
-      value:0,label:"EURL"
+      value: 0, label: 'EURL'
     },
     {
-      value:1,label:"SARL"
+      value: 1, label: 'SARL'
     },
     {
-      value:2,label:"SELAR"
+      value: 2, label: 'SELAR'
     },
     {
-      value:3,label:"SA"
+      value: 3, label: 'SA'
     }
     ,
     {
-      value:4,label:"SAS"
+      value: 4, label: 'SAS'
     }
     ,
     {
-      value:3,label:"SASU"
+      value: 3, label: 'SASU'
     },
     {
-      value:4,label:"SNC"
+      value: 4, label: 'SNC'
     }
     ,
     {
-      value:5,label:"SCP"
+      value: 5, label: 'SCP'
     }
-    
-    
-    
+
+
+
   ];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','nomSociete','formeJuridique','email','phoneNumber','adresse','villesName','secteurs','actions'];
-  isLoading:boolean;
-  constructor(private fournisseursService:FournisseursService,private messageboxService:MessageboxService,private dialog: MatDialog) { }
+  displayedColumns = ['id', 'nomSociete', 'formeJuridique', 'email', 'phoneNumber', 'adresse', 'villesName', 'secteurs', 'actions'];
+  isLoading: boolean;
+  constructor(private fournisseursService: FournisseursService, private messageboxService: MessageboxService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.isLoading=true;
+    this.isLoading = true;
     this.getFournisseurs();
   }
 
@@ -73,9 +73,9 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
 
    getFournisseurs() {
     this.fournisseursService.getFournisseurs().subscribe(
-      res=>{
-        this.dataSource.data=res;
-        this.isLoading=false;
+      res =>  {
+        this.dataSource.data = res;
+        this.isLoading = false;
       }
     );
   }
@@ -89,92 +89,90 @@ export class FournisseursComponent implements OnInit ,AfterViewInit {
   }
 
 
-  getformJuridique(value?:number)
-
-  {
-    return this.formeJuridiques.find(e=>e.value==value);
+  getformJuridique(value?: number) {
+    return this.formeJuridiques.find(e => e.value === value);
   }
   rowClicked(row: any): void {
     console.log(row);
   }
 
-  deleteFournisseurs(fournisseurs?:Fournisseurs){
-  
-  this.messageboxService.ShowMessage("Avertissement","Supprimer "+fournisseurs.titre,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
-      
-    this.result = res
+  deleteFournisseurs(fournisseurs?: Fournisseurs) {
+
+  this.messageboxService.ShowMessage('Avertissement', 'Supprimer ' + fournisseurs.titre, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
+
+    this.result = res;
     console.log(res);
-    if (this.result.result=="yes") {
-      this.fournisseursService.deleteFournisseurs(fournisseurs.id).subscribe(res=>{
-        if (res!=null) {
-          this.messageboxService.ShowMessage("Information",fournisseurs.titre+" Supprimer avec succès",fournisseurs.titre,0,false,1,'500px',"info",'primary');
+    if (this.result.result === 'yes') {
+      this.fournisseursService.deleteFournisseurs(fournisseurs.id).subscribe(response =>  {
+        if (response != null) {
+          this.messageboxService.ShowMessage('Information', fournisseurs.titre + ' Supprimer avec succès', fournisseurs.titre, 0, false, 1, '500px', 'info', 'primary');
           this.getFournisseurs();
         }
-      
-        
-       
-      },err=>{
-                  if (err!=null) {
+
+
+
+      }, err =>  {
+                  if (err != null) {
                     console.log(err);
-                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+fournisseurs.titre+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                    this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + fournisseurs.titre + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                   }
 
       }
 
       );
-     
+
     }
-  
+
   });
 
 
 }
 
-  addNewFournisseurs(){
+  addNewFournisseurs() {
 
-    const dialogRef = this.dialog.open(AddFournisseursDialogComponent,{
-      data:{fournisseurs:""},
-     width:'70%',
-     position:{
-       right:'130px',
-       
+    const dialogRef = this.dialog.open(AddFournisseursDialogComponent, {
+      data: {fournisseurs: ''},
+     width: '70%',
+     position: {
+       right: '130px',
+
      },
-     disableClose:true
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
+    dialogRef.afterClosed().subscribe(res =>  {
       console.log(res);
-      if (res.result===1) {
+      if (res.result === 1) {
         this.getFournisseurs();
-        this.messageboxService.ShowMessage("Information","Fournisseurs ajouter avec succès","",0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', 'Fournisseurs ajouter avec succès', '', 0, false, 1, '500px', 'info', 'primary');
       }
     }
 
 
     );
   }
-  EditFournisseurs(fournisseurs?:Fournisseurs){
-    
+  EditFournisseurs(fournisseurs?: Fournisseurs) {
+
     this.fournisseursService.getFournisseursById(fournisseurs.id).subscribe(
-      res=>{
-        const dialogRef = this.dialog.open(EditFournisseursDialogComponent,{
-          data:{fournisseurs:res},
-         width:'70%',
-         position:{
-          right:'150px',
-          
+      res =>  {
+        const dialogRef = this.dialog.open(EditFournisseursDialogComponent, {
+          data: {fournisseurs: res},
+         width: '70%',
+         position: {
+          right: '150px',
+
         },
-         disableClose:true
+         disableClose: true
         });
-    
-        dialogRef.afterClosed().subscribe(res=>{
-          if (res.result===1) {
+
+        dialogRef.afterClosed().subscribe(response =>  {
+          if (response.result === 1) {
             this.getFournisseurs();
-            this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",fournisseurs.titre,0,false,1,'500px',"info",'primary');
+            this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', fournisseurs.titre, 0, false, 1, '500px', 'info', 'primary');
           }
         }
-    
-    
+
+
         );
       }
     );

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpEvent, HttpRequest } from '../../../../node_modules/@angular/common/http';
-import { Router } from '../../../../node_modules/@angular/router';
+import { HttpClient, HttpHeaders, HttpEvent, HttpRequest } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { ConfigService } from './config.service';
-import { Observable } from '../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { EntrepriseUserInfos } from '../models/entreprise-user-infos';
 
 @Injectable({

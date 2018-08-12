@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ConfigService } from './config.service';
-import { HttpRequest, HttpEvent, HttpClient, HttpHeaders } from '../../../../node_modules/@angular/common/http';
-import { Observable } from '../../../../node_modules/rxjs';
-import { Router } from '../../../../node_modules/@angular/router';
+import { HttpRequest, HttpEvent, HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 import { ApprobationLevel } from '../models/approbation-level';
 
 @Injectable({

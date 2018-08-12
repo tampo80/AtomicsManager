@@ -128,6 +128,10 @@ namespace Atomics_Manager.ViewModels {
 
             .ReverseMap();
 
+            CreateMap<Process, ProcessViewModel>()
+
+           .ReverseMap();
+
         }
     }
 }

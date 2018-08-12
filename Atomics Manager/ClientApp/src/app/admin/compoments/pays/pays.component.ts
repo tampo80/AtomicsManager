@@ -11,17 +11,17 @@ import { AddPaysDialogComponent } from './dialogs/add/add-pays-dialog/add-pays-d
   templateUrl: './pays.component.html',
   styleUrls: ['./pays.component.scss']
 })
-export class PaysComponent implements OnInit,AfterViewInit {
+export class PaysComponent implements OnInit, AfterViewInit {
 
-  private Pays:Pays[];
+  private Pays: Pays[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','name','codePays','actions'];
+  displayedColumns = ['id', 'name', 'codePays', 'actions'];
 
-  constructor(private paysService:PaysService,private messageboxService:MessageboxService,private dialog: MatDialog) { }
+  constructor(private paysService: PaysService, private messageboxService: MessageboxService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getPays();
@@ -35,8 +35,8 @@ export class PaysComponent implements OnInit,AfterViewInit {
 
    getPays() {
     this.paysService.getPays().subscribe(
-      res=>{
-        this.dataSource.data=res;
+      res =>  {
+        this.dataSource.data = res;
       }
     );
   }
@@ -53,68 +53,68 @@ export class PaysComponent implements OnInit,AfterViewInit {
     console.log(row);
   }
 
-  deletePays(pays?:Pays){
-  
-  this.messageboxService.ShowMessage("Avertissement","Supprimer "+pays.name,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
-      
-    this.result = res
+  deletePays(pays?: Pays) {
+
+  this.messageboxService.ShowMessage('Avertissement', 'Supprimer ' + pays.name, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
+
+    this.result = res;
     console.log(res);
-    if (this.result.result=="yes") {
-      this.paysService.deletePays(pays.id).subscribe(res=>{
-        if (res!=null) {
-          this.messageboxService.ShowMessage("Information",pays.name+" Supprimer avec succès",pays.name,0,false,1,'500px',"info",'primary');
+    if (this.result.result === 'yes') {
+      this.paysService.deletePays(pays.id).subscribe(response =>  {
+        if (response != null) {
+          this.messageboxService.ShowMessage('Information', pays.name + ' Supprimer avec succès', pays.name, 0, false, 1, '500px', 'info', 'primary');
           this.getPays();
         }
-      
-        
-       
-      },err=>{
-                  if (err!=null) {
+
+
+
+      }, err =>  {
+                  if (err != null) {
                     console.log(err);
-                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+pays.name+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                    this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + pays.name + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                   }
 
       }
 
       );
-     
+
     }
-  
+
   });
 
 
 }
 
-  addNewPays(){
+  addNewPays() {
 
-    const dialogRef = this.dialog.open(AddPaysDialogComponent,{
-      data:{pays:""},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(AddPaysDialogComponent, {
+      data: {pays: ''},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
+    dialogRef.afterClosed().subscribe(res =>  {
       console.log(res);
-      if (res.result===1) {
+      if (res.result === 1) {
         this.getPays();
-        this.messageboxService.ShowMessage("Information","Pays ajouter avec succès","",0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', 'Pays ajouter avec succès', '', 0, false, 1, '500px', 'info', 'primary');
       }
     }
 
 
     );
   }
-  EditPays(pays?:Pays){
+  EditPays(pays?: Pays) {
 
-    const dialogRef = this.dialog.open(EditPaysDialogComponent,{
-      data:{pays:pays},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(EditPaysDialogComponent, {
+      data: {pays: pays},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
-      if (res.result===1) {
-        this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",pays.name,0,false,1,'500px',"info",'primary');
+    dialogRef.afterClosed().subscribe(res =>  {
+      if (res.result === 1) {
+        this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', pays.name, 0, false, 1, '500px', 'info', 'primary');
       }
     }
 

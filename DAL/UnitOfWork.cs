@@ -47,10 +47,28 @@ namespace DAL
 
         IProductCategoryRepository _ProductCategory;
 
-        IProductRepository _Product;
+       
         IEntrepriseUserInfosRepository _EntrepriseUserInfos;
 
-         IApprobationWorkflowRepository _ApprobationWorkflow;
+        IApprobationWorkflowRepository _ApprobationWorkflow;
+
+        IActionsRepository _Actions;
+        IActionTargetRepository _ActionTarget;
+        IDemandesActionRepository _DemandesAction;
+        IDemandesStakeholdersRepository _DemandesStakeholders;
+        IFichierDemandesRepository _FichierDemandes;
+        IInfosDemandesRepository _InfosDemandes;
+        IActiviteRepository _Activite;
+        IActiviteTargetRepository _ActiviteTarget;
+        IProcessAdminRepository _ProcessAdmin;
+        IProcessRepository _Process;
+        ITransitionActionsRepository _TransitionActions;
+        ITransitionRepository _Transition;
+        IEtatActiviteRepository _EtatActivite;
+        IEtatRepository _Etat;
+        IGroupeMemberRepository _GroupeMember;
+        IGroupRepository _Group;
+
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -157,7 +175,7 @@ namespace DAL
         }
 
 
- public IBankInfosRepository BankInfos
+      public IBankInfosRepository BankInfos
         {
             get
             {
@@ -308,6 +326,154 @@ namespace DAL
                     _EntrepriseUserInfos = new EntrepriseUserInfosRepository(_context);
 
                 return _EntrepriseUserInfos;
+            }
+        }
+
+
+        public IActionsRepository Actions
+        {
+            get
+            {
+                if (_Actions == null)
+                    _Actions = new ActionsRepository(_context);
+
+                return _Actions;
+            }
+        }
+        public IActionTargetRepository ActionTarget
+        {
+            get
+            {
+                if (_ActionTarget == null)
+                    _ActionTarget = new ActionTargetRepository(_context);
+
+                return _ActionTarget;
+            }
+        }
+        public IDemandesActionRepository DemandesAction {
+            get
+            {
+                if (_DemandesAction == null)
+                    _DemandesAction = new DemandesActionRepository(_context);
+
+                return _DemandesAction;
+            }
+        }
+        public IDemandesStakeholdersRepository DemandesStakeholders {
+            get
+            {
+                if (_DemandesStakeholders == null)
+                    _DemandesStakeholders = new DemandesStakeholdersRepository(_context);
+
+                return _DemandesStakeholders;
+            }
+        }
+        public IFichierDemandesRepository FichierDemandes {
+            get
+            {
+                if (_FichierDemandes == null)
+                    _FichierDemandes = new FichierDemandesRepository(_context);
+
+                return _FichierDemandes;
+            }
+        }
+        public IInfosDemandesRepository InfosDemandes {
+            get
+            {
+                if (_InfosDemandes == null)
+                    _InfosDemandes = new InfosDemandesRepository(_context);
+
+                return _InfosDemandes;
+            }
+        }
+        public IActiviteRepository Activite {
+            get
+            {
+                if (_Activite == null)
+                    _Activite = new ActiviteRepository(_context);
+
+                return _Activite;
+            }
+        }
+        public IActiviteTargetRepository ActiviteTarget {
+            get
+            {
+                if (_ActiviteTarget == null)
+                    _ActiviteTarget = new ActiviteTargetRepository(_context);
+
+                return _ActiviteTarget;
+            }
+        }
+        public IProcessAdminRepository ProcessAdmin {
+            get
+            {
+                if (_ProcessAdmin == null)
+                    _ProcessAdmin = new ProcessAdminRepository(_context);
+
+                return _ProcessAdmin;
+            }
+        }
+        public IProcessRepository Process {
+            get
+            {
+                if (_Process == null)
+                    _Process = new ProcessRepository(_context);
+
+                return _Process;
+            }
+        }
+        public ITransitionActionsRepository TransitionActions {
+            get
+            {
+                if (_TransitionActions == null)
+                    _TransitionActions = new TransitionActionsRepository(_context);
+
+                return _TransitionActions;
+            }
+        }
+        public ITransitionRepository Transition {
+            get
+            {
+                if (_Transition == null)
+                    _Transition = new TransitionRepository(_context);
+
+                return _Transition;
+            }
+        }
+        public IEtatActiviteRepository EtatActivite {
+            get
+            {
+                if (_EtatActivite == null)
+                    _EtatActivite = new EtatActiviteRepository(_context);
+
+                return _EtatActivite;
+            }
+        }
+        public IEtatRepository Etat {
+            get
+            {
+                if (_Etat == null)
+                    _Etat = new EtatRepository(_context);
+
+                return _Etat;
+            }
+        }
+        public IGroupeMemberRepository GroupeMember {
+            get
+            {
+                if (_GroupeMember == null)
+                    _GroupeMember = new GroupeMemberRepository(_context);
+
+                return _GroupeMember;
+            }
+        }
+        public IGroupRepository Group {
+            get
+            {
+                if (_Group == null)
+                    _Group = new GroupRepository(_context);
+
+                return _Group;
             }
         }
 

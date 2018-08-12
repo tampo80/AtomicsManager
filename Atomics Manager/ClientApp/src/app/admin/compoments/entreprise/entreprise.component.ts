@@ -25,9 +25,9 @@ export class EntrepriseComponent implements OnInit {
   imageToShow: any;
   isImageLoading: boolean;
   selectedFile: File;
-  uploadProgress:number=0;
-  constructor( private domSanitaize: DomSanitizer, private entrepriseService: EntrepriseService,private fb:FormBuilder,private imageService:ImagesService,private snackbar:MatSnackBar) {
-    this.formeJuridique= FORME_JURIDIQUE;
+  uploadProgress = 0;
+  constructor( private domSanitaize: DomSanitizer, private entrepriseService: EntrepriseService, private fb: FormBuilder, private imageService: ImagesService, private snackbar: MatSnackBar) {
+    this.formeJuridique = FORME_JURIDIQUE;
     this.createForm();
     this.getEntreprise();
     this.getImageFromService();
@@ -39,10 +39,10 @@ export class EntrepriseComponent implements OnInit {
 
   }
 createImageFromBlob(image: Blob) {
-   let reader = new FileReader();
-   reader.addEventListener("load", () => {
+   const reader = new FileReader();
+   reader.addEventListener('load', () => {
      console.log(reader.result);
-      this.imageToShow =this.domSanitaize.bypassSecurityTrustUrl(reader.result);
+      this.imageToShow = this.domSanitaize.bypassSecurityTrustUrl(reader.result);
    }, false);
 
    if (image) {
@@ -53,7 +53,7 @@ createImageFromBlob(image: Blob) {
   getImageFromService() {
       this.isImageLoading = true;
       this.imageService.getImage(this.imgUrl).subscribe(data => {
-        this.imageToShow=data;
+        this.imageToShow = data;
         this.isImageLoading = false;
 
       }, error => {
@@ -62,85 +62,81 @@ createImageFromBlob(image: Blob) {
       });
   }
 
-  onSubmit()
-  {
-         this.entrepries.id=this.EntrepriseForm.get("id").value;
-         this.entrepries.titre=this.EntrepriseForm.get("titre").value;
-         this.entrepries.name=this.EntrepriseForm.get("name").value;
-         this.entrepries.email=this.EntrepriseForm.get("email").value;
-         this.entrepries.webSite=this.EntrepriseForm.get("webSite").value;
-         this.entrepries.adresse=this.EntrepriseForm.get("adresse").value;
-         this.entrepries.tel=this.EntrepriseForm.get("tel").value;
-         this.entrepries.formeJuridique=this.EntrepriseForm.get("formeJuridique").value;
+  onSubmit() {
+         this.entrepries.id = this.EntrepriseForm.get('id').value;
+         this.entrepries.titre = this.EntrepriseForm.get('titre').value;
+         this.entrepries.name = this.EntrepriseForm.get('name').value;
+         this.entrepries.email = this.EntrepriseForm.get('email').value;
+         this.entrepries.webSite = this.EntrepriseForm.get('webSite').value;
+         this.entrepries.adresse = this.EntrepriseForm.get('adresse').value;
+         this.entrepries.tel = this.EntrepriseForm.get('tel').value;
+         this.entrepries.formeJuridique = this.EntrepriseForm.get('formeJuridique').value;
 
-    this.entrepriseService.updateEntreprises(this.entrepries).subscribe(res=>{
-      this.snackbar.open('Information mis à jour avec succés !','Mise à jour',{
-        duration:4000
+    this.entrepriseService.updateEntreprises(this.entrepries).subscribe(res =>  {
+      this.snackbar.open('Information mis à jour avec succés !', 'Mise à jour', {
+        duration: 4000
       });
     }
     );
 
   }
 
-  createForm()
-  {
-    this.EntrepriseForm=this.fb.group(
+  createForm() {
+    this.EntrepriseForm = this.fb.group(
       {
-       id :['',Validators.required],
-       titre :['',Validators.required],
-       name :['',Validators.required],
-       email :['',Validators.required],
-       webSite :['',Validators.required],
-       tel :['',Validators.required],
-       adresse :['',Validators.required],
+       id : ['', Validators.required],
+       titre : ['', Validators.required],
+       name : ['', Validators.required],
+       email : ['', Validators.required],
+       webSite : ['', Validators.required],
+       tel : ['', Validators.required],
+       adresse : ['', Validators.required],
 
-       formeJuridique:['',Validators.required]
+       formeJuridique: ['', Validators.required]
     }
-  )
+  );
   }
 
 
-  getEntreprise()
-  {
-    this.entrepriseService.getEntreprises().subscribe(res=>
-      {
-         this.entrepries=res;
-         this.EntrepriseForm.get("id").setValue(res.id);
-         this.EntrepriseForm.get("titre").setValue(res.titre);
-         this.EntrepriseForm.get("name").setValue(res.name);
-         this.EntrepriseForm.get("email").setValue(res.email);
-         this.EntrepriseForm.get("webSite").setValue(res.webSite);
-         this.EntrepriseForm.get("adresse").setValue(res.adresse);
-         this.EntrepriseForm.get("tel").setValue(res.tel);
-         this.EntrepriseForm.get("formeJuridique").setValue(res.formeJuridique);
+  getEntreprise() {
+    this.entrepriseService.getEntreprises().subscribe(res => {
+         this.entrepries = res;
+         this.EntrepriseForm.get('id').setValue(res.id);
+         this.EntrepriseForm.get('titre').setValue(res.titre);
+         this.EntrepriseForm.get('name').setValue(res.name);
+         this.EntrepriseForm.get('email').setValue(res.email);
+         this.EntrepriseForm.get('webSite').setValue(res.webSite);
+         this.EntrepriseForm.get('adresse').setValue(res.adresse);
+         this.EntrepriseForm.get('tel').setValue(res.tel);
+         this.EntrepriseForm.get('formeJuridique').setValue(res.formeJuridique);
       }
     );
   }
-  compareRoles=(role1:string,role2:string)=>role1==role2;
+  compareRoles = (role1: string, role2: string) => role1 === role2;
 
   onFileChanged(event) {
-    this.selectedFile = event.target.files[0]
-    this.imageToShow=null;
+    this.selectedFile = event.target.files[0];
+    this.imageToShow = null;
     this.createImageFromBlob(this.selectedFile);
   }
 
   onUpload() {
     // this.http is the injected HttpClient
     const uploadData = new FormData();
-    uploadData.append('id',this.entrepries.id.toString());
+    uploadData.append('id', this.entrepries.id.toString());
     uploadData.append('logo', this.selectedFile, this.selectedFile.name);
-    this.uploadProgress=0;
-   this.entrepriseService.uploadLogo(uploadData).subscribe(event=>{
+    this.uploadProgress = 0;
+   this.entrepriseService.uploadLogo(uploadData).subscribe(event =>  {
 
-    if (event.type==HttpEventType.UploadProgress) {
-       this.uploadProgress=Math.round(100 * event.loaded / event.total);
-    }else if (event.type==HttpEventType.Response) {
+    if (event.type === HttpEventType.UploadProgress) {
+       this.uploadProgress = Math.round(100 * event.loaded / event.total);
+    } else if (event.type === HttpEventType.Response) {
       this.getImageFromService();
-      this.snackbar.open('Information mis à jour avec succés !','LOGO',{
-        duration:4000
+      this.snackbar.open('Information mis à jour avec succés !', 'LOGO', {
+        duration: 4000
       });
-      this.uploadProgress=0;
-      this.selectedFile=null;
+      this.uploadProgress = 0;
+      this.selectedFile = null;
     }
 
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Demandes } from '../../models/demandes';
 import { DetailOwndemandesComponent } from '../mes-demandes/detail-owndemandes/detail-owndemandes.component';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '../../../../../node_modules/@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { DemandeService } from '../../services/demande.service';
 import { MessageboxService } from '../../services/messagebox.service';
 import { STATUT } from '../../config';
@@ -19,9 +19,9 @@ export class DemandesInComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','productName','userFullName','serviceName','agenceName','montant','statut','dateDemande','actions'];
+  displayedColumns = ['id', 'productName','userFullName', 'serviceName','agenceName','montant','statut','dateDemande','actions'];
   isLoading:boolean;
-  statut=STATUT;
+  statut =STATUT;
   isServiceGeneraux:boolean;
   isFinCon:boolean;
 
@@ -29,23 +29,22 @@ export class DemandesInComponent implements OnInit {
     this.isLoading=true;
    }
 
-   getStatut(value)
-   {
-     return STATUT.find(e=>e.value==value);
+   getStatut(value) {
+     return STATUT.find(e =>e.value==value);
    }
 
    getMesdemandesOut()
     {
-      this.demandesServices.getDemandesOut().subscribe(res=>{
-        //this.mesdemandesOut=res;
-        this.dataSource.data=res;
-        this.isLoading=false;
-      })
+      this.demandesServices.getDemandesOut().subscribe(res=> {
+        // this.mesdemandesOut=res;
+        this.dataSource.data = res;
+        this.isLoading = false;
+      });
     }
 
   ngOnInit() {
     this.getDemandesIn();
-    this.isLoading=true;
+    this.isLoading = true;
   }
 
   ngAfterViewInit() {
@@ -56,9 +55,9 @@ export class DemandesInComponent implements OnInit {
 
    getDemandesIn() {
     this.demandesServices.getDemandesIn().subscribe(
-      res=>{
-        this.dataSource.data=res;
-        this.isLoading=false;
+      res => {
+        this.dataSource.data = res;
+        this.isLoading = false;
       }
     );
   }
@@ -75,25 +74,25 @@ export class DemandesInComponent implements OnInit {
     console.log(row);
   }
 
-  deleteDemandes(demandes?:Demandes){
+  deleteDemandes(demandes?: Demandes) {
 
-  this.messageboxService.ShowMessage("Avertissement","Supprimer  "+demandes.productName,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
+  this.messageboxService.ShowMessage('Avertissement', 'Supprimer  ' + demandes.productName, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
 
-    this.result = res
+    this.result = res;
     console.log(res);
-    if (this.result.result=="yes") {
-      this.demandesServices.deleteDemandes(demandes.id).subscribe(res=>{
-        if (res!=null) {
-          this.messageboxService.ShowMessage("Information",demandes.productName+" Supprimer avec succès",demandes.productName,0,false,1,'500px',"info",'primary');
+    if (this.result.result === 'yes') {
+      this.demandesServices.deleteDemandes(demandes.id).subscribe(res => {
+        if (res != null) {
+          this.messageboxService.ShowMessage('Information', demandes.productName + ' Supprimer avec succès', demandes.productName, 0, false, 1, '500px', 'info', 'primary');
           this.getMesdemandesOut();
         }
 
 
 
-      },err=>{
-                  if (err!=null) {
+      }, err => {
+                  if (err != null) {
                     console.log(err);
-                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+demandes.productName+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                    this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + demandes.productName + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                   }
 
       }
@@ -108,19 +107,19 @@ export class DemandesInComponent implements OnInit {
 }
 
 
-demandesView(demande:Demandes){
+demandesView(demande: Demandes) {
 
-  const dialogRef = this.dialog.open(DetailsDemandesInComponent,{
-    data:{demande:demande},
-   width:'900px',
-   disableClose:true
+  const dialogRef = this.dialog.open(DetailsDemandesInComponent, {
+    data: {demande: demande},
+   width: '900px',
+   disableClose: true
   });
 
-  dialogRef.afterClosed().subscribe(res=>{
+  dialogRef.afterClosed().subscribe(res => {
     console.log(res);
-    if (res.result===1) {
+    if (res.result === 1) {
       this.getDemandesIn();
-      ///this.messageboxService.ShowMessage("Information","Departements ajouter avec succès","",0,false,1,'500px',"info",'primary');
+      /// this.messageboxService.ShowMessage("Information","Departements ajouter avec succès","",0,false,1,'500px',"info",'primary');
     }
   }
 

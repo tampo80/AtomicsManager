@@ -9,9 +9,9 @@ import { ArticlesService } from '../../../services/articles.service';
 })
 export class CatalogViewComponent implements OnInit {
 
-  //lesArticles:Articles[]=[];
+  // lesArticles:Articles[]=[];
 
-  constructor(private articlesServices:ArticlesService) {
+  constructor(private articlesServices: ArticlesService) {
 
   }
 

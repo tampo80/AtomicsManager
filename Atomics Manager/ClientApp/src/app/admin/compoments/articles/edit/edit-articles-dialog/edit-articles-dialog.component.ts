@@ -1,20 +1,20 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Observable } from '../../../../../../../node_modules/rxjs';
+import { Observable } from 'rxjs';
 import { Categories } from '../../../../models/categories';
 import { Fournisseurs } from '../../../../models/fournisseurs.model';
-import { FormGroup, FormBuilder, Validators } from '../../../../../../../node_modules/@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ConfigService } from '../../../../services/config.service';
 import { FormErrorStateMatcher } from '../../../../formErrorStateMatcher/form-error-state-matcher';
-import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '../../../../../../../node_modules/@angular/material';
+import { MatSnackBar, MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Articles } from '../../../../models/articles';
 import { ImagesService } from '../../../../services/images.service';
-import { DomSanitizer } from '../../../../../../../node_modules/@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { FournisseursService } from '../../../../services/fournisseurs.service';
 import { MessageboxService } from '../../../../services/messagebox.service';
 import { ArticlesService } from '../../../../services/articles.service';
 import { CategoriesService } from '../../../../services/categories.service';
-import { startWith, map } from '../../../../../../../node_modules/rxjs/operators';
-import { HttpEventType } from '../../../../../../../node_modules/@angular/common/http';
+import { startWith, map } from 'rxjs/operators';
+import { HttpEventType } from '@angular/common/http';
 import { ImageCopperComponent } from '../../image-copper/image-copper.component';
 
 @Component({

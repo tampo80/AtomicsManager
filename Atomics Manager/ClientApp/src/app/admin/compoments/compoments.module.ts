@@ -1,7 +1,7 @@
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MaterialDesignModule } from '../../material-design/material-design.module';
-import{LoginComponent} from './login/login.component';
+import {LoginComponent} from './login/login.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { FocusDirective } from '../directives/focus.directive';
 import { NavigationService } from '../services/navigation.service';
@@ -28,11 +28,11 @@ import { AddCategoriesDialogComponent } from './categories/dialog/add/add-catego
 import { EditCategoriesDialogComponent } from './categories/dialog/edit/edit-categories-dialog/edit-categories-dialog.component';
 import { AddArticlesDialogComponent } from './articles/add/add-articles-dialog/add-articles-dialog.component';
 import { EditArticlesDialogComponent } from './articles/edit/edit-articles-dialog/edit-articles-dialog.component';
-import { CurrencyMaskModule } from "ng2-currency-mask";
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
-//import { AccountService } from '../services/account.service';
+// import { AccountService } from '../services/account.service';
 
-import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from "ng2-currency-mask/src/currency-mask.config";
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
 import { CurrencyMaskService } from '../services/currency-mask.service';
 import { CurrencyMaskDirective } from '../directives/currency-mask.directive';
 import { UdpCurrencyMaskPipe } from '../pipes/udp-currency-mask.pipe';
@@ -43,19 +43,19 @@ import { ApprobationLevelComponent } from './approbation-level/approbation-level
 import { AddApprobationLevelDialogComponent } from './approbation-level/dialog/add/add-approbation-level-dialog/add-approbation-level-dialog.component';
 import { EditApprobationLevelDialogComponent } from './approbation-level/dialog/edit/edit-approbation-level-dialog/edit-approbation-level-dialog.component';
 import { GourpAddComponent } from './approbation-level/dialog/groupadd/gourp-add/gourp-add.component';
-import { ImageCropperModule } from '../../../../node_modules/ngx-image-cropper';
+import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCopperComponent } from './articles/image-copper/image-copper.component';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
-    align: "right",
+    align: 'right',
     allowNegative: true,
-    decimal: " ",
+    decimal: ' ',
     precision: 0,
-    prefix: "",
-    suffix: " CFA",
-    thousands: " "
+    prefix: '',
+    suffix: ' CFA',
+    thousands: ' '
 };
 
 @NgModule({
@@ -114,8 +114,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA],
-  providers:[
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  providers: [
     NavigationService,
     CurrencyMaskService,
 
@@ -123,7 +123,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
   ],
   exports: [CurrencyMaskDirective],
-  entryComponents:[
+  entryComponents: [
     AddDepartementsComponent,
     EditDepartementsComponent,
     AddAgencesDialogComponent,

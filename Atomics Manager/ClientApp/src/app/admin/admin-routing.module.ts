@@ -24,6 +24,7 @@ import { ApprobationLevelComponent } from './compoments/approbation-level/approb
 import { DemandesCataloguesComponent } from './demandes/demandes-catalogues/demandes-catalogues.component';
 import { MesDemandesComponent } from './demandes/mes-demandes/mes-demandes.component';
 import { DemandesInComponent } from './demandes/demandes-in/demandes-in.component';
+import { ProcessComponent } from './workflow/process/process.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -33,6 +34,7 @@ import { DemandesInComponent } from './demandes/demandes-in/demandes-in.componen
       children: [
         {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
         {path: 'manage-approuval-level', component: ApprobationLevelComponent},
+        {path: 'workflow-process', component: ProcessComponent},
         {path: 'manage-demandesin', pathMatch: 'full', component: DemandesInComponent},
         {path: 'manage-mesdemandes', pathMatch: 'full', component: MesDemandesComponent},
         { path: 'manage-profil', component: ProfilComponent },

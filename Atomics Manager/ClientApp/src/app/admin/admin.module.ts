@@ -71,6 +71,7 @@ import { DetailOwndemandesComponent } from './demandes/mes-demandes/detail-ownde
 import { DetaildemandesInComponent } from './demandes/detaildemandes-in/detaildemandes-in.component';
 import { DemandesInComponent } from './demandes/demandes-in/demandes-in.component';
 import { DetailsDemandesInComponent } from './demandes/demandes-in/details-demandes-in/details-demandes-in.component';
+import { WorkflowModule } from './workflow/workflow.module';
 
 registerLocaleData(localeFr);
 
@@ -94,6 +95,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CompomentsModule,
     PerfectScrollbarModule,
     TruncateModule,
+    WorkflowModule
 
   ],
   declarations: [

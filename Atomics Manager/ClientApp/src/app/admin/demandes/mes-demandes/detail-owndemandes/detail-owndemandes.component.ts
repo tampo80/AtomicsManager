@@ -2,8 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Demandes } from '../../../models/demandes';
 import { DemandeService } from '../../../services/demande.service';
 import { UserService } from '../../../services/user.service';
-import { FormBuilder, FormGroup, Validators } from '../../../../../../node_modules/@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../node_modules/@angular/material';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { STATUT } from '../../../config';
 import { ArticlesService } from '../../../services/articles.service';
 import { Articles } from '../../../models/articles';
@@ -19,75 +19,70 @@ import { ApprobationWorkflowService } from '../../../services/approbation-workfl
   styleUrls: ['./detail-owndemandes.component.scss']
 })
 export class DetailOwndemandesComponent implements OnInit {
-  statut=STATUT;
+  statut = STATUT;
 
-  demande:Demandes=new Demandes();
-  productDetails:Articles=new Articles();
-  demadeForm:FormGroup;
-  isLoading:boolean=true;
-  userInfo:EntrepriseUserInfos=new EntrepriseUserInfos();
-  constructor(private approbationWorkflowService:ApprobationWorkflowService, private messageboxService:MessageboxService, private entrepriseUserinfos:EntrepriseUserInfosService, private articleService:ArticlesService, private demandeServices:DemandeService, private userServices:UserService, private fb:FormBuilder, public dialogRef: MatDialogRef<DetailOwndemandesComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  demande: Demandes = new Demandes();
+  productDetails: Articles = new Articles();
+  demadeForm: FormGroup;
+  isLoading = true;
+  userInfo: EntrepriseUserInfos = new EntrepriseUserInfos();
+  constructor(private approbationWorkflowService: ApprobationWorkflowService, private messageboxService: MessageboxService, private entrepriseUserinfos: EntrepriseUserInfosService, private articleService: ArticlesService, private demandeServices: DemandeService, private userServices: UserService, private fb: FormBuilder, public dialogRef: MatDialogRef<DetailOwndemandesComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    this.demande=this.data.demande;
+    this.demande = this.data.demande;
     this.getUserInfo(this.demande.userId);
     this.getProductDetaile(this.demande.productId);
   }
 
-  getStatut(value)
-  {
-    return STATUT.find(e=>e.value==value);
+  getStatut(value) {
+    return STATUT.find(e => e.value === value);
 
   }
 
   ngOnInit() {
 this.creaform();
   }
-  creaform()
-  {
-this.demadeForm=this.fb.group({
-   comment:['',Validators.required]
+  creaform() {
+this.demadeForm = this.fb.group({
+   comment: ['', Validators.required]
 });
   }
   onNoClick(): void {
-    this.dialogRef.close({result:0});;
+    this.dialogRef.close({result: 0});
   }
 
-  getUserInfo(id)
-  {
-    this.entrepriseUserinfos.getEntrepriseUserInfosByUserId(id).subscribe(res=>{
-      this.userInfo=res;
+  getUserInfo(id) {
+    this.entrepriseUserinfos.getEntrepriseUserInfosByUserId(id).subscribe(res =>  {
+      this.userInfo = res;
       console.log(res);
     }
 
-    )
+    );
   }
 
-  getProductDetaile(id)
-  {
-   this.articleService.getArticlesById(id).subscribe(res=>{
-        this.productDetails=res;
-        this.isLoading=false;
+  getProductDetaile(id) {
+   this.articleService.getArticlesById(id).subscribe(res =>  {
+        this.productDetails = res;
+        this.isLoading = false;
         console.log(res);
    });
   }
 
-  cancelDemande(){
-    let approbationWorkflow:ApprobationWorkflow=new ApprobationWorkflow();
-    approbationWorkflow.approbationDate=new Date;
-    approbationWorkflow.comment=this.demadeForm.get('comment').value;
-    approbationWorkflow.demandesId=this.demande.id;
-    approbationWorkflow.levelStatut=3;
-    approbationWorkflow.globalStatut=3;
+  cancelDemande() {
+    const approbationWorkflow: ApprobationWorkflow = new ApprobationWorkflow();
+    approbationWorkflow.approbationDate = new Date;
+    approbationWorkflow.comment = this.demadeForm.get('comment').value;
+    approbationWorkflow.demandesId = this.demande.id;
+    approbationWorkflow.levelStatut = 3;
+    approbationWorkflow.globalStatut = 3;
 
-    this.messageboxService.ShowMessage("Avertissement","Annuler  la demandes ?","",2,false,1,'520px',"warning",'warn').subscribe(
-      res=>{
-        let r:any=res;
-        if (r.result=="yes")
-        {
-          this.approbationWorkflowService.addApprobationWorkflow(approbationWorkflow).subscribe(res=>{
+    this.messageboxService.ShowMessage('Avertissement', 'Annuler  la demandes ?', '', 2, false, 1, '520px', 'warning', 'warn').subscribe(
+      res => {
+        const r: any = res;
+        if (r.result === 'yes') {
+          this.approbationWorkflowService.addApprobationWorkflow(approbationWorkflow).subscribe(res => {
                 console.log(res);
-                this.messageboxService.ShowMessage("Information"," annulé avec succès",'',0,false,1,'500px',"info",'primary');
-                this.dialogRef.close({result:1});;
+                this.messageboxService.ShowMessage('Information', ' annulé avec succès', '', 0, false, 1, '500px', 'info', 'primary');
+                this.dialogRef.close({result: 1});
           });
 
         }
