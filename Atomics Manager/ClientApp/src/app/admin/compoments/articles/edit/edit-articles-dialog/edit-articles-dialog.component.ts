@@ -24,17 +24,17 @@ import { ImageCopperComponent } from '../../image-copper/image-copper.component'
 })
 export class EditArticlesDialogComponent implements OnInit {
 
-  formData:FormData;
+  formData: FormData;
   imageToShow: any;
   isImageLoading: boolean;
   selectedFile: File;
-  uploadProgress:number=0;
+  uploadProgress = 0;
   filteredCategories: Observable<Categories[]>;
   filteredFournisseurs: Observable<Fournisseurs[]>;
-  isVillesLoading=false;
-  lesCategories:Categories[]=[];
-  lesFournisseurs:Fournisseurs[]=[];
-  ArticlesForm:FormGroup;
+  isVillesLoading = false;
+  lesCategories: Categories[] = [];
+  lesFournisseurs: Fournisseurs[] = [];
+  ArticlesForm: FormGroup;
   validationMessages = {
 
     name: {
@@ -55,17 +55,17 @@ export class EditArticlesDialogComponent implements OnInit {
   formErrors = {
 
     name: '',
-    categories:'',
-    description:'',
-    buyingPrice:'',
+    categories: '',
+    description: '',
+    buyingPrice: '',
 
   };
-MatSnackBar
+MatSnackBar;
   matcher = new FormErrorStateMatcher();
-  devises:string;MatDialogRef
-  constructor(private dialog: MatDialog,private snackbar:MatSnackBar, private imageService:ImagesService,private domSanitize:DomSanitizer,  private fournisseursServces:FournisseursService, private messageboxService:MessageboxService,public articlesService:ArticlesService,private categoriesServices:CategoriesService, private fb: FormBuilder,public dialogRef: MatDialogRef<EditArticlesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
-    //data.articles=new Articles();
-   this.devises=ConfigService.Devise;
+  devises: string; MatDialogRef;
+  constructor(private dialog: MatDialog, private snackbar: MatSnackBar, private imageService: ImagesService, private domSanitize: DomSanitizer,  private fournisseursServces: FournisseursService, private messageboxService: MessageboxService, public articlesService: ArticlesService, private categoriesServices: CategoriesService, private fb: FormBuilder, public dialogRef: MatDialogRef<EditArticlesDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    // data.articles=new Articles();
+   this.devises = ConfigService.Devise;
   }
 
   ngOnInit() {
@@ -75,26 +75,26 @@ this.getCategories();
 this.createForm();
 this.onValueChanged();
 
-this.filteredCategories = this.ArticlesForm.get("categories").valueChanges.pipe(
+this.filteredCategories = this.ArticlesForm.get('categories').valueChanges.pipe(
   startWith<string|Categories>(''),
   map(value => typeof value === 'string' ? value : value.name),
   map(name => name ? this._filterCateGories(name) : this.lesCategories.slice())
 );
 
-this.filteredFournisseurs = this.ArticlesForm.get("fournisseurs").valueChanges.pipe(
+this.filteredFournisseurs = this.ArticlesForm.get('fournisseurs').valueChanges.pipe(
   startWith<string|Fournisseurs>(''),
   map(value => typeof value === 'string' ? value : value.titre),
   map(name => name ? this._filterFournisseurs(name) : this.lesFournisseurs.slice())
 );
-this.imageToShow=this.domSanitize.bypassSecurityTrustUrl(this.data.articles.sicone);
+this.imageToShow = this.domSanitize.bypassSecurityTrustUrl(this.data.articles.sicone);
 console.log(this.imageToShow);
   }
 
   createImageFromBlob(image: Blob) {
-    let reader = new FileReader();
-    reader.addEventListener("load", () => {
+    const reader = new FileReader();
+    reader.addEventListener('load', () => {
       console.log(reader.result);
-       this.imageToShow =this.domSanitize.bypassSecurityTrustUrl(reader.result);
+       this.imageToShow = this.domSanitize.bypassSecurityTrustUrl(reader.result);
     }, false);
 
     if (image) {
@@ -105,7 +105,7 @@ console.log(this.imageToShow);
    getImageFromService() {
        this.isImageLoading = true;
        this.imageService.getImage(this.imgUrl).subscribe(data => {
-         this.imageToShow=data;
+         this.imageToShow = data;
          this.isImageLoading = false;
 
        }, error => {
@@ -114,16 +114,15 @@ console.log(this.imageToShow);
        });
    }
 
-  getCategories()
-  {
-    this.categoriesServices.getCategories().subscribe(res=>{
-        this.lesCategories=res;
-        const cat:Categories=this.getSelectedCategorie(this.data.articles.productCategoryId);
+  getCategories() {
+    this.categoriesServices.getCategories().subscribe(res =>  {
+        this.lesCategories = res;
+        const cat: Categories = this.getSelectedCategorie(this.data.articles.productCategoryId);
         console.log(cat);
-        this.ArticlesForm.get("categories").setValue(this.getSelectedCategorie(this.data.articles.productCategoryId));
+        this.ArticlesForm.get('categories').setValue(this.getSelectedCategorie(this.data.articles.productCategoryId));
 
 
-    })
+    });
   }
 
   _filterCateGories(value: string): Categories[] {
@@ -138,69 +137,65 @@ console.log(this.imageToShow);
     return this.lesFournisseurs.filter(option => option.titre.toLowerCase().indexOf(filterValue) !== -1);
   }
 
-  getfournisseurs()
-  {
-    this.fournisseursServces.getFournisseurs().subscribe(res=>{
-        this.lesFournisseurs=res;
-        this.ArticlesForm.get("fournisseurs").setValue(this.getSelectedFourniseurs(this.data.articles.fournisseursId));
+  getfournisseurs() {
+    this.fournisseursServces.getFournisseurs().subscribe(res =>  {
+        this.lesFournisseurs = res;
+        this.ArticlesForm.get('fournisseurs').setValue(this.getSelectedFourniseurs(this.data.articles.fournisseursId));
 
-    })
+    });
   }
 
-createForm()
-{
-  this.ArticlesForm=this.fb.group(
+createForm() {
+  this.ArticlesForm = this.fb.group(
     {
-      name:[this.data.articles.name,Validators.required],
-      description:[this.data.articles.description,Validators.required],
-      categories:[this.getSelectedCategorie(this.data.articles.productCategoryId),Validators.required],
-      buyingPrice:[this.data.articles.buyingPrice,Validators.required],
-      fournisseurs:[this.getSelectedFourniseurs(this.data.articles.fournisseursId),Validators.required],
-      icone:[this.data.articles.icone],
+      name: [this.data.articles.name, Validators.required],
+      description: [this.data.articles.description, Validators.required],
+      categories: [this.getSelectedCategorie(this.data.articles.productCategoryId), Validators.required],
+      buyingPrice: [this.data.articles.buyingPrice, Validators.required],
+      fournisseurs: [this.getSelectedFourniseurs(this.data.articles.fournisseursId), Validators.required],
+      icone: [this.data.articles.icone],
     });
 
-    this.ArticlesForm.valueChanges.subscribe(data => {this.onValueChanged(data);});
+    this.ArticlesForm.valueChanges.subscribe(data => {this.onValueChanged(data); });
     this.onValueChanged();
 }
  onNoClick(): void {
-  this.dialogRef.close({result:0});;
+  this.dialogRef.close({result: 0});
 }
 
-getSelectedCategorie(Id:any)
-{
-  return this.lesCategories.find(e=>e.id==Id);
+getSelectedCategorie(Id: any) {
+  return this.lesCategories.find(e => e.id === Id);
 }
 
-getSelectedFourniseurs(Id:any)
-{
-  return this.lesFournisseurs.find(e=>e.id==Id);
+getSelectedFourniseurs(Id: any) {
+  return this.lesFournisseurs.find(e => e.id === Id);
 }
 
 
 onSubmit() {
   //  alert("p");
-  let articles:Articles=new Articles();
+  const articles: Articles = new Articles();
 
-  articles.productCategoryId=this.ArticlesForm.get('categories').value.id;
-  articles.name=this.ArticlesForm.get('name').value;
-  articles.description=this.ArticlesForm.get('description').value;
-  articles.fournisseursId=this.ArticlesForm.get('fournisseurs').value.id;
-  articles.buyingPrice=this.ArticlesForm.get('buyingPrice').value;
+  articles.productCategoryId = this.ArticlesForm.get('categories').value.id;
+  articles.name = this.ArticlesForm.get('name').value;
+  articles.description = this.ArticlesForm.get('description').value;
+  articles.fournisseursId = this.ArticlesForm.get('fournisseurs').value.id;
+  articles.buyingPrice = this.ArticlesForm.get('buyingPrice').value;
 
-   this.formData=new FormData();
+   this.formData = new FormData();
    if (this.selectedFile) {
-    this.formData.append('iIcon',this.selectedFile,this.selectedFile.name);
+    this.formData.append('iIcon', this.selectedFile, this.selectedFile.name);
    }
-   this.formData.append('id',this.data.articles.id);
-  this.formData.append('productCategoryId',articles.productCategoryId.toString());
-  this.formData.append('name',articles.name);
-  this.formData.append('description',articles.description);
-  this.formData.append('fournisseursId',articles.fournisseursId.toString());
+   this.formData.append('id', this.data.articles.id);
+  this.formData.append('productCategoryId', articles.productCategoryId.toString());
+  this.formData.append('name', articles.name);
+  this.formData.append('description', articles.description);
+  this.formData.append('fournisseursId', articles.fournisseursId.toString());
 
-  this.formData.append('buyingPrice',articles.buyingPrice);
+  this.formData.append('buyingPrice', articles.buyingPrice);
 
 
-  this.articlesService.updateArticles( this.formData,this.data.articles.id).subscribe(
+  this.articlesService.updateArticles( this.formData, this.data.articles.id).subscribe(
 
     /* res=>{
 
@@ -217,18 +212,18 @@ onSubmit() {
 
        } */
 
-       event=>{
+       event =>  {
 
-        if (event.type==HttpEventType.UploadProgress) {
-           this.uploadProgress=Math.round(100 * event.loaded / event.total);
-        }else if (event.type==HttpEventType.Response) {
-          //this.getImageFromService();
-          this.snackbar.open('Information mis à jour avec succés !','LOGO',{
-            duration:4000
+        if (event.type === HttpEventType.UploadProgress) {
+           this.uploadProgress = Math.round(100 * event.loaded / event.total);
+        } else if (event.type === HttpEventType.Response) {
+          // this.getImageFromService();
+          this.snackbar.open('Information mis à jour avec succés !', 'LOGO', {
+            duration: 4000
           });
-          this.uploadProgress=0;
-          this.selectedFile=null;
-          this.dialogRef.close({result:1});
+          this.uploadProgress = 0;
+          this.selectedFile = null;
+          this.dialogRef.close({result: 1});
 
         }
 
@@ -247,28 +242,28 @@ onSubmit() {
 
 
   onFileChanged(event) {
-    this.selectedFile = event.target.files[0]
-    this.imageToShow=null;
+    this.selectedFile = event.target.files[0];
+    this.imageToShow = null;
     this.createImageFromBlob(this.selectedFile);
   }
 
 
 
-  croppe(){
+  croppe() {
 
-    const dialogRef = this.dialog.open(ImageCopperComponent,{
-      data:{articles:""},
-      width:'800px',
-     disableClose:true
+    const dialogRef = this.dialog.open(ImageCopperComponent, {
+      data: {articles: ''},
+      width: '800px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
+    dialogRef.afterClosed().subscribe(res =>  {
       console.log(res);
-      if (res.result!=0) {
+      if (res.result !== 0) {
 
-        this.imageToShow=res.result.base64;
-        console.log(this.imageToShow)
-        this.selectedFile=res.result.blob;
+        this.imageToShow = res.result.base64;
+        console.log(this.imageToShow);
+        this.selectedFile = res.result.blob;
       }
     }
 

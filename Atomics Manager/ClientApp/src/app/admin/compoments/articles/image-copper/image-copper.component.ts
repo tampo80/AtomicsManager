@@ -8,7 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../node_modules/@a
 })
 export class ImageCopperComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<ImageCopperComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(public dialogRef: MatDialogRef<ImageCopperComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
   }
@@ -16,7 +16,7 @@ export class ImageCopperComponent implements OnInit {
   imageChangedEvent: any = '';
   croppedImage: any = '';
   cropperReady = false;
-  selectedFile:File;
+  selectedFile: File;
   fileChangeEvent(event: any): void {
       this.imageChangedEvent = event;
   }
@@ -30,18 +30,17 @@ export class ImageCopperComponent implements OnInit {
     console.log('Load failed');
   }
 
-  imageCroppedFile(image:File)
-  {
-    this.selectedFile=image;
+  imageCroppedFile(image: File) {
+    this.selectedFile = image;
   }
 
   onNoClick(): void {
-    this.dialogRef.close({result:0});
+    this.dialogRef.close({result: 0});
   }
 
   apply(): void {
-    this.dialogRef.close({result:{
-      base64:this.croppedImage,
+    this.dialogRef.close({result: {
+      base64: this.croppedImage,
       blob: this.selectedFile
     }});
   }

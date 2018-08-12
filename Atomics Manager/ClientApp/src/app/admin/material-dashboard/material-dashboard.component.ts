@@ -8,17 +8,17 @@ import { MatPaginator, MatSort, MatTableDataSource } from '../../../../node_modu
   templateUrl: './material-dashboard.component.html',
   styleUrls: ['./material-dashboard.component.scss']
 })
-export class MaterialDashboardComponent implements OnInit,AfterViewInit {
+export class MaterialDashboardComponent implements OnInit, AfterViewInit {
 
-    mesdemandesOut:Demandes[]=[];
+    mesdemandesOut: Demandes[] = [];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','productName','userFullName','montant','statut','dateDemande','actions'];
-  isLoading:boolean;
-    constructor(private demandesServices:DemandeService){
-      this.isLoading=true;
+  displayedColumns = ['id', 'productName', 'userFullName', 'montant', 'statut', 'dateDemande', 'actions'];
+  isLoading: boolean;
+    constructor(private demandesServices: DemandeService) {
+      this.isLoading = true;
     }
     ngOnInit() {
       this.getMesdemandesOut();
@@ -38,12 +38,11 @@ export class MaterialDashboardComponent implements OnInit,AfterViewInit {
   rowClicked(row: any): void {
     console.log(row);
   }
-    getMesdemandesOut()
-    {
-      this.demandesServices.getDemandesOut().subscribe(res=>{
-        this.mesdemandesOut=res;
-        this.dataSource.data=res.splice(0,3);
-        this.isLoading=false;
-      })
+    getMesdemandesOut() {
+      this.demandesServices.getDemandesOut().subscribe(res =>  {
+        this.mesdemandesOut = res;
+        this.dataSource.data = res.splice(0, 3);
+        this.isLoading = false;
+      });
     }
 }

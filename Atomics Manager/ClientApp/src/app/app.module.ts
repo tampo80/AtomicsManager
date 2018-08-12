@@ -10,7 +10,7 @@ import { SecurityModule } from './security/security.module';
 import { FormsModule } from '@angular/forms';
 import { AuthGuard } from './admin/auth/auth.guard';
 import { UserService } from './admin/services/user.service';
-import { HttpClientModule ,HTTP_INTERCEPTORS} from '@angular/common/http';
+import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthInterceptor } from './admin/auth/auth.interceptor';
 
 
@@ -31,7 +31,7 @@ import { AuthInterceptor } from './admin/auth/auth.interceptor';
 
 
   ],
-  providers: [AuthGuard,UserService,
+  providers: [AuthGuard, UserService,
     {
       provide : HTTP_INTERCEPTORS,
       useClass : AuthInterceptor,

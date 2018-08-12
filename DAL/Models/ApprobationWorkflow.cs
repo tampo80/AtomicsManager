@@ -17,6 +17,8 @@ namespace DAL.Models
 
         public ApprobationSatut GlobalStatut { get; set; }
 
+        public int ValitationRequieredNumber { get; set; }
+
         public string Comment { get; set; }
 
         public int DemandesId { get; set; }    

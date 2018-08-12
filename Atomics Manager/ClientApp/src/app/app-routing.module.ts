@@ -7,11 +7,11 @@ import { LoginComponent } from './admin/compoments/login/login.component';
 
 @NgModule({
   imports: [RouterModule.forRoot([
-   
+
     { path: 'callback', component: CallbackComponent },
     { path: 'login', component: LoginComponent },
     { path: '', redirectTo: '/admin', pathMatch: 'full' },
-    { path: 'admin', loadChildren: './admin/admin.module#AdminModule',canActivate:[AuthGuard] },
+    { path: 'admin', loadChildren: './admin/admin.module#AdminModule', canActivate: [AuthGuard] },
   ])],
   exports: [RouterModule]
 })

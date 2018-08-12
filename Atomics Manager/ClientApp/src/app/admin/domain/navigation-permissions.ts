@@ -1,5 +1,5 @@
 export class NavigationPermissions {
-    name:string;
-    value:boolean;
+    name: string;
+    value: boolean;
 
 }

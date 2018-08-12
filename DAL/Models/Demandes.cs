@@ -28,5 +28,17 @@ namespace DAL.Models
         public int ExpertsId { get; set; }
         public ICollection<ApprobationWorkflow> ApprobationWorkflow { get; set; }
 
+        // new implamatations
+        public int ProcessId { get; set; }
+
+        public ICollection<Stakeholders> Stakeholders { get; set; }
+
+        public ICollection<FichierDemandes> FichierDemandes { get; set; }
+
+        public ICollection<InfosDemandes> InfosDemandes { get; set; }
+
+        public ICollection<DemandesAction> DemandesAction { get; set; }
+
+
     }
 }

@@ -12,13 +12,13 @@ export class EntrepriseUserInfosService {
 
   constructor(private router: Router, private http: HttpClient) { }
 
-  private readonly _entrepriseUserInfosUrl: string = "/api/EntrepriseUserInfos";
-  private readonly _entrepriseUserInfosUrlIsExiste: string = "/api/EntrepriseUserInfos/Isavailable";
+  private readonly _entrepriseUserInfosUrl: string = '/api/EntrepriseUserInfos';
+  private readonly _entrepriseUserInfosUrlIsExiste: string = '/api/EntrepriseUserInfos/Isavailable';
 
 
 
   protected getRequestHeaders(): { headers: HttpHeaders | { [header: string]: string | string[]; } } {
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
 
         'Content-Type': 'application/json',
         'Accept': `application/vnd.iman.v${ConfigService.apiVersion}+json, application/json, text/plain, */*`,
@@ -29,38 +29,37 @@ export class EntrepriseUserInfosService {
 }
 
 
-uploadLogo(image:any):Observable<HttpEvent<any>>{
+uploadLogo(image: any): Observable<HttpEvent<any>> {
 
-  const req=new HttpRequest('POST',ConfigService.rootUrl+this._entrepriseUserInfosUrl+"/uploadLogo",image,{reportProgress: true});
+  const req = new HttpRequest('POST', ConfigService.rootUrl + this._entrepriseUserInfosUrl + '/uploadLogo', image, {reportProgress: true});
 
   return this.http.request(req);
 }
 
-getEntrepriseUserInfos():Observable<EntrepriseUserInfos> {
-  return this.http.get<EntrepriseUserInfos>(ConfigService.rootUrl+this._entrepriseUserInfosUrl,this.getRequestHeaders());
+getEntrepriseUserInfos(): Observable<EntrepriseUserInfos> {
+  return this.http.get<EntrepriseUserInfos>(ConfigService.rootUrl + this._entrepriseUserInfosUrl, this.getRequestHeaders());
 }
 
-getEntrepriseUserInfosByUserId(id:string):Observable<EntrepriseUserInfos> {
-  return this.http.get<EntrepriseUserInfos>(ConfigService.rootUrl+this._entrepriseUserInfosUrl+"/getentrepriseuserInfosbyuserid/"+id,this.getRequestHeaders());
+getEntrepriseUserInfosByUserId(id: string): Observable<EntrepriseUserInfos> {
+  return this.http.get<EntrepriseUserInfos>(ConfigService.rootUrl + this._entrepriseUserInfosUrl + '/getentrepriseuserInfosbyuserid/' + id, this.getRequestHeaders());
 }
 
-deleteEntrepriseUserInfos(EntrepriseUserInfosId?:number):Observable<{}>{
+deleteEntrepriseUserInfos(EntrepriseUserInfosId?: number): Observable<{}> {
 
-  return this.http.delete(ConfigService.rootUrl+this._entrepriseUserInfosUrl+"/"+EntrepriseUserInfosId,this.getRequestHeaders());
+  return this.http.delete(ConfigService.rootUrl + this._entrepriseUserInfosUrl + '/' + EntrepriseUserInfosId, this.getRequestHeaders());
  }
 
- addEntrepriseUserInfos(entreprise:EntrepriseUserInfos):Observable<EntrepriseUserInfos>{
-   return this.http.post<EntrepriseUserInfos>(ConfigService.rootUrl+this._entrepriseUserInfosUrl,JSON.stringify(entreprise),this.getRequestHeaders());
- };
+ addEntrepriseUserInfos(entreprise: EntrepriseUserInfos): Observable<EntrepriseUserInfos> {
+   return this.http.post<EntrepriseUserInfos>(ConfigService.rootUrl + this._entrepriseUserInfosUrl, JSON.stringify(entreprise), this.getRequestHeaders());
+ }
 
 
- updateEntrepriseUserInfos(entreprise:EntrepriseUserInfos):Observable<EntrepriseUserInfos>{
-  return this.http.put<EntrepriseUserInfos>(ConfigService.rootUrl+this._entrepriseUserInfosUrl+"/"+entreprise.id,JSON.stringify(entreprise),this.getRequestHeaders());
-};
+ updateEntrepriseUserInfos(entreprise: EntrepriseUserInfos): Observable<EntrepriseUserInfos> {
+  return this.http.put<EntrepriseUserInfos>(ConfigService.rootUrl + this._entrepriseUserInfosUrl + '/' + entreprise.id, JSON.stringify(entreprise), this.getRequestHeaders());
+}
 
 
-isExiste(entrepriseUserInfosName:string)
-{
-  return this.http.get(ConfigService.rootUrl+this._entrepriseUserInfosUrlIsExiste+"/"+entrepriseUserInfosName,this.getRequestHeaders());
+isExiste(entrepriseUserInfosName: string) {
+  return this.http.get(ConfigService.rootUrl + this._entrepriseUserInfosUrlIsExiste + '/' + entrepriseUserInfosName, this.getRequestHeaders());
 }
 }

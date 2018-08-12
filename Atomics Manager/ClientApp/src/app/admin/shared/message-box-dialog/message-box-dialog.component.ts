@@ -8,17 +8,17 @@ import { messageBoxType } from '../../domain/messagebox.enum';
   styleUrls: ['./message-box-dialog.component.scss']
 })
 export class MessageBoxDialogComponent implements OnInit {
-public titre :string;
-public message :string;
-//public messageboxType :messageBoxType;
-public icone:string;
+public titre: string;
+public message: string;
+// public messageboxType :messageBoxType;
+public icone: string;
 public style: number;
-public color:string;
+public color: string;
 public information: string;
 public button: number;
 public allow_outside_click: boolean;
 
-  constructor(public dialogRef: MatDialogRef<MessageBoxDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { 
+  constructor(public dialogRef: MatDialogRef<MessageBoxDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
 
     this.style = data.style || 0;
     this.titre = data.titre;
@@ -27,32 +27,32 @@ public allow_outside_click: boolean;
     this.button = data.button;
     this.dialogRef.disableClose = !data.allow_outside_click || false;
     this.icone = data.messageboxType;
-    this.color=data.color;
+    this.color = data.color;
   }
 
   ngOnInit() {
-         
-    
+
+
   }
 
- 
+
 
 onOk() {
-  this.dialogRef.close({result: "ok"});
+  this.dialogRef.close({result: 'ok'});
 }
 onCancel() {
-  this.dialogRef.close({result: "cancel"});
+  this.dialogRef.close({result: 'cancel'});
 }
 onYes() {
-  this.dialogRef.close({result: "yes"});
+  this.dialogRef.close({result: 'yes'});
 }
 onNo() {
-  this.dialogRef.close({result: "no"});
+  this.dialogRef.close({result: 'no'});
 }
 onAccept() {
-  this.dialogRef.close({result: "accept"});
+  this.dialogRef.close({result: 'accept'});
 }
 onReject() {
-  this.dialogRef.close({result: "reject"});
+  this.dialogRef.close({result: 'reject'});
 }
 }

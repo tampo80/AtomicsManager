@@ -23,29 +23,28 @@ export class ApprobationLevelComponent implements OnInit , AfterViewInit {
     @ViewChild(MatSort) sort: MatSort;
     public result: any;
     dataSource = new MatTableDataSource();
-    displayedColumns = ['id','name','expensLimite','level','typeApprovalGroup','shared','actions'];
-    isLoading:boolean;
-    typeApproval:TypeApprovalGroup[]=TYPE_APPROVAL_GROUP;
-    constructor(private approbationLevelService:ApprobationLevelService,private messageboxService:MessageboxService,private dialog: MatDialog) {
-      this.isLoading=true;
+    displayedColumns = ['id', 'name', 'expensLimite', 'level', 'typeApprovalGroup', 'shared', 'actions'];
+    isLoading: boolean;
+    typeApproval: TypeApprovalGroup[] = TYPE_APPROVAL_GROUP;
+    // tslint:disable-next-line:max-line-length
+    constructor(private approbationLevelService: ApprobationLevelService, private messageboxService: MessageboxService, private dialog: MatDialog) {
+      this.isLoading = true;
      }
 
     ngOnInit() {
       this.getApprobationLevel();
-      this.isLoading=true;
+      this.isLoading = true;
     }
 
-    getType(value:boolean)
-    {
-      let res:string="";
+    getType(value: boolean) {
+      let res = '';
       switch (value) {
         case true:
-          res= "Partagé";
+          res = 'Partagé';
           break;
         case false:
-          res="Non Partagé";
-        default:
-          break;
+          res = 'Non Partagé';
+
       }
       return res;
     }
@@ -57,17 +56,16 @@ export class ApprobationLevelComponent implements OnInit , AfterViewInit {
 
      getApprobationLevel() {
       this.approbationLevelService.getApprobationLevel().subscribe(
-        res=>{
-          this.dataSource.data=res;
-          this.isLoading=false;
+        res => {
+          this.dataSource.data = res;
+          this.isLoading = false;
         }
       );
     }
 
 
-    getTypeApprobation(value:number)
-    {
-      return this.typeApproval.find(e=>e.value==value).label;
+    getTypeApprobation(value: number) {
+      return this.typeApproval.find(e => e.value === value).label;
     }
 
     applyFilter(filterValue: string) {
@@ -80,25 +78,29 @@ export class ApprobationLevelComponent implements OnInit , AfterViewInit {
       console.log(row);
     }
 
-    deleteApprobationLevel(approbationLevel?:ApprobationLevel){
+    deleteApprobationLevel(approbationLevel?: ApprobationLevel) {
 
-    this.messageboxService.ShowMessage("Avertissement","Supprimer  "+approbationLevel.name,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
+    // tslint:disable-next-line:max-line-length
+    this.messageboxService.ShowMessage('Avertissement', 'Supprimer  ' + approbationLevel.name, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
 
-      this.result = res
-      console.log(res);
-      if (this.result.result=="yes") {
-        this.approbationLevelService.deleteApprobationLevel(approbationLevel.id).subscribe(res=>{
-          if (res!=null) {
-            this.messageboxService.ShowMessage("Information",approbationLevel.name+" Supprimer avec succès",approbationLevel.name,0,false,1,'500px',"info",'primary');
+      this.result = res;
+
+      if (this.result.result === 'yes') {
+        // tslint:disable-next-line:no-shadowed-variable
+        this.approbationLevelService.deleteApprobationLevel(approbationLevel.id).subscribe(res => {
+          if (res != null) {
+            // tslint:disable-next-line:max-line-length
+            this.messageboxService.ShowMessage('Information', approbationLevel.name + ' Supprimer avec succès', approbationLevel.name, 0, false, 1, '500px', 'info', 'primary');
             this.getApprobationLevel();
           }
 
 
 
-        },err=>{
-                    if (err!=null) {
+        }, err => {
+                    if (err != null) {
                       console.log(err);
-                      this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+approbationLevel.name+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                      // tslint:disable-next-line:max-line-length
+                      this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + approbationLevel.name + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                     }
 
         }
@@ -112,19 +114,20 @@ export class ApprobationLevelComponent implements OnInit , AfterViewInit {
 
   }
 
-    addNewApprobationLevel(){
+    addNewApprobationLevel() {
 
-      const dialogRef = this.dialog.open(AddApprobationLevelDialogComponent,{
-        data:{approbationLevel:""},
-       width:'600px',
-       disableClose:true
+      const dialogRef = this.dialog.open(AddApprobationLevelDialogComponent, {
+        data: {approbationLevel: ''},
+       width: '600px',
+       disableClose: true
       });
 
-      dialogRef.afterClosed().subscribe(res=>{
+      dialogRef.afterClosed().subscribe(res => {
         console.log(res);
-        if (res.result===1) {
+        if (res.result === 1) {
           this.getApprobationLevel();
-          this.messageboxService.ShowMessage("Information","ApprobationLevel ajouter avec succès","",0,false,1,'500px',"info",'primary');
+          // tslint:disable-next-line:max-line-length
+          this.messageboxService.ShowMessage('Information', 'ApprobationLevel ajouter avec succès', '', 0, false, 1, '500px', 'info', 'primary');
         }
       }
 
@@ -132,38 +135,40 @@ export class ApprobationLevelComponent implements OnInit , AfterViewInit {
       );
     }
 
-    manageGroupMembers(approbationLevel:ApprobationLevel){
+    manageGroupMembers(approbationLevel: ApprobationLevel) {
 
-      const dialogRef = this.dialog.open(GourpAddComponent,{
-        data:{approbationLevel:approbationLevel},
-       width:'800px',
-       disableClose:true
+      const dialogRef = this.dialog.open(GourpAddComponent, {
+        data: {approbationLevel: approbationLevel},
+       width: '800px',
+       disableClose: true
       });
 
-      dialogRef.afterClosed().subscribe(res=>{
+      dialogRef.afterClosed().subscribe(res => {
         console.log(res);
-        if (res.result===1) {
+        if (res.result === 1) {
           this.getApprobationLevel();
-          this.messageboxService.ShowMessage("Information"," Opération appliquée  avec succès","",0,false,1,'500px',"info",'primary');
+          // tslint:disable-next-line:max-line-length
+          this.messageboxService.ShowMessage('Information', ' Opération appliquée  avec succès', '', 0, false, 1, '500px', 'info', 'primary');
         }
       }
 
 
       );
     }
-    EditApprobationLevel(approbationLevel?:ApprobationLevel){
+    EditApprobationLevel(approbationLevel?: ApprobationLevel) {
 
        console.log(approbationLevel);
-      const dialogRef = this.dialog.open(EditApprobationLevelDialogComponent,{
-        data:{approbationLevel:approbationLevel},
-       width:'600px',
-       disableClose:true
+      const dialogRef = this.dialog.open(EditApprobationLevelDialogComponent, {
+        data: {approbationLevel: approbationLevel},
+       width: '600px',
+       disableClose: true
       });
 
-      dialogRef.afterClosed().subscribe(res=>{
-        if (res.result===1) {
+      dialogRef.afterClosed().subscribe(res => {
+        if (res.result === 1) {
           this.getApprobationLevel();
-          this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",approbationLevel.name,0,false,1,'500px',"info",'primary');
+          // tslint:disable-next-line:max-line-length
+          this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', approbationLevel.name, 0, false, 1, '500px', 'info', 'primary');
         }
       }
 

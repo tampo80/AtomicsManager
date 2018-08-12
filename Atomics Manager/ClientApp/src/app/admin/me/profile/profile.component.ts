@@ -18,108 +18,104 @@ import { GlobalErrorInterceptor } from '../../interceptors/global-error.intercep
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-   formuserProfile:FormGroup;
-   me:UserEdit=new UserEdit();
-   //private handleError: GlobalErrorInterceptor;
-   lesRoles:Role[];
-  constructor(public userService:UserService, private accountservice:AccountService,private fb:FormBuilder,public snackBar:MatSnackBar,private dialog: MatDialog) {
+   formuserProfile: FormGroup;
+   me: UserEdit = new UserEdit();
+   // private handleError: GlobalErrorInterceptor;
+   lesRoles: Role[];
+  constructor(public userService: UserService, private accountservice: AccountService, private fb: FormBuilder, public snackBar: MatSnackBar, private dialog: MatDialog) {
     this.getMe();
     this.getRoles();
     this.createForm();
-    //this.handleError=new GlobalErrorInterceptor()
+    // this.handleError=new GlobalErrorInterceptor()
 
    }
 
   ngOnInit() {
 
   }
-createForm()
-{
-  this.formuserProfile=this.fb.group(
+createForm() {
+  this.formuserProfile = this.fb.group(
     {
 
-      id:[this.me.id,Validators.required],
-      jobTitle:[this.me.jobTitle,Validators.required],
-      userName:[this.me.userName,Validators.required],
-      email:[this.me.email,[Validators.required,Validators.email]],
-      phoneNumber:[this.me.phoneNumber,Validators.required],
-      fullName:[this.me.fullName,Validators.required],
-      roles:[{value: this.me.roles, disabled: true},Validators.required],
+      id: [this.me.id, Validators.required],
+      jobTitle: [this.me.jobTitle, Validators.required],
+      userName: [this.me.userName, Validators.required],
+      email: [this.me.email, [Validators.required, Validators.email]],
+      phoneNumber: [this.me.phoneNumber, Validators.required],
+      fullName: [this.me.fullName, Validators.required],
+      roles: [{value: this.me.roles, disabled: true}, Validators.required],
     }
   );
 
 
 
 }
- getMe()
-  {
+ getMe() {
     this.accountservice.getUserMe().subscribe(
-      res=>{
-        this.me=res;
-        this.formuserProfile.get("id").setValue(res.id);
-        this.formuserProfile.get("jobTitle").setValue(res.jobTitle);
-        this.formuserProfile.get("userName").setValue(res.userName);
-        this.formuserProfile.get("email").setValue(res.email);
-        this.formuserProfile.get("phoneNumber").setValue(res.phoneNumber);
-        this.formuserProfile.get("fullName").setValue(res.fullName);
-        this.formuserProfile.get("roles").setValue(res.roles);
+      res =>  {
+        this.me = res;
+        this.formuserProfile.get('id').setValue(res.id);
+        this.formuserProfile.get('jobTitle').setValue(res.jobTitle);
+        this.formuserProfile.get('userName').setValue(res.userName);
+        this.formuserProfile.get('email').setValue(res.email);
+        this.formuserProfile.get('phoneNumber').setValue(res.phoneNumber);
+        this.formuserProfile.get('fullName').setValue(res.fullName);
+        this.formuserProfile.get('roles').setValue(res.roles);
         console.log(this.me.jobTitle);
       }
     );
 
   }
-  getRoles()
-  {
-    this.accountservice.getRoles().subscribe(res=>{
-      this.lesRoles=res;
+  getRoles() {
+    this.accountservice.getRoles().subscribe(res =>  {
+      this.lesRoles = res;
     });
   }
-  onSubmit()
-  {
+  onSubmit() {
 
-    this.me.id= this.formuserProfile.get("id").value;
-    this.me.jobTitle= this.formuserProfile.get("jobTitle").value;
-    this.me.userName= this.formuserProfile.get("userName").value;
-    this.me.email= this.formuserProfile.get("email").value;
-    this.me.phoneNumber= this.formuserProfile.get("phoneNumber").value;
-    this.me.fullName= this.formuserProfile.get("fullName").value;
+    this.me.id = this.formuserProfile.get('id').value;
+    this.me.jobTitle = this.formuserProfile.get('jobTitle').value;
+    this.me.userName = this.formuserProfile.get('userName').value;
+    this.me.email = this.formuserProfile.get('email').value;
+    this.me.phoneNumber = this.formuserProfile.get('phoneNumber').value;
+    this.me.fullName = this.formuserProfile.get('fullName').value;
 
 
 
     this.accountservice.updateMe( this.me).subscribe(
-res=>{console.log(res);
-           localStorage.setItem(DbKeyService.CURRENT_USER,JSON.stringify(this.me));
-           this.snackBar.open("Modifications appliquées avec succès !","Modification du profil",{
-             duration:2000,
+res =>  {console.log(res);
+           localStorage.setItem(DbKeyService.CURRENT_USER, JSON.stringify(this.me));
+           this.snackBar.open('Modifications appliquées avec succès !', 'Modification du profil', {
+             duration: 2000,
 
            });
       }
     );
   }
-  compareIds(id1:any, id2:any):boolean{
-    const a1=determineId(id1);
-    const a2=determineId(id2);
-    return a1===a2;
+  compareIds(id1: any, id2: any): boolean {
+    const a1 = determineId(id1);
+    const a2 = determineId(id2);
+    return a1 === a2;
   }
 
-compareRoles=(role1:string,role2:string)=>role1==role2;
+compareRoles = (role1: string, role2: string) => role1 === role2;
 
 
-EditPassword(){
+EditPassword() {
 
-  const dialogRef = this.dialog.open(EditPasswordComponent,{
-    data:{user:this.me},
-   width:'600px',
-   disableClose:true
+  const dialogRef = this.dialog.open(EditPasswordComponent, {
+    data: {user: this.me},
+   width: '600px',
+   disableClose: true
   });
 
-  dialogRef.afterClosed().subscribe(res=>{
-    if (res.result===1) {
-      this.snackBar.open("Mot de passe changé  avec succès !","Changement du mot de passe",{
-        duration:2000,
+  dialogRef.afterClosed().subscribe(res =>  {
+    if (res.result === 1) {
+      this.snackBar.open('Mot de passe changé  avec succès !', 'Changement du mot de passe', {
+        duration: 2000,
 
       });
-      ///this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",devises.label,0,false,1,'500px',"info",'primary');
+      /// this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",devises.label,0,false,1,'500px',"info",'primary');
     }
   }
 
@@ -128,9 +124,9 @@ EditPassword(){
 }
 
 }
-export function determineId(id:any):string {
-    if (id.constructor.name=='array' && id.length>0) {
-      return ''+id[0];
+export function determineId(id: any): string {
+    if (id.constructor.name === 'array' && id.length > 0) {
+      return '' + id[0];
     }
-    return ''+ id;
+    return '' + id;
 }

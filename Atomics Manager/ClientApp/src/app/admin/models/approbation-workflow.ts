@@ -2,16 +2,17 @@ export class ApprobationWorkflow {
          id: number ;
          approbationDate: Date;
          userId: string ;
-        userUserName : string  ;
-        userFullName : string;
+         userUserName: string  ;
+         userFullName: string;
 
-         approbationLevelId : number ;
+         approbationLevelId: number ;
 
-         levelStatut:number ;
+         levelStatut: number ;
 
-         globalStatut:number ;
+         globalStatut: number ;
 
-         comment:string ;
+         comment: string ;
 
-         demandesId:number ;
+         demandesId: number ;
+         valitationRequieredNumber: number;
 }

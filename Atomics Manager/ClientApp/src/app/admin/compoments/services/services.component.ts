@@ -13,22 +13,22 @@ import { ServicesService } from '../../services/services.service';
 })
 export class ServicesComponent implements OnInit , AfterViewInit {
 
-  private Services:Services[];
+  private Services: Services[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','name','departementsName','description','headName','actions'];
-  isLoading:boolean;
+  displayedColumns = ['id', 'name', 'departementsName', 'description', 'headName', 'actions'];
+  isLoading: boolean;
 
-  constructor(private servicesService:ServicesService,private messageboxService:MessageboxService,private dialog: MatDialog) {
-    this.isLoading=true;
+  constructor(private servicesService: ServicesService, private messageboxService: MessageboxService, private dialog: MatDialog) {
+    this.isLoading = true;
    }
 
   ngOnInit() {
     this.getServices();
-    this.isLoading=true;
+    this.isLoading = true;
   }
 
   ngAfterViewInit() {
@@ -39,9 +39,9 @@ export class ServicesComponent implements OnInit , AfterViewInit {
 
    getServices() {
     this.servicesService.getServices().subscribe(
-      res=>{
-        this.dataSource.data=res;
-        this.isLoading=false;
+      res =>  {
+        this.dataSource.data = res;
+        this.isLoading = false;
       }
     );
   }
@@ -58,25 +58,25 @@ export class ServicesComponent implements OnInit , AfterViewInit {
     console.log(row);
   }
 
-  deleteServices(services?:Services){
+  deleteServices(services?: Services) {
 
-  this.messageboxService.ShowMessage("Avertissement","Supprimer  "+services.name,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
+  this.messageboxService.ShowMessage('Avertissement', 'Supprimer  ' + services.name, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
 
-    this.result = res
+    this.result = res;
     console.log(res);
-    if (this.result.result=="yes") {
-      this.servicesService.deleteServices(services.id).subscribe(res=>{
-        if (res!=null) {
-          this.messageboxService.ShowMessage("Information",services.name+" Supprimer avec succès",services.name,0,false,1,'500px',"info",'primary');
+    if (this.result.result === 'yes') {
+      this.servicesService.deleteServices(services.id).subscribe(_res =>  {
+        if (res != null) {
+          this.messageboxService.ShowMessage('Information', services.name + ' Supprimer avec succès', services.name, 0, false, 1, '500px', 'info', 'primary');
           this.getServices();
         }
 
 
 
-      },err=>{
-                  if (err!=null) {
+      }, err =>  {
+                  if (err != null) {
                     console.log(err);
-                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+services.name+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                    this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + services.name + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                   }
 
       }
@@ -90,38 +90,38 @@ export class ServicesComponent implements OnInit , AfterViewInit {
 
 }
 
-  addNewServices(){
+  addNewServices() {
 
-    const dialogRef = this.dialog.open(AddServicesDialogComponent,{
-      data:{services:""},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(AddServicesDialogComponent, {
+      data: {services: ''},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
+    dialogRef.afterClosed().subscribe(res =>  {
       console.log(res);
-      if (res.result===1) {
+      if (res.result === 1) {
         this.getServices();
-        this.messageboxService.ShowMessage("Information","Services ajouter avec succès","",0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', 'Services ajouter avec succès', '', 0, false, 1, '500px', 'info', 'primary');
       }
     }
 
 
     );
   }
-  EditServices(services?:Services){
+  EditServices(services?: Services) {
 
      console.log(services);
-    const dialogRef = this.dialog.open(EditServicesDialogComponent,{
-      data:{services:services},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(EditServicesDialogComponent, {
+      data: {services: services},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
-      if (res.result===1) {
+    dialogRef.afterClosed().subscribe(res =>  {
+      if (res.result === 1) {
         this.getServices();
-        this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",services.name,0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', services.name, 0, false, 1, '500px', 'info', 'primary');
       }
     }
 

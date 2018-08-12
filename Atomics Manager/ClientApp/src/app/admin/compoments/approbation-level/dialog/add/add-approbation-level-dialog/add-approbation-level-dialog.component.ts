@@ -15,9 +15,9 @@ import { TYPE_APPROVAL_GROUP } from '../../../../../config';
 })
 export class AddApprobationLevelDialogComponent implements OnInit {
 
-   isVillesLoading=false;
+   isVillesLoading = false;
 
-  ApprobationLevelForm:FormGroup;
+  ApprobationLevelForm: FormGroup;
   validationMessages = {
 
     name: {
@@ -36,19 +36,22 @@ export class AddApprobationLevelDialogComponent implements OnInit {
   formErrors = {
 
     name: '',
-    departements:'',
-    description:'',
+    departements: '',
+    description: '',
 
 
   };
 
-  lesNiveaux=[
-    1,2,3,4,5,6,7,8,9
+  lesNiveaux = [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9
   ];
+
+  nbrs = [1, 2, 3, 4];
   matcher = new FormErrorStateMatcher();
-  typeApproval:TypeApprovalGroup[]=TYPE_APPROVAL_GROUP;
-  constructor(private messageboxService:MessageboxService,public approbationLevelService:ApprobationLevelService, private fb: FormBuilder,public dialogRef: MatDialogRef<AddApprobationLevelDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
-    data.approbationLevel=new ApprobationLevel();
+  typeApproval: TypeApprovalGroup[] = TYPE_APPROVAL_GROUP;
+  // tslint:disable-next-line:max-line-length
+  constructor(private messageboxService: MessageboxService, public approbationLevelService: ApprobationLevelService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddApprobationLevelDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    data.approbationLevel = new ApprobationLevel();
 
   }
 
@@ -63,15 +66,15 @@ this.onValueChanged();
 
 
 
-createForm()
-{
-  this.ApprobationLevelForm=this.fb.group(
+createForm() {
+  this.ApprobationLevelForm = this.fb.group(
     {
-      name:['',Validators.required],
-      expensLimite:['',Validators.required],
-      level:['',Validators.required],
-      typeApprovalGroup:['',Validators.required],
-      shared:[false,Validators.required]
+      name: ['', Validators.required],
+      expensLimite: ['', Validators.required],
+      level: [0, Validators.required],
+      typeApprovalGroup: ['', Validators.required],
+      shared: [false, Validators.required],
+      numberApprobaionRequiered: [1, Validators.required]
 
     });
 
@@ -79,33 +82,34 @@ createForm()
     this.onValueChanged();
 }
  onNoClick(): void {
-  this.dialogRef.close({result:0});;
+  this.dialogRef.close({result: 0});
 }
 
 onSubmit() {
   //  alert("p");
-  let approbationLevel:ApprobationLevel=new ApprobationLevel();
+  const approbationLevel: ApprobationLevel = new ApprobationLevel();
 
 
-  approbationLevel.name=this.ApprobationLevelForm.get('name').value;
-  approbationLevel.level=this.ApprobationLevelForm.get('level').value;
-  approbationLevel.expensLimite=this.ApprobationLevelForm.get('expensLimite').value;
-  approbationLevel.typeApprovalGroup=this.ApprobationLevelForm.get('typeApprovalGroup').value;
-  approbationLevel.shared=this.ApprobationLevelForm.get('shared').value;
-
+  approbationLevel.name = this.ApprobationLevelForm.get('name').value;
+  approbationLevel.level = this.ApprobationLevelForm.get('level').value;
+  approbationLevel.expensLimite = this.ApprobationLevelForm.get('expensLimite').value;
+  approbationLevel.typeApprovalGroup = this.ApprobationLevelForm.get('typeApprovalGroup').value;
+  approbationLevel.shared = this.ApprobationLevelForm.get('shared').value;
+  approbationLevel.numberApprovalRequiered = this.ApprobationLevelForm.get('numberApprobaionRequiered').value;
   this.approbationLevelService.addApprobationLevel(approbationLevel).subscribe(
 
-    res=>{
+    res => {
 
 
-      this.dialogRef.close({result:1});
+      this.dialogRef.close({result: 1});
 
      },
-   err=>{
+   err => {
 
-     if (err.statuts===400) {
+     if (err.statuts === 400) {
       // this.erroMessage=err.error;
-       this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+err.error,"",0,false,1,'520px',"warning",'warn')
+       this.messageboxService
+       .ShowMessage('Avertissement', 'des erreurs empechent l\'enregistrement ' + err.error, '', 0, false, 1, '520px', 'warning', 'warn');
      }
 
        }

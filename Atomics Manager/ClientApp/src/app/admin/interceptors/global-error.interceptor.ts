@@ -15,7 +15,7 @@ export class GlobalErrorInterceptor implements ErrorHandler {
         console.log('GlobalErrorInterceptor error catched:');
         console.log(error);
         this.alertService.addError(error);
-        //throw error;
+        // throw error;
     }
 
 }

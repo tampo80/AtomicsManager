@@ -1,10 +1,11 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
-<div class="mat-row page mat-elevation-z8" width="80%">
+<div class="mat-row page mat-elevation-z8" width="80%" heigth="60%">
 
-  <mat-card>
+
+  <mat-card  heigth="60%">
       <mat-card-header>
-          <mat-card-title>Title</mat-card-title>
-          <mat-card-subtitle>Subtitle</mat-card-subtitle>
+          <mat-card-title>WorkFlow des demandes</mat-card-title>
+          <mat-card-subtitle>Full</mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
@@ -14,13 +15,16 @@
   [nodes]="hierarchialGraph.nodes"
   [legend]="true"
   [curve]="curve"
-  [draggingEnabled]="false">
+  [autoCenter]="true"
+  [enableZoom]="true"
+  [autoZoom]="true"
 
-    <ng-template #defsTemplate>
-      <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
-        <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
-      </svg:marker>
-    </ng-template>
+  [scheme]="colorScheme"
+
+
+
+  [draggingEnabled]="true">
+
 
     <ng-template #nodeTemplate let-node>
       <svg:g class="node"
@@ -42,15 +46,16 @@
         </svg:path>
       </svg:g>
     </ng-template>
+    <ng-template #defsTemplate>
+        <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+          <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+        </svg:marker>
+      </ng-template>
 
   </ngx-graph>
       </mat-card-content>
-      <mat-card-actions align="start">
-          <button mat-button (click)="onAction1">Action1</button>
 
-      </mat-card-actions>
 
   </mat-card>
-
-
 </div>
+

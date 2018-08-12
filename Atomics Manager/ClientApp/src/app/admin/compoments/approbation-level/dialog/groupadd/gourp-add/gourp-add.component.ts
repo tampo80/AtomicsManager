@@ -17,58 +17,52 @@ import { ApprobationLevel } from '../../../../../models/approbation-level';
   styleUrls: ['./gourp-add.component.scss']
 })
 export class GourpAddComponent implements OnInit {
-  removable=true;
-  apgmembers:ApgMembers[]=[];
-  members:User[]=[];
+  removable = true;
+  apgmembers: ApgMembers[] = [];
+  members: User[] = [];
   filteredUsers: Observable<User[]>;
-  aPGMemebersForm:FormGroup;
-  constructor(private snackBar:MatSnackBar, private accountService:AccountService,  private apgMemebersServices:AgMembersService, private messageboxService:MessageboxService,public approbationLevelService:ApprobationLevelService, private fb: FormBuilder,public dialogRef: MatDialogRef<GourpAddComponent>,@Inject(MAT_DIALOG_DATA) public data: any)
-  {
+  aPGMemebersForm: FormGroup;
+  // tslint:disable-next-line:max-line-length
+  constructor(private snackBar: MatSnackBar, private accountService: AccountService,  private apgMemebersServices: AgMembersService, public approbationLevelService: ApprobationLevelService, private fb: FormBuilder, public dialogRef: MatDialogRef<GourpAddComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
 
   }
 
-remove(member:ApgMembers):void
-{
+remove(member: ApgMembers): void {
   console.log(member);
-  const index=this.apgmembers.indexOf(member);
-  if (index>=0) {
-    this.apgmembers.splice(index,1);
+  const index = this.apgmembers.indexOf(member);
+  if (index >= 0) {
+    this.apgmembers.splice(index, 1);
   }
 }
 
-exist(member:ApgMembers):boolean
-{
+exist(member: ApgMembers): boolean {
 
-  const index=this.apgmembers.find(e=>e.memberId==member.memberId);
+  const index = this.apgmembers.find(e => e.memberId === member.memberId);
   console.log(index);
 
   console.log(member.id);
 
-  if (index!=null) {
+  if (index != null) {
     return true;
 
-  }
-  else
-  {
+  } else {
     return false;
   }
 }
 
-getSelected(value:User)
-{
+getSelected(value: User) {
   console.log(value.id);
-  let member:ApgMembers=new ApgMembers();
-  member.memberId=value.id;
-  member.memberUserName=value.userName;
-  member.memberFullName=value.fullName;
+  const member: ApgMembers = new ApgMembers();
+  member.memberId = value.id;
+  member.memberUserName = value.userName;
+  member.memberFullName = value.fullName;
   console.log(this.exist(member));
   if (!this.exist(member)) {
     this.apgmembers.push(member);
     this.aPGMemebersForm.get('members').setValue('');
-  }
-  else{
-      this.snackBar.open('Ce membre a été déjà ajouté !',"Info",{
-        duration:1000
+  } else {
+      this.snackBar.open('Ce membre a été déjà ajouté !', 'Info', {
+        duration: 1000
       });
       this.aPGMemebersForm.get('members').setValue('');
   }
@@ -77,9 +71,9 @@ getSelected(value:User)
 
   ngOnInit() {
    this.getUsers();
-   this.createform()
+   this.createform();
    this.getAPGMemebers(this.data.approbationLevel.id);
-   this.filteredUsers = this.aPGMemebersForm.get("members").valueChanges.pipe(
+   this.filteredUsers = this.aPGMemebersForm.get('members').valueChanges.pipe(
     startWith<string|User>(''),
     map(value => typeof value === 'string' ? value : value.userName),
     map(userName => userName ? this._filterUsers(userName) : this.members.slice())
@@ -96,44 +90,40 @@ getSelected(value:User)
     return member ? member.userName : undefined;
   }
 
-  createform()
-  {
-    this.aPGMemebersForm=this.fb.group({
-      members:[''],
+  createform() {
+    this.aPGMemebersForm = this.fb.group({
+      members: [''],
     }
 
     );
   }
 
-  getUsers()
-  {
-    this.accountService.getUsers().subscribe(res=>{
-      this.members=res;
+  getUsers() {
+    this.accountService.getUsers().subscribe(res => {
+      this.members = res;
     });
   }
-  getAPGMemebers(id:number)
-  {
-     this.apgMemebersServices.getApgMembersByAPLId(id).subscribe(res=>{
-       this.apgmembers=res;
+  getAPGMemebers(id: number) {
+     this.apgMemebersServices.getApgMembersByAPLId(id).subscribe(res => {
+       this.apgmembers = res;
      });
   }
   onNoClick(): void {
-    this.dialogRef.close({result:0});;
+    this.dialogRef.close({result: 0});
   }
 
-  applyGroup()
-  {
+  applyGroup() {
 
-   let apgm:APGM=new APGM();
-   apgm.level=this.data.approbationLevel;
-   apgm.members=this.apgmembers;
-   this.apgMemebersServices.addApgMembers(apgm).subscribe(res=>{
-    this.dialogRef.close({result:1});
-   })
+   const apgm: APGM = new APGM();
+   apgm.level = this.data.approbationLevel;
+   apgm.members = this.apgmembers;
+   this.apgMemebersServices.addApgMembers(apgm).subscribe(_res => {
+    this.dialogRef.close({result: 1});
+   });
   }
 
 }
-export class APGM{
-  level:ApprobationLevel;
-  members:ApgMembers[];
+export class APGM {
+  level: ApprobationLevel;
+  members: ApgMembers[];
 }

@@ -10,46 +10,46 @@ export class NavigationService {
 
   public navigationList: NavigationGroup[];
   public  currentnavigationList: NavigationGroup[];
-  public permissions:string[]=[];
+  public permissions: string[] = [];
   public selectedNavigationItem: NavigationItem;
   private selectedNavigationGroup: NavigationGroup;
 
-  constructor(public userService:UserService) {
+  constructor(public userService: UserService) {
     this.navigationList = NAVIGATION_MENU_DATA;
-    this.currentnavigationList=[];
-    this.permissions=userService.currentUserPermissions;
+    this.currentnavigationList = [];
+    this.permissions = userService.currentUserPermissions;
   }
-  public  currentUserPermissions () : string[] {
-    let permissionValues=[];
-    let stored=localStorage.getItem(DbKeyService.USER_PERMISSIONS);
-    if (stored!=null) {
-      permissionValues=<string[]>JSON.parse(stored);
+  public  currentUserPermissions (): string[] {
+    let permissionValues = [];
+    const stored = localStorage.getItem(DbKeyService.USER_PERMISSIONS);
+    if (stored != null) {
+      permissionValues = <string[]>JSON.parse(stored);
     }
-     permissionValues= permissionValues.filter(x => x != null) as string[];
+     permissionValues = permissionValues.filter(x => x != null) as string[];
     return permissionValues;
   }
 
   public getNavigationList(): NavigationGroup[] {
-    this.permissions=this.currentUserPermissions();
-    if (this.permissions==null) {
-      this.permissions=[];
+    this.permissions = this.currentUserPermissions();
+    if (this.permissions == null) {
+      this.permissions = [];
     }
-    this.navigationList=[];
-    this.currentnavigationList=[];
-    this.navigationList=NAVIGATION_MENU_DATA;
-   
+    this.navigationList = [];
+    this.currentnavigationList = [];
+    this.navigationList = NAVIGATION_MENU_DATA;
+
     this.navigationList.forEach((g) => {
-    let permission=this.permissions.find(e=>e==g.permissions[0].name);
+    const permission = this.permissions.find(e => e === g.permissions[0].name);
     console.log(NAVIGATION_MENU_DATA);
     console.log(permission);
-    if (g.permissions[0].value==true) {
+    if (g.permissions[0].value === true) {
       this.currentnavigationList.push(g);
     }
-      if (permission!=undefined ) {
-       
+      if (permission !== undefined ) {
+
         this.currentnavigationList.push(g);
       }
-      
+
     });
      console.log(this.currentnavigationList);
      console.log(this.permissions);
@@ -58,11 +58,11 @@ export class NavigationService {
   }
 
   public updateSelectedNavigationGroup() {
-    //var result: NavigationGroup;
+    // var result: NavigationGroup;
     this.navigationList.forEach((g) => {
       g.items.forEach((i) => {
-        if (this.selectedNavigationItem.name == i.name) {
-          //console.log("Found group: " + g.name)
+        if (this.selectedNavigationItem.name === i.name) {
+          // console.log("Found group: " + g.name)
           this.selectedNavigationGroup = g;
         }
       });

@@ -1,23 +1,23 @@
  export class Demandes {
-  id : number;
-  userId :string ;
+  id: number;
+  userId: string ;
 
-  dateDemande :Date ;
-  motif :string ;
-  montant :number ;
-  typeLigne : number;
-  nature : number ;
-  dateLivraisonPrevu :Date ;
-  dateLivraison :Date ;
-  serviceName:string;
-  agenceName:string;
+  dateDemande: Date ;
+  motif: string ;
+  montant: number ;
+  typeLigne: number;
+  nature: number ;
+  dateLivraisonPrevu: Date ;
+  dateLivraison: Date ;
+  serviceName: string;
+  agenceName: string;
   fournisseursId: number;
   productId: number;
-  productName:string;
-  statut:string="pending";
-  userUserName:string;
-  userFullName:string;
-  quantite:number;
-  expertsId:number;
+  productName: string;
+  statut = 'pending';
+  userUserName: string;
+  userFullName: string;
+  quantite: number;
+  expertsId: number;
 }
 

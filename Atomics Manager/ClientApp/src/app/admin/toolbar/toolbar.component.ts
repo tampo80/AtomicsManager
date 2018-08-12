@@ -13,8 +13,8 @@ export class ToolbarComponent implements OnInit {
   @Input() sidenav: MatDrawer;
 
   constructor(
-    public navigationService: NavigationService,public userService:UserService
-  ) { 
+    public navigationService: NavigationService, public userService: UserService
+  ) {
 
     console.log(userService.currentUser.friendlyName);
   }

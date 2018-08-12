@@ -20,6 +20,8 @@ namespace Atomics_Manager.ViewModels
 
         public ApprobationSatut GlobalStatut { get; set; }
 
+        public int ValitationRequieredNumber { get; set; }
+
         public string Comment { get; set; }
 
         public int DemandesId { get; set; }

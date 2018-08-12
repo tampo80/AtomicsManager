@@ -15,16 +15,16 @@ import { MessageboxService } from '../../../../../services/messagebox.service';
 })
 export class AddDialogComponent implements OnInit {
   roleformControl = new FormControl();
-  roles:Role[]=[];
-  roleList:string[]=[];
-  //toppingList = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-  
-  private erroMessage:string;
-  //formControl;
+  roles: Role[] = [];
+  roleList: string[] = [];
+  // toppingList = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
-  constructor(private messageboxService:MessageboxService,public accountService:AccountService, public dialogRef: MatDialogRef<AddDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  private erroMessage: string;
+  // formControl;
 
-    data.user=new UserEdit();
+  constructor(private messageboxService: MessageboxService, public accountService: AccountService, public dialogRef: MatDialogRef<AddDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+
+    data.user = new UserEdit();
 
     /*this.formControl = fb.group({
       jobTitle: ['', Validators.required],
@@ -38,31 +38,30 @@ export class AddDialogComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.data.user.isEnabled=true;
+    this.data.user.isEnabled = true;
     this.getRoles();
   }
 
    isEmailValid(control) {
 
     return control => {
-  
-      var regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  
+
+      const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
       return regex.test(control.value) ? null : { invalidEmail: true };
-  
-    }
-  
+
+    };
+
   }
-  getRolelist(roles:Role[])
-  {
-    roles.forEach(g=>{
+  getRolelist(roles: Role[]) {
+    roles.forEach(g =>  {
       this.roleList.push(g.name);
-    })
+    });
   }
    getRoles() {
     this.accountService.getRoles().subscribe(
-      response=>{
-        this.roles=response;
+      response =>  {
+        this.roles = response;
         this.getRolelist(this.roles);
       }
     );
@@ -72,10 +71,10 @@ export class AddDialogComponent implements OnInit {
     Validators.required,
     Validators.email,
   ]);
- 
+
   getErrorMessage() {
     return this.formControl.hasError('required') ? 'Champ réquis' :
-      this.formControl.hasError('email') ? "Mail n'est pas valide" :
+      this.formControl.hasError('email') ? 'Mail n\'est pas valide' :
         '';
   }
 
@@ -84,30 +83,30 @@ export class AddDialogComponent implements OnInit {
   }
 
   onNoClick(): void {
-    this.dialogRef.close({result:0});;
+    this.dialogRef.close({result: 0});
   }
 
   public confirmAdd(): void {
     console.log(this.data);
-    this.erroMessage='';
+    this.erroMessage = '';
    // let role:Role=new Role("administrator");
-    //this.data.user.roles=['administrator'];
- 
+    // this.data.user.roles=['administrator'];
+
     console.log(this.data);
-    this.accountService.addUser(this.data.user).subscribe(res=>{
-     
-      
-     this.dialogRef.close({result:1});
-      
+    this.accountService.addUser(this.data.user).subscribe(res =>  {
+
+
+     this.dialogRef.close({result: 1});
+
     },
-  err=>{
-   
-    if (err.statuts===400) {
-      this.erroMessage=err.error;
-      this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+this.erroMessage,"",0,false,1,'520px',"warning",'warn')
+  err =>  {
+
+    if (err.statuts === 400) {
+      this.erroMessage = err.error;
+      this.messageboxService.ShowMessage('Avertissement', 'des erreurs empechent l\'enregistrement ' + this.erroMessage, '', 0, false, 1, '520px', 'warning', 'warn');
     }
-         
-      }  
+
+      }
   );
 
   }

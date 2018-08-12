@@ -10,8 +10,8 @@ import { AccountService } from '../../../../services/account.service';
   styleUrls: ['./edit-password.component.scss']
 })
 export class EditPasswordComponent implements OnInit {
- passwordPatern:string='(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}';
-  editPassForm:FormGroup;
+ passwordPatern = '(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{6,}';
+  editPassForm: FormGroup;
   validationMessages = {
     currentPassword: {
       required: 'Ce champ ne peu pas pas étre vide !',
@@ -30,33 +30,33 @@ export class EditPasswordComponent implements OnInit {
       pattern: 'Le mot de passe doit contenir au moins un charatere majuscule,un caratere numérique et un charatere spéciale',
       minlength: 'Le mot de passe doit contenir au moins 6 caractères ',
       maxlength: 'Le mot de passe doit contenir au plus 25 caractères ',
-      MatchPassword:"Les mots de passe sont differents !"
+      MatchPassword: 'Les mots de passe sont differents !'
     }
   };
   formErrors = {
     currentPassword: '',
     newPassword: '',
-    confirmPassword:''
+    confirmPassword: ''
   };
-  constructor(private accountService:AccountService, private fb: FormBuilder,public dialogRef: MatDialogRef<EditPasswordComponent>,@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private accountService: AccountService, private fb: FormBuilder, public dialogRef: MatDialogRef<EditPasswordComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.createForm();
   }
 
   onNoClick(): void {
-    this.dialogRef.close({result:0});
+    this.dialogRef.close({result: 0});
   }
-  createForm(){
-    this.editPassForm=this.fb.group({
-     id:[this.data.user.id,Validators.required],
-     currentPassword: ['',[Validators.required,Validators.minLength(6)]],
-     newPassword: ['',[Validators.required,Validators.minLength(6),Validators.pattern(this.passwordPatern),Validators.maxLength(25)]],
-     confirmPassword: ['',[Validators.required,Validators.minLength(6),Validators.pattern(this.passwordPatern),Validators.maxLength(25)]]
+  createForm() {
+    this.editPassForm = this.fb.group({
+     id: [this.data.user.id, Validators.required],
+     currentPassword: ['', [Validators.required, Validators.minLength(6)]],
+     newPassword: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordPatern), Validators.maxLength(25)]],
+     confirmPassword: ['', [Validators.required, Validators.minLength(6), Validators.pattern(this.passwordPatern), Validators.maxLength(25)]]
     },
     {
 
-      validator:PasswordValidation.MatchPassword
+      validator: PasswordValidation.MatchPassword
 
     });
     this.editPassForm.valueChanges.subscribe(data => this.onValueChanged(data));
@@ -64,16 +64,14 @@ export class EditPasswordComponent implements OnInit {
   }
 
 
-  onSubmit()
-  {
-    if(!this.editPassForm.invalid)
-    {
-      this.data.user.currentPassword=this.editPassForm.get('currentPassword').value;
-      this.data.user.newPassword=this.editPassForm.get('newPassword').value;
-      this.data.user.confirmPassword=this.editPassForm.get('newPassword').value;
+  onSubmit() {
+    if (!this.editPassForm.invalid) {
+      this.data.user.currentPassword = this.editPassForm.get('currentPassword').value;
+      this.data.user.newPassword = this.editPassForm.get('newPassword').value;
+      this.data.user.confirmPassword = this.editPassForm.get('newPassword').value;
      this.accountService.updateMe(this.data.user).subscribe(
-         res=>{
-          this.dialogRef.close({result:1});
+         res =>  {
+          this.dialogRef.close({result: 1});
          }
      );
     }

@@ -13,10 +13,10 @@ import { Devises } from '../../../../../models/devises';
 })
 export class EditDevisesDialogComponent implements OnInit {
 
-  devisesForm:FormGroup;
+  devisesForm: FormGroup;
 
 
-  constructor(private messageboxService:MessageboxService,public devisesService:DevisesService, private fb: FormBuilder,public dialogRef: MatDialogRef<EditDevisesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private messageboxService: MessageboxService, public devisesService: DevisesService, private fb: FormBuilder, public dialogRef: MatDialogRef<EditDevisesDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
 
    // data.devises=new Devises();
    }
@@ -25,12 +25,12 @@ export class EditDevisesDialogComponent implements OnInit {
    get f() { return this.devisesForm.controls; }
 
 ngOnInit() {
-this.devisesForm=this.fb.group(
+this.devisesForm = this.fb.group(
 {
-  id:[this.data.devises.id,Validators.required],
-  label:[this.data.devises.label,Validators.required],
-  codeIso:[this.data.devises.codeIso,Validators.required],
-  symbole:[this.data.devises.symbole,Validators.required]
+  id: [this.data.devises.id, Validators.required],
+  label: [this.data.devises.label, Validators.required],
+  codeIso: [this.data.devises.codeIso, Validators.required],
+  symbole: [this.data.devises.symbole, Validators.required]
 }
 
 );
@@ -42,54 +42,45 @@ this.devisesForm=this.fb.group(
 
 
 
-  isExcite(devisesName:string)
-  {
+  isExcite(devisesName: string) {
 
   }
 
   getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Champ réquis' :
-      this.formControl.hasError('name') ? "Mail n'est pas valide" :
-        '';
+
   }
   onSubmit() {
    //  alert("p");
    this.addDevises();
     }
-  
+
     onNoClick(): void {
-      this.dialogRef.close({result:0});;
+      this.dialogRef.close({result: 0});
     }
-    formControl = new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ],
-  this.isExcite.bind(this)
-  );
 
 
 
-  
-    
-    addDevises()
-    {
-      //this.data.role.permissions=this.getSelectedPermissions();
+
+
+
+    addDevises() {
+      // this.data.role.permissions=this.getSelectedPermissions();
       this.devisesService.updateDevises(this.devisesForm.value).subscribe(
-  
-        res=>{
-       
-        
-          this.dialogRef.close({result:1});
-           
+
+        res =>  {
+
+
+          this.dialogRef.close({result: 1});
+
          },
-       err=>{
-        
-         if (err.statuts===400) {
+       err =>  {
+
+         if (err.statuts === 400) {
           // this.erroMessage=err.error;
-           this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+err.error,"",0,false,1,'520px',"warning",'warn')
+           this.messageboxService.ShowMessage('Avertissement', 'des erreurs empechent l\'enregistrement ' + err.error, '', 0, false, 1, '520px', 'warning', 'warn');
          }
-              
-           }  
+
+           }
       );
     }
 }

@@ -175,7 +175,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ImagesService,
     {
       provide: LOCALE_ID,
-      useValue: "fr-FR"
+      useValue: 'fr-FR'
     },
     {
       provide: ErrorHandler,

@@ -15,9 +15,9 @@ import { Departements } from '../../../../../models/departements';
   styleUrls: ['./add-services-dialog.component.scss']
 })
 export class AddServicesDialogComponent implements OnInit  {
-  isVillesLoading=false;
-  lesDepartements:Departements[];
-  ServicesForm:FormGroup;
+  isVillesLoading = false;
+  lesDepartements: Departements[];
+  ServicesForm: FormGroup;
   validationMessages = {
 
     name: {
@@ -36,15 +36,15 @@ export class AddServicesDialogComponent implements OnInit  {
   formErrors = {
 
     name: '',
-    departements:'',
-    description:'',
+    departements: '',
+    description: '',
 
 
   };
   matcher = new FormErrorStateMatcher();
 
-  constructor(private messageboxService:MessageboxService,public servicesService:ServicesService,private departementsServices:DepartementsService, private fb: FormBuilder,public dialogRef: MatDialogRef<AddServicesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
-    data.services=new Services();
+  constructor(private messageboxService: MessageboxService, public servicesService: ServicesService, private departementsServices: DepartementsService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddServicesDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+    data.services = new Services();
 
   }
 
@@ -57,20 +57,18 @@ this.getDepatement();
   }
 
 
-  getDepatement()
-  {
-    this.departementsServices.getDepartements().subscribe(res=>{
-        this.lesDepartements=res;
-    })
+  getDepatement() {
+    this.departementsServices.getDepartements().subscribe(res =>  {
+        this.lesDepartements = res;
+    });
   }
 
-createForm()
-{
-  this.ServicesForm=this.fb.group(
+createForm() {
+  this.ServicesForm = this.fb.group(
     {
-      name:['',Validators.required],
-      description:['',Validators.required],
-      departements:['',Validators.required],
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      departements: ['', Validators.required],
 
 
     });
@@ -79,30 +77,30 @@ createForm()
     this.onValueChanged();
 }
  onNoClick(): void {
-  this.dialogRef.close({result:0});;
+  this.dialogRef.close({result: 0});
 }
 
 onSubmit() {
   //  alert("p");
-  let services:Services=new Services();
+  const services: Services = new Services();
 
-  services.departementsId=this.ServicesForm.get('departements').value;
-  services.name=this.ServicesForm.get('name').value;
-  services.description=this.ServicesForm.get('description').value;
+  services.departementsId = this.ServicesForm.get('departements').value;
+  services.name = this.ServicesForm.get('name').value;
+  services.description = this.ServicesForm.get('description').value;
 
   this.servicesService.addServices(services).subscribe(
 
-    res=>{
+    res =>  {
 
 
-      this.dialogRef.close({result:1});
+      this.dialogRef.close({result: 1});
 
      },
-   err=>{
+   err =>  {
 
-     if (err.statuts===400) {
+     if (err.statuts === 400) {
       // this.erroMessage=err.error;
-       this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+err.error,"",0,false,1,'520px',"warning",'warn')
+       this.messageboxService.ShowMessage('Avertissement', 'des erreurs empechent l\'enregistrement ' + err.error, '', 0, false, 1, '520px', 'warning', 'warn');
      }
 
        }

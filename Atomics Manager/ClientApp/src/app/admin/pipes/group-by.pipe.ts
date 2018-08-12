@@ -12,14 +12,14 @@ export class GroupByPipe implements PipeTransform {
 
     transform(value: Array<any>, field: string): Array<any> {
 
-        if (!value)
+        if (!value) {
             return value;
+        }
 
         const groupedObj = value.reduce((prev, cur) => {
             if (!prev[cur[field]]) {
                 prev[cur[field]] = [cur];
-            }
-            else {
+            } else {
                 prev[cur[field]].push(cur);
             }
 

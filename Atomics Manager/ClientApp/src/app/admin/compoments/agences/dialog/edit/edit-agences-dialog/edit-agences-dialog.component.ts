@@ -17,10 +17,10 @@ import { Agences } from '../../../../../models/agences';
   styleUrls: ['./edit-agences-dialog.component.scss']
 })
 export class EditAgencesDialogComponent implements OnInit {
-  isVillesLoading=false;
-  lesPays:Pays[];
-  villesParPays:Villes[];
-  AgencesForm:FormGroup;
+  isVillesLoading = false;
+  lesPays: Pays[];
+  villesParPays: Villes[];
+  AgencesForm: FormGroup;
   validationMessages = {
 
     name: {
@@ -47,15 +47,20 @@ export class EditAgencesDialogComponent implements OnInit {
   formErrors = {
 
     name: '',
-    tel:'',
-    adresse:'',
-    pays:'',
-    ville:''
+    tel: '',
+    adresse: '',
+    pays: '',
+    ville: ''
 
   };
   matcher = new FormErrorStateMatcher();
 
-  constructor(private messageboxService:MessageboxService,public agencesService:AgencesService,private paysServices:PaysService,private villesService:VillesService, private fb: FormBuilder,public dialogRef: MatDialogRef<EditAgencesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(
+    private messageboxService: MessageboxService,
+    public agencesService: AgencesService,
+    private paysServices: PaysService,
+    private villesService: VillesService,
+    private fb: FormBuilder, public dialogRef: MatDialogRef<EditAgencesDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
    // data.agences=new Agences();
 
   }
@@ -68,34 +73,31 @@ this.createForm();
 this.onValueChanged();
   }
 
-  getPays()
-  {
+  getPays() {
     this.paysServices.getPays().subscribe(
-      res=>{
-        this.lesPays=res;
+      res =>  {
+        this.lesPays = res;
       }
     );
   }
 
- getVillesByPaysId(id?:number)
- {this.isVillesLoading=true;
+ getVillesByPaysId(id?: number) {this.isVillesLoading = true;
     this.villesService.getVillesByPaysId(id).subscribe(
-      res=>{
-        this.villesParPays=res;
-        this.isVillesLoading=false;
+      res =>  {
+        this.villesParPays = res;
+        this.isVillesLoading = false;
       }
     );
  }
 
-createForm()
-{
-  this.AgencesForm=this.fb.group(
+createForm() {
+  this.AgencesForm = this.fb.group(
     {
-      name:[this.data.agences.name,Validators.required],
-      tel:[this.data.agences.tel,Validators.required],
-      adresse:[this.data.agences.adresse,Validators.required],
-      pays:[this.data.agences.paysId,Validators.required],
-      ville:[this.data.agences.villesId,Validators.required],
+      name: [this.data.agences.name, Validators.required],
+      tel: [this.data.agences.tel, Validators.required],
+      adresse: [this.data.agences.adresse, Validators.required],
+      pays: [this.data.agences.paysId, Validators.required],
+      ville: [this.data.agences.villesId, Validators.required],
 
     });
 
@@ -103,31 +105,32 @@ createForm()
     this.onValueChanged();
 }
  onNoClick(): void {
-  this.dialogRef.close({result:0});;
+  this.dialogRef.close({result: 0});
 }
 
 onSubmit() {
   //  alert("p");
-  let agences:EditAgences=new EditAgences();
+  const agences: EditAgences = new EditAgences();
 
-  agences.adresse=this.AgencesForm.get('adresse').value;
-  agences.name=this.AgencesForm.get('name').value;
-  agences.villesId=this.AgencesForm.get('ville').value;
-  agences.tel= this.AgencesForm.get('tel').value;
-  agences.id=this.data.agences.id;
+  agences.adresse = this.AgencesForm.get('adresse').value;
+  agences.name = this.AgencesForm.get('name').value;
+  agences.villesId = this.AgencesForm.get('ville').value;
+  agences.tel = this.AgencesForm.get('tel').value;
+  agences.id = this.data.agences.id;
   this.agencesService.updateAgences(agences).subscribe(
 
-    res=>{
+    res =>  {
 
 
-      this.dialogRef.close({result:1});
+      this.dialogRef.close({result: 1});
 
      },
-   err=>{
+   err =>  {
 
-     if (err.statuts===400) {
+     if (err.statuts === 400) {
       // this.erroMessage=err.error;
-       this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+err.error,"",0,false,1,'520px',"warning",'warn')
+       this.messageboxService.
+         ShowMessage('Avertissement', 'des erreurs empechent l\'enregistrement ' + err.error, '', 0, false, 1, '520px', 'warning', 'warn');
      }
 
        }

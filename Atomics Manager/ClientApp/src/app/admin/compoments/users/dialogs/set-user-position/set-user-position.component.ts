@@ -21,15 +21,14 @@ import { userInfo } from 'os';
 })
 export class SetUserPositionComponent implements OnInit {
 
-   setUserFrom:FormGroup;
-   lesServcies:Services[];
-   lesDepartements:Departements[];
-   lesAgences:Agences[];
-   isLoading:boolean;
-   idUserInfos:number=0;
-  constructor(private snackBar:MatSnackBar, private entrepriseUserInfosServices:EntrepriseUserInfosService, private agencesServices:AgencesService, private departementService:DepartementsService,private serviceServices:ServicesService, private fb:FormBuilder, private messageboxService:MessageboxService,public accountService:AccountService, public dialogRef: MatDialogRef<SetUserPositionComponent>,@Inject(MAT_DIALOG_DATA) public data: any)
-  {
-     this.isLoading=true;
+   setUserFrom: FormGroup;
+   lesServcies: Services[];
+   lesDepartements: Departements[];
+   lesAgences: Agences[];
+   isLoading: boolean;
+   idUserInfos = 0;
+  constructor(private snackBar: MatSnackBar, private entrepriseUserInfosServices: EntrepriseUserInfosService, private agencesServices: AgencesService, private departementService: DepartementsService, private serviceServices: ServicesService, private fb: FormBuilder, private messageboxService: MessageboxService, public accountService: AccountService, public dialogRef: MatDialogRef<SetUserPositionComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+     this.isLoading = true;
       this.getDepartements();
       this.getAgences();
       this.getEntreprise(data.user.id);
@@ -37,11 +36,10 @@ export class SetUserPositionComponent implements OnInit {
 
   }
 
-  getEntreprise(userId:string)
-  {
+  getEntreprise(userId: string) {
     this.entrepriseUserInfosServices.getEntrepriseUserInfosByUserId(userId).subscribe(
-      res=>{
-        if (res!=null) {
+      res =>  {
+        if (res != null) {
           console.log(res);
           this.setUserFrom.get('departements').setValue(res.departementsId);
           this.getServicesByDepartementId(res.departementsId);
@@ -49,7 +47,7 @@ export class SetUserPositionComponent implements OnInit {
           this.setUserFrom.get('service').setValue(res.servicesId);
 
           this.setUserFrom.get('id').setValue(res.id);
-          this.idUserInfos=res.id;
+          this.idUserInfos = res.id;
         }
 
       }
@@ -59,42 +57,38 @@ export class SetUserPositionComponent implements OnInit {
 
 
   onNoClick(): void {
-    this.dialogRef.close({result:0});;
+    this.dialogRef.close({result: 0});
   }
-  createFrom()
-  {
-    this.setUserFrom=this.fb.group({
-      id:[this.idUserInfos],
-      applicationUserId:[this.data.user.id,Validators.required],
-      agence:['',Validators.required],
-      service:['',Validators.required],
-      departements:['',Validators.required]
+  createFrom() {
+    this.setUserFrom = this.fb.group({
+      id: [this.idUserInfos],
+      applicationUserId: [this.data.user.id, Validators.required],
+      agence: ['', Validators.required],
+      service: ['', Validators.required],
+      departements: ['', Validators.required]
 
-    })
+    });
 
   }
 
 
-getAgences()
- {
-   this.agencesServices.getAgences().subscribe(res=>{
-    this.lesAgences=res;
-    this.isLoading=false;
+getAgences() {
+   this.agencesServices.getAgences().subscribe(res =>  {
+    this.lesAgences = res;
+    this.isLoading = false;
    });
  }
-getDepartements()
-{
-  this.departementService.getDepartements().subscribe(res=>{
-    this.lesDepartements=res;
+getDepartements() {
+  this.departementService.getDepartements().subscribe(res =>  {
+    this.lesDepartements = res;
   });
 }
 
-getServicesByDepartementId(Id:number)
- {
-   this.isLoading=true;
-   this.serviceServices.getServicesByDepartementsId(Id).subscribe(res=>{
-    this.lesServcies=res;
-    this.isLoading=false;
+getServicesByDepartementId(Id: number) {
+   this.isLoading = true;
+   this.serviceServices.getServicesByDepartementsId(Id).subscribe(res =>  {
+    this.lesServcies = res;
+    this.isLoading = false;
    });
  }
 
@@ -105,27 +99,26 @@ console.log(this.lesDepartements);
 
   onSubmit() {
 console.log(this.idUserInfos);
-let userInfos:EntrepriseUserInfos;
-     userInfos=new EntrepriseUserInfos();
+let userInfos: EntrepriseUserInfos;
+     userInfos = new EntrepriseUserInfos();
 
-      userInfos.agencesId=this.setUserFrom.get('agence').value;
-      userInfos.departementsId=this.setUserFrom.get('departements').value;
-      userInfos.servicesId=this.setUserFrom.get('service').value;
-      userInfos.applicationUserId=this.setUserFrom.get('applicationUserId').value;
-      userInfos.id=this.setUserFrom.get('id').value;
-    if (this.idUserInfos==0) {
+      userInfos.agencesId = this.setUserFrom.get('agence').value;
+      userInfos.departementsId = this.setUserFrom.get('departements').value;
+      userInfos.servicesId = this.setUserFrom.get('service').value;
+      userInfos.applicationUserId = this.setUserFrom.get('applicationUserId').value;
+      userInfos.id = this.setUserFrom.get('id').value;
+    if (this.idUserInfos === 0) {
 
 
 
-      this.entrepriseUserInfosServices.addEntrepriseUserInfos(userInfos).subscribe(res=>{
+      this.entrepriseUserInfosServices.addEntrepriseUserInfos(userInfos).subscribe(res =>  {
 
-         this.dialogRef.close({result:1});
+         this.dialogRef.close({result: 1});
 
       });
-    }
-    else{
-    this.entrepriseUserInfosServices.updateEntrepriseUserInfos(userInfos).subscribe(res=>{
-         this.dialogRef.close({result:1});
+    } else {
+    this.entrepriseUserInfosServices.updateEntrepriseUserInfos(userInfos).subscribe(res =>  {
+         this.dialogRef.close({result: 1});
     });
     }
   }

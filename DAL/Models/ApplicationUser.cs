@@ -58,5 +58,8 @@ namespace DAL.Models
         public ICollection<Demandes> Demandes { get; set; }
 
         public EntrepriseUserInfos EntrepriseUserInfos { get; set; }
+        public ICollection<ProcessAdmin> ProcessAdmin { get; set; }
+        public ICollection<Stakeholders>Stakeholders { get; set; }
+        public ICollection<GroupeMember> GroupeMember { get; set; }
     }
 }

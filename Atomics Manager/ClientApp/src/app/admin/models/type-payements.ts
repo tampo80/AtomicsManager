@@ -1,5 +1,5 @@
 export class TypePayements {
-   public value:number;
-   public Label:string;
+   public value: number;
+   public Label: string;
 
 }

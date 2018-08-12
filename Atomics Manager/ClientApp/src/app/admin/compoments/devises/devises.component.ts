@@ -11,20 +11,20 @@ import { MessageboxService } from '../../services/messagebox.service';
   templateUrl: './devises.component.html',
   styleUrls: ['./devises.component.scss']
 })
-export class DevisesComponent implements OnInit ,AfterViewInit {
+export class DevisesComponent implements OnInit , AfterViewInit {
 
-  private Devises:Devises[];
+  private Devises: Devises[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','label','symbole','codeIso','actions'];
-  isLoading:boolean;
-  constructor(private devisesService:DevisesService,private messageboxService:MessageboxService,private dialog: MatDialog) { }
+  displayedColumns = ['id', 'label', 'symbole', 'codeIso', 'actions'];
+  isLoading: boolean;
+  constructor(private devisesService: DevisesService, private messageboxService: MessageboxService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.isLoading=true;
+    this.isLoading = true;
     this.getDevises();
   }
 
@@ -36,9 +36,9 @@ export class DevisesComponent implements OnInit ,AfterViewInit {
 
    getDevises() {
     this.devisesService.getDevises().subscribe(
-      res=>{
-        this.dataSource.data=res;
-        this.isLoading=false;
+      res =>  {
+        this.dataSource.data = res;
+        this.isLoading = false;
       }
     );
   }
@@ -55,69 +55,69 @@ export class DevisesComponent implements OnInit ,AfterViewInit {
     console.log(row);
   }
 
-  deleteDevises(devises?:Devises){
-  
-  this.messageboxService.ShowMessage("Avertissement","Supprimer  "+devises.label,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
-      
-    this.result = res
+  deleteDevises(devises?: Devises) {
+
+  this.messageboxService.ShowMessage('Avertissement', 'Supprimer  ' + devises.label, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
+
+    this.result = res;
     console.log(res);
-    if (this.result.result=="yes") {
-      this.devisesService.deleteDevises(devises.id).subscribe(res=>{
-        if (res!=null) {
-          this.messageboxService.ShowMessage("Information",devises.label+" Supprimer avec succès",devises.label,0,false,1,'500px',"info",'primary');
+    if (this.result.result === 'yes') {
+      this.devisesService.deleteDevises(devises.id).subscribe(_res =>  {
+        if (res != null) {
+          this.messageboxService.ShowMessage('Information', devises.label + ' Supprimer avec succès', devises.label, 0, false, 1, '500px', 'info', 'primary');
           this.getDevises();
         }
-      
-        
-       
-      },err=>{
-                  if (err!=null) {
+
+
+
+      }, err =>  {
+                  if (err != null) {
                     console.log(err);
-                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+devises.label+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                    this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + devises.label + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                   }
 
       }
 
       );
-     
+
     }
-  
+
   });
 
 
 }
 
-  addNewDevises(){
+  addNewDevises() {
 
-    const dialogRef = this.dialog.open(AddDevisesDialogComponent,{
-      data:{devises:""},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(AddDevisesDialogComponent, {
+      data: {devises: ''},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
+    dialogRef.afterClosed().subscribe(res =>  {
       console.log(res);
-      if (res.result===1) {
+      if (res.result === 1) {
         this.getDevises();
-        this.messageboxService.ShowMessage("Information","Devises ajouter avec succès","",0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', 'Devises ajouter avec succès', '', 0, false, 1, '500px', 'info', 'primary');
       }
     }
 
 
     );
   }
-  EditDevises(devises?:Devises){
+  EditDevises(devises?: Devises) {
 
-    const dialogRef = this.dialog.open(EditDevisesDialogComponent,{
-      data:{devises:devises},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(EditDevisesDialogComponent, {
+      data: {devises: devises},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
-      if (res.result===1) {
+    dialogRef.afterClosed().subscribe(res =>  {
+      if (res.result === 1) {
         this.getDevises();
-        this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",devises.label,0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', devises.label, 0, false, 1, '500px', 'info', 'primary');
       }
     }
 

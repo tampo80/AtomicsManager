@@ -1,4 +1,4 @@
 export class TypeApprovalGroup {
-  label:string;
-  value:number;
+  label: string;
+  value: number;
 }

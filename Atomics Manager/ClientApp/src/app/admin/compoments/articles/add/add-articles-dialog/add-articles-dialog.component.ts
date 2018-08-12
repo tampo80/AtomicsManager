@@ -30,17 +30,17 @@ import { ImageUtils } from '../../image-utils';
 export class AddArticlesDialogComponent implements OnInit {
 
 
-    formData:FormData;
+    formData: FormData;
     imageToShow: any;
     isImageLoading: boolean;
     selectedFile: File;
-    uploadProgress:number=0;
+    uploadProgress = 0;
     filteredCategories: Observable<Categories[]>;
     filteredFournisseurs: Observable<Fournisseurs[]>;
-    isVillesLoading=false;
-    lesCategories:Categories[]=[];
-    lesFournisseurs:Fournisseurs[]=[];
-    ArticlesForm:FormGroup;
+    isVillesLoading = false;
+    lesCategories: Categories[] = [];
+    lesFournisseurs: Fournisseurs[] = [];
+    ArticlesForm: FormGroup;
     validationMessages = {
 
       name: {
@@ -61,14 +61,14 @@ export class AddArticlesDialogComponent implements OnInit {
     formErrors = {
 
       name: '',
-      categories:'',
-      description:'',
-      buyingPrice:'',
+      categories: '',
+      description: '',
+      buyingPrice: '',
 
     };
 
     matcher = new FormErrorStateMatcher();
-    devises:string;
+    devises: string;
 
     datas: any;
 
@@ -78,12 +78,12 @@ export class AddArticlesDialogComponent implements OnInit {
     croppedImage: any = '';
     cropperReady = false;
 
-    constructor(private dialog: MatDialog,private snackbar:MatSnackBar, private imageService:ImagesService,private domSanitize:DomSanitizer,  private fournisseursServces:FournisseursService, private messageboxService:MessageboxService,public articlesService:ArticlesService,private categoriesServices:CategoriesService, private fb: FormBuilder,public dialogRef: MatDialogRef<AddArticlesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
-      data.articles=new Articles();
-     this.devises=ConfigService.Devise;
-     //this.selectedFile=new Blob();
-     this.imageToShow =domSanitize.bypassSecurityTrustUrl(DEFAULTIMG);
-     this.selectedFile=ImageUtils.toBlob(DEFAULTIMG,"default.png");
+    constructor(private dialog: MatDialog, private snackbar: MatSnackBar, private imageService: ImagesService, private domSanitize: DomSanitizer,  private fournisseursServces: FournisseursService, private messageboxService: MessageboxService, public articlesService: ArticlesService, private categoriesServices: CategoriesService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddArticlesDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
+      data.articles = new Articles();
+     this.devises = ConfigService.Devise;
+     // this.selectedFile=new Blob();
+     this.imageToShow = domSanitize.bypassSecurityTrustUrl(DEFAULTIMG);
+     this.selectedFile = ImageUtils.toBlob(DEFAULTIMG, 'default.png');
      console.log(this.selectedFile);
     }
 
@@ -94,13 +94,13 @@ export class AddArticlesDialogComponent implements OnInit {
   this.createForm();
   this.onValueChanged();
 
-  this.filteredCategories = this.ArticlesForm.get("categories").valueChanges.pipe(
+  this.filteredCategories = this.ArticlesForm.get('categories').valueChanges.pipe(
     startWith<string|Categories>(''),
     map(value => typeof value === 'string' ? value : value.name),
     map(name => name ? this._filterCateGories(name) : this.lesCategories.slice())
   );
 
-  this.filteredFournisseurs = this.ArticlesForm.get("fournisseurs").valueChanges.pipe(
+  this.filteredFournisseurs = this.ArticlesForm.get('fournisseurs').valueChanges.pipe(
     startWith<string|Fournisseurs>(''),
     map(value => typeof value === 'string' ? value : value.titre),
     map(name => name ? this._filterFournisseurs(name) : this.lesFournisseurs.slice())
@@ -109,10 +109,10 @@ export class AddArticlesDialogComponent implements OnInit {
     }
 
     createImageFromBlob(image: Blob) {
-      let reader = new FileReader();
-      reader.addEventListener("load", () => {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
         console.log(reader.result);
-         this.imageToShow =this.domSanitize.bypassSecurityTrustUrl(reader.result);
+         this.imageToShow = this.domSanitize.bypassSecurityTrustUrl(reader.result);
       }, false);
 
       if (image) {
@@ -123,7 +123,7 @@ export class AddArticlesDialogComponent implements OnInit {
      getImageFromService() {
          this.isImageLoading = true;
          this.imageService.getImage(this.imgUrl).subscribe(data => {
-           this.imageToShow=data;
+           this.imageToShow = data;
            this.isImageLoading = false;
 
          }, error => {
@@ -132,11 +132,10 @@ export class AddArticlesDialogComponent implements OnInit {
          });
      }
 
-    getCategories()
-    {
-      this.categoriesServices.getCategories().subscribe(res=>{
-          this.lesCategories=res;
-      })
+    getCategories() {
+      this.categoriesServices.getCategories().subscribe(res =>  {
+          this.lesCategories = res;
+      });
     }
 
     _filterCateGories(value: string): Categories[] {
@@ -151,50 +150,48 @@ export class AddArticlesDialogComponent implements OnInit {
       return this.lesFournisseurs.filter(option => option.titre.toLowerCase().indexOf(filterValue) !== -1);
     }
 
-    getfournisseurs()
-    {
-      this.fournisseursServces.getFournisseurs().subscribe(res=>{
-          this.lesFournisseurs=res;
-      })
+    getfournisseurs() {
+      this.fournisseursServces.getFournisseurs().subscribe(res =>  {
+          this.lesFournisseurs = res;
+      });
     }
 
-  createForm()
-  {
-    this.ArticlesForm=this.fb.group(
+  createForm() {
+    this.ArticlesForm = this.fb.group(
       {
-        name:['',Validators.required],
-        description:['',Validators.required],
-        categories:['',Validators.required],
-        buyingPrice:['',Validators.required],
-        fournisseurs:['',Validators.required],
-        icone:[''],
+        name: ['', Validators.required],
+        description: ['', Validators.required],
+        categories: ['', Validators.required],
+        buyingPrice: ['', Validators.required],
+        fournisseurs: ['', Validators.required],
+        icone: [''],
       });
 
-      this.ArticlesForm.valueChanges.subscribe(data => {this.onValueChanged(data);});
+      this.ArticlesForm.valueChanges.subscribe(data => {this.onValueChanged(data); });
       this.onValueChanged();
   }
    onNoClick(): void {
-    this.dialogRef.close({result:0});;
+    this.dialogRef.close({result: 0});
   }
 
   onSubmit() {
     //  alert("p");
-    let articles:Articles=new Articles();
+    const articles: Articles = new Articles();
 
-    articles.productCategoryId=this.ArticlesForm.get('categories').value.id;
-    articles.name=this.ArticlesForm.get('name').value;
-    articles.description=this.ArticlesForm.get('description').value;
-    articles.fournisseursId=this.ArticlesForm.get('fournisseurs').value.id;
-    articles.buyingPrice=this.ArticlesForm.get('buyingPrice').value;
+    articles.productCategoryId = this.ArticlesForm.get('categories').value.id;
+    articles.name = this.ArticlesForm.get('name').value;
+    articles.description = this.ArticlesForm.get('description').value;
+    articles.fournisseursId = this.ArticlesForm.get('fournisseurs').value.id;
+    articles.buyingPrice = this.ArticlesForm.get('buyingPrice').value;
 
-     this.formData=new FormData();
-    this.formData.append('iIcon', this.selectedFile,this.selectedFile.name);
-    this.formData.append('productCategoryId',articles.productCategoryId.toString());
-    this.formData.append('name',articles.name);
-    this.formData.append('description',articles.description);
-    this.formData.append('fournisseursId',articles.fournisseursId.toString());
+     this.formData = new FormData();
+    this.formData.append('iIcon', this.selectedFile, this.selectedFile.name);
+    this.formData.append('productCategoryId', articles.productCategoryId.toString());
+    this.formData.append('name', articles.name);
+    this.formData.append('description', articles.description);
+    this.formData.append('fournisseursId', articles.fournisseursId.toString());
 
-    this.formData.append('buyingPrice',articles.buyingPrice);
+    this.formData.append('buyingPrice', articles.buyingPrice);
 
 
     this.articlesService.addArticles( this.formData).subscribe(
@@ -214,18 +211,18 @@ export class AddArticlesDialogComponent implements OnInit {
 
          } */
 
-         event=>{
+         event =>  {
 
-          if (event.type==HttpEventType.UploadProgress) {
-             this.uploadProgress=Math.round(100 * event.loaded / event.total);
-          }else if (event.type==HttpEventType.Response) {
-            //this.getImageFromService();
-            this.snackbar.open('Information mis à jour avec succés !','LOGO',{
-              duration:4000
+          if (event.type === HttpEventType.UploadProgress) {
+             this.uploadProgress = Math.round(100 * event.loaded / event.total);
+          } else if (event.type === HttpEventType.Response) {
+            // this.getImageFromService();
+            this.snackbar.open('Information mis à jour avec succés !', 'LOGO', {
+              duration: 4000
             });
-            this.uploadProgress=0;
-            this.selectedFile=null;
-            this.dialogRef.close({result:1});
+            this.uploadProgress = 0;
+            this.selectedFile = null;
+            this.dialogRef.close({result: 1});
 
           }
 
@@ -245,15 +242,15 @@ export class AddArticlesDialogComponent implements OnInit {
     }
 
     onFileChanged(event) {
-      this.selectedFile = event.target.files[0]
-      this.imageToShow=null;
+      this.selectedFile = event.target.files[0];
+      this.imageToShow = null;
       this.createImageFromBlob(this.selectedFile);
     }
 
 
   fileChangeEvent(event: any): void {
     this.selectedFile = event.target.files[0];
-    this.isImageLoading=true;
+    this.isImageLoading = true;
       this.imageChangedEvent = event;
   }
   imageCroppedBase64(image: string) {
@@ -261,13 +258,12 @@ export class AddArticlesDialogComponent implements OnInit {
       this.croppedImage = image;
   }
 
-  imageCroppedFile(image:File)
-  {
-    this.selectedFile=image;
+  imageCroppedFile(image: File) {
+    this.selectedFile = image;
   }
   imageLoaded() {
     this.cropperReady = true;
-    this.isImageLoading=false;
+    this.isImageLoading = false;
   }
   imageLoadFailed () {
     console.log('Load failed');
@@ -296,21 +292,21 @@ export class AddArticlesDialogComponent implements OnInit {
 
 
 
-    croppe(){
+    croppe() {
 
-      const dialogRef = this.dialog.open(ImageCopperComponent,{
-        data:{articles:""},
-        width:'800px',
-       disableClose:true
+      const dialogRef = this.dialog.open(ImageCopperComponent, {
+        data: {articles: ''},
+        width: '800px',
+       disableClose: true
       });
 
-      dialogRef.afterClosed().subscribe(res=>{
+      dialogRef.afterClosed().subscribe(res =>  {
         console.log(res);
-        if (res.result!=0) {
+        if (res.result !== 0) {
 
-          this.imageToShow=res.result.base64;
-          console.log(this.imageToShow)
-          this.selectedFile=res.result.blob;
+          this.imageToShow = res.result.base64;
+          console.log(this.imageToShow);
+          this.selectedFile = res.result.blob;
         }
       }
 

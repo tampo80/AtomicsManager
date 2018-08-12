@@ -14,7 +14,7 @@ export class CurrencyMaskService {
   }
 
   transform(value: string, allowNegative = false, decimalPrecision: number = 2) {
-    if (value == undefined || value === '') {
+    if (value === undefined || value === '') {
       return null;
     }
     if (allowNegative) {

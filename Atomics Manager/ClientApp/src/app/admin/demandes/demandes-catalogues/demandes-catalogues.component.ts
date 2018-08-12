@@ -24,15 +24,13 @@ this.getArticles();
 
   ngOnInit() {
   }
-getArticles()
-{
+getArticles() {
   this.articlesServices.getArticles().subscribe(res=>{
     this.lesArticles=res;
   });
 
 }
-mkeTrustedImage(item)
-{
+mkeTrustedImage(item) {
   const imageString=item.replace(/\\n/g,'');
   const style='url('+imageString+')';
   return this.domSanitize.bypassSecurityTrustStyle(style);
@@ -47,10 +45,9 @@ _filterCateGories(value: string): Articles[] {
 applyFilter(filterValue: string) {
   console.log(filterValue);
 
-  if (filterValue=='' || filterValue==null || filterValue.length<1) {
+  if (filterValue === '' || filterValue == null || filterValue.length<1) {
     this.lesArticlesFilter=[];
-  }
-  else{
+  } else {
     filterValue = filterValue.trim();
     filterValue = filterValue.toLowerCase();
     this.lesArticlesFilter=this.lesArticles.filter(option => option.name.toLowerCase().indexOf(filterValue) !== -1);
@@ -63,19 +60,18 @@ applyFilter(filterValue: string) {
 
 
 
-createDemande(product:Articles)
-{
+createDemande(product:Articles) {
   const dialogRef = this.dialog.open(IniDemandeComponent,{
     data:{articles:product},
    width:'700px',
    disableClose:true
   });
 
-  dialogRef.afterClosed().subscribe(res=>{
+  dialogRef.afterClosed().subscribe(res => {
     console.log(res);
-    if (res.result===1) {
-      this.lesArticlesFilter=[];
-      this.messageboxService.ShowMessage("Information","assignation effectué avec succès",product.name,0,false,1,'500px',"info",'primary');
+    if (res.result === 1) {
+      this.lesArticlesFilter = [];
+      this.messageboxService.ShowMessage("Information", "assignation effectué avec succès", product.name, 0, false, 1, '500px', "info", 'primary');
       this.router.navigate(['/admin/manage-mesdemandes']);
     }
   }

@@ -19,6 +19,96 @@ namespace AtomicsManager.Migrations
                 .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("DAL.Models.Actions", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Descriprion");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProcessId");
+
+                    b.Property<int>("TypeAction");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProcessId");
+
+                    b.ToTable("WorkActions");
+                });
+
+            modelBuilder.Entity("DAL.Models.ActionTarget", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ActionsId");
+
+                    b.Property<int>("GroupId");
+
+                    b.Property<int>("Target");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActionsId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("WorkActionTarget");
+                });
+
+            modelBuilder.Entity("DAL.Models.Activite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Descriptions");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProcessId");
+
+                    b.Property<int>("TypeActivite");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProcessId");
+
+                    b.ToTable("WorkActivite");
+                });
+
+            modelBuilder.Entity("DAL.Models.ActiviteTarget", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ActiviteId");
+
+                    b.Property<int>("GroupId");
+
+                    b.Property<int>("Target");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActiviteId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("WorkActiviteTargets");
+                });
+
             modelBuilder.Entity("DAL.Models.Agences", b =>
                 {
                     b.Property<int>("Id")
@@ -192,9 +282,15 @@ namespace AtomicsManager.Migrations
 
                     b.Property<decimal>("ExpensLimite");
 
+                    b.Property<bool>("IsActvie");
+
+                    b.Property<bool>("IsEnded");
+
                     b.Property<int>("Level");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("NumberApprovalRequiered");
 
                     b.Property<bool>("Shared");
 
@@ -228,6 +324,8 @@ namespace AtomicsManager.Migrations
                     b.Property<int>("LevelStatut");
 
                     b.Property<string>("UserId");
+
+                    b.Property<int>("ValitationRequieredNumber");
 
                     b.HasKey("Id");
 
@@ -355,6 +453,8 @@ namespace AtomicsManager.Migrations
 
                     b.Property<int>("Nature");
 
+                    b.Property<int>("ProcessId");
+
                     b.Property<int>("ProductId");
 
                     b.Property<int>("Quantite");
@@ -374,11 +474,41 @@ namespace AtomicsManager.Migrations
 
                     b.HasIndex("FournisseursId");
 
+                    b.HasIndex("ProcessId");
+
                     b.HasIndex("ProductId");
 
                     b.HasIndex("userId");
 
                     b.ToTable("AppDemandes");
+                });
+
+            modelBuilder.Entity("DAL.Models.DemandesAction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ActionsId");
+
+                    b.Property<int>("DemandesId");
+
+                    b.Property<bool>("IsActive");
+
+                    b.Property<bool>("IsComplete");
+
+                    b.Property<int?>("TransitionId");
+
+                    b.Property<int>("TrasitionId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActionsId");
+
+                    b.HasIndex("DemandesId");
+
+                    b.HasIndex("TransitionId");
+
+                    b.ToTable("WorkDemandesAction");
                 });
 
             modelBuilder.Entity("DAL.Models.Departements", b =>
@@ -526,6 +656,73 @@ namespace AtomicsManager.Migrations
                     b.ToTable("AppEntrepriseUserInfos");
                 });
 
+            modelBuilder.Entity("DAL.Models.Etat", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProcessId");
+
+                    b.Property<int>("TypeEtats");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProcessId");
+
+                    b.ToTable("WorkEtats");
+                });
+
+            modelBuilder.Entity("DAL.Models.EtatActivite", b =>
+                {
+                    b.Property<int>("ActiviteId");
+
+                    b.Property<int>("EtatId");
+
+                    b.HasKey("ActiviteId", "EtatId");
+
+                    b.HasIndex("EtatId");
+
+                    b.ToTable("WorkEtatActivite");
+                });
+
+            modelBuilder.Entity("DAL.Models.FichierDemandes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateEnvoi");
+
+                    b.Property<int>("DemandesId");
+
+                    b.Property<byte[]>("Fichier");
+
+                    b.Property<string>("NomFichier");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemandesId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WorkFichierDemandes");
+                });
+
             modelBuilder.Entity("DAL.Models.Fournisseurs", b =>
                 {
                     b.Property<int>("Id")
@@ -582,6 +779,60 @@ namespace AtomicsManager.Migrations
                     b.HasIndex("VillesId");
 
                     b.ToTable("AppFournisseurs");
+                });
+
+            modelBuilder.Entity("DAL.Models.Group", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProcessId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProcessId");
+
+                    b.ToTable("WorkGroup");
+                });
+
+            modelBuilder.Entity("DAL.Models.GroupeMember", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("GroupId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WorkGroupeMember");
+                });
+
+            modelBuilder.Entity("DAL.Models.InfosDemandes", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("DemandesId");
+
+                    b.Property<string>("Note");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DemandesId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WorkInfosDemandes");
                 });
 
             modelBuilder.Entity("DAL.Models.Order", b =>
@@ -679,6 +930,41 @@ namespace AtomicsManager.Migrations
                     b.HasIndex("Name");
 
                     b.ToTable("AppPays");
+                });
+
+            modelBuilder.Entity("DAL.Models.Process", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkProcess");
+                });
+
+            modelBuilder.Entity("DAL.Models.ProcessAdmin", b =>
+                {
+                    b.Property<int>("ProcessId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("ProcessId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WorkProcessAdmins");
                 });
 
             modelBuilder.Entity("DAL.Models.Product", b =>
@@ -834,6 +1120,64 @@ namespace AtomicsManager.Migrations
                     b.HasIndex("HeadId");
 
                     b.ToTable("AppServices");
+                });
+
+            modelBuilder.Entity("DAL.Models.Stakeholders", b =>
+                {
+                    b.Property<int>("DemandesId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("DemandesId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("WorkStakeholders");
+                });
+
+            modelBuilder.Entity("DAL.Models.Transition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int>("EtatActuelId");
+
+                    b.Property<int>("EtatSuivantId");
+
+                    b.Property<int>("ProcessId");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EtatActuelId");
+
+                    b.HasIndex("EtatSuivantId");
+
+                    b.HasIndex("ProcessId");
+
+                    b.ToTable("WorkTransition");
+                });
+
+            modelBuilder.Entity("DAL.Models.TransitionActions", b =>
+                {
+                    b.Property<int>("ActionsId");
+
+                    b.Property<int>("TransitionId");
+
+                    b.HasKey("ActionsId", "TransitionId");
+
+                    b.HasIndex("TransitionId");
+
+                    b.ToTable("WorkTransitionActions");
                 });
 
             modelBuilder.Entity("DAL.Models.Villes", b =>
@@ -1083,6 +1427,48 @@ namespace AtomicsManager.Migrations
                     b.ToTable("OpenIddictTokens");
                 });
 
+            modelBuilder.Entity("DAL.Models.Actions", b =>
+                {
+                    b.HasOne("DAL.Models.Process", "Process")
+                        .WithMany()
+                        .HasForeignKey("ProcessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.ActionTarget", b =>
+                {
+                    b.HasOne("DAL.Models.Actions", "Actions")
+                        .WithMany("ActionTarget")
+                        .HasForeignKey("ActionsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Group", "Group")
+                        .WithMany("ActionTarget")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.Activite", b =>
+                {
+                    b.HasOne("DAL.Models.Process", "Process")
+                        .WithMany("Activite")
+                        .HasForeignKey("ProcessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.ActiviteTarget", b =>
+                {
+                    b.HasOne("DAL.Models.Activite", "Activite")
+                        .WithMany("ActiviteTarget")
+                        .HasForeignKey("ActiviteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Group", "Group")
+                        .WithMany("ActiviteTarget")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("DAL.Models.Agences", b =>
                 {
                     b.HasOne("DAL.Models.Villes", "Villes")
@@ -1137,6 +1523,11 @@ namespace AtomicsManager.Migrations
                         .WithMany("Demandes")
                         .HasForeignKey("FournisseursId");
 
+                    b.HasOne("DAL.Models.Process")
+                        .WithMany("Demandes")
+                        .HasForeignKey("ProcessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("DAL.Models.Product", "Product")
                         .WithMany("Demandes")
                         .HasForeignKey("ProductId")
@@ -1145,6 +1536,23 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.ApplicationUser", "user")
                         .WithMany("Demandes")
                         .HasForeignKey("userId");
+                });
+
+            modelBuilder.Entity("DAL.Models.DemandesAction", b =>
+                {
+                    b.HasOne("DAL.Models.Actions", "Actions")
+                        .WithMany("DemandesAction")
+                        .HasForeignKey("ActionsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Demandes", "Demandes")
+                        .WithMany("DemandesAction")
+                        .HasForeignKey("DemandesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Transition", "Transition")
+                        .WithMany("DemandesAction")
+                        .HasForeignKey("TransitionId");
                 });
 
             modelBuilder.Entity("DAL.Models.DocumentsFournisseurs", b =>
@@ -1176,6 +1584,39 @@ namespace AtomicsManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("DAL.Models.Etat", b =>
+                {
+                    b.HasOne("DAL.Models.Process", "Process")
+                        .WithMany("Etat")
+                        .HasForeignKey("ProcessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.EtatActivite", b =>
+                {
+                    b.HasOne("DAL.Models.Activite", "Activite")
+                        .WithMany("EtatActivite")
+                        .HasForeignKey("ActiviteId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Etat", "Etat")
+                        .WithMany("EtatActivite")
+                        .HasForeignKey("EtatId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.FichierDemandes", b =>
+                {
+                    b.HasOne("DAL.Models.Demandes", "Demandes")
+                        .WithMany("FichierDemandes")
+                        .HasForeignKey("DemandesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("DAL.Models.Fournisseurs", b =>
                 {
                     b.HasOne("DAL.Models.Devises", "Devises")
@@ -1185,6 +1626,38 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.Villes", "Villes")
                         .WithMany("Fournisseurs")
                         .HasForeignKey("VillesId");
+                });
+
+            modelBuilder.Entity("DAL.Models.Group", b =>
+                {
+                    b.HasOne("DAL.Models.Process", "Process")
+                        .WithMany("Group")
+                        .HasForeignKey("ProcessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.GroupeMember", b =>
+                {
+                    b.HasOne("DAL.Models.Group", "Group")
+                        .WithMany("GroupeMember")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.ApplicationUser", "User")
+                        .WithMany("GroupeMember")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("DAL.Models.InfosDemandes", b =>
+                {
+                    b.HasOne("DAL.Models.Demandes", "Demandes")
+                        .WithMany("InfosDemandes")
+                        .HasForeignKey("DemandesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("DAL.Models.Order", b =>
@@ -1209,6 +1682,19 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.ProcessAdmin", b =>
+                {
+                    b.HasOne("DAL.Models.Process", "Process")
+                        .WithMany("ProcessAdmin")
+                        .HasForeignKey("ProcessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.ApplicationUser", "User")
+                        .WithMany("ProcessAdmin")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -1247,6 +1733,50 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.ApplicationUser", "Head")
                         .WithMany()
                         .HasForeignKey("HeadId");
+                });
+
+            modelBuilder.Entity("DAL.Models.Stakeholders", b =>
+                {
+                    b.HasOne("DAL.Models.Demandes", "Demandes")
+                        .WithMany("Stakeholders")
+                        .HasForeignKey("DemandesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.ApplicationUser", "User")
+                        .WithMany("Stakeholders")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.Transition", b =>
+                {
+                    b.HasOne("DAL.Models.Etat", "EtatActuel")
+                        .WithMany()
+                        .HasForeignKey("EtatActuelId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Etat", "EtatSuivant")
+                        .WithMany()
+                        .HasForeignKey("EtatSuivantId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Process", "Process")
+                        .WithMany("Transition")
+                        .HasForeignKey("ProcessId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.TransitionActions", b =>
+                {
+                    b.HasOne("DAL.Models.Actions", "Actions")
+                        .WithMany("TransitionActions")
+                        .HasForeignKey("ActionsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Transition", "Transition")
+                        .WithMany("TransitionActions")
+                        .HasForeignKey("TransitionId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("DAL.Models.Villes", b =>

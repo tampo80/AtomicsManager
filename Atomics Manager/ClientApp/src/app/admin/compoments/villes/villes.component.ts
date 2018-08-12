@@ -11,24 +11,24 @@ import { EditVillesDialogComponent } from './dialog/edit/edit-villes-dialog/edit
   templateUrl: './villes.component.html',
   styleUrls: ['./villes.component.scss']
 })
-export class VillesComponent implements OnInit,AfterViewInit {
+export class VillesComponent implements OnInit, AfterViewInit {
 
-  private Villes:Villes[];
+  private Villes: Villes[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','name','paysName','actions'];
-  isLoading:boolean;
+  displayedColumns = ['id', 'name', 'paysName', 'actions'];
+  isLoading: boolean;
 
-  constructor(private villesService:VillesService,private messageboxService:MessageboxService,private dialog: MatDialog) {
-    this.isLoading=true;
+  constructor(private villesService: VillesService, private messageboxService: MessageboxService, private dialog: MatDialog) {
+    this.isLoading = true;
    }
 
   ngOnInit() {
     this.getVilles();
-    this.isLoading=true;
+    this.isLoading = true;
   }
 
   ngAfterViewInit() {
@@ -39,9 +39,9 @@ export class VillesComponent implements OnInit,AfterViewInit {
 
    getVilles() {
     this.villesService.getVilles().subscribe(
-      res=>{
-        this.dataSource.data=res;
-        this.isLoading=false;
+      res =>  {
+        this.dataSource.data = res;
+        this.isLoading = false;
       }
     );
   }
@@ -58,69 +58,69 @@ export class VillesComponent implements OnInit,AfterViewInit {
     console.log(row);
   }
 
-  deleteVilles(villes?:Villes){
-  
-  this.messageboxService.ShowMessage("Avertissement","Supprimer  "+villes.name,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
-      
-    this.result = res
+  deleteVilles(villes?: Villes) {
+
+  this.messageboxService.ShowMessage('Avertissement', 'Supprimer  ' + villes.name, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
+
+    this.result = res;
     console.log(res);
-    if (this.result.result=="yes") {
-      this.villesService.deleteVilles(villes.id).subscribe(res=>{
-        if (res!=null) {
-          this.messageboxService.ShowMessage("Information",villes.name+" Supprimer avec succès",villes.name,0,false,1,'500px',"info",'primary');
+    if (this.result.result === 'yes') {
+      this.villesService.deleteVilles(villes.id).subscribe(_res =>  {
+        if (res != null) {
+          this.messageboxService.ShowMessage('Information', villes.name + ' Supprimer avec succès', villes.name, 0, false, 1, '500px', 'info', 'primary');
           this.getVilles();
         }
-      
-        
-       
-      },err=>{
-                  if (err!=null) {
+
+
+
+      }, err =>  {
+                  if (err != null) {
                     console.log(err);
-                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+villes.name+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                    this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + villes.name + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                   }
 
       }
 
       );
-     
+
     }
-  
+
   });
 
 
 }
 
-  addNewVilles(){
+  addNewVilles() {
 
-    const dialogRef = this.dialog.open(AddVillesDialogComponent,{
-      data:{villes:""},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(AddVillesDialogComponent, {
+      data: {villes: ''},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
+    dialogRef.afterClosed().subscribe(res =>  {
       console.log(res);
-      if (res.result===1) {
+      if (res.result === 1) {
         this.getVilles();
-        this.messageboxService.ShowMessage("Information","Villes ajouter avec succès","",0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', 'Villes ajouter avec succès', '', 0, false, 1, '500px', 'info', 'primary');
       }
     }
 
 
     );
   }
-  EditVilles(villes?:Villes){
+  EditVilles(villes?: Villes) {
 
-    const dialogRef = this.dialog.open(EditVillesDialogComponent,{
-      data:{villes:villes},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(EditVillesDialogComponent, {
+      data: {villes: villes},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
-      if (res.result===1) {
+    dialogRef.afterClosed().subscribe(res =>  {
+      if (res.result === 1) {
         this.getVilles();
-        this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",villes.name,0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', villes.name, 0, false, 1, '500px', 'info', 'primary');
       }
     }
 

@@ -1,7 +1,7 @@
 export class ApgMembers {
- id:number ;
+ id: number ;
  memberId: string;
  memberFullName: string;
- memberUserName:string ;
- mpprobationLevelId:string ;
+ memberUserName: string ;
+ mpprobationLevelId: string ;
 }

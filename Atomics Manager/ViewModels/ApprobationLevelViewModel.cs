@@ -13,5 +13,10 @@ namespace Atomics_Manager.ViewModels{
         public decimal ExpensLimite { get; set; }
         public TypeApprovalGroup TypeApprovalGroup { get; set; }
         public bool Shared { get; set; }
+        public int NumberApprovalRequiered { get; set; }
+
+        public bool IsActvie { get; set; }
+
+        public bool IsEnded { get; set; }
     }
 }

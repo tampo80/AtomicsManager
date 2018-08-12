@@ -15,14 +15,14 @@ export class FournisseursService {
 
   constructor(private router: Router, private http: HttpClient) { }
 
-  private readonly _fournisseursUrl: string = "/api/fournisseurs";
-  private readonly _fournisseursUrlIsExiste: string = "/api/fournisseurs/Isavailable";
-  
+  private readonly _fournisseursUrl: string = '/api/fournisseurs';
+  private readonly _fournisseursUrlIsExiste: string = '/api/fournisseurs/Isavailable';
+
 
 
   protected getRequestHeaders(): { headers: HttpHeaders | { [header: string]: string | string[]; } } {
-    let headers = new HttpHeaders({
-       
+    const headers = new HttpHeaders({
+
         'Content-Type': 'application/json',
         'Accept': `application/vnd.iman.v${ConfigService.apiVersion}+json, application/json, text/plain, */*`,
         'App-Version': ConfigService.appVersion
@@ -31,37 +31,36 @@ export class FournisseursService {
     return { headers: headers };
 }
 
-getFournisseurs():Observable<Fournisseurs[]> {
-  return this.http.get<Fournisseurs[]>(ConfigService.rootUrl+this._fournisseursUrl,this.getRequestHeaders());
-                
+getFournisseurs(): Observable<Fournisseurs[]> {
+  return this.http.get<Fournisseurs[]>(ConfigService.rootUrl + this._fournisseursUrl, this.getRequestHeaders());
+
 }
 
 
-getFournisseursById(id?:number):Observable<EditFournisseurs> {
-  return this.http.get<EditFournisseurs>(ConfigService.rootUrl+this._fournisseursUrl+"/"+id,this.getRequestHeaders());
-                
+getFournisseursById(id?: number): Observable<EditFournisseurs> {
+  return this.http.get<EditFournisseurs>(ConfigService.rootUrl + this._fournisseursUrl + '/' + id, this.getRequestHeaders());
+
 }
 
-deleteFournisseurs(FournisseursId?:number):Observable<{}>{
+deleteFournisseurs(FournisseursId?: number): Observable<{}> {
 
-  return this.http.delete(ConfigService.rootUrl+this._fournisseursUrl+"/"+FournisseursId,this.getRequestHeaders());
+  return this.http.delete(ConfigService.rootUrl + this._fournisseursUrl + '/' + FournisseursId, this.getRequestHeaders());
  }
 
- addFournisseurs(fournisseurs:FormData):Observable<EditFournisseurs>{
+ addFournisseurs(fournisseurs: FormData): Observable<EditFournisseurs> {
    console.log(fournisseurs);
-  
-
-   return this.http.post<EditFournisseurs>(ConfigService.rootUrl+this._fournisseursUrl,fournisseurs);
- };
 
 
- updateFournisseurs(fournisseurs:FormData,id:number):Observable<Fournisseurs>{
-  return this.http.put<Fournisseurs>(ConfigService.rootUrl+this._fournisseursUrl+"/"+id,fournisseurs);
-};
+   return this.http.post<EditFournisseurs>(ConfigService.rootUrl + this._fournisseursUrl, fournisseurs);
+ }
 
 
-isExiste(fournisseursName:string)
-{
-  return this.http.get(ConfigService.rootUrl+this._fournisseursUrlIsExiste+"/"+fournisseursName,this.getRequestHeaders());
+ updateFournisseurs(fournisseurs: FormData, id: number): Observable<Fournisseurs> {
+  return this.http.put<Fournisseurs>(ConfigService.rootUrl + this._fournisseursUrl + '/' + id, fournisseurs);
+}
+
+
+isExiste(fournisseursName: string) {
+  return this.http.get(ConfigService.rootUrl + this._fournisseursUrlIsExiste + '/' + fournisseursName, this.getRequestHeaders());
 }
 }

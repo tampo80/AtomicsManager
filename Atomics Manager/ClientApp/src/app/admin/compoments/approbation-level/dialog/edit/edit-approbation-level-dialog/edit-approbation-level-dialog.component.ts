@@ -16,9 +16,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '../../../../../../../../node_modu
 })
 export class EditApprobationLevelDialogComponent implements OnInit {
 
-  isVillesLoading=false;
+  isVillesLoading = false;
 
-  ApprobationLevelForm:FormGroup;
+  ApprobationLevelForm: FormGroup;
   validationMessages = {
 
     name: {
@@ -37,19 +37,23 @@ export class EditApprobationLevelDialogComponent implements OnInit {
   formErrors = {
 
     name: '',
-    departements:'',
-    description:'',
+    departements: '',
+    description: '',
 
 
   };
 
-  lesNiveaux=[
-    1,2,3,4,5,6,7,8,9
+  lesNiveaux = [
+    0, 1, 2, 3, 4, 5, 6, 7, 8, 9
   ];
+  nbrs = [1, 2, 3, 4];
   matcher = new FormErrorStateMatcher();
-  typeApproval:TypeApprovalGroup[]=TYPE_APPROVAL_GROUP;
-  shard:boolean;
-  constructor(private messageboxService:MessageboxService,public approbationLevelService:ApprobationLevelService, private fb: FormBuilder,public dialogRef: MatDialogRef<EditApprobationLevelDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  typeApproval: TypeApprovalGroup[] = TYPE_APPROVAL_GROUP;
+  shard: boolean;
+  constructor(private messageboxService: MessageboxService,
+     public approbationLevelService: ApprobationLevelService,
+     private fb: FormBuilder, public dialogRef: MatDialogRef<EditApprobationLevelDialogComponent>,
+     @Inject(MAT_DIALOG_DATA) public data: any) {
    // data.approbationLevel=new ApprobationLevel();
 
   }
@@ -65,49 +69,51 @@ this.onValueChanged();
 
 
 
-createForm()
-{
-  this.ApprobationLevelForm=this.fb.group(
+createForm() {
+  this.ApprobationLevelForm = this.fb.group(
     {
-      name:[ this.data.approbationLevel.name,Validators.required],
-      expensLimite:[ this.data.approbationLevel.expensLimite,Validators.required],
-      level:[ this.data.approbationLevel.level,Validators.required],
-      typeApprovalGroup:[ this.data.approbationLevel.typeApprovalGroup,Validators.required],
-      shared:[this.data.approbationLevel.shared,Validators.required]
+      name: [ this.data.approbationLevel.name, Validators.required],
+      expensLimite: [ this.data.approbationLevel.expensLimite, Validators.required],
+      level: [ this.data.approbationLevel.level, Validators.required],
+      typeApprovalGroup: [ this.data.approbationLevel.typeApprovalGroup, Validators.required],
+      shared: [this.data.approbationLevel.shared, Validators.required],
+      numberApprobaionRequiered: [1, Validators.required],
     });
 
     this.ApprobationLevelForm.valueChanges.subscribe(data => this.onValueChanged(data));
     this.onValueChanged();
 }
  onNoClick(): void {
-  this.dialogRef.close({result:0});;
+  this.dialogRef.close({result: 0});
 }
 
 onSubmit() {
   //  alert("p");
-  let approbationLevel:ApprobationLevel=new ApprobationLevel();
+  const approbationLevel: ApprobationLevel = new ApprobationLevel();
 
- approbationLevel.id=this.data.approbationLevel.id;
-  approbationLevel.name=this.ApprobationLevelForm.get('name').value;
-  approbationLevel.level=this.ApprobationLevelForm.get('level').value;
-  approbationLevel.expensLimite=this.ApprobationLevelForm.get('expensLimite').value;
-  approbationLevel.typeApprovalGroup=this.ApprobationLevelForm.get('typeApprovalGroup').value;
-  approbationLevel.shared=this.ApprobationLevelForm.get('shared').value;
+ approbationLevel.id = this.data.approbationLevel.id;
+  approbationLevel.name = this.ApprobationLevelForm.get('name').value;
+  approbationLevel.level = this.ApprobationLevelForm.get('level').value;
+  approbationLevel.expensLimite = this.ApprobationLevelForm.get('expensLimite').value;
+  approbationLevel.typeApprovalGroup = this.ApprobationLevelForm.get('typeApprovalGroup').value;
+  approbationLevel.shared = this.ApprobationLevelForm.get('shared').value;
+  approbationLevel.numberApprovalRequiered = this.ApprobationLevelForm.get('numberApprobaionRequiered').value;
 
 
   this.approbationLevelService.updateApprobationLevel(approbationLevel).subscribe(
 
-    res=>{
+    res => {
 
 
-      this.dialogRef.close({result:1});
+      this.dialogRef.close({result: 1});
 
      },
-   err=>{
+   err => {
 
-     if (err.statuts===400) {
+     if (err.statuts === 400) {
       // this.erroMessage=err.error;
-       this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+err.error,"",0,false,1,'520px',"warning",'warn')
+       // tslint:disable-next-line:max-line-length
+       this.messageboxService.ShowMessage('Avertissement', 'des erreurs empechent l\'enregistrement ' + err.error, '', 0, false, 1, '520px', 'warning', 'warn');
      }
 
        }

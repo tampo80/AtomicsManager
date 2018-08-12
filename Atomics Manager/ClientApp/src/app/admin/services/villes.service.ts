@@ -17,14 +17,14 @@ export class VillesService {
   constructor(private router: Router, private http: HttpClient) { }
 
 
-  private readonly _villesUrl: string = "/api/villes";
-  private readonly _villesUrlIsExiste: string = "/api/villes/Isavailable";
-  
+  private readonly _villesUrl: string = '/api/villes';
+  private readonly _villesUrlIsExiste: string = '/api/villes/Isavailable';
+
 
 
   protected getRequestHeaders(): { headers: HttpHeaders | { [header: string]: string | string[]; } } {
-    let headers = new HttpHeaders({
-       
+    const headers = new HttpHeaders({
+
         'Content-Type': 'application/json',
         'Accept': `application/vnd.iman.v${ConfigService.apiVersion}+json, application/json, text/plain, */*`,
         'App-Version': ConfigService.appVersion
@@ -33,34 +33,33 @@ export class VillesService {
     return { headers: headers };
 }
 
-getVilles():Observable<Villes[]> {
-  return this.http.get<Villes[]>(ConfigService.rootUrl+this._villesUrl,this.getRequestHeaders());
-                
+getVilles(): Observable<Villes[]> {
+  return this.http.get<Villes[]>(ConfigService.rootUrl + this._villesUrl, this.getRequestHeaders());
+
 }
 
-getVillesByPaysId(id?:number):Observable<Villes[]> {
-  return this.http.get<Villes[]>(ConfigService.rootUrl+this._villesUrl+"/bypaysid/"+id,this.getRequestHeaders());
-                
+getVillesByPaysId(id?: number): Observable<Villes[]> {
+  return this.http.get<Villes[]>(ConfigService.rootUrl + this._villesUrl + '/bypaysid/' + id, this.getRequestHeaders());
+
 }
 
-deleteVilles(VillesId?:number):Observable<{}>{
+deleteVilles(VillesId?: number): Observable<{}> {
 
-  return this.http.delete(ConfigService.rootUrl+this._villesUrl+"/"+VillesId,this.getRequestHeaders());
+  return this.http.delete(ConfigService.rootUrl + this._villesUrl + '/' + VillesId, this.getRequestHeaders());
  }
 
- addVilles(villes:Villes):Observable<Villes>{
-   return this.http.post<Villes>(ConfigService.rootUrl+this._villesUrl,JSON.stringify(villes),this.getRequestHeaders());
- };
+ addVilles(villes: Villes): Observable<Villes> {
+   return this.http.post<Villes>(ConfigService.rootUrl + this._villesUrl, JSON.stringify(villes), this.getRequestHeaders());
+ }
 
 
- updateVilles(villes:Villes):Observable<Villes>{
-  return this.http.put<Villes>(ConfigService.rootUrl+this._villesUrl+"/"+villes.id,JSON.stringify(villes),this.getRequestHeaders());
-};
+ updateVilles(villes: Villes): Observable<Villes> {
+  return this.http.put<Villes>(ConfigService.rootUrl + this._villesUrl + '/' + villes.id, JSON.stringify(villes), this.getRequestHeaders());
+}
 
 
-isExiste(villesName:string)
-{
-  return this.http.get(ConfigService.rootUrl+this._villesUrlIsExiste+"/"+villesName,this.getRequestHeaders());
+isExiste(villesName: string) {
+  return this.http.get(ConfigService.rootUrl + this._villesUrlIsExiste + '/' + villesName, this.getRequestHeaders());
 }
 }
 

@@ -16,14 +16,14 @@ export class DevisesService {
 
   constructor(private router: Router, private http: HttpClient) { }
 
-  private readonly _devisesUrl: string = "/api/devises";
-  private readonly _devisesUrlIsExiste: string = "/api/devises/Isavailable";
-  
+  private readonly _devisesUrl: string = '/api/devises';
+  private readonly _devisesUrlIsExiste: string = '/api/devises/Isavailable';
+
 
 
   protected getRequestHeaders(): { headers: HttpHeaders | { [header: string]: string | string[]; } } {
-    let headers = new HttpHeaders({
-       
+    const headers = new HttpHeaders({
+
         'Content-Type': 'application/json',
         'Accept': `application/vnd.iman.v${ConfigService.apiVersion}+json, application/json, text/plain, */*`,
         'App-Version': ConfigService.appVersion
@@ -32,28 +32,27 @@ export class DevisesService {
     return { headers: headers };
 }
 
-getDevises():Observable<Devises[]> {
-  return this.http.get<Devises[]>(ConfigService.rootUrl+this._devisesUrl,this.getRequestHeaders());
-                
+getDevises(): Observable<Devises[]> {
+  return this.http.get<Devises[]>(ConfigService.rootUrl + this._devisesUrl, this.getRequestHeaders());
+
 }
 
-deleteDevises(DevisesId?:number):Observable<{}>{
+deleteDevises(DevisesId?: number): Observable<{}> {
 
-  return this.http.delete(ConfigService.rootUrl+this._devisesUrl+"/"+DevisesId,this.getRequestHeaders());
+  return this.http.delete(ConfigService.rootUrl + this._devisesUrl + '/' + DevisesId, this.getRequestHeaders());
  }
 
- addDevises(devises:Devises):Observable<Devises>{
-   return this.http.post<Devises>(ConfigService.rootUrl+this._devisesUrl,JSON.stringify(devises),this.getRequestHeaders());
- };
+ addDevises(devises: Devises): Observable<Devises> {
+   return this.http.post<Devises>(ConfigService.rootUrl + this._devisesUrl, JSON.stringify(devises), this.getRequestHeaders());
+ }
 
 
- updateDevises(devises:Devises):Observable<Devises>{
-  return this.http.put<Devises>(ConfigService.rootUrl+this._devisesUrl+"/"+devises.id,JSON.stringify(devises),this.getRequestHeaders());
-};
+ updateDevises(devises: Devises): Observable<Devises> {
+  return this.http.put<Devises>(ConfigService.rootUrl + this._devisesUrl + '/' + devises.id, JSON.stringify(devises), this.getRequestHeaders());
+}
 
 
-isExiste(devisesName:string)
-{
-  return this.http.get(ConfigService.rootUrl+this._devisesUrlIsExiste+"/"+devisesName,this.getRequestHeaders());
+isExiste(devisesName: string) {
+  return this.http.get(ConfigService.rootUrl + this._devisesUrlIsExiste + '/' + devisesName, this.getRequestHeaders());
 }
 }

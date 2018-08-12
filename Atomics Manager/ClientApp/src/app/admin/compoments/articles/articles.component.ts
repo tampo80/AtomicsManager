@@ -13,22 +13,22 @@ import { ArticlesService } from '../../services/articles.service';
 })
 export class ArticlesComponent implements OnInit  , AfterViewInit {
 
-    private Articles:Articles[];
+    private Articles: Articles[];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
     public result: any;
     dataSource = new MatTableDataSource();
-    displayedColumns = ['id','name','productCategoryName','description','fournisseursTitre','buyingPrice','actions'];
-    isLoading:boolean;
+    displayedColumns = ['id', 'name', 'productCategoryName', 'description', 'fournisseursTitre', 'buyingPrice', 'actions'];
+    isLoading: boolean;
 
-    constructor(private articlesService:ArticlesService,private messageboxService:MessageboxService,private dialog: MatDialog) {
-      this.isLoading=true;
+    constructor(private articlesService: ArticlesService, private messageboxService: MessageboxService, private dialog: MatDialog) {
+      this.isLoading = true;
      }
 
     ngOnInit() {
       this.getArticles();
-      this.isLoading=true;
+      this.isLoading = true;
     }
 
     ngAfterViewInit() {
@@ -39,9 +39,9 @@ export class ArticlesComponent implements OnInit  , AfterViewInit {
 
      getArticles() {
       this.articlesService.getArticles().subscribe(
-        res=>{
-          this.dataSource.data=res;
-          this.isLoading=false;
+        res =>  {
+          this.dataSource.data = res;
+          this.isLoading = false;
         }
       );
     }
@@ -58,25 +58,25 @@ export class ArticlesComponent implements OnInit  , AfterViewInit {
       console.log(row);
     }
 
-    deleteArticles(articles?:Articles){
+    deleteArticles(articles?: Articles) {
 
-    this.messageboxService.ShowMessage("Avertissement","Supprimer  "+articles.name,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
+    this.messageboxService.ShowMessage('Avertissement', 'Supprimer  ' + articles.name, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
 
-      this.result = res
+      this.result = res;
       console.log(res);
-      if (this.result.result=="yes") {
-        this.articlesService.deleteArticles(articles.id).subscribe(res=>{
-          if (res!=null) {
-            this.messageboxService.ShowMessage("Information",articles.name+" Supprimer avec succès",articles.name,0,false,1,'500px',"info",'primary');
+      if (this.result.result === 'yes') {
+        this.articlesService.deleteArticles(articles.id).subscribe(_res =>  {
+          if (res != null) {
+            this.messageboxService.ShowMessage('Information', articles.name + ' Supprimer avec succès', articles.name, 0, false, 1, '500px', 'info', 'primary');
             this.getArticles();
           }
 
 
 
-        },err=>{
-                    if (err!=null) {
+        }, err =>  {
+                    if (err != null) {
                       console.log(err);
-                      this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+articles.name+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                      this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + articles.name + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                     }
 
         }
@@ -90,38 +90,38 @@ export class ArticlesComponent implements OnInit  , AfterViewInit {
 
   }
 
-    addNewArticles(){
+    addNewArticles() {
 
-      const dialogRef = this.dialog.open(AddArticlesDialogComponent,{
-        data:{articles:""},
-       width:'800px',
-       disableClose:true
+      const dialogRef = this.dialog.open(AddArticlesDialogComponent, {
+        data: {articles: ''},
+       width: '800px',
+       disableClose: true
       });
 
-      dialogRef.afterClosed().subscribe(res=>{
+      dialogRef.afterClosed().subscribe(res =>  {
         console.log(res);
-        if (res.result===1) {
+        if (res.result === 1) {
           this.getArticles();
-          this.messageboxService.ShowMessage("Information","Articles ajouter avec succès","",0,false,1,'500px',"info",'primary');
+          this.messageboxService.ShowMessage('Information', 'Articles ajouter avec succès', '', 0, false, 1, '500px', 'info', 'primary');
         }
       }
 
 
       );
     }
-    EditArticles(articles?:Articles){
+    EditArticles(articles?: Articles) {
 
        console.log(articles);
-      const dialogRef = this.dialog.open(EditArticlesDialogComponent,{
-        data:{articles:articles},
-       width:'800px',
-       disableClose:true
+      const dialogRef = this.dialog.open(EditArticlesDialogComponent, {
+        data: {articles: articles},
+       width: '800px',
+       disableClose: true
       });
 
-      dialogRef.afterClosed().subscribe(res=>{
-        if (res.result===1) {
+      dialogRef.afterClosed().subscribe(res =>  {
+        if (res.result === 1) {
           this.getArticles();
-          this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",articles.name,0,false,1,'500px',"info",'primary');
+          this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', articles.name, 0, false, 1, '500px', 'info', 'primary');
         }
       }
 

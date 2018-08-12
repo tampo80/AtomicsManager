@@ -10,7 +10,7 @@ import { MessageboxService } from '../services/messagebox.service';
 export class UnderConstructionComponent implements OnInit {
   public result: any;
   constructor(
-    public navigationService: NavigationService, public messageboxService:MessageboxService
+    public navigationService: NavigationService, public messageboxService: MessageboxService
   ) { }
 
   ngOnInit() {
@@ -19,11 +19,11 @@ export class UnderConstructionComponent implements OnInit {
 
   public openDialog() {
     this.messageboxService
-      .ShowMessage('Avertissment', 'ok?','oooo',2,false,1,'600px',"warning",'warn')
-      .subscribe(res => {this.result = res
-      
+      .ShowMessage('Avertissment', 'ok?', 'oooo', 2, false, 1, '600px', 'warning', 'warn')
+      .subscribe(res => {this.result = res;
+
       console.log(res);
-      
+
       });
   }
 }

@@ -13,13 +13,13 @@ export class CategoriesService {
 
   constructor(private router: Router, private http: HttpClient) { }
 
-  private readonly _categoriesUrl: string = "/api/categories";
-  private readonly _categoriesUrlIsExiste: string = "/api/categories/Isavailable";
+  private readonly _categoriesUrl: string = '/api/categories';
+  private readonly _categoriesUrlIsExiste: string = '/api/categories/Isavailable';
 
 
 
   protected getRequestHeaders(): { headers: HttpHeaders | { [header: string]: string | string[]; } } {
-    let headers = new HttpHeaders({
+    const headers = new HttpHeaders({
 
         'Content-Type': 'application/json',
         'Accept': `application/vnd.iman.v${ConfigService.apiVersion}+json, application/json, text/plain, */*`,
@@ -29,28 +29,27 @@ export class CategoriesService {
     return { headers: headers };
 }
 
-getCategories():Observable<Categories[]> {
-  return this.http.get<Categories[]>(ConfigService.rootUrl+this._categoriesUrl,this.getRequestHeaders());
+getCategories(): Observable<Categories[]> {
+  return this.http.get<Categories[]>(ConfigService.rootUrl + this._categoriesUrl, this.getRequestHeaders());
 
 }
 
-deleteCategories(CategoriesId?:number):Observable<{}>{
+deleteCategories(CategoriesId?: number): Observable<{}> {
 
-  return this.http.delete(ConfigService.rootUrl+this._categoriesUrl+"/"+CategoriesId,this.getRequestHeaders());
+  return this.http.delete(ConfigService.rootUrl + this._categoriesUrl + '/' + CategoriesId, this.getRequestHeaders());
  }
 
- addCategories(categories:Categories):Observable<Categories>{
-   return this.http.post<Categories>(ConfigService.rootUrl+this._categoriesUrl,JSON.stringify(categories),this.getRequestHeaders());
- };
+ addCategories(categories: Categories): Observable<Categories> {
+   return this.http.post<Categories>(ConfigService.rootUrl + this._categoriesUrl, JSON.stringify(categories), this.getRequestHeaders());
+ }
 
 
- updateCategories(categories:Categories):Observable<Categories>{
-  return this.http.put<Categories>(ConfigService.rootUrl+this._categoriesUrl+"/"+categories.id,JSON.stringify(categories),this.getRequestHeaders());
-};
+ updateCategories(categories: Categories): Observable<Categories> {
+  return this.http.put<Categories>(ConfigService.rootUrl + this._categoriesUrl + '/' + categories.id, JSON.stringify(categories), this.getRequestHeaders());
+}
 
 
-isExiste(categoriesName:string)
-{
-  return this.http.get(ConfigService.rootUrl+this._categoriesUrlIsExiste+"/"+categoriesName,this.getRequestHeaders());
+isExiste(categoriesName: string) {
+  return this.http.get(ConfigService.rootUrl + this._categoriesUrlIsExiste + '/' + categoriesName, this.getRequestHeaders());
 }
 }

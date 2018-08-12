@@ -13,22 +13,22 @@ import { EditDepartementsComponent } from './dialog/edit/edit-departements/edit-
 })
 export class DepartementsComponent implements OnInit, AfterViewInit {
 
-  private Departements:Departements[];
+  private Departements: Departements[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id','name','description','headName','actions'];
-  isLoading:boolean;
+  displayedColumns = ['id', 'name', 'description', 'headName', 'actions'];
+  isLoading: boolean;
 
-  constructor(private departementsService:DepartementsService,private messageboxService:MessageboxService,private dialog: MatDialog) {
-    this.isLoading=true;
+  constructor(private departementsService: DepartementsService, private messageboxService: MessageboxService, private dialog: MatDialog) {
+    this.isLoading = true;
    }
 
   ngOnInit() {
     this.getDepartements();
-    this.isLoading=true;
+    this.isLoading = true;
   }
 
   ngAfterViewInit() {
@@ -39,9 +39,9 @@ export class DepartementsComponent implements OnInit, AfterViewInit {
 
    getDepartements() {
     this.departementsService.getDepartements().subscribe(
-      res=>{
-        this.dataSource.data=res;
-        this.isLoading=false;
+      res =>  {
+        this.dataSource.data = res;
+        this.isLoading = false;
       }
     );
   }
@@ -58,25 +58,25 @@ export class DepartementsComponent implements OnInit, AfterViewInit {
     console.log(row);
   }
 
-  deleteDepartements(departements?:Departements){
+  deleteDepartements(departements?: Departements) {
 
-  this.messageboxService.ShowMessage("Avertissement","Supprimer  "+departements.name,"",2,false,1,'520px',"warning",'warn').subscribe(res => {
+  this.messageboxService.ShowMessage('Avertissement', 'Supprimer  ' + departements.name, '', 2, false, 1, '520px', 'warning', 'warn').subscribe(res => {
 
-    this.result = res
+    this.result = res;
     console.log(res);
-    if (this.result.result=="yes") {
-      this.departementsService.deleteDepartements(departements.id).subscribe(res=>{
-        if (res!=null) {
-          this.messageboxService.ShowMessage("Information",departements.name+" Supprimer avec succès",departements.name,0,false,1,'500px',"info",'primary');
+    if (this.result.result === 'yes') {
+      this.departementsService.deleteDepartements(departements.id).subscribe(_res =>  {
+        if (res != null) {
+          this.messageboxService.ShowMessage('Information', departements.name + ' Supprimer avec succès', departements.name, 0, false, 1, '500px', 'info', 'primary');
           this.getDepartements();
         }
 
 
 
-      },err=>{
-                  if (err!=null) {
+      }, err =>  {
+                  if (err != null) {
                     console.log(err);
-                    this.messageboxService.ShowMessage("Information","Impossible de supprimer le rôle "+departements.name+" car il est assigné à des utilisateurs ",'',0,false,1,'500px',"info",'primary');
+                    this.messageboxService.ShowMessage('Information', 'Impossible de supprimer le rôle ' + departements.name + ' car il est assigné à des utilisateurs ', '', 0, false, 1, '500px', 'info', 'primary');
                   }
 
       }
@@ -90,38 +90,38 @@ export class DepartementsComponent implements OnInit, AfterViewInit {
 
 }
 
-  addNewDepartements(){
+  addNewDepartements() {
 
-    const dialogRef = this.dialog.open(AddDepartementsComponent,{
-      data:{departements:""},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(AddDepartementsComponent, {
+      data: {departements: ''},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
+    dialogRef.afterClosed().subscribe(res =>  {
       console.log(res);
-      if (res.result===1) {
+      if (res.result === 1) {
         this.getDepartements();
-        this.messageboxService.ShowMessage("Information","Departements ajouter avec succès","",0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', 'Departements ajouter avec succès', '', 0, false, 1, '500px', 'info', 'primary');
       }
     }
 
 
     );
   }
-  EditDepartements(departements?:Departements){
+  EditDepartements(departements?: Departements) {
 
      console.log(departements);
-    const dialogRef = this.dialog.open(EditDepartementsComponent,{
-      data:{departements:departements},
-     width:'600px',
-     disableClose:true
+    const dialogRef = this.dialog.open(EditDepartementsComponent, {
+      data: {departements: departements},
+     width: '600px',
+     disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe(res=>{
-      if (res.result===1) {
+    dialogRef.afterClosed().subscribe(res =>  {
+      if (res.result === 1) {
         this.getDepartements();
-        this.messageboxService.ShowMessage("Information"," modification éffectuée avec succès",departements.name,0,false,1,'500px',"info",'primary');
+        this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', departements.name, 0, false, 1, '500px', 'info', 'primary');
       }
     }
 

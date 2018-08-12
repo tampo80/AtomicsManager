@@ -12,7 +12,7 @@ export class DashboardComponent implements OnInit {
   constructor() {
     console.debug(this.constructor.name);
   }
-  
+
   ngOnInit(): void {
 
   }

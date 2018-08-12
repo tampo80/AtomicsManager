@@ -59,10 +59,25 @@
         <mat-error *ngIf="ApprobationLevelForm.hasError('required')">{{formErrors.level}}</mat-error>
       </mat-form-field>
 
+ <mat-form-field class="example-full-width">
+    <mat-select formControlName="numberApprobaionRequiered" placeholder="Le nombre d'approbation requis" [errorStateMatcher]="matcher">
+        <mat-option *ngFor="let _nbr of nbrs" [value]="_nbr">
+          {{_nbr}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="formErrors.level">{{formErrors.level}}</mat-error>
+      <mat-error *ngIf="ApprobationLevelForm.hasError('required')">{{formErrors.level}}</mat-error>
+
+ </mat-form-field>
+
+
+
+
+
       <mat-from-field>
         <mat-checkbox  formControlName="shared" [value]="shared" color="primary" >Partagé</mat-checkbox>
 
-    </mat-from-field>
+      </mat-from-field>
 
 
       <br>

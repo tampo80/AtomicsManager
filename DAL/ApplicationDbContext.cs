@@ -48,7 +48,32 @@ namespace DAL
         public DbSet<EntrepriseUserInfos> EntrepriseUserInfos { get; set; }
 
 
-       public DbSet<ApprobationWorkflow> ApprobationWorkflow { get; set; }
+        public DbSet<ApprobationWorkflow> ApprobationWorkflow { get; set; }
+
+        public DbSet<Process> Process { get; set; }
+        public DbSet<ProcessAdmin> ProcessAdmins { get; set; }
+
+
+        public DbSet<FichierDemandes> FichierDemandes { get; set; }
+
+        public DbSet<InfosDemandes> InfosDemandes { get; set; }
+        public DbSet<Stakeholders> Stakeholders { get; set; }
+
+        public DbSet<Etat> Etats { get; set; }
+        public DbSet<Activite> Activite { get; set; }
+        public DbSet<Transition> Transition { get; set; }
+        public DbSet<Actions> Actions { get; set; }
+
+        public DbSet<TransitionActions> TransitionActions { get; set; }
+
+        public DbSet<EtatActivite> EtatActivite { get; set; }
+
+        public DbSet<Group> Group { get; set; }
+        public DbSet<GroupeMember> GroupeMember { get; set; }
+
+        public DbSet<ActionTarget> ActionTarget { get; set; }
+        public DbSet<ActiviteTarget> ActiviteTargets { get; set; }
+        public DbSet<DemandesAction> DemandesAction { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
@@ -142,6 +167,94 @@ namespace DAL
             builder.Entity<SecteursFournisseurs>().HasOne(sf => sf.Secteurs)
                                                  .WithMany(f => f.SecteursFournisseurs)
                                                  .HasForeignKey(sf => sf.SecteursId);
+
+            //process admin link
+
+            builder.Entity<ProcessAdmin>().HasKey(sf => new { sf.ProcessId, sf.UserId });
+            builder.Entity<ProcessAdmin>().HasOne(pa => pa.Process)
+                                          .WithMany(p => p.ProcessAdmin)
+                                          .HasForeignKey(pa => pa.ProcessId);
+            builder.Entity<ProcessAdmin>().HasOne(u => u.User)
+                                         .WithMany(p => p.ProcessAdmin)
+                                         .HasForeignKey(u => u.UserId);
+
+
+            builder.Entity<ProcessAdmin>().ToTable($"Work{nameof(this.ProcessAdmins)}");
+
+
+            builder.Entity<Stakeholders>().HasKey(sf => new { sf.DemandesId, sf.UserId });
+            builder.Entity<Stakeholders>().HasOne(d => d.Demandes)
+                                        .WithMany(s => s.Stakeholders)
+                                        .HasForeignKey(pa => pa.DemandesId);
+
+
+            builder.Entity<Stakeholders>().HasOne(u => u.User)
+                                         .WithMany(p => p.Stakeholders)
+                                         .HasForeignKey(u => u.UserId);
+
+
+
+            builder.Entity<Stakeholders>().ToTable($"Work{nameof(this.Stakeholders)}");
+
+
+
+            builder.Entity<TransitionActions>().HasKey(sf => new { sf.ActionsId, sf.TransitionId });
+            builder.Entity<TransitionActions>().HasOne(d => d.Actions)
+                                      .WithMany(s => s.TransitionActions)
+                                      .HasForeignKey(pa => pa.ActionsId);
+
+
+            builder.Entity<TransitionActions>().HasOne(u => u.Transition)
+                                         .WithMany(p => p.TransitionActions)
+                                         .HasForeignKey(u => u.TransitionId);
+
+
+
+            builder.Entity<TransitionActions>().ToTable($"Work{nameof(this.TransitionActions)}");
+
+
+
+            builder.Entity<EtatActivite>().HasKey(sf => new { sf.ActiviteId, sf.EtatId });
+            builder.Entity<EtatActivite>().HasOne(d => d.Etat)
+                                    .WithMany(s => s.EtatActivite)
+                                    .HasForeignKey(pa => pa.EtatId);
+
+
+            builder.Entity<EtatActivite>().HasOne(u => u.Activite)
+                                         .WithMany(p => p.EtatActivite)
+                                         .HasForeignKey(u => u.ActiviteId);
+
+
+
+            builder.Entity<EtatActivite>().ToTable($"Work{nameof(this.EtatActivite)}");
+
+            builder.Entity<Group>().ToTable($"Work{nameof(this.Group)}");
+
+            builder.Entity<GroupeMember>().ToTable($"Work{nameof(this.GroupeMember)}");
+
+            builder.Entity<Process>().ToTable($"Work{nameof(this.Process)}");
+
+            builder.Entity<FichierDemandes>().ToTable($"Work{nameof(this.FichierDemandes)}");
+
+            builder.Entity<InfosDemandes>().ToTable($"Work{nameof(this.InfosDemandes)}");
+
+            builder.Entity<Etat>().ToTable($"Work{nameof(this.Etats)}");
+
+            builder.Entity<Transition>().ToTable($"Work{nameof(this.Transition)}");
+
+
+            builder.Entity<Actions>().ToTable($"Work{nameof(this.Actions)}");
+
+            builder.Entity<Activite>().ToTable($"Work{nameof(this.Activite)}");
+
+            builder.Entity<ActionTarget>().ToTable($"Work{nameof(this.ActionTarget)}");
+
+            builder.Entity<ActiviteTarget>().ToTable($"Work{nameof(this.ActiviteTargets)}");
+
+            builder.Entity<DemandesAction>().ToTable($"Work{nameof(this.DemandesAction)}");
+
+
+
 
             builder.Entity<SecteursFournisseurs>().ToTable($"App{nameof(this.SecteursFournisseurs)}");
 
