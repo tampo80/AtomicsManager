@@ -88,32 +88,52 @@ permissions: [
 }
  ,
  {
-  icon: 'view_headline',
+  icon: 'share',
   name: 'Workflox admin',
+  items: [
+
+
+    {
+      routerLink: 'workflow-transition',
+      name: 'Les transition'
+  },
+
+],
+permissions: [
+  {
+      name: 'admin.view',
+      value: false
+  }
+]
+},
+{
+  icon: 'view_headline',
+  name: 'Workflox config',
   items: [
 
       {
           routerLink: 'workflow-process',
-          name: 'Processuse'
+          name: 'Processus'
       },
       {
-          routerLink: 'manage-roles',
-          name: 'Les roles'
+          routerLink: 'workflow-group',
+          name: 'Les groupes'
       },
       {
-          routerLink: 'manage-approuval-level',
-          name: 'Les niveaux d\'approbation'
+          routerLink: 'workflow-etat',
+          name: 'Les etats'
       },
 
 
       {
-        routerLink: 'manage-approuval-group',
-        name: 'Workflow des demandes'
+        routerLink: 'workflow-actions',
+        name: 'Les actions'
     },
     {
-        routerLink: 'manage-entreprise',
-        name: 'Société'
+        routerLink: 'workflow-activites',
+        name: 'Les activités'
     },
+
 
 ],
 permissions: [

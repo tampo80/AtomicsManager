@@ -29,7 +29,7 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("Descriprion");
+                    b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
@@ -437,6 +437,8 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
+                    b.Property<int>("CurrentStartId");
+
                     b.Property<DateTime>("DateDemande");
 
                     b.Property<DateTime>("DateLivraison");
@@ -471,6 +473,8 @@ namespace AtomicsManager.Migrations
                     b.Property<string>("userId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CurrentStartId");
 
                     b.HasIndex("FournisseursId");
 
@@ -784,6 +788,8 @@ namespace AtomicsManager.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Description");
+
                     b.Property<string>("Name");
 
                     b.Property<int>("ProcessId");
@@ -795,7 +801,7 @@ namespace AtomicsManager.Migrations
                     b.ToTable("WorkGroup");
                 });
 
-            modelBuilder.Entity("DAL.Models.GroupeMember", b =>
+            modelBuilder.Entity("DAL.Models.GroupMember", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -940,7 +946,7 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<string>("Desciption");
+                    b.Property<string>("Description");
 
                     b.Property<string>("Name");
 
@@ -1519,6 +1525,11 @@ namespace AtomicsManager.Migrations
 
             modelBuilder.Entity("DAL.Models.Demandes", b =>
                 {
+                    b.HasOne("DAL.Models.Etat", "CurrentStart")
+                        .WithMany("Demandes")
+                        .HasForeignKey("CurrentStartId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("DAL.Models.Fournisseurs")
                         .WithMany("Demandes")
                         .HasForeignKey("FournisseursId");
@@ -1637,7 +1648,7 @@ namespace AtomicsManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DAL.Models.GroupeMember", b =>
+            modelBuilder.Entity("DAL.Models.GroupMember", b =>
                 {
                     b.HasOne("DAL.Models.Group", "Group")
                         .WithMany("GroupeMember")

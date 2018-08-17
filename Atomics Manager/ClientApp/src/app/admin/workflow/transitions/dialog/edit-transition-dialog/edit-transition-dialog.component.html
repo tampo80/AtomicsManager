@@ -1,0 +1,63 @@
+<div fxLayout="row"  fxLayoutGap="0px" class="layout">
+    <div fxFlex="35%" f class="helppan">
+    <div class="help-container">
+        <p class="mat-title">Nouvelle transition</p>
+        <mat-divider></mat-divider>
+  <div class="vspace"></div>
+        <p class="mat-subheading-1">
+          Le processus est l’ensemble des actions dans une chaine d’approbation
+        </p>
+      <span  class="center-icon">
+
+           <mat-icon class="mat-18 ulistration-mat-icon">vertical_align_center</mat-icon>
+
+      </span>
+    </div>
+
+    </div>
+    <div fxFlex="65%" >
+  <div class="wrapper" fxLayout="column">
+
+
+  <div class="form-header">
+
+  <span class="close-button"   (click)="close()">
+    <mat-icon   aria-label="icon">clear</mat-icon>
+  </span>
+
+
+  </div>
+  <div class="form-container" fxFlex='1'>
+   <form [formGroup]="transitionFrom" class="mat-form">
+      <mat-form-field class="mat-field">
+          <mat-select formControlName="process" placeholder="Processus">
+              <mat-option *ngFor="let pro of process" [value]="pro.id">
+                  {{pro.name}}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="mat-field">
+            <mat-select formControlName="etatActuel" placeholder="Etat actuel">
+                <mat-option *ngFor="let pro of etatActuel" [value]="pro.id">
+                    {{pro.name}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="mat-field">
+              <mat-select formControlName="etatSuivant" placeholder="Etat suivant">
+                  <mat-option *ngFor="let pro of etatSuivant" [value]="pro.id">
+                      {{pro.name}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+   </form>
+  </div>
+  <mat-divider></mat-divider>
+  <footer class="action">
+    <button class="action-button" [disabled]="!transitionFrom.valid" mat-raised-button (click)="EditTransition()">Modification</button>
+    <button class="action-button" mat-raised-button (click)="close()">Abandonner</button>
+  </footer>
+    </div>
+  </div>
+
+  </div>

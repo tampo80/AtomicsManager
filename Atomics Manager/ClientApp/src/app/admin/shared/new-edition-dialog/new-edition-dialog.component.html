@@ -1,0 +1,51 @@
+<div fxLayout="row"  fxLayoutGap="0px" class="layout">
+    <div fxFlex="35%" f class="helppan">
+    <div class="help-container">
+        <p class="mat-title">{{titre}}</p>
+        <mat-divider></mat-divider>
+  <div class="vspace"></div>
+        <p class="mat-subheading-1">
+            {{helpHint}}
+        </p>
+      <span  class="center-icon">
+
+           <mat-icon class="mat-18 ulistration-mat-icon">{{icone}}</mat-icon>
+
+      </span>
+    </div>
+
+    </div>
+    <div fxFlex="65%" >
+  <div class="wrapper" fxLayout="column">
+
+
+  <div class="form-header">
+
+  <span class="close-button"   (click)="close()">
+    <mat-icon   aria-label="icon">clear</mat-icon>
+  </span>
+
+
+  </div>
+  <div class="form-container" fxFlex='1'>
+
+
+  </div>
+  <mat-divider></mat-divider>
+  <footer class="action">
+    <button class="action-button" mat-raised-button (click)="onOk()">Créer</button>
+    <button class="action-button" mat-raised-button (click)="onCancel()">Abandonner</button>
+  </footer>
+  <footer class="action">
+      <button class="action-button" mat-raised-button (click)="onOk()">Créer</button>
+      <button class="action-button" mat-raised-button (click)="onNo()">Abandonner</button>
+  </footer>
+  <footer class="action">
+      <button class="action-button" mat-raised-button (click)="onOk()">Créer</button>
+      <button class="action-button" mat-raised-button (click)="onNo()">Abandonner</button>
+      <button class="action-button" mat-raised-button (click)="OnMorecc()">Plus +</button>
+  </footer>
+    </div>
+  </div>
+
+  </div>

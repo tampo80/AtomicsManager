@@ -15,5 +15,6 @@ namespace DAL.Models
         public string Description { get; set; }
 
         public ICollection<EtatActivite> EtatActivite { get; set; }
+        public ICollection<Demandes> Demandes { get; set; }
     }
 }

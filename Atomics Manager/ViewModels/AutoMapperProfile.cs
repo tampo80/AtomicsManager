@@ -1,4 +1,4 @@
-// ====================================================
+  // ====================================================
 // More Templates: https://www.ebenmonney.com/templates
 // Email: support@ebenmonney.com
 // ====================================================
@@ -131,6 +131,26 @@ namespace Atomics_Manager.ViewModels {
             CreateMap<Process, ProcessViewModel>()
 
            .ReverseMap();
+
+            CreateMap<Group, GroupViewModel>()
+
+           .ReverseMap();
+
+            CreateMap<Etat, EtatViewModel>()
+
+           .ReverseMap();
+
+            CreateMap<Actions, ActionsViewModel>()
+
+           .ReverseMap();
+
+            CreateMap<Activite, ActiviteViewModel>()
+
+            .ReverseMap();
+
+            CreateMap<Transition, TransitionActions>()
+
+            .ReverseMap();
 
         }
     }

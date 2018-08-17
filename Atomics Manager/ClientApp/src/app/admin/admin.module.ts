@@ -72,6 +72,7 @@ import { DetaildemandesInComponent } from './demandes/detaildemandes-in/detailde
 import { DemandesInComponent } from './demandes/demandes-in/demandes-in.component';
 import { DetailsDemandesInComponent } from './demandes/demandes-in/details-demandes-in/details-demandes-in.component';
 import { WorkflowModule } from './workflow/workflow.module';
+import { NewEditionDialogComponent } from './shared/new-edition-dialog/new-edition-dialog.component';
 
 registerLocaleData(localeFr);
 
@@ -156,6 +157,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DemandesInComponent,
 
     DetailsDemandesInComponent,
+
+    NewEditionDialogComponent,
 
 
 

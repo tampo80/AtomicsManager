@@ -25,6 +25,11 @@ import { DemandesCataloguesComponent } from './demandes/demandes-catalogues/dema
 import { MesDemandesComponent } from './demandes/mes-demandes/mes-demandes.component';
 import { DemandesInComponent } from './demandes/demandes-in/demandes-in.component';
 import { ProcessComponent } from './workflow/process/process.component';
+import { WorkFlowGroupComponent } from './workflow/work-flow-group/work-flow-group.component';
+import { EtatsComponent } from './workflow/etats/etats.component';
+import { ActionsComponent } from './workflow/actions/actions.component';
+import { ActiviteComponent } from './workflow/activite/activite.component';
+import { TransitionsComponent } from './workflow/transitions/transitions.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -33,8 +38,13 @@ import { ProcessComponent } from './workflow/process/process.component';
       component: AdminComponent,
       children: [
         {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+        {path: 'workflow-transition', component: TransitionsComponent},
+        {path: 'workflow-activites', component: ActiviteComponent},
         {path: 'manage-approuval-level', component: ApprobationLevelComponent},
         {path: 'workflow-process', component: ProcessComponent},
+        {path: 'workflow-group', component: WorkFlowGroupComponent},
+        {path: 'workflow-etat', component: EtatsComponent},
+        {path: 'workflow-actions', component: ActionsComponent},
         {path: 'manage-demandesin', pathMatch: 'full', component: DemandesInComponent},
         {path: 'manage-mesdemandes', pathMatch: 'full', component: MesDemandesComponent},
         { path: 'manage-profil', component: ProfilComponent },

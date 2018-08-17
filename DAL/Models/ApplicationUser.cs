@@ -60,6 +60,6 @@ namespace DAL.Models
         public EntrepriseUserInfos EntrepriseUserInfos { get; set; }
         public ICollection<ProcessAdmin> ProcessAdmin { get; set; }
         public ICollection<Stakeholders>Stakeholders { get; set; }
-        public ICollection<GroupeMember> GroupeMember { get; set; }
+        public ICollection<GroupMember> GroupeMember { get; set; }
     }
 }

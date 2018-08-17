@@ -65,7 +65,7 @@ namespace DAL
          ITransitionRepository Transition { get; }
          IEtatActiviteRepository EtatActivite { get; }
          IEtatRepository Etat { get; }
-         IGroupeMemberRepository GroupeMember { get; }
+         IGroupMemberRepository GroupMember { get; }
          IGroupRepository Group { get; }    
 
 

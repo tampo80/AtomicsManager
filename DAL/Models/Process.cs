@@ -8,7 +8,7 @@ namespace DAL.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string  Desciption { get; set; }
+        public string  Description { get; set; }
 
         // naviation
         public ICollection<Demandes> Demandes { get; set; }

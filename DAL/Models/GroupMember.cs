@@ -4,7 +4,7 @@ using System.Text;
 
 namespace DAL.Models
 {
-   public class GroupeMember
+   public class GroupMember
     {
         public int Id { get; set; }
         public int GroupId { get; set; }

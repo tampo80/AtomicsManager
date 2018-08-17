@@ -37,7 +37,7 @@ remove(member: ApgMembers): void {
 
 exist(member: ApgMembers): boolean {
 
-  const index = this.apgmembers.find(e => e.memberId === member.memberId);
+  const index = this.apgmembers.find(e => e.memberId === String(member.memberId));
   console.log(index);
 
   console.log(member.id);

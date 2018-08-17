@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatDialog, MatSort, MatPaginator } from '../../../../../node_modules/@angular/material';
+import { MatTableDataSource, MatDialog, MatSort, MatPaginator } from '@angular/material';
 import { MessageboxService } from '../../services/messagebox.service';
 import { Process } from '../models/process';
 import { ProcessService } from '../services/process.service';
@@ -89,7 +89,8 @@ export class ProcessComponent implements OnInit, AfterViewInit {
 
       const dialogRef = this.dialog.open(AddProcessDialogComponent, {
         data: {process: ''},
-       width: '600px',
+        panelClass: 'atomics-dialog-container',
+       width: '750px',
        disableClose: true
       });
 
@@ -107,13 +108,15 @@ export class ProcessComponent implements OnInit, AfterViewInit {
     EditProcess(process?: Process) {
 
       const dialogRef = this.dialog.open(EditProcessDialogComponent, {
+        panelClass: 'atomics-dialog-container',
         data: {process: process},
-       width: '600px',
+       width: '750px',
        disableClose: true
       });
 
       dialogRef.afterClosed().subscribe(res => {
         if (res.result === 1) {
+          this.getProcess();
           this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', process.name, 0, false, 1, '500px', 'info', 'primary');
         }
       }

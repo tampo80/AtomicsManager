@@ -1,0 +1,72 @@
+<div fxLayout="row"  fxLayoutGap="0px" class="layout">
+    <div fxFlex="35%" f class="helppan">
+    <div class="help-container">
+        <p class="mat-title">Manager les membres du groupe</p>
+        <mat-divider></mat-divider>
+  <div class="vspace"></div>
+        <p class="mat-subheading-1">
+         Les gestion des membres du groupe d'approbaion des demandes
+        </p>
+      <span  class="center-icon">
+
+           <mat-icon class="mat-18 ulistration-mat-icon">group_add</mat-icon>
+
+      </span>
+    </div>
+
+    </div>
+    <div fxFlex="65%" >
+  <div class="wrapper" fxLayout="column">
+
+
+  <div class="form-header">
+
+  <span class="close-button"   (click)="close()">
+    <mat-icon   aria-label="icon">clear</mat-icon>
+  </span>
+
+
+  </div>
+  <div class="form-container" fxFlex='1'>
+     <div fxLayout="column " fxLayoutGap="10px" class="mat-form">
+      <div fxFlex="40%" class="mat-form">
+          <form class="mat-form" (ngSubmit)="onSubmit()" [formGroup]="agroupMemberForm">
+              <mat-form-field class="mat-field">
+
+                <input [matChipInputFor]="membersChpis" type="text" placeholder="Membre"   matInput formControlName="members" [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="getSelected($event.option.value)">
+                  <mat-option *ngFor="let option of filteredUsers | async" [value]="option">
+                    {{option.userName}}
+                  </mat-option>
+                </mat-autocomplete>
+
+              </mat-form-field>
+             </form>
+      </div>
+      <div fxFlex="40%" >
+          <div class="vspace"></div>
+         <mat-divider class="vspace"></mat-divider>
+
+         <mat-chip-list #membersChpis >
+             <mat-chip (select)="onSelect" *ngFor="let apgmemeber of apgmembers" [selectable]="true" color="accent" [removable]="true" (remove)="remove(apgmemeber)" >
+                 {{apgmemeber.userFullName}}
+
+                 <mat-icon matChipRemove (click)="remove(apgmemeber)">cancel</mat-icon>
+             </mat-chip>
+         </mat-chip-list>
+      </div>
+    </div>
+
+    </div>
+
+
+
+  <mat-divider></mat-divider>
+  <footer class="action">
+    <button class="action-button" color="primary" mat-raised-button (click)="applyGroup()">Appliquer</button>
+    <button class="action-button" mat-raised-button (click)="close()">Abandonner</button>
+  </footer>
+    </div>
+  </div>
+
+  </div>

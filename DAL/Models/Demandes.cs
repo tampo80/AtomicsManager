@@ -31,6 +31,9 @@ namespace DAL.Models
         // new implamatations
         public int ProcessId { get; set; }
 
+        public int CurrentStartId { get; set; }
+        public Etat CurrentStart { get; set; }
+
         public ICollection<Stakeholders> Stakeholders { get; set; }
 
         public ICollection<FichierDemandes> FichierDemandes { get; set; }

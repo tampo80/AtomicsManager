@@ -1,0 +1,48 @@
+table {
+	width: 100%;
+  }
+
+  .mat-form-field {
+
+	width: 100%;
+  }
+
+  td, th {
+	width: 25%;
+  }
+
+  .page{
+	  padding: 2%;
+  }
+
+  .lastcell{
+    display: flex;
+    justify-content: flex-end;
+  }
+  .mat-column- {
+    display: flex;
+    justify-content: flex-end;
+    }
+
+    .mat-column-id {
+
+      flex: 0 0 50px;
+
+    }
+
+
+
+
+    .right.mat-cell {
+      display: flex;
+      justify-content: flex-end;
+  }
+  .right.mat-header-cell {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: 0;
+      padding-left: 24px;
+  }
+  .right.mat-header-cell:last-child {
+      margin-right: 0;
+  }

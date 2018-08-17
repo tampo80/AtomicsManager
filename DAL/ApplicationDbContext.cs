@@ -69,7 +69,7 @@ namespace DAL
         public DbSet<EtatActivite> EtatActivite { get; set; }
 
         public DbSet<Group> Group { get; set; }
-        public DbSet<GroupeMember> GroupeMember { get; set; }
+        public DbSet<GroupMember> GroupeMember { get; set; }
 
         public DbSet<ActionTarget> ActionTarget { get; set; }
         public DbSet<ActiviteTarget> ActiviteTargets { get; set; }
@@ -230,7 +230,7 @@ namespace DAL
 
             builder.Entity<Group>().ToTable($"Work{nameof(this.Group)}");
 
-            builder.Entity<GroupeMember>().ToTable($"Work{nameof(this.GroupeMember)}");
+            builder.Entity<GroupMember>().ToTable($"Work{nameof(this.GroupeMember)}");
 
             builder.Entity<Process>().ToTable($"Work{nameof(this.Process)}");
 

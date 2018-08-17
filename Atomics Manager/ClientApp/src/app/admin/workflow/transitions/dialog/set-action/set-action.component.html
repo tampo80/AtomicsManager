@@ -1,0 +1,46 @@
+<div fxLayout="row"  fxLayoutGap="0px" class="layout">
+    <div fxFlex="35%" f class="helppan">
+    <div class="help-container">
+        <p class="mat-title">Definir les action</p>
+        <mat-divider></mat-divider>
+  <div class="vspace"></div>
+        <p class="mat-subheading-1">
+          Le processus est l’ensemble des actions dans une chaine d’approbation
+        </p>
+      <span  class="center-icon">
+
+           <mat-icon class="mat-18 ulistration-mat-icon">vertical_align_center</mat-icon>
+           <mat-icon class="mat-18 ulistration-mat-icon">flash_on</mat-icon>
+
+      </span>
+    </div>
+
+    </div>
+    <div fxFlex="65%" >
+  <div class="wrapper" fxLayout="column">
+
+
+  <div class="form-header">
+
+  <span class="close-button"   (click)="close()">
+    <mat-icon   aria-label="icon">clear</mat-icon>
+  </span>
+
+
+  </div>
+  <div class="form-container" fxFlex='1'>
+   <form class="mat-form" [formArray]="setActionFrControlArray">
+
+     <mat-checkbox *ngFor="let action of actions" formControlName="formControlName" value="" color="primary">{{action.name}}</mat-checkbox>
+
+   </form>
+  </div>
+  <mat-divider></mat-divider>
+  <footer class="action">
+    <button class="action-button" [disabled]="" mat-raised-button (click)="EditTransition()">Modification</button>
+    <button class="action-button" mat-raised-button (click)="close()">Abandonner</button>
+  </footer>
+    </div>
+  </div>
+
+  </div>

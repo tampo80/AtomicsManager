@@ -7,9 +7,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Repositories
 {
-    public class GroupeMemberRepository : Repository<GroupeMember>, IGroupeMemberRepository
+    public class GroupMemberRepository : Repository<GroupMember>, IGroupMemberRepository
     {
-        public GroupeMemberRepository(DbContext context) : base(context)
+        public GroupMemberRepository(DbContext context) : base(context)
         {
         }
         private ApplicationDbContext _appContext => (ApplicationDbContext)_context;

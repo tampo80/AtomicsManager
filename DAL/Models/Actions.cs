@@ -13,7 +13,7 @@ namespace DAL.Models
         public Process Process { get; set; }
         public int ProcessId { get; set; }
         public string Name { get; set; }
-        public string Descriprion { get; set; }
+        public string Description { get; set; }
 
 
         public ICollection<TransitionActions> TransitionActions { get; set; }

@@ -14,11 +14,11 @@ import { Permission } from '../../../../../models/permission.model';
 
 export class AddRolesDialogComponent implements OnInit {
   roleformControl = new FormControl();
-  permissions:Permission[];
+  permissions: Permission[];
   private selectedValues: { [key: string]: boolean; } = {};
-  constructor(private messageboxService:MessageboxService,public accountService:AccountService, public dialogRef: MatDialogRef<AddRolesDialogComponent>,@Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(private messageboxService: MessageboxService, public accountService: AccountService, public dialogRef: MatDialogRef<AddRolesDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
 
-    data.role=new Role();
+    data.role = new Role();
 
    }
 
@@ -33,22 +33,14 @@ export class AddRolesDialogComponent implements OnInit {
     });
   }
 
-  getErrorMessage() {
-    return this.formControl.hasError('required') ? 'Champ réquis' :
-      this.formControl.hasError('email') ? "Mail n'est pas valide" :
-        '';
-  }
+
   submit() {
     // emppty stuff
     }
 
     onNoClick(): void {
-      this.dialogRef.close({result:0});;
+      this.dialogRef.close({result: 0});
     }
-    formControl = new FormControl('', [
-      Validators.required,
-      Validators.email,
-    ]);
 
 
     public selectAll() {
@@ -61,25 +53,24 @@ export class AddRolesDialogComponent implements OnInit {
   }
 
   private getSelectedPermissions() {
-    return this.permissions.filter(p => this.selectedValues[p.value] == true);
+    return this.permissions.filter(p => this.selectedValues[p.value] === true);
 }
 
-  addRole()
-  {
-    this.data.role.permissions=this.getSelectedPermissions();
+  addRole() {
+    this.data.role.permissions = this.getSelectedPermissions();
     this.accountService.addRole(this.data.role).subscribe(
 
-      res=>{
+      res =>  {
 
 
-        this.dialogRef.close({result:1});
+        this.dialogRef.close({result: 1});
 
        },
-     err=>{
+     err =>  {
 
-       if (err.statuts===400) {
+       if (err.statuts === 400) {
         // this.erroMessage=err.error;
-         this.messageboxService.ShowMessage("Avertissement","des erreurs empechent l'enregistrement "+err.error,"",0,false,1,'520px',"warning",'warn')
+         this.messageboxService.ShowMessage('Avertissement', 'des erreurs empechent l\'enregistrement ' + err.error, '', 0, false, 1, '520px', 'warning', 'warn');
        }
 
          }

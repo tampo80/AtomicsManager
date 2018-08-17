@@ -89,8 +89,8 @@ export class FournisseursComponent implements OnInit , AfterViewInit {
   }
 
 
-  getformJuridique(value?: number) {
-    return this.formeJuridiques.find(e => e.value === value);
+  public getformJuridique(value: number) {
+    return this.formeJuridiques.find(e => e.value === Number(value)).label;
   }
   rowClicked(row: any): void {
     console.log(row);

@@ -1,6 +1,6 @@
 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
 <div class="mat-row page mat-elevation-z2" width="90%">
-   
+
 
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
@@ -12,27 +12,27 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index"> {{i+1}} </mat-cell>
                 </ng-container>
-               
+
               <ng-container matColumnDef="nomSociete">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Société  </mat-header-cell>
                 <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.nomSociete}} </mat-cell>
               </ng-container>
-              
+
                 <ng-container matColumnDef="formeJuridique">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Forme juridique </mat-header-cell>
-                    <mat-cell *matCellDef="let fournisseurs"> {{getformJuridique(fournisseurs.formeJuridique).label}} </mat-cell>
+                    <mat-cell *matCellDef="let fournisseurs"> {{getformJuridique(fournisseurs.formeJuridique)}} </mat-cell>
                   </ng-container>
               <ng-container matColumnDef="email">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Mail </mat-header-cell>
                 <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.email}} </mat-cell>
               </ng-container>
-              
+
               <ng-container matColumnDef="phoneNumber">
                   <mat-header-cell *matHeaderCellDef mat-sort-header> Tél </mat-header-cell>
                   <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.phoneNumber}} </mat-cell>
                 </ng-container>
-           
-          
+
+
             <ng-container matColumnDef="adresse">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Adresse </mat-header-cell>
                 <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.adresse}} </mat-cell>
@@ -53,10 +53,10 @@
                       <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
                     </button>
                   </mat-header-cell>
-            
+
                   <mat-cell *matCellDef="let fournisseurs" class="lastcell">
-                   
-                    
+
+
 
                     <button mat-icon-button color="accent" matTooltip="Editer les informations" (click)="EditFournisseurs(fournisseurs)">
                       <mat-icon aria-label="Edit">edit</mat-icon>
@@ -65,8 +65,8 @@
                     <button mat-icon-button color="primary" matTooltip="Editer les informations" (click)="EditFournisseurs(fournisseurs)">
                       <mat-icon aria-label="Edit">business</mat-icon>
                     </button>
-                   
-            
+
+
                     <button mat-icon-button color="warn" matTooltip="Suprimer l'utilisateur" (click)="deleteFournisseurs(fournisseurs)">
                       <mat-icon aria-label="Delete">delete</mat-icon>
                     </button>
@@ -74,12 +74,12 @@
                 </ng-container>
               <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
               <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-           
+
           </mat-table>
 
           <mat-paginator  [pageSize]="8" [pageSizeOptions]="[5, 10, 25]">
             </mat-paginator>
-     
-  
+
+
 </div>
  </div>

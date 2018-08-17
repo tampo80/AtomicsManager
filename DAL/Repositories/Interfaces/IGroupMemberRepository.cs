@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Repositories.Interfaces
 {
-   public interface IGroupeMemberRepository:IRepository<GroupeMember>
+   public interface IGroupMemberRepository:IRepository<GroupMember>
     {
     }
 }

@@ -66,7 +66,7 @@ namespace DAL
         ITransitionRepository _Transition;
         IEtatActiviteRepository _EtatActivite;
         IEtatRepository _Etat;
-        IGroupeMemberRepository _GroupeMember;
+        IGroupMemberRepository _GroupMember;
         IGroupRepository _Group;
 
 
@@ -458,13 +458,13 @@ namespace DAL
                 return _Etat;
             }
         }
-        public IGroupeMemberRepository GroupeMember {
+        public IGroupMemberRepository GroupMember {
             get
             {
-                if (_GroupeMember == null)
-                    _GroupeMember = new GroupeMemberRepository(_context);
+                if (_GroupMember == null)
+                    _GroupMember = new GroupMemberRepository(_context);
 
-                return _GroupeMember;
+                return _GroupMember;
             }
         }
         public IGroupRepository Group {
