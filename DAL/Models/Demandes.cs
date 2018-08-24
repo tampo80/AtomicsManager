@@ -23,23 +23,23 @@ namespace DAL.Models
 
         public int Quantite { get; set; }
 
-        public ApprobationSatut Statut { get; set; }
+      
 
-        public int ExpertsId { get; set; }
-        public ICollection<ApprobationWorkflow> ApprobationWorkflow { get; set; }
+      
 
         // new implamatations
         public int ProcessId { get; set; }
+        public Process Process { get; set; }
 
-        public int CurrentStartId { get; set; }
-        public Etat CurrentStart { get; set; }
+        public int CurrentStatId { get; set; }
+        public Etat CurrentStat { get; set; }
 
         public ICollection<Stakeholders> Stakeholders { get; set; }
 
         public ICollection<FichierDemandes> FichierDemandes { get; set; }
 
         public ICollection<InfosDemandes> InfosDemandes { get; set; }
-
+        public ICollection<ActionsHistories> ActionsHistories { get; set; }
         public ICollection<DemandesAction> DemandesAction { get; set; }
 
 

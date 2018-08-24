@@ -91,7 +91,7 @@ table {
     .mat-column-productName {
         display: flex;
         justify-content: flex-start;
-        width: 10px;
+        flex: 0 0 200px !important;
 
         }
 
@@ -123,6 +123,14 @@ table {
       flex: 0 0 200px !important;
       justify-content: center;
       font-weight: bold;
+
+    }
+
+    .mat-column-currentStatName {
+      flex: 0 0 200px !important;
+      justify-content: center;
+      font-weight: bold;
+      color: #029e89
 
     }
 

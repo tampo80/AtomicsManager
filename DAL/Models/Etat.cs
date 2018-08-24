@@ -16,5 +16,7 @@ namespace DAL.Models
 
         public ICollection<EtatActivite> EtatActivite { get; set; }
         public ICollection<Demandes> Demandes { get; set; }
-    }
+        public ICollection<ActionsHistories> ActionsHistories { get; set; }
+    
+}
 }

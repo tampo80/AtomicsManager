@@ -1,4 +1,23 @@
-<div>
+
+<div fxLayout="row" fxLayoutGap="5px" class="full-h">
+  <div fxFlex="28%" class="helppan">
+    <div class="help-container">
+      <p class="mat-title">Definir la cible de cette action</p>
+      <mat-divider></mat-divider>
+<div class="vspace"></div>
+      <p class="mat-subheading-1">
+        Le actionsus est l’ensemble des actions dans une chaine d’approbation
+      </p>
+    <span  class="center-icon">
+
+         <mat-icon class="mat-18 ulistration-mat-icon">checked</mat-icon>
+
+    </span>
+  </div>
+
+   </div>
+
+<div fxFlex="68%" class="full-h">
   <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
   <mat-tab-group [disableRipple]="false">
       <mat-tab label="Demande">
@@ -14,14 +33,15 @@
           <mat-card-content>
               <div fxLayout
             fxLayout
-            fxLayout.xs="column"
+            fxLayout.xs="row"
             fxLayoutAlign="center"
             fxLayoutGap="10px"
             fxLayoutGap.xs="0">
 
 
-            <div fxFlex="49%">
-                <table class="example-form">
+
+            <div fxFlex="55%">
+                <table class="table table-condensed table-mc-red full-width">
                     <tr>
                       <td>Article</td>
                       <td>{{demande.productName}}</td>
@@ -34,13 +54,13 @@
                       <td></td>
                     </tr>
                     <tr>
-                      <td>Date de la demande</td>
+                      <td>Date</td>
                       <td>{{demande.dateDemande| date:'dd MMMM yyyy à HH:mm'}}</td>
                       <td></td>
                     </tr>
                     <tr>
                       <td>Statut</td>
-                      <td><mat-icon class="mat-18" [color]="getStatut(demande.statut).color" [matTooltip]="getStatut(demande.statut).label">{{getStatut(demande.statut).icon}}</mat-icon></td>
+                      <td>{{demande.currentStatName}}</td>
                       <td></td>
                     </tr>
 
@@ -56,8 +76,8 @@
                       </tr>
                   </table>
             </div>
-            <div fxFlex="49%">
-                <fieldset class="fieldset">
+            <div fxFlex="48%">
+                <fieldset class="fieldset full-width">
 
                         <legend>Description du produit</legend>
                         {{productDetails.description}}
@@ -67,20 +87,21 @@
               </div>
 
 
+            </div>
 
-    </div>
     <mat-divider></mat-divider>
 
     <mat-divider></mat-divider>
     <div>
 
     </div>
+
           </mat-card-content>
 
 
       </mat-card>
       </mat-tab>
-      <mat-tab label="Commentaires">
+      <mat-tab label="Commentaires" class="">
           <mat-card>
               <mat-card-header>
 
@@ -95,68 +116,91 @@
 
 
                     <div>
-                    <table class="table table-condensed table-striped table-hover  table-bordered">
-                      <tr>
-                          <th>#</th>
-                          <th>Date</th>
-                          <th>Commentaire</th>
-                          <th>Intervenant</th>
-                          <th>Avis</th>
 
-                      </tr>
-                        <tr *ngFor="let work of workFlow; let i=index">
-                           <td>
-                             {{i+1}}
-                           </td>
-                           <td>{{work.approbationDate | date:'dd/MM/yyyy à HH:mm'}}</td>
-                           <td>{{work.comment}}</td>
-                           <td>{{work.userFullName}}</td>
-                           <td>{{work.userUserName}}</td>
-
-                        </tr>
-
-                      </table>
                 </div>
 
 
 
 
         </div>
-        <div class="vspace"></div>
+
         <mat-divider></mat-divider>
-        <div width="50%">
+        <div class="vspace"></div>
+        <div   class="wrapper full-width">
 
             <fieldset class="fieldset">
               <legend>Commentaire</legend>
-                <form  [formGroup]="demadeForm" >
-                    <mat-form-field class="example-full-width" >
+                <form  [formGroup]="demadeForm" class="full-width" >
+                    <mat-form-field class="full-width" >
 
-                          <textarea rows="3" matInput formControlName="comment" required
+                          <textarea rows="4" matInput formControlName="comment" required
                                     placeholder="Commentaire"></textarea>
 
                     </mat-form-field>
                   </form>
             </fieldset>
           </div>
-        <mat-divider></mat-divider>
+          <div class="vspace"></div>
+
         <div>
 
 
 
 
         </div>
+
         <mat-divider></mat-divider>
         <div>
-
+            <div class="vspace"></div>
+         <h4>{{demande.currentStatName}}</h4>
         </div>
               </mat-card-content>
 
 
           </mat-card>
       </mat-tab>
+      <mat-tab label="Historiques">
+<mat-card>
+    <mat-card-header>
+
+        <mat-card-subtitle>{{userInfo.departementName}}</mat-card-subtitle>
+        <mat-card-subtitle>Service {{userInfo.servicesName}}</mat-card-subtitle>
+        <mat-card-subtitle>Agence {{userInfo.agencesName}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="wrapper full-width">
+
+
+        <table class="table table-condensed table-striped table-hover  table-bordered">
+            <tr>
+                <th>#</th>
+                <th>Date</th>
+                <th>Commentaire</th>
+                <th>Intervenant</th>
+                <th>Avis</th>
+
+            </tr>
+              <tr *ngFor="let work of workFlow; let i=index">
+                 <td>
+                   {{i+1}}
+                 </td>
+                 <td>{{work.dateOperation | date:'dd/MM/yyyy à HH:mm'}}</td>
+                 <td>{{work.comment}}</td>
+                 <td>{{work.userFullName}}</td>
+                 <td>{{work.actionsName}}</td>
+
+              </tr>
+
+            </table>
+          </div>
+    </mat-card-content>
+
+</mat-card>
+      </mat-tab>
   </mat-tab-group>
   <mat-divider></mat-divider>
-  <mat-card-actions align="end">
+  <mat-card-actions class="action" align="end">
 
     <button mat-raised-button [disabled]="!demadeForm.valid" (click)="rejectDemande()" color="warn">
         Regeter
@@ -176,4 +220,5 @@
 
 
   </mat-card-actions>
+</div>
 </div>

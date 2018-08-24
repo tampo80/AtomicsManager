@@ -32,6 +32,11 @@ getActions(): Observable<Actions[]> {
 
 }
 
+getActionsIds(transitionId): Observable<number[]> {
+  return this.http.get<number[]>(ConfigService.rootUrl + this._actionsUrl + '/ta/' + transitionId  , this.getRequestHeaders());
+
+}
+
 deleteActions(ActionsId?: number): Observable<{}> {
 
   return this.http.delete(ConfigService.rootUrl + this._actionsUrl + '/' + ActionsId, this.getRequestHeaders());
@@ -41,6 +46,10 @@ deleteActions(ActionsId?: number): Observable<{}> {
    return this.http.post<Actions>(ConfigService.rootUrl + this._actionsUrl, JSON.stringify(actions), this.getRequestHeaders());
  }
 
+
+ addtransitionActions(actions: any): Observable<Actions> {
+  return this.http.post<Actions>(ConfigService.rootUrl + this._actionsUrl + '/transitionactions/' , JSON.stringify(actions), this.getRequestHeaders());
+}
 
  updateActions(actions: Actions): Observable<Actions> {
   return this.http.put<Actions>(ConfigService.rootUrl + this._actionsUrl + '/' + actions.id, JSON.stringify(actions), this.getRequestHeaders());

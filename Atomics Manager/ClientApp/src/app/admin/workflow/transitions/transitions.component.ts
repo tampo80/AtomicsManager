@@ -6,6 +6,7 @@ import { MessageboxService } from '../../services/messagebox.service';
 import { AddTransitionDialogComponent } from './dialog/add-transition-dialog/add-transition-dialog.component';
 import { EditTransitionDialogComponent } from './dialog/edit-transition-dialog/edit-transition-dialog.component';
 import { SetActionComponent } from './dialog/set-action/set-action.component';
+import { SetActiviteComponent } from './dialog/set-activite/set-activite.component';
 
 @Component({
   selector: 'app-transitions',
@@ -133,6 +134,25 @@ export class TransitionsComponent implements OnInit , AfterViewInit {
   SetAction(transition?: Transition) {
 
     const dialogRef = this.dialog.open(SetActionComponent, {
+      panelClass: 'atomics-dialog-container',
+      data: {transition: transition},
+      width: '750px',
+     disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res.result === 1) {
+        this.getTransition();
+        this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', '', 0, false, 1, '500px', 'info', 'primary');
+      }
+    }
+
+
+    );
+  }
+  SetActivite(transition?: Transition) {
+
+    const dialogRef = this.dialog.open(SetActiviteComponent, {
       panelClass: 'atomics-dialog-container',
       data: {transition: transition},
       width: '750px',

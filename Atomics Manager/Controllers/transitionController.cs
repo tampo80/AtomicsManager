@@ -33,8 +33,16 @@ namespace Atomics_Manager.Controllers
             var allTransition = _unitOfWork.Transition.GetAllIncluding(e=>e.Process,j=>j.EtatActuel,k=>k.EtatSuivant).OrderBy(e => e.Id);
             return Ok(Mapper.Map<IEnumerable<TransitionViewModel>>(allTransition));
         }
-        
-       
+
+
+        [HttpGet("transitionaction")]
+        public IActionResult Transitionaction()
+        {
+            var allTransition = _unitOfWork.TransitionActions.GetAllIncluding(e => e.Actions,l=>l.Transition);
+            return Ok(Mapper.Map<IEnumerable<TransitionActionsViewModel>>(allTransition));
+        }
+
+
 
         // POST api/values
         [HttpPost]

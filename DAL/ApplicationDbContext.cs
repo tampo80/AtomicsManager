@@ -65,6 +65,7 @@ namespace DAL
         public DbSet<Actions> Actions { get; set; }
 
         public DbSet<TransitionActions> TransitionActions { get; set; }
+        public DbSet<TransitionActivite> TransitionActivite { get; set; }
 
         public DbSet<EtatActivite> EtatActivite { get; set; }
 
@@ -74,6 +75,7 @@ namespace DAL
         public DbSet<ActionTarget> ActionTarget { get; set; }
         public DbSet<ActiviteTarget> ActiviteTargets { get; set; }
         public DbSet<DemandesAction> DemandesAction { get; set; }
+        public DbSet<ActionsHistories> ActionsHistories { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
@@ -130,6 +132,8 @@ namespace DAL
             builder.Entity<Pays>().HasMany(p => p.Villes);
 
             builder.Entity<Pays>().ToTable($"App{nameof(this.Pays)}");
+
+            builder.Entity<ActionsHistories>().ToTable($"App{nameof(this.ActionsHistories)}");
 
             //villes
             builder.Entity<Villes>().HasKey(p => p.Id);
@@ -214,6 +218,22 @@ namespace DAL
 
 
 
+            builder.Entity<TransitionActivite>().HasKey(sf => new { sf.ActiviteId, sf.TransitionId });
+            builder.Entity<TransitionActivite>().HasOne(d => d.Activite)
+                                      .WithMany(s => s.TransitionActivite)
+                                      .HasForeignKey(pa => pa.ActiviteId);
+
+
+            builder.Entity<TransitionActivite>().HasOne(u => u.Transition)
+                                         .WithMany(p => p.TransitionActivite)
+                                         .HasForeignKey(u => u.TransitionId);
+
+
+
+            builder.Entity<TransitionActivite>().ToTable($"Work{nameof(this.TransitionActivite)}");
+
+
+
             builder.Entity<EtatActivite>().HasKey(sf => new { sf.ActiviteId, sf.EtatId });
             builder.Entity<EtatActivite>().HasOne(d => d.Etat)
                                     .WithMany(s => s.EtatActivite)
@@ -246,6 +266,9 @@ namespace DAL
             builder.Entity<Actions>().ToTable($"Work{nameof(this.Actions)}");
 
             builder.Entity<Activite>().ToTable($"Work{nameof(this.Activite)}");
+
+            builder.Entity<ActionTarget>().HasOne(e=>e.Group)
+                                           ;
 
             builder.Entity<ActionTarget>().ToTable($"Work{nameof(this.ActionTarget)}");
 

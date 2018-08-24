@@ -6,6 +6,8 @@ import { TypeActivite } from '../config/type-activite.enum';
 import { Activite } from '../models/activite';
 import { AddActiviteDialogComponent } from './dialog/add-activite-dialog/add-activite-dialog.component';
 import { EditActiviteDialogComponent } from './dialog/edit-activite-dialog/edit-activite-dialog.component';
+import { SetActionTargetComponent } from '../actions/dialog/set-action-target/set-action-target.component';
+import { SetActiviteTargetComponent } from './dialog/set-activite-target/set-activite-target.component';
 
 @Component({
   selector: 'app-activite',
@@ -130,5 +132,24 @@ export class ActiviteComponent implements OnInit, AfterViewInit {
       );
     }
 
+    SetActiviteTarget(activite?: Activite) {
+
+      const dialogRef = this.dialog.open(SetActiviteTargetComponent, {
+        panelClass: 'atomics-dialog-container',
+        data: {activite: activite},
+       width: '750px',
+       disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res.result === 1) {
+          this.getActivite();
+          this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', activite.name, 0, false, 1, '500px', 'info', 'primary');
+        }
+      }
+
+
+      );
+    }
 
   }

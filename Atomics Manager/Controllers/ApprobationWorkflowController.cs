@@ -110,21 +110,7 @@ namespace Atomics_Manager.Controllers
                     //to correct
                   
                     Demandes _demande = _unitOfWork.Demandes.GetSingleOrDefault(e => e.Id == approbationWorkflow.DemandesId);
-                    ApprobationLevel apl =_unitOfWork.ApprobationLevel.GetSingleOrDefault(e=>e.Id==APL(_demande.Statut,_demande.Id).Id);
-                    if (approbationWorkflow.LevelStatut==AprobationActionType.REJETER)
-                    {
-                        _demande.Statut = ApprobationSatut.REJET; ;
-                    }
-                    else if(_demande.Statut==ApprobationSatut.OWNREJECT)
-                    {
-                        _demande.Statut = ApprobationSatut.OWNREJECT;
-                    }
-                    else
-                    {
-                        _demande.Statut = ApprobationSatut.PENDING;
-                    }
                    
-                    _approbationWorkflow.Level = apl;
                     
                     _unitOfWork.ApprobationWorkflow.Add(_approbationWorkflow);
                     await _unitOfWork.SaveChangesAsync();

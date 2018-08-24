@@ -6,6 +6,8 @@ import { MessageboxService } from '../../services/messagebox.service';
 import { ActionsType } from '../config/actions-type.enum';
 import { AddActionsDialogComponent } from './dialog/add-actions-dialog/add-actions-dialog.component';
 import { EditActionsDialogComponent } from './dialog/edit-actions-dialog/edit-actions-dialog.component';
+import { SetActionComponent } from '../transitions/dialog/set-action/set-action.component';
+import { SetActionTargetComponent } from './dialog/set-action-target/set-action-target.component';
 
 @Component({
   selector: 'app-actions',
@@ -129,5 +131,23 @@ export class ActionsComponent implements OnInit  , AfterViewInit {
       );
     }
 
+    SetActionsTarget(actions?: Actions) {
 
+      const dialogRef = this.dialog.open(SetActionTargetComponent, {
+        panelClass: 'atomics-dialog-container',
+        data: {actions: actions},
+       width: '750px',
+       disableClose: true
+      });
+
+      dialogRef.afterClosed().subscribe(res => {
+        if (res.result === 1) {
+          this.getActions();
+          this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', actions.name, 0, false, 1, '500px', 'info', 'primary');
+        }
+      }
+
+
+      );
+    }
   }

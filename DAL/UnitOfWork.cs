@@ -68,7 +68,9 @@ namespace DAL
         IEtatRepository _Etat;
         IGroupMemberRepository _GroupMember;
         IGroupRepository _Group;
+        ITransitionActiviteRepository _TransitionActivite;
 
+        IActionsHistoriesRepository _ActionsHistories;
 
         public UnitOfWork(ApplicationDbContext context)
         {
@@ -467,6 +469,16 @@ namespace DAL
                 return _GroupMember;
             }
         }
+        public ITransitionActiviteRepository TransitionActivite
+        {
+            get
+            {
+                if (_TransitionActivite == null)
+                    _TransitionActivite = new TransitionActiviteRepository(_context);
+
+                return _TransitionActivite;
+            }
+        }
         public IGroupRepository Group {
             get
             {
@@ -474,6 +486,17 @@ namespace DAL
                     _Group = new GroupRepository(_context);
 
                 return _Group;
+            }
+        }
+
+        public IActionsHistoriesRepository ActionsHistories
+        {
+            get
+            {
+                if (_ActionsHistories == null)
+                    _ActionsHistories = new ActionsHistoriesRepository(_context);
+
+                return _ActionsHistories;
             }
         }
 

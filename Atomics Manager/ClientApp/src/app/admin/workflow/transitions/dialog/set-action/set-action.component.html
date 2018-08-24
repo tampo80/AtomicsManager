@@ -1,11 +1,11 @@
 <div fxLayout="row"  fxLayoutGap="0px" class="layout">
     <div fxFlex="35%" f class="helppan">
     <div class="help-container">
-        <p class="mat-title">Definir les action</p>
+        <p class="mat-title">Definir les actions</p>
         <mat-divider></mat-divider>
   <div class="vspace"></div>
         <p class="mat-subheading-1">
-          Le processus est l’ensemble des actions dans une chaine d’approbation
+            Définition des actions possibles sur cette transition ({{data.transition.etatActuelName}} => {{data.transition.etatSuivantName}})
         </p>
       <span  class="center-icon">
 
@@ -29,15 +29,20 @@
 
   </div>
   <div class="form-container" fxFlex='1'>
-   <form class="mat-form" [formArray]="setActionFrControlArray">
+      <form [formGroup]="setActionForm" class="mat-form">
+        <div class="mat-form">
+          <div class="checkbox" *ngFor="let control of setActionFrControlArray.controls; index as i">
 
-     <mat-checkbox *ngFor="let action of actions" formControlName="formControlName" value="" color="primary">{{action.name}}</mat-checkbox>
-
-   </form>
+           <mat-checkbox (change)=updateChecked($event.checked,i)   [formControl]="control"  color="accent">{{actions[i].label}}</mat-checkbox>
+           <mat-divider></mat-divider>
+          </div>
+        </div>
+      </form>
   </div>
+
   <mat-divider></mat-divider>
   <footer class="action">
-    <button class="action-button" [disabled]="" mat-raised-button (click)="EditTransition()">Modification</button>
+    <button class="action-button" [disabled]="" mat-raised-button (click)="SetActions()">Définir </button>
     <button class="action-button" mat-raised-button (click)="close()">Abandonner</button>
   </footer>
     </div>

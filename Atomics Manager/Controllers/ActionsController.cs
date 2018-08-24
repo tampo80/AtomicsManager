@@ -34,6 +34,20 @@ namespace Atomics_Manager.Controllers
             return Ok(Mapper.Map<IEnumerable<ActionsViewModel>>(allActions));
         }
 
+        [HttpGet("ta/{TransitionId}")]
+        public IActionResult GetTA(int TransitionId)
+        {
+            var allActions = _unitOfWork.TransitionActions.Find(e=>e.TransitionId==TransitionId);
+            List<int> ActionsIds = new List<int>();
+
+            foreach (var item in allActions)
+            {
+                ActionsIds.Add(item.ActionsId);
+            }
+
+            return Ok(ActionsIds);
+        }
+
         [HttpGet("Isavailable/{name}")]
         public IActionResult Isavailable([FromRoute] string name)
         {
@@ -68,6 +82,57 @@ namespace Atomics_Manager.Controllers
                     _actions.Process = _unitOfWork.Process.GetSingleOrDefault(e => e.Id == actions.ProcessId);
 
                     _unitOfWork.Actions.Add(_actions);
+                    await _unitOfWork.SaveChangesAsync();
+                    return Ok("OK");
+
+                }
+                catch (Exception ex)
+                {
+
+                    return BadRequest(ex.Data);
+                }
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+
+
+        [HttpPost("transitionactions")]
+        public async Task<IActionResult> PosttransitionActions([FromBody] ACT act)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    List<TransitionActions> NewTA = new List<TransitionActions>();
+                    List<TransitionActions> TAToDelete = new List<TransitionActions>();
+                    List<TransitionActions> currentTA = new List<TransitionActions>();
+                    List<TransitionActions> TAToAdd = new List<TransitionActions>();
+
+                    foreach (int id in act.ActionsIds)
+                    {
+                        NewTA.Add(new TransitionActions {
+                            Transition = _unitOfWork.Transition.GetSingleOrDefault(e => e.Id == act.TransitionId),
+                            Actions = _unitOfWork.Actions.GetSingleOrDefault(e => e.Id == id)
+                        });
+                    }
+
+                    currentTA = _unitOfWork.TransitionActions.Find(e => e.TransitionId == act.TransitionId).ToList();
+
+                    TAToAdd = NewTA.Except(currentTA).ToList();
+                    TAToDelete = currentTA.Except(NewTA).ToList();
+
+                    foreach (var item in TAToDelete)
+                    {
+                        _unitOfWork.TransitionActions.Remove(item);
+                    }
+                    await _unitOfWork.SaveChangesAsync();
+                    foreach (var item in TAToAdd)
+                    {
+                        _unitOfWork.TransitionActions.Add(item);
+                    }
                     await _unitOfWork.SaveChangesAsync();
                     return Ok("OK");
 

@@ -8,27 +8,30 @@ table {
   }
 
   td, th {
-	width: 25%;
+  width: 100%;
+  margin: 2%;
+  padding: 2%;
+  }
+
+  .fieldset{
+    border: 1px solid rgb(71, 71, 71);
   }
 
   .page{
 	  padding: 2%;
   }
 
+  .prix{
+    font-size: 14px;
+    color:rgb(250, 79, 0);
+  }
+
   .lastcell{
     display: flex;
     justify-content: flex-end;
   }
-  .mat-column- {
-    display: flex;
-    justify-content: flex-end;
-    }
 
-    .progrsStat{
-      color: red;
-      font-size: 14;
-      font-stretch: condensed;
-    }
+
 
 
     .right.mat-cell {
@@ -44,3 +47,85 @@ table {
   .right.mat-header-cell:last-child {
       margin-right: 0;
   }
+  table {
+    width: 100%;
+    }
+
+    .mat-form-field {
+
+    width: 100%;
+    }
+
+    td, th {
+    width: 100%;
+    margin: 2%;
+    padding: 2%;
+    }
+
+    .fieldset{
+      border: 1px solid rgb(71, 71, 71);
+    }
+
+    .page{
+      padding: 2%;
+    }
+
+    .prix{
+      font-size: 14px;
+      color:rgb(250, 79, 0);
+    }
+
+    .lastcell{
+      display: flex;
+      justify-content: flex-end;
+    }
+
+
+    .mat-column-id {
+      flex: 0 0 50px !important;
+      justify-content: flex-start;
+      width: 10px !important;
+      margin: 0;
+      }
+
+    .mat-column-productName {
+        display: flex;
+        justify-content: flex-start;
+        width: 10px;
+
+        }
+
+    .mat-column-statut {
+      flex: 0 0 50px !important;
+      justify-content: center;
+
+      white-space: unset;
+    }
+    .mat-column-statut {
+      flex: 0 0 50px !important;
+      justify-content: center;
+
+
+    }
+    .mat-column-actions {
+      flex: 0 0 50px !important;
+      justify-content: center;
+
+      white-space: unset;
+    }
+    .mat-column-dateDemande {
+      flex: 0 0 140px !important;
+      justify-content: center;
+
+
+    }
+    .mat-column-montant {
+      flex: 0 0 200px !important;
+      justify-content: center;
+      font-weight: bold;
+
+    }
+
+
+
+

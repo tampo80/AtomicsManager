@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../../services/config.service';
 import { Observable } from 'rxjs';
 import { Transition } from '../models/transition';
+import { TransitionAction } from '../models/transition-action';
 
 @Injectable({
   providedIn: 'root'
@@ -29,6 +30,11 @@ export class TransitionService {
 
 getTransition(): Observable<Transition[]> {
   return this.http.get<Transition[]>(ConfigService.rootUrl + this._transitionUrl, this.getRequestHeaders());
+
+}
+
+getTransitionAction(): Observable<TransitionAction[]> {
+  return this.http.get<TransitionAction[]>(ConfigService.rootUrl + this._transitionUrl + '/transitionaction'  , this.getRequestHeaders());
 
 }
 

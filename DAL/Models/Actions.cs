@@ -19,5 +19,7 @@ namespace DAL.Models
         public ICollection<TransitionActions> TransitionActions { get; set; }
         public ICollection<ActionTarget> ActionTarget { get; set; }
         public ICollection<DemandesAction> DemandesAction { get; set; }
-    }
+        public ICollection<ActionsHistories> ActionsHistories { get; set; }
+    
+}
 }

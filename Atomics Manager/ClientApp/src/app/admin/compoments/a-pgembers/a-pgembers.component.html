@@ -1,61 +1,174 @@
-<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
-<div class="mat-row page mat-elevation-z8" width="80%" heigth="60%">
+
+    <main [class]="theme" style="background: #1b1e27">
+        <div class="chart-col">
+          <div style="position: absolute; top: 50px; left: 50px; right: 50px; bottom: 50px;">
+            <ngx-graph #graph class="chart-container" [view]="view" [enableZoom]="enableZoom" [autoZoom]="autoZoom" [panOnZoom]="panOnZoom"
+              [panOffsetX]="panOffsetX" [panOffsetY]="panOffsetY" [zoomLevel]="zoomLevel" [autoCenter]="autoCenter" [legend]="showLegend"
+              [links]="hierarchialGraph.links" (legendLabelClick)="onLegendLabelClick($event)" [nodes]="hierarchialGraph.nodes" [scheme]="colorScheme"
+              [orientation]="orientation" [curve]="curve" [update$]="update$" [zoomToFit$]="zoomToFit$" [center$]="center$" (select)="select($event)">
+
+              <ng-template #defsTemplate>
+                <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+                  <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+                </svg:marker>
+              </ng-template>
+
+              <ng-template #nodeTemplate let-node>
+                <svg:g class="node" ngx-tooltip [tooltipPlacement]="'top'" [tooltipType]="'tooltip'" [tooltipTitle]="node.label">
+                  <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.options.color" />
+                  <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
+                </svg:g>
+              </ng-template>
+
+              <ng-template #linkTemplate let-link>
+                <svg:g class="edge">
+                  <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
+                  </svg:path>
+                  <svg:text class="edge-label" text-anchor="middle">
+                    <textPath class="edge-label"  [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
+                      {{link.label}}
+                    </textPath>
+                  </svg:text>
+                </svg:g>
+              </ng-template>
+
+            </ngx-graph>
+          </div>
+        </div>
+        <div class="sidebar">
+          <h1>
+
+            <strong>workflow</strong>
+            <small class="subtitle">Options</small>
+          </h1>
+
+          <div class="sidebar-body">
 
 
-  <mat-card  heigth="60%">
-      <mat-card-header>
-          <mat-card-title>WorkFlow des demandes</mat-card-title>
-          <mat-card-subtitle>Full</mat-card-subtitle>
-      </mat-card-header>
 
-      <mat-card-content>
-          <ngx-graph
-  class="chart-container"
-  [links]="hierarchialGraph.links"
-  [nodes]="hierarchialGraph.nodes"
-  [legend]="true"
-  [curve]="curve"
-  [autoCenter]="true"
-  [enableZoom]="true"
-  [autoZoom]="true"
+            <div>
+              <h3 (click)="dimVisiable = !dimVisiable" style="cursor: pointer">
+                <span [class.arrow-down]="dimVisiable" [class.arrow-right]="!dimVisiable">
+                </span>
+                <strong>Dimensions</strong>
+              </h3>
+              <div [hidden]="!dimVisiable" style="margin-left: 10px;">
 
-  [scheme]="colorScheme"
+                <mat-checkbox [checked]="fitContainer" (change)="toggleFitContainer($event.checked, autoZoom, autoCenter)"  color="primary"> Fit Container </mat-checkbox>
 
+                <br />
+                <div *ngIf="!fitContainer">
+                  <mat-form-field>
 
+                          <input matInput
+                                 type="number"
+                                 [(ngModel)]="width"
+                                 placeholder="Width">
 
-  [draggingEnabled]="true">
-
-
-    <ng-template #nodeTemplate let-node>
-      <svg:g class="node"
-        ngx-tooltip
-        [tooltipPlacement]="'top'"
-        [tooltipType]="'tooltip'"
-        [tooltipTitle]="node.label">
-        <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.options.color" />
-        <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
-      </svg:g>
-    </ng-template>
-
-    <ng-template #linkTemplate let-link>
-      <svg:g class="edge">
-        <svg:path
-          class="line"
-          stroke-width="2"
-          marker-end="url(#arrow)" >
-        </svg:path>
-      </svg:g>
-    </ng-template>
-    <ng-template #defsTemplate>
-        <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
-          <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
-        </svg:marker>
-      </ng-template>
-
-  </ngx-graph>
-      </mat-card-content>
+                  </mat-form-field>
 
 
-  </mat-card>
-</div>
+
+                  <mat-form-field>
+
+                          <input matInput
+                                 type="number"
+                                 [(ngModel)]="height"
+                                 placeholder="height">
+
+                  </mat-form-field>
+
+
+
+                  <button mat-raised-button (click)="applyDimensions()">Apply dimensions</button>
+
+                </div>
+              </div>
+            </div>
+
+            <h3 (click)="positionVisible = !positionVisible" style="cursor: pointer">
+              <span [class.arrow-down]="positionVisible" [class.arrow-right]="!positionVisible">
+              </span>
+              <strong>Position and zoom</strong>
+            </h3>
+            <div [hidden]="!positionVisible" style="margin-left: 10px;">
+
+              <mat-form-field>
+                  <input matInput
+                         type="text"
+                         [(ngModel)]="graph.panOffsetX"
+                         placeholder="X">
+              </mat-form-field>
+              <br />
+
+
+              <mat-form-field>
+                  <input matInput
+                         type="text"
+                         [(ngModel)]="graph.panOffsetY"
+                         placeholder="Y">
+              </mat-form-field>
+              <br />
+
+
+
+              <mat-form-field>
+                  <input matInput
+                         type="text"
+                         [(ngModel)]="graph.zoomLevel"
+                         placeholder="Zoom level">
+              </mat-form-field>
+              <br />
+              <mat-checkbox [checked]="enableZoom" (change)="toggleEnableZoom($event.checked)" color="primary"> Enable Zoom</mat-checkbox>
+
+              <br />
+              <mat-checkbox [checked]="autoZoom" (change)="toggleFitContainer(fitContainer, $event.checked, autoCenter)" color="primary">Auto Zoom</mat-checkbox>
+
+              <br />
+              <mat-checkbox [checked]="autoCenter" (change)="toggleFitContainer(fitContainer, autoZoom, $event.checked)" color="primary">Auto Center</mat-checkbox>
+
+            </div>
+
+            <h3 (click)="colorVisible = !colorVisible" style="cursor: pointer">
+              <span [class.arrow-down]="colorVisible" [class.arrow-right]="!colorVisible">
+              </span>
+              <strong>Color Scheme</strong>
+            </h3>
+            <select [hidden]="!colorVisible" style="margin-left: 10px;" [ngModel]="selectedColorScheme" (ngModelChange)="setColorScheme($event)">
+              <option *ngFor="let scheme of colorSchemes" [value]="scheme.name">{{scheme.name}}</option>
+            </select>
+
+            <h3 (click)="optsVisible = !optsVisible" style="cursor: pointer">
+              <span [class.arrow-down]="optsVisible" [class.arrow-right]="!optsVisible">
+              </span>
+              <strong>Options</strong>
+            </h3>
+            <div [hidden]="!optsVisible" style="margin-left: 10px;">
+              <label>Orientation</label>
+              <select [(ngModel)]="orientation">
+                <option *ngFor="let orient of orientations" [value]="orient.value">{{orient.label}}</option>
+              </select>
+
+              <label>Line Interpolation</label>
+              <select [ngModel]="curveType" (ngModelChange)="setInterpolationType($event)">
+                <option *ngFor="let interpolationType of interpolationTypes" [value]="interpolationType">
+                  {{interpolationType}}
+                </option>
+              </select>
+
+              <label>Pan on zoom</label>
+              <select [(ngModel)]="panOnZoom">
+                <option [ngValue]="true">True</option>
+                <option [ngValue]="false">False</option>
+              </select>
+              <br />
+              <br />
+              <button class="btn btn-default" (click)="center()">Center</button>
+              <button class="btn btn-default" (click)="zoomToFit()">Fit in view</button>
+              <button class="btn btn-default" (click)="updateChart()">Update</button>
+            </div>
+          </div>
+
+        </div>
+      </main>
 

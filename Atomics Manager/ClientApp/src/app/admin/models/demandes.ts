@@ -18,6 +18,7 @@
   userUserName: string;
   userFullName: string;
   quantite: number;
+  currentStatName: string;
   expertsId: number;
 }
 

@@ -1,0 +1,51 @@
+<div fxLayout="row"  fxLayoutGap="0px" class="layout">
+    <div fxFlex="35%" f class="helppan">
+    <div class="help-container">
+        <p class="mat-title">Definir les activités</p>
+        <mat-divider></mat-divider>
+  <div class="vspace"></div>
+        <p class="mat-subheading-1">
+            Définition des activites possibles sur cette transition ({{data.transition.etatActuelName}} => {{data.transition.etatSuivantName}})
+        </p>
+      <span  class="center-icon">
+
+           <mat-icon class="mat-18 ulistration-mat-icon">vertical_align_center</mat-icon>
+           <mat-icon class="mat-18 ulistration-mat-icon">flash_auto</mat-icon>
+
+      </span>
+    </div>
+
+    </div>
+    <div fxFlex="65%" >
+  <div class="wrapper" fxLayout="column">
+
+
+  <div class="form-header">
+
+  <span class="close-button"   (click)="close()">
+    <mat-icon   aria-label="icon">clear</mat-icon>
+  </span>
+
+
+  </div>
+  <div class="form-container" fxFlex='1'>
+      <form [formGroup]="setActiviteForm" class="mat-form">
+        <div class="mat-form">
+          <div class="checkbox" *ngFor="let control of setActiviteFrControlArray.controls; index as i">
+
+           <mat-checkbox (change)=updateChecked($event.checked,i)   [formControl]="control"  color="accent">{{activites[i].label}}</mat-checkbox>
+           <mat-divider></mat-divider>
+          </div>
+        </div>
+      </form>
+  </div>
+
+  <mat-divider></mat-divider>
+  <footer class="action">
+    <button class="action-button" [disabled]="" mat-raised-button (click)="SetActivites()">Définir </button>
+    <button class="action-button" mat-raised-button (click)="close()">Abandonner</button>
+  </footer>
+    </div>
+  </div>
+
+  </div>

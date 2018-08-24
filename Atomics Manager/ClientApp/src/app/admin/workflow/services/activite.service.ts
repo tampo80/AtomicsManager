@@ -28,8 +28,26 @@ export class ActiviteService {
     return { headers: headers };
 }
 
+
+addtransitionActivites(actions: any): Observable<Activite> {
+  return this.http.post<Activite>(ConfigService.rootUrl + this._activiteUrl + '/transitionactivite/' , JSON.stringify(actions), this.getRequestHeaders());
+}
+
+addEtatActivites(actions: any): Observable<Activite> {
+  return this.http.post<Activite>(ConfigService.rootUrl + this._activiteUrl + '/etatactivite/' , JSON.stringify(actions), this.getRequestHeaders());
+}
+
 getActivite(): Observable<Activite[]> {
   return this.http.get<Activite[]>(ConfigService.rootUrl + this._activiteUrl, this.getRequestHeaders());
+
+}
+getActivitesIds(transitionId): Observable<number[]> {
+  return this.http.get<number[]>(ConfigService.rootUrl + this._activiteUrl + '/tac/' + transitionId  , this.getRequestHeaders());
+
+}
+
+getActivitesByEtaIds(etatId): Observable<number[]> {
+  return this.http.get<number[]>(ConfigService.rootUrl + this._activiteUrl + '/ate/' + etatId  , this.getRequestHeaders());
 
 }
 

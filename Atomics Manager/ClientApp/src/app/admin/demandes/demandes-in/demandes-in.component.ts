@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Demandes } from '../../models/demandes';
 import { DetailOwndemandesComponent } from '../mes-demandes/detail-owndemandes/detail-owndemandes.component';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
@@ -12,30 +12,29 @@ import { DetailsDemandesInComponent } from './details-demandes-in/details-demand
   templateUrl: './demandes-in.component.html',
   styleUrls: ['./demandes-in.component.scss']
 })
-export class DemandesInComponent implements OnInit {
+export class DemandesInComponent implements OnInit, AfterViewInit {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id', 'productName','userFullName', 'serviceName','agenceName','montant','statut','dateDemande','actions'];
-  isLoading:boolean;
-  statut =STATUT;
-  isServiceGeneraux:boolean;
-  isFinCon:boolean;
+  displayedColumns = ['id', 'productName', 'userFullName', 'serviceName', 'agenceName', 'montant', 'currentStatName', 'dateDemande', 'actions'];
+  isLoading: boolean;
+  statut = STATUT;
+  isServiceGeneraux: boolean;
+  isFinCon: boolean;
 
-  constructor(private demandesServices:DemandeService,private messageboxService:MessageboxService,private dialog: MatDialog) {
-    this.isLoading=true;
+  constructor(private demandesServices: DemandeService, private messageboxService: MessageboxService, private dialog: MatDialog) {
+    this.isLoading = true;
    }
 
    getStatut(value) {
-     return STATUT.find(e =>e.value==value);
+     return STATUT.find(e => e.value === value);
    }
 
-   getMesdemandesOut()
-    {
-      this.demandesServices.getDemandesOut().subscribe(res=> {
+   getMesdemandesOut() {
+      this.demandesServices.getDemandesOut().subscribe(res => {
         // this.mesdemandesOut=res;
         this.dataSource.data = res;
         this.isLoading = false;
@@ -81,8 +80,8 @@ export class DemandesInComponent implements OnInit {
     this.result = res;
     console.log(res);
     if (this.result.result === 'yes') {
-      this.demandesServices.deleteDemandes(demandes.id).subscribe(res => {
-        if (res != null) {
+      this.demandesServices.deleteDemandes(demandes.id).subscribe(response => {
+        if (response != null) {
           this.messageboxService.ShowMessage('Information', demandes.productName + ' Supprimer avec succès', demandes.productName, 0, false, 1, '500px', 'info', 'primary');
           this.getMesdemandesOut();
         }
@@ -111,7 +110,8 @@ demandesView(demande: Demandes) {
 
   const dialogRef = this.dialog.open(DetailsDemandesInComponent, {
     data: {demande: demande},
-   width: '900px',
+    panelClass: 'atomics-dialog-container',
+    width: '920px',
    disableClose: true
   });
 

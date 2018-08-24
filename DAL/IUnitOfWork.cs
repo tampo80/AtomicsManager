@@ -66,10 +66,13 @@ namespace DAL
          IEtatActiviteRepository EtatActivite { get; }
          IEtatRepository Etat { get; }
          IGroupMemberRepository GroupMember { get; }
-         IGroupRepository Group { get; }    
+         IGroupRepository Group { get; }
+
+         ITransitionActiviteRepository TransitionActivite { get; }
+
+        IActionsHistoriesRepository ActionsHistories { get; }
 
 
-         
         int SaveChanges();
         Task<int> SaveChangesAsync();
     }

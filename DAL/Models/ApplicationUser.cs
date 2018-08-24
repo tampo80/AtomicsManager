@@ -61,5 +61,6 @@ namespace DAL.Models
         public ICollection<ProcessAdmin> ProcessAdmin { get; set; }
         public ICollection<Stakeholders>Stakeholders { get; set; }
         public ICollection<GroupMember> GroupeMember { get; set; }
+        public ICollection<ActionsHistories> ActionsHistories { get; set; }
     }
 }

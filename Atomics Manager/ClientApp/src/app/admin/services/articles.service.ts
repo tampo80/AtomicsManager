@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpRequest, HttpEvent } from '@angular/common
 import { ConfigService } from './config.service';
 import { Observable } from 'rxjs';
 import { Articles } from '../models/articles';
+import { ActionsHistories } from '../models/actions-histories';
 
 
 @Injectable({
@@ -38,7 +39,10 @@ getArticlesByPaysId(id?: number): Observable<Articles[]> {
   return this.http.get<Articles[]>(ConfigService.rootUrl + this._articlesUrl + '/bypaysid/' + id, this.getRequestHeaders());
 
 }
+getworkFlowStatById(id?: number): Observable<ActionsHistories[]> {
+  return this.http.get<ActionsHistories[]>(ConfigService.rootUrl + this._articlesUrl + '/getworkflowstatbyid/' + id, this.getRequestHeaders());
 
+}
 
 getArticlesById(id?: number): Observable<Articles> {
   return this.http.get<Articles>(ConfigService.rootUrl + this._articlesUrl + '/' + id, this.getRequestHeaders());

@@ -1,3 +1,43 @@
+
+.helppan{
+  background: #f4f4f4;
+}
+
+.mat-dialog-container{
+  padding: 0px !important;
+}
+.wrapper{
+  display: flex;
+  min-height: 200px;
+
+}
+
+.center-icon{
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.full-width{
+  widows: 100%;
+}
+.full-h{
+  min-height:500px;
+}
+.ulistration-mat-icon {
+  font-size: 68px;
+  height: 128px;
+  width: 128px;
+  color: #089cb6c0;
+  align-self: center;
+}
+
+.help-container{
+  margin: 5px;
+  padding: 7px;
+  padding-top: 10px !important;
+}
+
 .list{
   color: black !important;
 }
@@ -13,7 +53,8 @@
 }
 
 .fieldset{
-  border: 1px solid rgb(71, 71, 71);
+  border: 1px solid rgb(145, 142, 142);
+  width: 100%;
 }
 
 .mat-list{

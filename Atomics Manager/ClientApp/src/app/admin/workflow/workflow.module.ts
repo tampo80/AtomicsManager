@@ -27,6 +27,10 @@ import { TransitionsComponent } from './transitions/transitions.component';
 import { AddTransitionDialogComponent } from './transitions/dialog/add-transition-dialog/add-transition-dialog.component';
 import { EditTransitionDialogComponent } from './transitions/dialog/edit-transition-dialog/edit-transition-dialog.component';
 import { SetActionComponent } from './transitions/dialog/set-action/set-action.component';
+import { SetActiviteComponent } from './transitions/dialog/set-activite/set-activite.component';
+import { SetActivitesComponent } from './etats/set-activites/set-activites.component';
+import { SetActionTargetComponent } from './actions/dialog/set-action-target/set-action-target.component';
+import { SetActiviteTargetComponent } from './activite/dialog/set-activite-target/set-activite-target.component';
 
 @NgModule({
   imports: [
@@ -60,7 +64,12 @@ import { SetActionComponent } from './transitions/dialog/set-action/set-action.c
     TransitionsComponent,
     AddTransitionDialogComponent,
     EditTransitionDialogComponent,
-    SetActionComponent],
+    SetActionComponent,
+    SetActiviteComponent,
+    SetActivitesComponent,
+    SetActionTargetComponent,
+    SetActiviteTargetComponent
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     EditProcessDialogComponent,
@@ -76,7 +85,12 @@ import { SetActionComponent } from './transitions/dialog/set-action/set-action.c
     EditActiviteDialogComponent,
     AddTransitionDialogComponent,
     EditTransitionDialogComponent,
-    SetActionComponent
+    SetActionComponent,
+    SetActiviteComponent,
+    SetActivitesComponent,
+    SetActionTargetComponent,
+    SetActiviteTargetComponent
+
   ],
 
 })

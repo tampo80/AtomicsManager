@@ -36,7 +36,7 @@ namespace Atomics_Manager.Controllers
                 return e;
             }));
         }
-     [HttpGet("{id}")]
+       [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
             var allProduct = _unitOfWork.Products.GetAllIncluding(e => e.ProductCategory,j=>j.Fournisseurs).SingleOrDefault(e=>e.Id==id);
@@ -46,6 +46,15 @@ namespace Atomics_Manager.Controllers
             return Ok(product);
         }
 
+
+        [HttpGet("getworkflowstatbyid/{id}")]
+        public IActionResult getworkFlowStatById(int id)
+        {
+            var AllHistoriies = _unitOfWork.ActionsHistories.GetAllIncluding(a=>a.Demandes,b=>b.Actions,c=>c.User,d=>d.Etat).Where(e=>e.DemandesId==id);
+          //  Console.Write(AllHistoriies);
+            var histories = Mapper.Map<IEnumerable<ActionsHistoriesViewModel>>(AllHistoriies);
+            return Ok(histories);
+        }
         private string getIcone(byte[] icone)
         {
              //icone = new byte[0];

@@ -6,7 +6,8 @@ import { MessageboxService } from '../../services/messagebox.service';
 import { AddEtatDialogComponent } from './add-etat-dialog/add-etat-dialog.component';
 import { EditEtatDialogComponent } from './edit-etat-dialog/edit-etat-dialog.component';
 import { TypeEtat } from '../config/type-etat.enum';
-import { SetActionComponent } from '../transitions/dialog/set-action/set-action.component';
+import { SetActivitesComponent } from './set-activites/set-activites.component';
+
 
 @Component({
   selector: 'app-etats',
@@ -131,5 +132,25 @@ export class EtatsComponent implements OnInit , AfterViewInit {
     );
   }
 
+
+  SetActivite(etat?: Etat) {
+
+    const dialogRef = this.dialog.open(SetActivitesComponent, {
+      panelClass: 'atomics-dialog-container',
+      data: {etat: etat},
+      width: '750px',
+     disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe(res => {
+      if (res.result === 1) {
+        this.getEtat();
+        this.messageboxService.ShowMessage('Information', ' modification éffectuée avec succès', '', 0, false, 1, '500px', 'info', 'primary');
+      }
+    }
+
+
+    );
+  }
 
 }

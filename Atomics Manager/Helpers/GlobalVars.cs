@@ -8,5 +8,7 @@ namespace Atomics_Manager.Helpers
     public static class GlobalVars
     {
         public static  string SYSTEM_EXPERTS= "SYSTEM_EXPERTS";
+
+        public static string MAIN_PROCESS_NAME = "DEMANDE";
     }
 }

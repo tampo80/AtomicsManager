@@ -19,7 +19,7 @@ namespace Atomics_Manager.ViewModels
         public Naturedemande Nature { get; set; }
         public DateTime DateLivraisonPrevu { get; set; }
         public DateTime DateLivraison { get; set; }
-        public ApprobationSatut Statut { get; set; }
+        
         public int FournisseursId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
@@ -30,8 +30,9 @@ namespace Atomics_Manager.ViewModels
 
         public string AgenceName { get; set; }
 
-        public int ExpertsId { get; set; }
-
-
+        
+        public int CurrentStartId { get; set; }
+        public string CurrentStatName { get; set; }
+        
     }
 }

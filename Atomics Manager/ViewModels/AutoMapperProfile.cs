@@ -152,6 +152,23 @@ namespace Atomics_Manager.ViewModels {
 
             .ReverseMap();
 
+            CreateMap<ActiviteTarget, ActiviteTargetViewModel>()
+
+            .ReverseMap();
+
+            CreateMap<ActionTarget, ActionTargetViewModel>()
+
+           .ReverseMap();
+
+
+            CreateMap<ActionsHistories, ActionsHistoriesViewModel>()
+
+           .ReverseMap();
+
+            CreateMap<TransitionActions, TransitionActionsViewModel>()
+
+          .ReverseMap();
+
         }
     }
 }

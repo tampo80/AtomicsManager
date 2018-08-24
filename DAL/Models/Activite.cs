@@ -14,6 +14,7 @@ namespace DAL.Models
         public string Name { get; set; }
         public string Descriptions { get; set; }
 
+        public ICollection<TransitionActivite> TransitionActivite { get; set; }
         public ICollection<EtatActivite> EtatActivite { get; set; }
         public ICollection<ActiviteTarget> ActiviteTarget { get; set; }
     }

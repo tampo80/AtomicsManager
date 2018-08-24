@@ -7,14 +7,28 @@ table {
 	width: 100%;
   }
 
+
   td, th {
   width: 100%;
-  margin: 2%;
-  padding: 2%;
+  border: 1px solid rgb(71, 71, 71);
+  }
+  .wrapper{
+    display: flex;
+    min-height: 400px;
+
   }
 
   .fieldset{
     border: 1px solid rgb(71, 71, 71);
+  }
+  .action{
+    padding: 3%;
+    display: flex;
+    justify-content: end;
+    display: flex;
+    margin-top:auto;
+    align-items: flex-end;
+    align-self: flex-end;
   }
 
   .page{

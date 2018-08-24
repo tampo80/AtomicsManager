@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
 import { MessageboxService } from '../../services/messagebox.service';
 import { DemandeService } from '../../services/demande.service';
@@ -11,13 +11,13 @@ import { DetailOwndemandesComponent } from './detail-owndemandes/detail-owndeman
   templateUrl: './mes-demandes.component.html',
   styleUrls: ['./mes-demandes.component.scss']
 })
-export class MesDemandesComponent implements OnInit {
+export class MesDemandesComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id', 'productName', 'userFullName', 'montant', 'statut', 'dateDemande', 'actions'];
+  displayedColumns = ['id', 'productName', 'userFullName', 'montant', 'currentStatName', 'dateDemande', 'actions'];
   isLoading: boolean;
   statut = STATUT;
   constructor(private demandesServices: DemandeService, private messageboxService: MessageboxService, private dialog: MatDialog) {
@@ -75,8 +75,8 @@ export class MesDemandesComponent implements OnInit {
     this.result = res;
     console.log(res);
     if (this.result.result === 'yes') {
-      this.demandesServices.deleteDemandes(demandes.id).subscribe(res =>  {
-        if (res != null) {
+      this.demandesServices.deleteDemandes(demandes.id).subscribe(response =>  {
+        if (response != null) {
           this.messageboxService.ShowMessage('Information', demandes.productName + ' Supprimer avec succès', demandes.productName, 0, false, 1, '500px', 'info', 'primary');
           this.getMesdemandesOut();
         }

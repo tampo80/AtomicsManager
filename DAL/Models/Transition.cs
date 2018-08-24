@@ -15,6 +15,7 @@ namespace DAL.Models
         public int EtatSuivantId { get; set; }
         public Etat EtatSuivant { get; set; }
 
+        public ICollection<TransitionActivite> TransitionActivite { get; set; }
         public ICollection<TransitionActions> TransitionActions { get; set; }
         public ICollection<DemandesAction> DemandesAction { get; set; }
     }

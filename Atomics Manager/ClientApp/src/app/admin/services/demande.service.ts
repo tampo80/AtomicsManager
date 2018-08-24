@@ -4,6 +4,7 @@ import { ConfigService } from './config.service';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Demandes } from '../models/demandes';
+import { CommentAction } from '../models/comment-action';
 
 @Injectable({
   providedIn: 'root'
@@ -53,10 +54,14 @@ deleteDemandes(DemandesId?: number): Observable<{}> {
    return this.http.post<Demandes>(ConfigService.rootUrl + this._demandesUrl, JSON.stringify(demandes), this.getRequestHeaders());
  }
 
+ commentDemandes(commentAction: CommentAction): Observable<{}> {
+  return this.http.post<{}>(ConfigService.rootUrl + this._demandesUrl + '/commentAction', commentAction, this.getRequestHeaders());
+}
 
  updateDemandes(demandes: Demandes): Observable<Demandes> {
   return this.http.put<Demandes>(ConfigService.rootUrl + this._demandesUrl + '/' + demandes.id, JSON.stringify(demandes), this.getRequestHeaders());
 }
+
 
 
 isExiste(demandesName: string) {
