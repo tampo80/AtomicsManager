@@ -98,6 +98,11 @@ permissions: [
       name: 'Les transition'
   },
 
+  {
+    routerLink: 'workflow-graph',
+    name: 'Le workflow'
+},
+
 ],
 permissions: [
   {

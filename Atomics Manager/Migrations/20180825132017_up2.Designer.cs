@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtomicsManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180819163608_oks")]
-    partial class oks
+    [Migration("20180825132017_up2")]
+    partial class up2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -49,6 +49,46 @@ namespace AtomicsManager.Migrations
                     b.HasIndex("ProcessId");
 
                     b.ToTable("WorkActions");
+                });
+
+            modelBuilder.Entity("DAL.Models.ActionsHistories", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ActionsId");
+
+                    b.Property<string>("Comment");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int>("DemandesId");
+
+                    b.Property<int>("EtatId");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.Property<string>("UserId");
+
+                    b.Property<DateTime>("dateOperation");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ActionsId");
+
+                    b.HasIndex("DemandesId");
+
+                    b.HasIndex("EtatId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AppActionsHistories");
                 });
 
             modelBuilder.Entity("DAL.Models.ActionTarget", b =>
@@ -439,9 +479,7 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
-                    b.Property<int>("CurrentStartId");
-
-                    b.Property<int?>("CurrentStatId");
+                    b.Property<int>("CurrentStatId");
 
                     b.Property<DateTime>("DateDemande");
 
@@ -1454,6 +1492,28 @@ namespace AtomicsManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("DAL.Models.ActionsHistories", b =>
+                {
+                    b.HasOne("DAL.Models.Actions", "Actions")
+                        .WithMany("ActionsHistories")
+                        .HasForeignKey("ActionsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Demandes", "Demandes")
+                        .WithMany("ActionsHistories")
+                        .HasForeignKey("DemandesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Etat", "Etat")
+                        .WithMany("ActionsHistories")
+                        .HasForeignKey("EtatId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.ApplicationUser", "User")
+                        .WithMany("ActionsHistories")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("DAL.Models.ActionTarget", b =>
                 {
                     b.HasOne("DAL.Models.Actions", "Actions")
@@ -1538,13 +1598,14 @@ namespace AtomicsManager.Migrations
                 {
                     b.HasOne("DAL.Models.Etat", "CurrentStat")
                         .WithMany("Demandes")
-                        .HasForeignKey("CurrentStatId");
+                        .HasForeignKey("CurrentStatId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("DAL.Models.Fournisseurs")
                         .WithMany("Demandes")
                         .HasForeignKey("FournisseursId");
 
-                    b.HasOne("DAL.Models.Process")
+                    b.HasOne("DAL.Models.Process", "Process")
                         .WithMany("Demandes")
                         .HasForeignKey("ProcessId")
                         .OnDelete(DeleteBehavior.Cascade);

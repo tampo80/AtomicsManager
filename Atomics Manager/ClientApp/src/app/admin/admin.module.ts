@@ -73,6 +73,7 @@ import { DemandesInComponent } from './demandes/demandes-in/demandes-in.componen
 import { DetailsDemandesInComponent } from './demandes/demandes-in/details-demandes-in/details-demandes-in.component';
 import { WorkflowModule } from './workflow/workflow.module';
 import { NewEditionDialogComponent } from './shared/new-edition-dialog/new-edition-dialog.component';
+import { SignalRService } from './signalr/signal-r.service';
 
 registerLocaleData(localeFr);
 
@@ -176,7 +177,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HttpErrorHandler,
     AccountService,
     DevisesService,
-
+    SignalRService,
     ImagesService,
     {
       provide: LOCALE_ID,

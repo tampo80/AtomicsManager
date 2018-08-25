@@ -48,7 +48,7 @@ namespace Atomics_Manager.Controllers {
                     Villes _villes = Mapper.Map<Villes> (villes);
                     Pays pays = _unitOfWork.Pays.GetSingleOrDefault (e => e.Id == villes.PaysId);
                     _villes.Pays = pays;
-                    _villes.Name = _villes.Name.ToUpper ();
+                    //_villes.Name = _villes.Name.ToUpper ();
                     await _unitOfWork.Villes.AddAsync (_villes);
                     return Ok (await _unitOfWork.SaveChangesAsync ());
 
@@ -68,7 +68,7 @@ namespace Atomics_Manager.Controllers {
                     Villes _villes = Mapper.Map<Villes> (villes);
                     Pays pays = _unitOfWork.Pays.GetSingleOrDefault (e => e.Id == villes.PaysId);
                     _villes.Pays = pays;
-                    _villes.Name = _villes.Name.ToUpper ();
+                    //_villes.Name = _villes.Name.ToUpper ();
                     _unitOfWork.Villes.Update (_villes);
 
                     await _unitOfWork.SaveChangesAsync ();

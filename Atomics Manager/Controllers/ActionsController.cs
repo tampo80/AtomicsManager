@@ -76,7 +76,7 @@ namespace Atomics_Manager.Controllers
                 try
                 {
                     Actions _actions = Mapper.Map<Actions>(actions);
-                    _actions.Name = _actions.Name.ToUpper();
+                   //_actions.Name = _actions.Name.ToUpper();
 
                     _actions.ProcessId = actions.ProcessId;
                     _actions.Process = _unitOfWork.Process.GetSingleOrDefault(e => e.Id == actions.ProcessId);

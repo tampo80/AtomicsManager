@@ -49,7 +49,7 @@ namespace Atomics_Manager.Controllers {
             if (ModelState.IsValid) {
                 try {
                     Secteurs _secteurs = Mapper.Map<Secteurs> (secteurs);
-                    _secteurs.Name = _secteurs.Name.ToUpper ();
+                    //_secteurs.Name = _secteurs.Name.ToUpper ();
                     _unitOfWork.Secteurs.Add (_secteurs);
                     await _unitOfWork.SaveChangesAsync ();
                     return Ok ("OK");

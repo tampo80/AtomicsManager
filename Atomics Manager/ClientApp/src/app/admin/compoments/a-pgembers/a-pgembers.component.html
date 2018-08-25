@@ -1,5 +1,5 @@
 
-    <main [class]="theme" style="background: #1b1e27">
+    <main [class]="theme">
         <div class="chart-col">
           <div style="position: absolute; top: 50px; left: 50px; right: 50px; bottom: 50px;">
             <ngx-graph #graph class="chart-container" [view]="view" [enableZoom]="enableZoom" [autoZoom]="autoZoom" [panOnZoom]="panOnZoom"
@@ -25,7 +25,7 @@
                   <svg:path class="line" stroke-width="2" marker-end="url(#arrow)">
                   </svg:path>
                   <svg:text class="edge-label" text-anchor="middle">
-                    <textPath class="edge-label"  [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
+                    <textPath style="fill: tomato" class="edge-label"  [attr.href]="'#' + link.id" [style.dominant-baseline]="link.dominantBaseline" startOffset="50%">
                       {{link.label}}
                     </textPath>
                   </svg:text>

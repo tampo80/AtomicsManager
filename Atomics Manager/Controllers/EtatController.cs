@@ -62,8 +62,8 @@ namespace Atomics_Manager.Controllers
                 try
                 {
                     Etat _etat = Mapper.Map<Etat>(etat);
-                    _etat.Name = _etat.Name.ToUpper();
-
+                    //_etat.Name = _etat.Name.ToUpper();
+//
                     _etat.ProcessId = etat.ProcessId;
                     _etat.Process = _unitOfWork.Process.GetSingleOrDefault(e => e.Id == etat.ProcessId);
 

@@ -66,7 +66,7 @@ namespace Atomics_Manager.Controllers
                 try
                 {
                     ApprobationLevel _approbationLevel = Mapper.Map<ApprobationLevel>(approbationLevel);
-                    _approbationLevel.Name = _approbationLevel.Name.ToUpper();
+                   // _approbationLevel.Name = _approbationLevel.Name.ToUpper();
                     _unitOfWork.ApprobationLevel.Add(_approbationLevel);
                     await _unitOfWork.SaveChangesAsync();
                     return Ok("OK");

@@ -52,7 +52,7 @@ namespace Atomics_Manager.Controllers
                     Services _services = Mapper.Map<Services>(services);
                     Departements departements = _unitOfWork.Departements.GetSingleOrDefault(e => e.Id == services.departementsId);
                     _services.Departements = departements;
-                    _services.Name = _services.Name.ToUpper();
+                   // _services.Name = _services.Name.ToUpper();
                     await _unitOfWork.Services.AddAsync(_services);
                     return Ok(await _unitOfWork.SaveChangesAsync());
 
@@ -77,7 +77,7 @@ namespace Atomics_Manager.Controllers
                     Services _services = Mapper.Map<Services>(services);
                     Departements departements = _unitOfWork.Departements.GetSingleOrDefault(e => e.Id == services.departementsId);
                     _services.Departements = departements;
-                    _services.Name = _services.Name.ToUpper();
+                   // _services.Name = _services.Name.ToUpper();
                     _unitOfWork.Services.Update(_services);
 
                     await _unitOfWork.SaveChangesAsync();

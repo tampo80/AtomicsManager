@@ -90,7 +90,7 @@ namespace Atomics_Manager.Controllers
                 try
                 {
                     Activite _activite = Mapper.Map<Activite>(activite);
-                    _activite.Name = _activite.Name.ToUpper();
+                    //_activite.Name = _activite.Name.ToUpper();
 
                     _activite.ProcessId = activite.ProcessId;
                     _activite.Process = _unitOfWork.Process.GetSingleOrDefault(e => e.Id == activite.ProcessId);

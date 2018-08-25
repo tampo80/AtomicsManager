@@ -52,7 +52,7 @@ namespace Atomics_Manager.Controllers
                     Agences _agences = Mapper.Map<Agences>(agences);
                     Villes villes = _unitOfWork.Villes.GetSingleOrDefault(e => e.Id == agences.VillesId);
                     _agences.Villes = villes;
-                    _agences.Name = _agences.Name.ToUpper();
+                   //_agences.Name = _agences.   ;
                     await _unitOfWork.Agences.AddAsync(_agences);
                     return Ok(await _unitOfWork.SaveChangesAsync());
 
@@ -77,7 +77,7 @@ namespace Atomics_Manager.Controllers
                     Agences _agences = Mapper.Map<Agences>(agences);
                     Villes villes = _unitOfWork.Villes.GetSingleOrDefault(e => e.Id == agences.VillesId);
                     _agences.Villes = villes;
-                    _agences.Name = _agences.Name.ToUpper();
+                   //_agences.Name = _agences.Name.ToUpper();
                     _unitOfWork.Agences.Update(_agences);
 
                     await _unitOfWork.SaveChangesAsync();

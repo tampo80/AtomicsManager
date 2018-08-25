@@ -27,6 +27,7 @@ using System.Collections.Generic;
 using Atomics_Manager.ViewModels;
 using Atomics_Manager.Authorization;
 using Atomics_Manager.Helpers;
+using Atomics_Manager.Hubs;
 //using Swashbuckle.AspNetCore.Swagger;
 namespace Atomics_Manager
 {
@@ -109,6 +110,8 @@ namespace Atomics_Manager
 
             services.AddMvc();
 
+            services.AddSignalR();
+            // services.AddSignalR();
 
             services.AddSwaggerGen(c =>
             {
@@ -192,6 +195,11 @@ namespace Atomics_Manager
 
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+
+            app.UseSignalR(route =>
+            {
+                route.MapHub<DataHub>("/dataHub");
+            });
 
             app.UseMvc(routes =>
             {

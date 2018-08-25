@@ -62,7 +62,7 @@ namespace Atomics_Manager.Controllers
                 try
                 {
                     Process _process = Mapper.Map<Process>(process);
-                    _process.Name = _process.Name.ToUpper();
+                    //_process.Name = _process.Name.ToUpper();
                     _unitOfWork.Process.Add(_process);
                     await _unitOfWork.SaveChangesAsync();
                     return Ok("OK");

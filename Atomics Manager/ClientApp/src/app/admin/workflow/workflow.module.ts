@@ -31,6 +31,7 @@ import { SetActiviteComponent } from './transitions/dialog/set-activite/set-acti
 import { SetActivitesComponent } from './etats/set-activites/set-activites.component';
 import { SetActionTargetComponent } from './actions/dialog/set-action-target/set-action-target.component';
 import { SetActiviteTargetComponent } from './activite/dialog/set-activite-target/set-activite-target.component';
+import { GraphComponent } from './graph/graph/graph.component';
 
 @NgModule({
   imports: [
@@ -68,7 +69,8 @@ import { SetActiviteTargetComponent } from './activite/dialog/set-activite-targe
     SetActiviteComponent,
     SetActivitesComponent,
     SetActionTargetComponent,
-    SetActiviteTargetComponent
+    SetActiviteTargetComponent,
+    GraphComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

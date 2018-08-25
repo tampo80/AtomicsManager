@@ -61,7 +61,7 @@ namespace Atomics_Manager.Controllers
                 try
                 {
                     ProductCategory _secteurs = Mapper.Map<ProductCategory>(secteurs);
-                    _secteurs.Name = _secteurs.Name.ToUpper();
+                    // _secteurs.Name = _secteurs.Name.ToUpper();
                     _unitOfWork.ProductCategory.Add(_secteurs);
                     await _unitOfWork.SaveChangesAsync();
                     return Ok("OK");

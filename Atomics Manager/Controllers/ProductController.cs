@@ -99,7 +99,7 @@ namespace Atomics_Manager.Controllers
                     _product.ProductCategory = productCategory;
                     Fournisseurs _fournisseurs=_unitOfWork.Fournisseurs.GetSingleOrDefault(e=>e.Id==product.FournisseursId);
                     _product.Fournisseurs=_fournisseurs;
-                    _product.Name = _product.Name.ToUpper();
+                   // _product.Name = _product.Name.ToUpper();
                     await _unitOfWork.Products.AddAsync(_product);
                     return Ok(await _unitOfWork.SaveChangesAsync());
 
@@ -135,7 +135,7 @@ namespace Atomics_Manager.Controllers
                     _product.ProductCategory = productCategory;
                     Fournisseurs _fournisseurs=_unitOfWork.Fournisseurs.GetSingleOrDefault(e=>e.Id==product.FournisseursId);
                     _product.Fournisseurs=_fournisseurs;
-                    _product.Name = product.Name.ToUpper();
+                    _product.Name = product.Name;
                     _product.Icon=product.IIcon==null?_product.Icon:product.Icon;
                     _product.BuyingPrice = product.BuyingPrice;
                     _product.DateModified = DateTime.Now;

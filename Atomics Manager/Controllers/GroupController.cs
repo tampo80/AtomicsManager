@@ -61,7 +61,7 @@ namespace Atomics_Manager.Controllers
                 try
                 {
                     Group _group = Mapper.Map<Group>(group);
-                    _group.Name = _group.Name.ToUpper();
+                    //_group.Name = _group.Name.ToUpper();
 
                     _group.ProcessId = group.ProcessId;
                     _group.Process = _unitOfWork.Process.GetSingleOrDefault(e => e.Id == group.ProcessId);

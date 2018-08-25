@@ -102,7 +102,7 @@ select {
 main {
   justify-content: center;
   height: 100%;
-
+  background:#333;
   .chart-col {
     width: 75%;
     height: 100vh;
@@ -132,12 +132,12 @@ main {
     left: 0;
     bottom: 0;
 
-    background: #5f5;
-    color: #089cb6c0;
+    background: #cfd8dc;
+    color: #000;
     font-size: .6em;
 
     h1 {
-      color: #089cb6c0;
+      color: #fff;
       font-weight: 100;
       text-transform: uppercase;
       display: block;
@@ -173,11 +173,11 @@ main {
       padding: 0;
       margin: 10px 0 0 0;
       text-transform: uppercase;
-      color: #089cb6c0;
+      color: #000;
       user-select: none;
 
       a {
-        color: #089cb6c0;
+        color: #000;
         text-decoration: none;
       }
     }
@@ -193,76 +193,3 @@ main {
   }
 }
 
-.dark {
-  /**
-   * Backgrounds
-   */
-  $color-bg-darkest: #13141b;
-  $color-bg-darker: #1b1e27;
-  $color-bg-dark: #232837;
-  $color-bg-med: #2f3646;
-  $color-bg-light: #455066;
-  $color-bg-lighter: #5b6882;
-
-  /**
-   * Text
-   */
-  $color-text-dark: #72809b;
-  $color-text-med-dark: #919db5;
-  $color-text-med: #a8b2c7;
-  $color-text-med-light: #d9dce1;
-  $color-text-light: #f0f1f6;
-  $color-text-lighter: #fff;
-
-  background: $color-bg-darker;
-
-  .ngx-graph {
-    .tooltip-anchor {
-      fill: rgb(255,255,255);
-    }
-  }
-
-  .chart-legend {
-    .legend-labels {
-      background: rgba(255,255,255,0.05) !important;
-    }
-
-    .legend-item {
-      &:hover {
-        color: #fff;
-      }
-    }
-
-    .legend-label {
-      &:hover {
-        color: #fff !important;
-      }
-
-      .active {
-        .legend-label-text {
-          color: #fff !important;
-        }
-      }
-    }
-  }
-}
-
-.graph {
-  .node {
-    text {
-      fill: #fff;
-      font-size: 12px;
-      font-weight: bold;
-    }
-  }
-
-  .edge {
-    path  {
-      stroke: #666 !important;
-    }
-  }
-
-  .arrow-head {
-    fill: #666;
-  }
-}

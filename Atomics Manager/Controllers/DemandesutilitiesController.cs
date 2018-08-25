@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Atomics_Manager.Hubs;
+using Atomics_Manager.ViewModels;
+using AutoMapper;
 using DAL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +24,15 @@ namespace Atomics_Manager.Controllers
             _unitOfWork = unitOfWork;
             _logger = logger;
 
+        }
+
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var allEntrepriseUserInfos = _unitOfWork.EntrepriseUserInfos.GetAll();
+            DataHub dh = new DataHub();
+            dh.GetData();
+            return Ok(Mapper.Map<IEnumerable<CategoriesViewModel>>(allEntrepriseUserInfos));
         }
 
     }

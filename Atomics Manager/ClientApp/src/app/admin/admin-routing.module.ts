@@ -30,6 +30,7 @@ import { EtatsComponent } from './workflow/etats/etats.component';
 import { ActionsComponent } from './workflow/actions/actions.component';
 import { ActiviteComponent } from './workflow/activite/activite.component';
 import { TransitionsComponent } from './workflow/transitions/transitions.component';
+import { GraphComponent } from './workflow/graph/graph/graph.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -38,6 +39,7 @@ import { TransitionsComponent } from './workflow/transitions/transitions.compone
       component: AdminComponent,
       children: [
         {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+        {path: 'workflow-graph', component: GraphComponent},
         {path: 'workflow-transition', component: TransitionsComponent},
         {path: 'workflow-activites', component: ActiviteComponent},
         {path: 'manage-approuval-level', component: ApprobationLevelComponent},

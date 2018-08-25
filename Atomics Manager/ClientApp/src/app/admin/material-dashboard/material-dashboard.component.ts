@@ -1,7 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, NgZone } from '@angular/core';
 import { DemandeService } from '../services/demande.service';
 import { Demandes } from '../models/demandes';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
+import { SignalRService } from '../signalr/signal-r.service';
+import { ok } from 'assert';
+import { Data } from '../signalr/data';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -18,11 +21,16 @@ export class MaterialDashboardComponent implements OnInit, AfterViewInit {
   dataSource = new MatTableDataSource();
   displayedColumns = ['id', 'productName', 'userFullName', 'montant', 'statut', 'dateDemande', 'actions'];
   isLoading: boolean;
-    constructor(private demandesServices: DemandeService) {
+
+
+    constructor(private signalrService: SignalRService, private demandesServices: DemandeService, private _ngZone: NgZone  ) {
       this.isLoading = true;
+
+
     }
     ngOnInit() {
       this.getMesdemandesOut();
+      this.subscribeToEvents();
     }
     ngAfterViewInit() {
 
@@ -40,10 +48,25 @@ export class MaterialDashboardComponent implements OnInit, AfterViewInit {
     console.log(row);
   }
     getMesdemandesOut() {
-      this.demandesServices.getDemandesOut().subscribe(res =>  {
+      this.demandesServices.getDemandesIn().subscribe(res =>  {
         this.mesdemandesOut = res;
         this.dataSource.data = res.splice(0, 3);
         this.isLoading = false;
       });
     }
+
+
+    private subscribeToEvents(): void {
+      this.signalrService.connectionEstablished.subscribe(() => {
+       console.log(ok);
+      });
+
+
+    this.signalrService.messageReceived.subscribe((data: Data) => {
+      this._ngZone.run(() => {
+
+      });
+    });
+
+  }
 }
