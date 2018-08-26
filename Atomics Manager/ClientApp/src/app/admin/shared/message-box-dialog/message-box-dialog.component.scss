@@ -1,4 +1,29 @@
 .titre{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 1.15em;
+    font-family: 'Roboto, Helvetica Neue, Arial, sans-serif';
+    font-size: 1em;
+    text-align: center;
+}
+
+.message{
+  margin: 20px;
+  display: flex;
+  justify-content: 1 1 flex-end;
+}
+
+
+
+.icon{
+  display: flex;
+  align-self: flex-end;
+
+  padding-left: 20%;
+}
+
+
+
+.header{
+  display: flex;
+  justify-content:flex-start space-between flex-end;
+  text-align: end;
+  width: 100%;
 }

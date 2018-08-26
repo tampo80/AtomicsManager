@@ -17,6 +17,7 @@ import { ApprobationLevel } from '../../models/approbation-level';
 export class DemandesCataloguesComponent implements OnInit {
   lesArticles: Articles[] = [];
   lesArticlesFilter: Articles[] = [];
+  isLoading = false;
 
   constructor(private router: Router, private domSanitize: DomSanitizer, private messageboxService: MessageboxService , private articlesServices: ArticlesService, private dialog: MatDialog) {
 this.getArticles();

@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   Gestion des membres des groupes d'approbations
-  <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
+
 </mat-toolbar>
 
 <mat-divider></mat-divider>
@@ -10,7 +10,7 @@
 
   <mat-card-content>
 
-     <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="aPGMemebersForm">
+     <form class="example-form"  [formGroup]="aPGMemebersForm">
       <mat-form-field class="example-full-width">
 
         <input [matChipInputFor]="membersChpis" type="text" placeholder="Membre"   matInput formControlName="members" [matAutocomplete]="auto">

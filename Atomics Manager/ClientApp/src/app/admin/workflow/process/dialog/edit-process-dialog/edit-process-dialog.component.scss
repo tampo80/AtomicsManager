@@ -80,6 +80,8 @@
   margin: 5px;
   padding: 5px;
   cursor: pointer;
+  display: flex;
+  justify-self: end;
   columns: #333333;
   :hover{
     background: #ffffff !important;

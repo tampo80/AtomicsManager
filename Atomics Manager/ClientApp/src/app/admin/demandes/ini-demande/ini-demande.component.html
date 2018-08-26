@@ -2,7 +2,7 @@
 
    <mat-toolbar color="primary">
       Initier la demandes
-      <mat-progress-bar mode="indeterminate" *ngIf="isVillesLoading"></mat-progress-bar>
+
   </mat-toolbar>
 
   <mat-divider></mat-divider>
@@ -23,7 +23,7 @@
 </table>
 <p></p>
   <mat-card-content>
-      <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="demandeForm" >
+      <form class="example-form"  [formGroup]="demandeForm" >
 
 
 

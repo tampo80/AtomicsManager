@@ -54,6 +54,10 @@ export class AddArticlesDialogComponent implements OnInit {
       description: {
         required: 'Ce champ ne peu pas pas étre vide !',
 
+      },
+      fournisseurs: {
+        required: 'Ce champ ne peu pas pas étre vide !',
+
       }
     };
 
@@ -64,6 +68,7 @@ export class AddArticlesDialogComponent implements OnInit {
       categories: '',
       description: '',
       buyingPrice: '',
+      fournisseurs: ''
 
     };
 

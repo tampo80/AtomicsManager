@@ -32,16 +32,36 @@ export class EditApprobationLevelDialogComponent implements OnInit {
     description: {
       required: 'Ce champ ne peu pas pas étre vide !',
 
+    },
+    typeApprovalGroup: {
+      required: 'Ce champ ne peu pas pas étre vide !',
+
+    },
+    expensLimite: {
+      required: 'Ce champ ne peu pas pas étre vide !',
+
+    },
+    level: {
+      required: 'Ce champ ne peu pas pas étre vide !',
+
+    },
+    shared: {
+      required: 'Ce champ ne peu pas pas étre vide !',
+
     }
+
   };
   formErrors = {
 
     name: '',
     departements: '',
     description: '',
-
-
+    expensLimite: '',
+    typeApprovalGroup: '',
+    level: '',
+    shared: ''
   };
+
 
   lesNiveaux = [
     0, 1, 2, 3, 4, 5, 6, 7, 8, 9

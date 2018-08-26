@@ -29,7 +29,9 @@ titre:string,message:string   */
         color: color || 'primary',
         allow_outside_click: allow_outside_click || false
 
+
       },
+      panelClass: 'atomics-dialog-container',
       width: width
     });
     dialogRef.componentInstance.titre = titre;

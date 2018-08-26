@@ -35,7 +35,6 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
 import { CurrencyMaskService } from '../services/currency-mask.service';
 import { CurrencyMaskDirective } from '../directives/currency-mask.directive';
-import { UdpCurrencyMaskPipe } from '../pipes/udp-currency-mask.pipe';
 import { APGembersComponent } from './a-pgembers/a-pgembers.component';
 import { ProfilComponent } from './profil/profil.component';
 import { SetUserPositionComponent } from './users/dialogs/set-user-position/set-user-position.component';

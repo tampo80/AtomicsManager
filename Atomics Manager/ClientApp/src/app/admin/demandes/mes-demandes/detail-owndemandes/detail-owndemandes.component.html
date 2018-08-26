@@ -61,7 +61,7 @@
                     {{productDetails.description}}
 
             </fieldset>
-            <fieldset class="fieldset" *ngIf="demande.statut==0">
+            <fieldset class="fieldset" *ngIf="demande.statut=='0'">
               <legend>Commentaire</legend>
                 <form  [formGroup]="demadeForm" >
                     <mat-form-field class="example-full-width" >
@@ -83,7 +83,7 @@
 </div>
       </mat-card-content>
       <mat-card-actions align="end">
-        <button mat-raised-button [disabled]="!demadeForm.valid||demande.statut>0" (click)="cancelDemande()" color="warn">
+        <button mat-raised-button [disabled]="!demadeForm.valid||demande.statut>'0'" (click)="cancelDemande()" color="warn">
             Annuler
             <mat-icon class="mat-18">remove</mat-icon>
 

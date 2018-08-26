@@ -69,9 +69,12 @@
   margin: 5px;
   padding: 5px;
   cursor: pointer;
+  justify-content: flex-end;
   columns: #333333;
   :hover{
     background: #ffffff !important;
+    display: flex;
+    justify-self: end;
   }
 
 }

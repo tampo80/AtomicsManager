@@ -1,37 +1,43 @@
 <div mat-dialog-container>
-    <mat-toolbar *ngIf="style==1" color="{{color}}" class="mat-elevation-z2">
-      <mat-card-header>
-        <mat-icon  style="padding: 5px;float: left;">{{icone}}</mat-icon>
-     
-       <span class="titre">{{titre}}</span> 
+    <mat-toolbar *ngIf="style==1" color="{{color}}" >
+      <mat-card-header class="header">
+
+            <h6>{{titre}}</h6>
+
+       <div style="display: flex; justify-content: flex-end; width: 100%;">
+          <mat-icon  >{{icone}}</mat-icon>
+       </div>
+
+
 
       </mat-card-header>
     </mat-toolbar>
-    <div class="message" style="align-content: center;">
-      <p class="titre">
-         {{message}}
-      </p>
+    <div class="message">
+
+        <mat-icon  >{{icone}}</mat-icon>  <h4>{{message}}</h4>
+
     </div>
     <div class="info" *ngIf="information!==''">
-    
+
+
     </div>
-    <div style="padding: 5px;float:right">
+    <mat-divider></mat-divider>
+    <div style="padding: 8px;float:right">
       <div *ngIf="button==0">
         <button mat-raised-button color="primary" (click)="onOk()" tabindex="-1">OK</button>
       </div>
       <div *ngIf="button==1">
         <button mat-raised-button color="primary" (click)="onOk()" tabindex="-1">OK</button>&nbsp;
-        <button mat-raised-button color="accent" (click)="onCancel()" tabindex="-1">ANNULER</button>
+        <button mat-raised-button color="basic" (click)="onCancel()" tabindex="-1">ANNULER</button>
       </div>
       <div *ngIf="button==2">
         <button mat-raised-button color="primary" (click)="onYes()" tabindex="-1">OUI</button>&nbsp;
-        <button mat-raised-button color="accent" (click)="onNo()" tabindex="-1">NON</button>
+        <button mat-raised-button color="basic" (click)="onNo()" tabindex="-1">NON</button>
       </div>
       <div *ngIf="button==3">
         <button mat-raised-button color="warn" (click)="onAccept()" tabindex="-1">ACCEPTER</button>&nbsp;
         <button mat-raised-button color="primary" (click)="onReject()" tabindex="-1">REJETER</button>
       </div>
     </div>
-    
+
   </div>
-    

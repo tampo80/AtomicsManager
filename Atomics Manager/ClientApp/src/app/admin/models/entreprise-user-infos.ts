@@ -3,7 +3,7 @@ export class EntrepriseUserInfos {
   applicationUserId: string;
   agencesName: string;
   departementName: string;
-  ServicesName: string;
+  servicesName: string;
   agencesId: number;
   servicesId: number;
   departementsId: number;

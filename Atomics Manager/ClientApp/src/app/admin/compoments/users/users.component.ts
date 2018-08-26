@@ -63,7 +63,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
       console.log(res);
       if (this.result.result === 'yes') {
         this.accountService.deleteUser(user.id).subscribe(_res =>  {
-          this.messageboxService.ShowMessage('Information', user.userName + ' Supprimer avec succès', user.friendlyName, 0, false, 1, '500px', 'info', 'primary');
+          this.messageboxService.ShowMessage('Information', user.userName + ' Supprimer avec succès', user.friendlyName, 0, false, 1, '500px', 'info', 'accent');
           this.getUsers();
         }
         );

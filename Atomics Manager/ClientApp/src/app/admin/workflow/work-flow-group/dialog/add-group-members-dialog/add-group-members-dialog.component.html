@@ -30,7 +30,7 @@
   <div class="form-container" fxFlex='1'>
      <div fxLayout="column " fxLayoutGap="10px" class="mat-form">
       <div fxFlex="40%" class="mat-form">
-          <form class="mat-form" (ngSubmit)="onSubmit()" [formGroup]="agroupMemberForm">
+          <form class="mat-form"  [formGroup]="agroupMemberForm">
               <mat-form-field class="mat-field">
 
                 <input [matChipInputFor]="membersChpis" type="text" placeholder="Membre"   matInput formControlName="members" [matAutocomplete]="auto">

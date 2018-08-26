@@ -29,13 +29,24 @@ export class IniDemandeComponent implements OnInit {
     description: {
       required: 'Ce champ ne peu pas pas étre vide !',
 
-    }
+    },
+    quantie: {
+      required: 'Ce champ ne peu pas pas étre vide !',
+
+    },
+    motif: {
+      required: 'Ce champ ne peu pas pas étre vide !',
+
+    },
+
   };
   formErrors = {
 
     name: '',
     departements: '',
     description: '',
+    motif: '',
+    quantite: ''
 
 
   };

@@ -7,13 +7,11 @@
     <input matInput type="search" autocomplete="off" spellcheck="false"  (keyup)="applyFilter($event.target.value)" placeholder="Recherche...">
     </div>
   <div class="mat-elevation-z8">
-    <mat-tab-group [selectedIndex]="selectedIndex">
+    <mat-tab-group>
       <mat-tab label="Demandes d'achat">
 
         <div fxLayout="row wrap">
-          <div fxFlex="100" fxFlex.gt-mat="20" fxFlex.gt-sm="33.3" fxFlex.gt-xs="50" *ngFor="let navigation of currentNum">
-            <!--  <stbui-loading-skeleton></stbui-loading-skeleton> -->
-          </div>
+
 <div fxLayout="row wrap" style="margin:20px;" *ngIf="lesArticlesFilter.length<=0"> <h3> Aucun élément ne corresponds à cette recherche ...</h3> </div>
           <div fxFlex="100" fxFlex.gt-mat="20" fxFlex.gt-sm="22.3" fxFlex.gt-xs="30" *ngFor="let product of lesArticlesFilter">
             <mat-card class="nav-item">
@@ -40,9 +38,9 @@
         </div>
 
 
-        <button mat-button (click)="onNextStepTriggered()"></button>
+        <button mat-button ></button>
       </mat-tab>
-      <mat-tab label="Demandes de traveaux" [disabled]="step1">
+      <mat-tab label="Demandes de traveaux">
 
         <button mat-button></button>
       </mat-tab>

@@ -48,7 +48,14 @@ export class EditArticlesDialogComponent implements OnInit {
     description: {
       required: 'Ce champ ne peu pas pas étre vide !',
 
-    }
+    },
+
+    fournisseurs: {
+      required: 'Ce champ ne peu pas pas étre vide !',
+
+    },
+
+
   };
 
   imgUrl: string = ConfigService.rootUrl + '/api/entreprise/getlogo';
@@ -58,7 +65,7 @@ export class EditArticlesDialogComponent implements OnInit {
     categories: '',
     description: '',
     buyingPrice: '',
-
+    fournisseurs: ''
   };
 MatSnackBar;
   matcher = new FormErrorStateMatcher();
