@@ -108,3 +108,55 @@ table {
   .right.mat-header-cell:last-child {
       margin-right: 0;
   }
+  .mat-column-id {
+    flex: 0 0 50px !important;
+    justify-content: flex-start;
+    width: 10px !important;
+    margin: 0;
+    }
+
+  .mat-column-productName {
+      display: flex;
+      justify-content: flex-start;
+      flex: 0 0 200px !important;
+
+      }
+
+  .mat-column-statut {
+    flex: 0 0 50px !important;
+    justify-content: center;
+
+    white-space: unset;
+  }
+  .mat-column-statut {
+    flex: 0 0 50px !important;
+    justify-content: center;
+
+
+  }
+  .mat-column-actions {
+    flex: 0 0 50px !important;
+    justify-content: center;
+
+    white-space: unset;
+  }
+  .mat-column-dateDemande {
+    flex: 0 0 140px !important;
+    justify-content: center;
+
+
+  }
+  .mat-column-montant {
+    flex: 0 0 200px !important;
+    justify-content: center;
+    font-weight: bold;
+
+  }
+
+  .mat-column-currentStatName {
+    flex: 0 0 200px !important;
+    justify-content: center;
+    font-weight: bold;
+    color: #029e89
+
+  }

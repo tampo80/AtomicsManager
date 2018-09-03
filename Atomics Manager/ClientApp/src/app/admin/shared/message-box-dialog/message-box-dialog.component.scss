@@ -5,11 +5,31 @@
 }
 
 .message{
-  margin: 20px;
-  display: flex;
-  justify-content: 1 1 flex-end;
+  padding: left 20px; ;
 }
 
+.message-icon{
+ flex: 1 1 auto;
+}
+
+
+.msg{
+ text-align: center;
+ width: 100%;
+ justify-content: center;
+ display: flex;
+
+ margin-top: 20px;
+ margin-bottom: 20px;
+
+
+
+}
+.msg .aligner{
+  display: table-cell;
+  width: inherit;
+  vertical-align: middle;
+ }
 
 
 .icon{

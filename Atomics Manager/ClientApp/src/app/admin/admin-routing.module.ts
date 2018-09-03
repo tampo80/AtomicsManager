@@ -31,6 +31,8 @@ import { ActionsComponent } from './workflow/actions/actions.component';
 import { ActiviteComponent } from './workflow/activite/activite.component';
 import { TransitionsComponent } from './workflow/transitions/transitions.component';
 import { GraphComponent } from './workflow/graph/graph/graph.component';
+import { ComptesInternesComponent } from './comptabilite/comptesinternes/comptes-internes/comptes-internes.component';
+import { TypeComptesComponent } from './comptabilite/typecomptes/type-comptes/type-comptes.component';
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -39,6 +41,8 @@ import { GraphComponent } from './workflow/graph/graph/graph.component';
       component: AdminComponent,
       children: [
         {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+        {path: 'compta-comptes-internes', component: ComptesInternesComponent},
+        {path: 'compta-type-comptes', component: TypeComptesComponent},
         {path: 'workflow-graph', component: GraphComponent},
         {path: 'workflow-transition', component: TransitionsComponent},
         {path: 'workflow-activites', component: ActiviteComponent},

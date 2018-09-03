@@ -74,6 +74,12 @@ import { DetailsDemandesInComponent } from './demandes/demandes-in/details-deman
 import { WorkflowModule } from './workflow/workflow.module';
 import { NewEditionDialogComponent } from './shared/new-edition-dialog/new-edition-dialog.component';
 import { SignalRService } from './signalr/signal-r.service';
+import { TypeComptesComponent } from './comptabilite/typecomptes/type-comptes/type-comptes.component';
+import { ComptesInternesComponent } from './comptabilite/comptesinternes/comptes-internes/comptes-internes.component';
+import { AddTypeComptesDialogComponent } from './comptabilite/typecomptes/type-comptes/dialog/add-type-comptes-dialog/add-type-comptes-dialog.component';
+import { EditTypeComptesDialogComponent } from './comptabilite/typecomptes/type-comptes/dialog/edit-type-comptes-dialog/edit-type-comptes-dialog.component';
+import { AddComptesInternesDialogComponent } from './comptabilite/comptesinternes/comptes-internes/dialog/add-comptes-internes-dialog/add-comptes-internes-dialog.component';
+import { EditComptesInternesDialogComponent } from './comptabilite/comptesinternes/comptes-internes/dialog/edit-comptes-internes-dialog/edit-comptes-internes-dialog.component';
 
 registerLocaleData(localeFr);
 
@@ -160,6 +166,23 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DetailsDemandesInComponent,
 
     NewEditionDialogComponent,
+
+    TypeComptesComponent,
+
+
+    ComptesInternesComponent,
+
+
+    AddTypeComptesDialogComponent,
+
+
+    EditTypeComptesDialogComponent,
+
+
+    AddComptesInternesDialogComponent,
+
+
+    EditComptesInternesDialogComponent,
 
 
 

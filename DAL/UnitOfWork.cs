@@ -72,6 +72,10 @@ namespace DAL
 
         IActionsHistoriesRepository _ActionsHistories;
 
+        ITypeComptesRepository _TypeComptes;
+
+        IComptesInternesRepository _ComptesInternes;
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -497,6 +501,26 @@ namespace DAL
                     _ActionsHistories = new ActionsHistoriesRepository(_context);
 
                 return _ActionsHistories;
+            }
+        }
+        public ITypeComptesRepository TypeComptes
+        {
+            get
+            {
+                if (_TypeComptes == null)
+                    _TypeComptes = new TypeCompteRepository(_context);
+
+                return _TypeComptes;
+            }
+        }
+        public IComptesInternesRepository ComptesInternes
+        {
+            get
+            {
+                if (_ComptesInternes == null)
+                    _ComptesInternes = new ComptesInternesRepository(_context);
+
+                return _ComptesInternes;
             }
         }
 

@@ -112,7 +112,7 @@ this.demadeForm = this.fb.group({
     commentAction.actionsType = ActionsType.Approuver;
    // approbationWorkflow.globalStatut=3;
 
-    this.messageboxService.ShowMessage('Avertissement', 'approuvrer cette demandes ?', '', 2, false, 1, '520px', 'warning', 'primary').subscribe(
+    this.messageboxService.ShowMessage('Avertissement', 'approuvrer cette demandes ?', '', 2, false, 1, '520px', 'info', 'primary').subscribe(
       res => {
         const r: any = res;
         if (r.result === 'yes') {

@@ -6,7 +6,7 @@
           icon="group_add"
           backgroundcolor="linear-gradient(60deg, #8C99E0, #6572B8)"
           textcolor="white"
-          property="用户"
+          property="Mes demandes"
           changepercent="77"
           changeicon="trending_up"
         ></app-widget-state>
@@ -17,7 +17,7 @@
           icon="pageview"
           backgroundcolor="linear-gradient(60deg, #4DD0E2, #4CA8BA)"
           textcolor="white"
-          property="浏览"
+          property="Demandes réçus"
           changepercent="30"
           changeicon="trending_up"
         ></app-widget-state>
@@ -31,21 +31,21 @@
           icon="link"
           backgroundcolor="linear-gradient(60deg, #81C683, #62A864)"
           textcolor="white"
-          property="点击率"
+          property="Dépenses"
           changepercent="77"
           changeicon="trending_down"
         ></app-widget-state>
       </div>
       <div class="widget row" fxFlex.gt-xs>
         <app-widget-state
-          value="8888"
+          value="{{1000|currency:'XOF':'symbol'}}"
           icon="monetization_on"
           backgroundcolor="linear-gradient(60deg, #EAC459, #DCAC3F)"
           textcolor="white"
-          property="销量"
+          property="Budjet"
           changepercent="77"
           changeicon="trending_up"
-          valueprefix="$"
+
         ></app-widget-state>
       </div>
     </div>
@@ -65,100 +65,79 @@
     <div class="card-content" fxLayout="column">
 
       <div class="task-container" fxLayout="column">
-          <div class="mat-elevation-z8">
-              <mat-table [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
-                  <ng-container matColumnDef="id">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
-                      <mat-cell *matCellDef="let row; let i=index"> {{i+1}} <mat-icon class="mat-18"color="warn" >notifications</mat-icon></mat-cell>
-                    </ng-container>
-                    <ng-container matColumnDef="productName">
-                        <mat-header-cell *matHeaderCellDef mat-sort-header> La demande </mat-header-cell>
-                        <mat-cell *matCellDef="let demande"> {{demande.productName}} </mat-cell>
-                      </ng-container>
-                      <ng-container matColumnDef="userFullName">
-                          <mat-header-cell *matHeaderCellDef mat-sort-header> De </mat-header-cell>
-                          <mat-cell *matCellDef="let demande"> {{demande.userFullName}} </mat-cell>
-                        </ng-container>
-                  <ng-container matColumnDef="montant">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Montant </mat-header-cell>
-                    <mat-cell *matCellDef="let demande"> {{demande.montant|currency:'XOF':'symbol'}} </mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="statut">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header> Statut </mat-header-cell>
-                      <mat-cell *matCellDef="let demande"> {{demande.statut}} </mat-cell>
-                    </ng-container>
 
-                  <ng-container matColumnDef="dateDemande">
-                      <mat-header-cell *matHeaderCellDef mat-sort-header>Date de la demande </mat-header-cell>
-                      <mat-cell *matCellDef="let demande"> {{demande.dateDemande| date:'dd MMMM yyyy à HH:mm'}} </mat-cell>
-                    </ng-container>
 
-                  <ng-container matColumnDef="actions" >
-                      <mat-header-cell *matHeaderCellDef class="lastcell">
+      <mat-table [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+        <ng-container matColumnDef="id">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> # </mat-header-cell>
+          <mat-cell *matCellDef="let row; let i=index"> {{i+1}}
 
-                      </mat-header-cell>
+          </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="dateDemande">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Date de la demande </mat-header-cell>
+          <mat-cell *matCellDef="let demande"> {{demande.dateDemande| date:'dd MMMM yyyy à HH:mm'}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="productName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> La demande </mat-header-cell>
+          <mat-cell *matCellDef="let demande"> {{demande.productName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="userFullName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> De </mat-header-cell>
+          <mat-cell *matCellDef="let demande"> {{demande.userFullName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="serviceName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Service </mat-header-cell>
+          <mat-cell *matCellDef="let demande"> {{demande.serviceName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="agenceName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Agence </mat-header-cell>
+          <mat-cell *matCellDef="let demande"> {{demande.agenceName}} </mat-cell>
+        </ng-container>
 
-                      <mat-cell *matCellDef="let demande" class="lastcell">
-                        <button mat-icon-button color="primary" matTooltip="Régarder" (click)="EditAgences(demande)">
-                          <mat-icon aria-label="Edit">remove_red_eye</mat-icon>
-                        </button>
+        <ng-container matColumnDef="montant">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Montant </mat-header-cell>
+          <mat-cell *matCellDef="let demande"> {{demande.montant|currency:'XOF':'symbol'}} </mat-cell>
+        </ng-container>
 
 
 
-                      </mat-cell>
-                    </ng-container>
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        <ng-container matColumnDef="currentStatName">
+          <mat-header-cell *matHeaderCellDef mat-sort-header with="90"> Statut </mat-header-cell>
+          <mat-cell *matCellDef="let demande" class="progrsStat">{{demande.currentStatName}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="actions">
+          <mat-header-cell *matHeaderCellDef class="lastcell">
 
-              </mat-table>
+          </mat-header-cell>
 
-              <mat-paginator  [pageSize]="8" [pageSizeOptions]="[5, 10, 25]">
-                </mat-paginator>
+          <mat-cell *matCellDef="let demande" class="lastcell">
+            <button mat-icon-button color="primary" matTooltip="Régarder" (click)="demandesView(demande)">
+              <mat-icon aria-label="Edit">remove_red_eye</mat-icon>
+            </button>
+
+
+
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      </mat-table>
 
 
     </div>
-      </div>
 
 
-    </div>
+
+
     <div class="card-footer" fxLayout="row" fxLayoutAlign="end center">
 
     </div>
   </div>
 
 
-  <div class="card mat-elevation-z2 m-b-20">
-    <div class="card-header" fxLayout="row" fxLayoutAlign="space-between center">
-      <div>我的消息</div>
-      <div fxLayout="row">
-        <button mat-icon-button>
-          <mat-icon>more_vert</mat-icon>
-        </button>
-      </div>
-    </div>
-    <div class="card-content" fxLayout="column">
 
-    </div>
-    <div class="card-footer" fxLayout="row" fxLayoutAlign="end center">
-
-    </div>
-  </div>
-
-  <div class="card mat-elevation-z2 m-b-20">
-    <div class="card-header" fxLayout="row" fxLayoutAlign="space-between center">
-      <div>我的项目</div>
-      <div fxLayout="row">
-        <button mat-icon-button>
-          <mat-icon>more_vert</mat-icon>
-        </button>
-      </div>
-    </div>
-    <div class="card-content" fxLayout="column">
-    </div>
-    <div class="card-footer" fxLayout="row" fxLayoutAlign="end center">
-      <button mat-button>最新项目</button>
-    </div>
-  </div>
 
 
   <div class="card mat-elevation-z2">

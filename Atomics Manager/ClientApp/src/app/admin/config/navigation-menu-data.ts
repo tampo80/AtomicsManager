@@ -249,6 +249,35 @@ permissions: [
         }
     ]
 }, {
+  icon: 'monetization_on',
+  name: 'Comptailité',
+  items: [{
+      routerLink: 'under-construction',
+      name: 'Journal'
+  },
+  {
+    routerLink: 'under-construction',
+    name: 'Grand livre'
+},
+{
+  routerLink: 'compta-comptes-internes',
+  name: 'Comptes internes'
+},
+
+  {
+      routerLink: 'compta-type-compte',
+      name: 'Types de comptes'
+  }, {
+      routerLink: 'manage-devises',
+      name: 'Paramètres'
+  }],
+  permissions: [
+      {
+          name: 'maintenenace.view',
+          value: false
+      }
+  ]
+}, {
     icon: 'storage',
     name: 'Audit',
     items: [{

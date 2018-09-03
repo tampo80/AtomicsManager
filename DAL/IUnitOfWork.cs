@@ -70,8 +70,11 @@ namespace DAL
 
          ITransitionActiviteRepository TransitionActivite { get; }
 
-        IActionsHistoriesRepository ActionsHistories { get; }
+         IActionsHistoriesRepository ActionsHistories { get; }
 
+         ITypeComptesRepository TypeComptes { get; }
+
+         IComptesInternesRepository ComptesInternes { get; }
 
         int SaveChanges();
         Task<int> SaveChangesAsync();

@@ -76,6 +76,8 @@ namespace DAL
         public DbSet<ActiviteTarget> ActiviteTargets { get; set; }
         public DbSet<DemandesAction> DemandesAction { get; set; }
         public DbSet<ActionsHistories> ActionsHistories { get; set; }
+        public DbSet<TypeComptes> TypeComptes { get; set; }
+        public DbSet<ComptesInternes> ComptesInternes { get; set; }
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         { }
@@ -307,6 +309,10 @@ namespace DAL
             builder.Entity<EntrepriseUserInfos>().ToTable($"App{nameof(this.EntrepriseUserInfos)}");
 
             builder.Entity<ApprobationWorkflow>().ToTable($"App{nameof(this.ApprobationWorkflow)}");
+
+            builder.Entity<TypeComptes>().ToTable($"App{nameof(this.TypeComptes)}");
+
+            builder.Entity<ComptesInternes>().ToTable($"App{nameof(this.ComptesInternes)}");
 
         }
 
