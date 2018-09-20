@@ -82,6 +82,9 @@ namespace DAL
         public DbSet<Factures> Factures { get; set; }
         public DbSet<Reglements> Reglements { get; set; }
 
+        public DbSet<BonDeCommande> BonDeCommande { get; set; }
+        public DbSet<BonLivraison> BonLivraison { get; set; }
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -161,6 +164,10 @@ namespace DAL
 
             builder.Entity<Factures>().ToTable($"App{nameof(this.Factures)}");
             builder.Entity<Reglements>().ToTable($"App{nameof(this.Reglements)}");
+
+            builder.Entity<BonLivraison>().ToTable($"App{nameof(this.BonLivraison)}");
+            builder.Entity<BonDeCommande>().ToTable($"App{nameof(this.BonDeCommande)}");
+
 
 
             builder.Entity<Secteurs>().HasIndex(p => p.Name);

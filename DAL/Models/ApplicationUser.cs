@@ -62,5 +62,6 @@ namespace DAL.Models
         public ICollection<Stakeholders>Stakeholders { get; set; }
         public ICollection<GroupMember> GroupeMember { get; set; }
         public ICollection<ActionsHistories> ActionsHistories { get; set; }
+        public ICollection<BonLivraison> BonLivraison { get; set; }
     }
 }

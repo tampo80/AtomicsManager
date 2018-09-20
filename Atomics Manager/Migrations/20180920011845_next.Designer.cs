@@ -3,15 +3,17 @@ using System;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AtomicsManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180920011845_next")]
+    partial class next
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -435,7 +437,9 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("DateOperation");
 
-                    b.Property<int>("DemandesId");
+                    b.Property<int>("DemandeId");
+
+                    b.Property<int?>("DemandesId");
 
                     b.Property<string>("Montant");
 
@@ -1776,8 +1780,7 @@ namespace AtomicsManager.Migrations
                 {
                     b.HasOne("DAL.Models.Demandes", "Demandes")
                         .WithMany("BonDeCommande")
-                        .HasForeignKey("DemandesId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("DemandesId");
                 });
 
             modelBuilder.Entity("DAL.Models.BonLivraison", b =>

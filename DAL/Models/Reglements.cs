@@ -5,7 +5,7 @@ using System.Text;
 
 namespace DAL.Models
 {
-    public class Reglements
+    public class Reglements:AuditableEntity
     {
         public int Id { get; set; }
         public Factures Factures { get; set; }

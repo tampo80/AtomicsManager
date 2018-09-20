@@ -43,6 +43,8 @@ namespace DAL.Models
         public ICollection<DemandesAction> DemandesAction { get; set; }
 
         public ICollection<Factures> Factures { get; set; }
+        public ICollection<BonDeCommande> BonDeCommande { get; set; }
+        public ICollection<BonLivraison> BonLivraison { get; set; }
 
 
     }

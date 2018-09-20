@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace DAL.Models
+namespace Atomic_Manager.ViewModels
 {
-   public class BonDeCommande:AuditableEntity
-    {
+    public class BonDeCommandeViewModel
+{
         public int Id { get; set; }
         public DateTime DateOperation { get; set; }
         public string RefBon { get; set; }
         public int DemandesId { get; set; }
-        public Demandes Demandes { get; set; }
+        public string Demandes { get; set; }
         public string Montant { get; set; }
-
     }
 }

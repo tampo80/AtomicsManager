@@ -81,6 +81,9 @@ namespace DAL
 
         IReglementsRepository _Reglements;
 
+        IBonDeCommandeRepository _BonDeCommande;
+        IBonLivraisonRepository _BonLivraison;
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -552,6 +555,33 @@ namespace DAL
                 return _Factures;
             }
         }
+
+
+
+        public IBonDeCommandeRepository BonDeCommande
+        {
+            get
+            {
+                if (_BonDeCommande == null)
+                    _BonDeCommande = new BonDeCommandeRepository(_context);
+
+                return _BonDeCommande;
+            }
+        }
+
+
+
+        public IBonLivraisonRepository BonLivraison
+        {
+            get
+            {
+                if (_BonLivraison == null)
+                    _BonLivraison = new BonLivraisonRepository(_context);
+
+                return _BonLivraison;
+            }
+        }
+
 
         public int SaveChanges()
         {

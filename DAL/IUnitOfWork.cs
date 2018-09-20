@@ -81,6 +81,9 @@ namespace DAL
 
         IFacturesRepository Factures { get; }
 
+        IBonDeCommandeRepository BonDeCommande { get; }
+        IBonLivraisonRepository BonLivraison { get; }
+
         int SaveChanges();
         Task<int> SaveChangesAsync();
     }
