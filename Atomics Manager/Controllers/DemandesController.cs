@@ -64,7 +64,7 @@ namespace Atomics_Manager.Controllers
 
             foreach (var member in MyGroupMembers)
             {
-                MyGroups.Add(_unitOfWork.Group.GetSingleOrDefault(e => e.Id == member.GroupId));
+                MyGroups.Add(_unitOfWork.Group.GetAll().FirstOrDefault(e => e.Id == member.GroupId));
             }
 
 
@@ -126,7 +126,7 @@ namespace Atomics_Manager.Controllers
 
         public bool IsExpert(string userId,int ExpertGId)
         {
-            var APGm = _unitOfWork.ApprobationLevel.GetAllIncluding(e => e.APGmembers).Where(e => e.Id == ExpertGId).SingleOrDefault();
+            var APGm = _unitOfWork.ApprobationLevel.GetAllIncluding(e => e.APGmembers).Where(e => e.Id == ExpertGId).FirstOrDefault();
             if (APGm.APGmembers.FirstOrDefault(e=>e.MemberId==userId)!=null)
             {
                 return true;
@@ -143,11 +143,11 @@ namespace Atomics_Manager.Controllers
         }
         public string getUserService(string userid)
         {
-          var entrepriseUserInfos=_unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e=>e.ApplicationUserId==userid);
+          var entrepriseUserInfos=_unitOfWork.EntrepriseUserInfos.GetAll().FirstOrDefault(e=>e.ApplicationUserId==userid);
           string ServiceName=string.Empty;
           if (entrepriseUserInfos!=null)
           {
-                var service = _unitOfWork.Services.GetSingleOrDefault(e => e.Id == entrepriseUserInfos.ServicesId);
+                var service = _unitOfWork.Services.GetAll().FirstOrDefault(e => e.Id == entrepriseUserInfos.ServicesId);
                 ServiceName = service != null ? service.Name:"NAP" ;
           }
 
@@ -156,11 +156,11 @@ namespace Atomics_Manager.Controllers
 
          public string getUserAgence(string userid)
          {
-          var entrepriseUserInfos=_unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e=>e.ApplicationUserId==userid);
+          var entrepriseUserInfos=_unitOfWork.EntrepriseUserInfos.GetAll().FirstOrDefault(e=>e.ApplicationUserId==userid);
           string AgenceName=string.Empty;
           if (entrepriseUserInfos!=null)
           {
-                AgenceName = _unitOfWork.Agences.GetSingleOrDefault(e=>e.Id==entrepriseUserInfos.AgencesId).Name;
+                AgenceName = _unitOfWork.Agences.GetAll().FirstOrDefault(e=>e.Id==entrepriseUserInfos.AgencesId).Name;
           }
 
           return AgenceName;
@@ -168,14 +168,14 @@ namespace Atomics_Manager.Controllers
         public EntrepriseUserInfos getUserInfos(string usersId)
         {
 
-            return _unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e => e.ApplicationUserId == usersId);
+            return _unitOfWork.EntrepriseUserInfos.GetAll().FirstOrDefault(e => e.ApplicationUserId == usersId);
         }
 
         public bool IsHeadService(string UserId)
         {
-            int serviceId = _unitOfWork.EntrepriseUserInfos.GetSingleOrDefault(e=>e.ApplicationUserId==UserId).ServicesId;
+            int serviceId = _unitOfWork.EntrepriseUserInfos.GetAll().FirstOrDefault(e=>e.ApplicationUserId==UserId).ServicesId;
 
-            var service = _unitOfWork.Services.GetSingleOrDefault(e => e.Id == serviceId);
+            var service = _unitOfWork.Services.GetAll().FirstOrDefault(e => e.Id == serviceId);
 
             if (service!=null)
 
@@ -216,12 +216,12 @@ namespace Atomics_Manager.Controllers
                 try
                 {
                     Demandes _demandes = Mapper.Map<Demandes>(demandes);
-                    Product _product=_unitOfWork.Products.GetSingleOrDefault(e=>e.Id==demandes.ProductId);
+                    Product _product=_unitOfWork.Products.GetAll().FirstOrDefault(e=>e.Id==demandes.ProductId);
                     ApplicationUser user=await _accountManager.GetUserByIdAsync(_demandes.userId);
                     _demandes.Product=_product;
                     _demandes.CurrentStat = WorkflowEntryStat();
                     _demandes.DateDemande = DateTime.Now;
-                    _demandes.Process= _unitOfWork.Process.GetSingleOrDefault(e => e.Name == GlobalVars.MAIN_PROCESS_NAME);
+                    _demandes.Process= _unitOfWork.Process.GetAll().FirstOrDefault(e => e.Name == GlobalVars.MAIN_PROCESS_NAME);
                     _unitOfWork.Demandes.Add(_demandes);
                     List<DemandesAction> demandeActions = new List<DemandesAction>();
                     Actions subMitterAction = new Actions();
@@ -231,7 +231,7 @@ namespace Atomics_Manager.Controllers
                         var transitionAction = _unitOfWork.TransitionActions.GetAllIncluding(e=>e.Actions, k=>k.Transition).Where(e => e.TransitionId == item.Id);
                         foreach (var TA in transitionAction)
                         {
-                            var submitterAction = _unitOfWork.ActionTarget.GetSingleOrDefault(e => e.ActionsId == TA.ActionsId && e.Target == Target.Demandeur && TA.Transition.EtatActuel.TypeEtats==TypeEtats.Debut);
+                            var submitterAction = _unitOfWork.ActionTarget.GetAll().FirstOrDefault(e => e.ActionsId == TA.ActionsId && e.Target == Target.Demandeur && TA.Transition.EtatActuel.TypeEtats==TypeEtats.Debut);
 
                             if (submitterAction!=null)
                             {
@@ -299,7 +299,7 @@ namespace Atomics_Manager.Controllers
 
         public void MoveState(int demandeId)
         {
-            var demande = _unitOfWork.Demandes.GetSingleOrDefault(e=>e.Id==demandeId);
+            var demande = _unitOfWork.Demandes.GetAll().FirstOrDefault(e=>e.Id==demandeId);
             var transitions = _unitOfWork.Transition.GetAllIncluding(e => e.EtatActuel,k=>k.EtatSuivant).Where(e=>e.EtatActuel.Id==demande.CurrentStatId);
             Etat currentStat = demande.CurrentStat;
             foreach (var tran in transitions)
@@ -327,7 +327,7 @@ namespace Atomics_Manager.Controllers
                 var transitionAction = _unitOfWork.TransitionActions.GetAllIncluding(e => e.Actions, k => k.Transition).Where(e => e.TransitionId == transition.Id);
                 foreach (var TA in transitionAction)
                 {
-                    var submitterAction = _unitOfWork.ActionTarget.GetSingleOrDefault(e => e.ActionsId == TA.ActionsId && e.Target == Target.Demandeur && TA.Transition.EtatActuel.TypeEtats == TypeEtats.Debut);
+                    var submitterAction = _unitOfWork.ActionTarget.GetAll().FirstOrDefault(e => e.ActionsId == TA.ActionsId && e.Target == Target.Demandeur && TA.Transition.EtatActuel.TypeEtats == TypeEtats.Debut);
 
                     if (submitterAction != null)
                     {
@@ -392,12 +392,12 @@ namespace Atomics_Manager.Controllers
         public Etat WorkflowEntryStat()
         {
             int processId = 0;
-            Process Pro = _unitOfWork.Process.GetSingleOrDefault(e => e.Name == GlobalVars.MAIN_PROCESS_NAME);
+            Process Pro = _unitOfWork.Process.GetAll().FirstOrDefault(e => e.Name == GlobalVars.MAIN_PROCESS_NAME);
             Etat firstEtat = new Etat();
             if (Pro!=null)
             {
                 processId = Pro.Id;
-                firstEtat = _unitOfWork.Etat.GetSingleOrDefault(e => e.ProcessId == processId && e.TypeEtats == TypeEtats.Debut);
+                firstEtat = _unitOfWork.Etat.GetAll().FirstOrDefault(e => e.ProcessId == processId && e.TypeEtats == TypeEtats.Debut);
             }
            
             return firstEtat;
@@ -437,7 +437,7 @@ namespace Atomics_Manager.Controllers
             {
                 try
                 {
-                    Demandes demande = _unitOfWork.Demandes.GetSingleOrDefault(e=>e.Id==commentAction.DemandesId);
+                    Demandes demande = _unitOfWork.Demandes.GetAll().FirstOrDefault(e=>e.Id==commentAction.DemandesId);
 
                     var demandeAction = _unitOfWork.DemandesAction.GetAllIncluding(e=>e.Actions).Where(e => e.DemandesId==demande.Id && e.IsActive);
 
@@ -478,7 +478,7 @@ namespace Atomics_Manager.Controllers
                             Demandes = demande,
                             dateOperation = DateTime.Now,
                             User =await _accountManager.GetUserByUserNameAsync(User.Identity.Name),
-                            Etat = _unitOfWork.Etat.GetSingleOrDefault(e=>e.Id== demande.CurrentStatId),
+                            Etat = _unitOfWork.Etat.GetAll().FirstOrDefault(e=>e.Id== demande.CurrentStatId),
                             Actions = demandeaction.Actions,
                             Comment=commentAction.Comment
 

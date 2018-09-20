@@ -757,6 +757,44 @@ namespace AtomicsManager.Migrations
                     b.ToTable("WorkEtatActivite");
                 });
 
+            modelBuilder.Entity("DAL.Models.Factures", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("ComptesInternesId");
+
+                    b.Property<DateTime>("DateOperation");
+
+                    b.Property<int>("DemandesId");
+
+                    b.Property<int>("EtatFacture");
+
+                    b.Property<string>("FraitsTransports");
+
+                    b.Property<string>("Libele");
+
+                    b.Property<string>("Montant");
+
+                    b.Property<string>("Ref");
+
+                    b.Property<string>("Ristoune");
+
+                    b.Property<int>("TauxTva");
+
+                    b.Property<bool>("TvaDeductible");
+
+                    b.Property<string>("tva");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComptesInternesId");
+
+                    b.HasIndex("DemandesId");
+
+                    b.ToTable("AppFactures");
+                });
+
             modelBuilder.Entity("DAL.Models.FichierDemandes", b =>
                 {
                     b.Property<int>("Id")
@@ -1111,6 +1149,28 @@ namespace AtomicsManager.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("AppProductCategories");
+                });
+
+            modelBuilder.Entity("DAL.Models.Reglements", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("DateOperation");
+
+                    b.Property<int>("FacturesId");
+
+                    b.Property<double>("MontantPaye");
+
+                    b.Property<double>("MontantRestant");
+
+                    b.Property<int>("MyPropMethodePayementerty");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FacturesId");
+
+                    b.ToTable("AppReglements");
                 });
 
             modelBuilder.Entity("DAL.Models.Secteurs", b =>
@@ -1729,6 +1789,19 @@ namespace AtomicsManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("DAL.Models.Factures", b =>
+                {
+                    b.HasOne("DAL.Models.ComptesInternes", "ComptesInternes")
+                        .WithMany("Factures")
+                        .HasForeignKey("ComptesInternesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DAL.Models.Demandes", "Demandes")
+                        .WithMany("Factures")
+                        .HasForeignKey("DemandesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("DAL.Models.FichierDemandes", b =>
                 {
                     b.HasOne("DAL.Models.Demandes", "Demandes")
@@ -1832,6 +1905,14 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.ProductCategory", "ProductCategory")
                         .WithMany("Products")
                         .HasForeignKey("ProductCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.Reglements", b =>
+                {
+                    b.HasOne("DAL.Models.Factures", "Factures")
+                        .WithMany("Reglements")
+                        .HasForeignKey("FacturesId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

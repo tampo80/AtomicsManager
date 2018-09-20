@@ -23,7 +23,8 @@ export class ComptesInternesComponent implements OnInit
     dataSource = new MatTableDataSource();
 
 
-    displayedColumns = ['id', 'processName', 'etatActuelName', 'etatSuivantName', 'actions'];
+
+    displayedColumns = ['id',  'numCompte' , 'label', 'description', 'typeComptesName', 'actions'];
 
     constructor(private comptesInternesService: ComptesInternesService, private messageboxService: MessageboxService, private dialog: MatDialog) {
 

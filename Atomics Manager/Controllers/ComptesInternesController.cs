@@ -72,8 +72,14 @@ namespace Atomics_Manager.Controllers
                 try
                 {
 
-                    ComptesInternes _comptesInternes = Mapper.Map<ComptesInternes>(comptesInternes);
-                  
+                    ComptesInternes _comptesInternes = _unitOfWork.ComptesInternes.GetSingleOrDefault(e=>e.Id==id);
+                    _comptesInternes.Label = comptesInternes.Label;
+                    _comptesInternes.NumCompte = comptesInternes.NumCompte;
+                    _comptesInternes.Description = comptesInternes.Description;
+                    
+
+                    TypeComptes typeComtes = _unitOfWork.TypeComptes.GetSingleOrDefault(e => e.Id == comptesInternes.TypeComptesId);
+                    _comptesInternes.TypeComptes = typeComtes;
                     //_comptesInternes.Name = _comptesInternes.Name.ToUpper();
                     _unitOfWork.ComptesInternes.Update(_comptesInternes);
 

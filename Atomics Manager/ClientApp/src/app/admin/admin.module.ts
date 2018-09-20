@@ -1,5 +1,5 @@
 import { CommonModule, registerLocaleData } from '@angular/common';
-import { ErrorHandler, NgModule, LOCALE_ID } from '@angular/core';
+import { ErrorHandler, NgModule, LOCALE_ID, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialDesignModule } from '../material-design/material-design.module';
 import { AdminRoutingModule } from './admin-routing.module';
@@ -32,7 +32,7 @@ import { AddRolesDialogComponent } from './compoments/roles/dialogs/add/add-role
 import { EditRolesDialogComponent } from './compoments/roles/dialogs/edit/edit-roles-dialog/edit-roles-dialog.component';
 import { GroupByPipe } from './pipes/group-by.pipe';
 import { MaterialDashboardComponent } from './material-dashboard/material-dashboard.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { PaysComponent } from './compoments/pays/pays.component';
 import { AddPaysDialogComponent } from './compoments/pays/dialogs/add/add-pays-dialog/add-pays-dialog.component';
 import { EditPaysDialogComponent } from './compoments/pays/dialogs/edit/edit-pays-dialog/edit-pays-dialog.component';
@@ -80,11 +80,29 @@ import { AddTypeComptesDialogComponent } from './comptabilite/typecomptes/type-c
 import { EditTypeComptesDialogComponent } from './comptabilite/typecomptes/type-comptes/dialog/edit-type-comptes-dialog/edit-type-comptes-dialog.component';
 import { AddComptesInternesDialogComponent } from './comptabilite/comptesinternes/comptes-internes/dialog/add-comptes-internes-dialog/add-comptes-internes-dialog.component';
 import { EditComptesInternesDialogComponent } from './comptabilite/comptesinternes/comptes-internes/dialog/edit-comptes-internes-dialog/edit-comptes-internes-dialog.component';
+import { FacturesComponent } from './demandes/demandes-in/setFacture/factures/factures.component';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { CurrencyMaskConfig, CURRENCY_MASK_CONFIG } from 'ng2-currency-mask/src/currency-mask.config';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { CurrencyMaskDirective } from './directives/currency-mask.directive';
+import { CurrencyMaskService } from './services/currency-mask.service';
+import { FacturationComponent } from './comptabilite/factures/facturation/facturation.component';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 registerLocaleData(localeFr);
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
+};
+export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
+  align: 'right',
+  allowNegative: true,
+  decimal: ' ',
+  precision: 0,
+  prefix: '',
+  suffix: ' CFA',
+  thousands: ' '
 };
 
 @NgModule({
@@ -103,7 +121,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CompomentsModule,
     PerfectScrollbarModule,
     TruncateModule,
-    WorkflowModule
+    WorkflowModule,
+    MaterialDesignModule,            // <----- this module will be deprecated in the future version.
+    MatDatepickerModule,        // <----- import(must)
+    MatNativeDateModule,
+    CurrencyMaskModule,
+    NgxGraphModule,
+    NgxChartsModule,
 
   ],
   declarations: [
@@ -186,11 +210,21 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 
 
 
+    FacturesComponent,
+
+
+
+    FacturationComponent,
+
+
+
 
 
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [
-    MessageBoxDialogComponent
+    MessageBoxDialogComponent,
+    CurrencyMaskDirective
   ],
   providers: [
     NavigationService,
@@ -202,6 +236,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     DevisesService,
     SignalRService,
     ImagesService,
+    CurrencyMaskService,
+
+    { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     {
       provide: LOCALE_ID,
       useValue: 'fr-FR'
@@ -210,6 +247,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       provide: ErrorHandler,
       useClass: GlobalErrorInterceptor
     },
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     {
       provide : HTTP_INTERCEPTORS,
       useClass : AuthInterceptor,
@@ -243,7 +281,17 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     EditPasswordComponent,
     DetailOwndemandesComponent,
     IniDemandeComponent,
-    DetailsDemandesInComponent
+    DetailsDemandesInComponent,
+    AddTypeComptesDialogComponent,
+
+    FacturesComponent,
+    EditTypeComptesDialogComponent,
+
+
+    AddComptesInternesDialogComponent,
+
+
+    EditComptesInternesDialogComponent,
 
   ]
 })

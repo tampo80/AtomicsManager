@@ -32,34 +32,37 @@
                 <br/>
            <form #loginForm="ngForm" class="col s12 white" (ngSubmit)="OnSubmit(UserName.value,Password.value)">
               <!-- Markup for getting Username starts -->
-              <mat-grid-list cols="9" rowHeight="75px">
-                  <mat-grid-tile [rowspan]="1" class="login-icon">
-                      <mat-icon>person</mat-icon>
-                  </mat-grid-tile>
-                  <mat-grid-tile [colspan]="7">
-                    <mat-form-field class="justifier">
-                          <input [focus]="myFocusTriggeringEventEmitter" autofocus matInput placeholder="Utilisateur" text="text" #UserName ngModel name="UserName" required>
-                      </mat-form-field>
-                  </mat-grid-tile>
-              </mat-grid-list>
-              <!-- Markup for getting Username ends -->
+              <div fxLayout="row" class="example-full-width" >
+               <div fxFlex="5%"> <mat-icon class="icone" >person</mat-icon></div>
+               <div fxflex="95%" class="example-full-width">
+                <mat-form-field  class="example-full-width">
 
-              <!-- Markup for getting Password starts -->
-              <mat-grid-list cols="9" rowHeight="100px">
-                  <mat-grid-tile [rowspan]="1"  class="login-icon">
-                      <mat-icon>lock</mat-icon>
-                  </mat-grid-tile>
-                  <mat-grid-tile [colspan]="7">
-                      <mat-form-field class="justifier">
-                          <input matInput placeholder="Mot de passe" #Password ngModel name="Password" type="password" required>
-                      </mat-form-field>
-                  </mat-grid-tile>
-              </mat-grid-list>
+
+
+                  <input [focus]="myFocusTriggeringEventEmitter" autofocus matInput placeholder="Utilisateur" text="text" #UserName ngModel name="UserName" required>
+                </mat-form-field>
+               </div>
+              </div>
+              <div fxLayout="row" fxLayoutGap="5px" class="example-full-width" >
+                <div fxFlex="5%"> <mat-icon class="icone" >lock</mat-icon></div>
+                <div fxflex="95%" class="example-full-width">
+                 <mat-form-field  class="example-full-width">
+
+
+
+                    <input matInput placeholder="Mot de passe" #Password ngModel name="Password" type="password" required>
+
+                 </mat-form-field>
+                </div>
+               </div>
               <!-- Markup for getting Password ends -->
               <mat-progress-bar *ngIf="isLoading" mode='indeterminate' color="primary">
 
             </mat-progress-bar>
             <br>
+            <br>
+            <br>
+            <mat-divider></mat-divider>
               <button mat-raised-button class="login-button " [disabled]="!loginForm.valid" type="submit" >
                   Connextion
               </button>

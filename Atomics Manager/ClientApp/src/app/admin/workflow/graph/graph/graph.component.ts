@@ -6,7 +6,7 @@ import { TypeEtat } from '../../config/type-etat.enum';
 import { TransitionAction } from '../../models/transition-action';
 import { Transition } from '../../models/transition';
 import * as shape from 'd3-shape';
-
+import { NgxGraphModule } from '@swimlane/ngx-graph';
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',

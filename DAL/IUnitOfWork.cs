@@ -76,6 +76,11 @@ namespace DAL
 
          IComptesInternesRepository ComptesInternes { get; }
 
+
+        IReglementsRepository Reglements { get; }
+
+        IFacturesRepository Factures { get; }
+
         int SaveChanges();
         Task<int> SaveChangesAsync();
     }

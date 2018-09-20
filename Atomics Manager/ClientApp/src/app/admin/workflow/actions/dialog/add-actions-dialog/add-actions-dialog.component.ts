@@ -18,13 +18,13 @@ export class AddActionsDialogComponent implements OnInit , AfterViewInit {
 
   actionsFromGroup: FormGroup;
   process: Process[] = [];
- public typeActionss: any[];
-  typeActions = ActionsType;
+  public typeActions: any[];
+  // typeActions = ActionsType;
   constructor(private processService: ProcessService, private actionsServices: ActionsService, private fb: FormBuilder, public dialogRef: MatDialogRef<EditActionsDialogComponent>, @Inject(MAT_DIALOG_DATA)public data: any) {
 
-    this.typeActionss = enumSelector(ActionsType); // Object.keys(this.typeActions).filter(f => !isNaN(Number(f)));
+    this.typeActions = enumSelector(ActionsType); // Object.keys(this.typeActions).filter(f => !isNaN(Number(f)));
     this.createFrom();
-    console.log(this.typeActionss);
+    console.log(this.typeActions);
 
   }
 

@@ -76,6 +76,11 @@ namespace DAL
 
         IComptesInternesRepository _ComptesInternes;
 
+
+        IFacturesRepository _Factures;
+
+        IReglementsRepository _Reglements;
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -513,6 +518,17 @@ namespace DAL
                 return _TypeComptes;
             }
         }
+        public IReglementsRepository Reglements
+        {
+            get
+            {
+                if (_Reglements == null)
+                    _Reglements = new ReglementsRepository(_context);
+
+                return _Reglements;
+            }
+        }
+
         public IComptesInternesRepository ComptesInternes
         {
             get
@@ -521,6 +537,19 @@ namespace DAL
                     _ComptesInternes = new ComptesInternesRepository(_context);
 
                 return _ComptesInternes;
+            }
+        }
+
+
+
+        public IFacturesRepository Factures
+        {
+            get
+            {
+                if (_Factures== null)
+                    _Factures = new FacturesRepository(_context);
+
+                return _Factures;
             }
         }
 

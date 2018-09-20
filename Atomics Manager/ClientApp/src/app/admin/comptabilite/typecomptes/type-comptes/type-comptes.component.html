@@ -11,41 +11,36 @@
                   <mat-cell *matCellDef="let row; let i=index"> {{i+1}} </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="processName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Le processus </mat-header-cell>
-                    <mat-cell *matCellDef="let Transition"> {{Transition.processName}} </mat-cell>
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Le type de compte </mat-header-cell>
+                    <mat-cell *matCellDef="let TypeComptes"> {{TypeComptes.name}} </mat-cell>
                 </ng-container>
 
 
-                <ng-container matColumnDef="etatActuelName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Etat actuel </mat-header-cell>
-                    <mat-cell *matCellDef="let Transition"> {{Transition.etatActuelName}} </mat-cell>
+                <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Description </mat-header-cell>
+                    <mat-cell *matCellDef="let TypeComptes"> {{TypeComptes.description}} </mat-cell>
                  </ng-container>
-              <ng-container matColumnDef="etatSuivantName">
-                <mat-header-cell *matHeaderCellDef mat-sort-header> Etat Suivant </mat-header-cell>
-                <mat-cell *matCellDef="let Transition"> {{Transition.etatSuivantName}} </mat-cell>
+              <ng-container matColumnDef="natureCompte">
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Nature </mat-header-cell>
+                <mat-cell *matCellDef="let TypeComptes"> {{natureComptes[TypeComptes.natureCompte]}} </mat-cell>
               </ng-container>
 
               <ng-container matColumnDef="actions" >
                   <mat-header-cell *matHeaderCellDef class="lastcell">
-                    <button mat-mini-fab color="primary" matTooltip="Nouveau Transition" (click)="addNewTransition(Transition)">
+                    <button mat-mini-fab color="primary" matTooltip="Nouveau TypeComptes" (click)="addNewTypeComptes(TypeComptes)">
                       <mat-icon aria-label="Example icon-button with a heart icon">add</mat-icon>
                     </button>
                   </mat-header-cell>
 
-                  <mat-cell *matCellDef="let Transition" class="lastcell">
-                    <button mat-icon-button color="accent" matTooltip="Editer les informations" (click)="EditTransition(Transition)">
+                  <mat-cell *matCellDef="let TypeComptes" class="lastcell">
+                    <button mat-icon-button color="accent" matTooltip="Editer les informations" (click)="EditTypeComptes(TypeComptes)">
                       <mat-icon aria-label="Edit">edit</mat-icon>
                     </button>
 
-                       <button mat-icon-button color="basic" matTooltip="Definir les activités" (click)="SetActivite(Transition)">
-                        <mat-icon aria-label="Edit">flash_auto</mat-icon>
-                       </button>
-                        <button mat-icon-button color="primary" matTooltip="Definir les actions" (click)="SetAction(Transition)">
-                          <mat-icon aria-label="Edit">flash_on</mat-icon>
-                         </button>
 
-                    <button mat-icon-button color="warn" matTooltip="Suprimer l'utilisateur" (click)="deleteTransition(Transition)">
+
+                    <button mat-icon-button color="warn" matTooltip="Suprimer l'utilisateur" (click)="deleteTypeComptes(TypeComptes)">
                       <mat-icon aria-label="Delete">delete</mat-icon>
                     </button>
                   </mat-cell>

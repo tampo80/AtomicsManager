@@ -42,6 +42,8 @@ namespace DAL.Models
         public ICollection<ActionsHistories> ActionsHistories { get; set; }
         public ICollection<DemandesAction> DemandesAction { get; set; }
 
+        public ICollection<Factures> Factures { get; set; }
+
 
     }
 }

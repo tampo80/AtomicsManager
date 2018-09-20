@@ -8,11 +8,12 @@ import { LoginResponse, IdToken } from '../models/login-response.model';
 import { DbKeyService } from './db-key.service';
 import { JwtHelperService } from './jwt-helper.service';
 import { PermissionValues } from '../models/permission.model';
+import { ConfigService } from './config.service';
 
 @Injectable()
 export class UserService {
 
-  readonly rootUrl = 'http://localhost:2829';
+  readonly rootUrl = ConfigService.rootUrl;
   constructor(private http: HttpClient) { }
 
 

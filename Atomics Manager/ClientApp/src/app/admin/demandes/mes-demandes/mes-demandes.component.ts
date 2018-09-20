@@ -105,7 +105,8 @@ demandesView(demande: Demandes) {
 
   const dialogRef = this.dialog.open(DetailOwndemandesComponent, {
     data: {demande: demande},
-   width: '850px',
+   width: '920px',
+   panelClass: 'atomics-dialog-container',
    disableClose: true
   });
 

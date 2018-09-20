@@ -256,8 +256,8 @@ permissions: [
       name: 'Journal'
   },
   {
-    routerLink: 'under-construction',
-    name: 'Grand livre'
+    routerLink: 'compta-comptes-facturation',
+    name: 'Factures'
 },
 {
   routerLink: 'compta-comptes-internes',
@@ -265,7 +265,7 @@ permissions: [
 },
 
   {
-      routerLink: 'compta-type-compte',
+      routerLink: 'compta-type-comptes',
       name: 'Types de comptes'
   }, {
       routerLink: 'manage-devises',

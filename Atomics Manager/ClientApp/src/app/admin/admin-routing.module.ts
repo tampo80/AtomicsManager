@@ -33,6 +33,8 @@ import { TransitionsComponent } from './workflow/transitions/transitions.compone
 import { GraphComponent } from './workflow/graph/graph/graph.component';
 import { ComptesInternesComponent } from './comptabilite/comptesinternes/comptes-internes/comptes-internes.component';
 import { TypeComptesComponent } from './comptabilite/typecomptes/type-comptes/type-comptes.component';
+import { FacturationComponent } from './comptabilite/factures/facturation/facturation.component';
+
 
 @NgModule({
   imports: [RouterModule.forChild([
@@ -41,6 +43,7 @@ import { TypeComptesComponent } from './comptabilite/typecomptes/type-comptes/ty
       component: AdminComponent,
       children: [
         {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+        {path: 'compta-comptes-facturation', component: FacturationComponent},
         {path: 'compta-comptes-internes', component: ComptesInternesComponent},
         {path: 'compta-type-comptes', component: TypeComptesComponent},
         {path: 'workflow-graph', component: GraphComponent},

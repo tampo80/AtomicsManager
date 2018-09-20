@@ -12,6 +12,7 @@ namespace DAL.Models
         public TypeComptes TypeComptes { get; set; }
         public string Description { get; set; }
 
+        public ICollection<Factures> Factures { get; set; }
 
     }
 }

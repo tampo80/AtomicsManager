@@ -79,8 +79,12 @@ namespace DAL
         public DbSet<TypeComptes> TypeComptes { get; set; }
         public DbSet<ComptesInternes> ComptesInternes { get; set; }
 
+        public DbSet<Factures> Factures { get; set; }
+        public DbSet<Reglements> Reglements { get; set; }
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
-        { }
+        {
+        }
 
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -152,6 +156,11 @@ namespace DAL
             builder.Entity<Devises>().HasIndex(p => p.Label);
 
             builder.Entity<Devises>().ToTable($"App{nameof(this.Devises)}");
+
+           
+
+            builder.Entity<Factures>().ToTable($"App{nameof(this.Factures)}");
+            builder.Entity<Reglements>().ToTable($"App{nameof(this.Reglements)}");
 
 
             builder.Entity<Secteurs>().HasIndex(p => p.Name);

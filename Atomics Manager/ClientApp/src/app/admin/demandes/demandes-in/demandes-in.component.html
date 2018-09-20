@@ -49,11 +49,14 @@
 
         </mat-header-cell>
 
-        <mat-cell *matCellDef="let demande" class="lastcell">
+         <mat-cell *matCellDef="let demande" class="lastcell">
           <button mat-icon-button color="primary" matTooltip="Régarder" (click)="demandesView(demande)">
             <mat-icon aria-label="Edit">remove_red_eye</mat-icon>
           </button>
 
+          <button mat-icon-button color="accent" matTooltip="Factures" (click)="FacturesView(demande)">
+            <mat-icon aria-label="Edit">library_books</mat-icon>
+          </button>
 
 
         </mat-cell>

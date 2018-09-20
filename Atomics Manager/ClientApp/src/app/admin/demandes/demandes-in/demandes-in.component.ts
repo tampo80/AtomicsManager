@@ -6,6 +6,7 @@ import { DemandeService } from '../../services/demande.service';
 import { MessageboxService } from '../../services/messagebox.service';
 import { STATUT } from '../../config';
 import { DetailsDemandesInComponent } from './details-demandes-in/details-demandes-in.component';
+import { FacturesComponent } from './setFacture/factures/factures.component';
 
 @Component({
   selector: 'app-demandes-in',
@@ -112,6 +113,27 @@ demandesView(demande: Demandes) {
     data: {demande: demande},
     panelClass: 'atomics-dialog-container',
     width: '920px',
+   disableClose: true
+  });
+
+  dialogRef.afterClosed().subscribe(res => {
+    console.log(res);
+    if (res.result === 1) {
+      this.getDemandesIn();
+      /// this.messageboxService.ShowMessage("Information","Departements ajouter avec succès","",0,false,1,'500px',"info",'primary');
+    }
+  }
+
+
+  );
+}
+
+FacturesView(demande: Demandes) {
+
+  const dialogRef = this.dialog.open(FacturesComponent, {
+    data: {demande: demande},
+    panelClass: 'atomics-dialog-container',
+    width: '950px',
    disableClose: true
   });
 

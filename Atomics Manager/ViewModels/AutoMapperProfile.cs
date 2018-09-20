@@ -168,6 +168,19 @@ namespace Atomics_Manager.ViewModels {
             CreateMap<TransitionActions, TransitionActionsViewModel>()
 
           .ReverseMap();
+            CreateMap<TypeComptes, TypeComptesViewModel>()
+
+         .ReverseMap();
+            CreateMap<ComptesInternes, ComptesInternesViewModel>()
+
+         .ReverseMap();
+
+            CreateMap<Factures, FacturesViewModel>()
+
+        .ReverseMap();
+            CreateMap<Reglements, ReglementsViewModel>()
+
+        .ReverseMap();
 
         }
     }
