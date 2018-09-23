@@ -1,0 +1,154 @@
+<div fxLayout="row"  fxLayoutGap="0px" class="layout">
+  <div fxFlex="25%" f class="helppan">
+  <div class="help-container">
+      <p class="mat-title">Bon de commande</p>
+      <mat-divider></mat-divider>
+<div class="vspace"></div>
+      <p class="mat-subheading-1">
+        <b>Le bon de commande</b> est un document qui permet de définir et valider les modalités de prestation entre vendeur et acheteur, afin d'éviter les cas de contestations ultérieures. Tout comme la facture, il doit intégrer certaines mentions obligatoires
+      </p>
+    <span  class="center-icon">
+
+         <mat-icon color="accent" class="mat-18 ulistration-mat-icon">add_shopping_cart</mat-icon>
+
+    </span>
+  </div>
+
+  </div>
+  <div fxFlex="75%" >
+<div class="wrapper" fxLayout="column">
+
+
+<div class="form-header">
+
+<span class="close-button"   (click)="onNoClick()">
+  <mat-icon   aria-label="icon">clear</mat-icon>
+</span>
+
+
+</div>
+<div>
+  <table>
+    <tr>
+      <td>
+Article
+      </td>
+      <td>
+          <b>{{demande.productName}}</b>
+      </td>
+    </tr>
+    <tr>
+        <td>
+  Fournisseur
+        </td>
+        <td>
+            <b>{{productDetails.fournisseursTitre}}</b>
+        </td>
+      </tr>
+  </table>
+
+    <mat-divider></mat-divider>
+
+
+</div>
+<div class="form-container" fxFlex='1'>
+
+ <form [formGroup]="bonDeCommandeForm" class="example-form">
+
+<div flex fxLayout="row" fxLayoutGap="10px" class="example-form">
+
+    <div fxFlex="50%">
+        <mat-form-field class="example-full-width">
+
+            <input matInput formControlName="refBon"
+                   type="text"
+                   required
+                   placeholder="Réf du bon de commande" >
+
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+
+         <input matInput [matDatepicker]="picker" formControlName="dateOperation" placeholder="Date d'edition du bon">
+         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+         <mat-datepicker #picker></mat-datepicker>
+
+     </mat-form-field>
+
+     <mat-form-field class="example-full-width">
+
+           <input matInput formControlName="montant"
+                  type="text"
+                  required
+                  currencyMask
+                  placeholder="Montant du bon de commande" >
+
+     </mat-form-field>
+     <mat-form-field class="example-full-width">
+
+      <input matInput formControlName="accompte"
+             type="text"
+             required
+             currencyMask
+             placeholder="Accompte" >
+
+</mat-form-field>
+  <mat-form-field class="example-full-width">
+
+    <input matInput formControlName="penalite"
+          type="text"
+          required
+
+          placeholder="Pénalité de retard" >
+
+  </mat-form-field>
+
+    </div>
+      <div fxFlex="49%">
+
+
+     <dl>
+        <dt>Article</dt>
+        <dd>{{demande.productName}}</dd>
+
+        <dt>Fournisseur</dt>
+        <dd>{{productDetails.fournisseursTitre}}</dd>
+         <dt>Quantité</dt>
+         <dd>{{demande.quantite}}</dd>
+
+        <dt>Prix unitaire</dt>
+        <dd>{{productDetails.buyingPrice|currency:'XOF':'symbol'}}</dd>
+
+        <dt>Total HT</dt>
+        <dd>{{demande.montant|currency:'XOF':'symbol'}}</dd>
+
+    </dl>
+
+
+
+
+
+      </div>
+
+</div>
+
+
+
+
+ </form>
+</div>
+<mat-divider></mat-divider>
+
+
+<footer class="action">
+    <button mat-raised-button *ngIf="bon.id>0" (click)="PdfView(demande)"  class="action-button" color="warn">
+        Aperçu du bon
+        <mat-icon class="mat-18" >local_printshop</mat-icon>
+
+    </button>
+  <button class="action-button" color="primary" [disabled]="!bonDeCommandeForm.valid" mat-raised-button (click)="AddBonDeCommande()">{{actionLabel}}</button>
+  <button class="action-button" mat-raised-button (click)="onNoClick()">Abandonner</button>
+</footer>
+  </div>
+</div>
+
+</div>

@@ -12,6 +12,8 @@ namespace DAL.Models
         public int DemandesId { get; set; }
         public Demandes Demandes { get; set; }
         public string Montant { get; set; }
+        public int Penalite { get; set; }
+        public string Accompte { get; set; }
 
     }
 }

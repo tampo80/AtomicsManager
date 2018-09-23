@@ -1,0 +1,172 @@
+<div fxLayout="row"  fxLayoutGap="0px" class="layout">
+  <div fxFlex="25%" f class="helppan">
+  <div class="help-container">
+      <p class="mat-title">Bon de livraison</p>
+      <mat-divider></mat-divider>
+<div class="vspace"></div>
+      <p class="mat-subheading-1">
+        <b> Le bon de livraison </b>est un document comptable qui a pour but de prouver la réception par le client des marchandises livrées.
+      </p>
+    <span  class="center-icon">
+
+         <mat-icon class="mat-18 ulistration-mat-icon " color="primary">assignment_turned_in</mat-icon>
+
+    </span>
+  </div>
+
+  </div>
+  <div fxFlex="75%" >
+<div class="wrapper" fxLayout="column">
+
+
+<div class="form-header">
+
+<span class="close-button"   (click)="onNoClick()">
+  <mat-icon   aria-label="icon">clear</mat-icon>
+</span>
+
+
+</div>
+<div>
+  <table>
+    <tr>
+      <td>
+Article
+      </td>
+      <td>
+          {{demande.productName}}
+      </td>
+    </tr>
+    <tr>
+        <td>
+  Fournisseur
+        </td>
+        <td>
+            {{productDetails.fournisseursTitre}}
+        </td>
+      </tr>
+  </table>
+
+    <mat-divider></mat-divider>
+
+
+</div>
+<div class="form-container" fxFlex='1'>
+
+ <form [formGroup]="bonLivraisonForm" class="example-form">
+
+<div flex fxLayout="row" fxLayoutGap="10px" class="example-form">
+
+    <div fxFlex="50%">
+        <mat-form-field class="example-full-width">
+
+            <input matInput formControlName="refBL"
+                   type="text"
+                   required
+                   placeholder="Réf du bon de livraison">
+
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+
+         <input matInput [matDatepicker]="picker" formControlName="dateLivraison" placeholder="Date de livraison">
+         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+         <mat-datepicker #picker></mat-datepicker>
+
+     </mat-form-field>
+
+     <mat-form-field class="example-full-width">
+
+           <input matInput formControlName="livreure"
+                  type="text"
+                  required
+
+                  placeholder="Nom du Livreur">
+
+     </mat-form-field>
+
+     <mat-form-field class="example-full-width">
+      <mat-input-container floatPlaceholder="auto">
+        <textarea matInput formControlName="commentaire" required
+                  placeholder="Commentaire"></textarea>
+        <span matSuffix></span>
+    </mat-input-container>
+  </mat-form-field>
+    </div>
+      <div fxFlex="49%">
+        <mat-form-field class="example-full-width">
+
+          <input  type="text" placeholder="Contrôleur"   matInput formControlName="controleurId" [matAutocomplete]="auto">
+          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn" >
+            <mat-option *ngFor="let option of filteredUsers | async" [value]="option">
+              {{option.userName}}
+            </mat-option>
+          </mat-autocomplete>
+
+        </mat-form-field>
+
+            <section class="example-section">
+            <mat-checkbox formControlName="control"
+            class="example-margin"
+            [indeterminate]="false"
+            labelPosition="before"
+            color="primary">
+            Vérifié?
+            </mat-checkbox>
+          </section>
+
+            <section class="example-section">
+            <mat-checkbox formControlName="isInSla"
+            [indeterminate]="false"
+            class="example-margin"
+            labelPosition="before"
+            color="primary">
+            Livré dans les Délais?
+            </mat-checkbox>
+          </section>
+          <section class="example-section">
+            <mat-checkbox formControlName="matchToBon"
+                         [indeterminate]="false"
+                         class="example-margin"
+
+                         labelPosition="before"
+                         color="primary">
+                         Correspond au bon de commande?
+            </mat-checkbox>
+           </section>
+
+           <section class="example-section">
+             <star-rating-control labelText="Noter le fournisseur" staticColor="ok" [hoverEnabled]="true" formControlName="noteFournisseur" [numOfStars]="6" space="around"></star-rating-control>
+            </section>
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+
+</div>
+
+
+
+
+ </form>
+
+</div>
+<mat-divider></mat-divider>
+
+
+<footer class="action">
+  <button class="action-button" color="primary" [disabled]="!bonLivraisonForm.valid" mat-raised-button (click)="AddFacture()">{{actionLabel}}</button>
+  <button class="action-button" mat-raised-button (click)="onNoClick()">Abandonner</button>
+</footer>
+  </div>
+</div>
+
+</div>

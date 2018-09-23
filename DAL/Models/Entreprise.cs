@@ -20,6 +20,8 @@ namespace DAL.Models
         public byte[] Logo { get; set; }
 
         public string FormeJuridique { get; set; }
+
+        public ICollection<BudjetEntreprise> BudjetEntreprise { get; set; }
     }
 
     

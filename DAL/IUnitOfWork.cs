@@ -84,6 +84,15 @@ namespace DAL
         IBonDeCommandeRepository BonDeCommande { get; }
         IBonLivraisonRepository BonLivraison { get; }
 
+
+        IBudjetAgenceRepository BudjetAgence { get; }
+
+        IBudjetDepartementRepository BudjetDepartement { get; }
+
+        IBudjetEntrepriseRepository BudjetEntreprise { get; }
+        IBudjetServiceRepository BudjetService { get; }
+
+
         int SaveChanges();
         Task<int> SaveChangesAsync();
     }

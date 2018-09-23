@@ -101,14 +101,9 @@ table {
 
       white-space: unset;
     }
-    .mat-column-statut {
-      flex: 0 0 50px !important;
-      justify-content: center;
 
-
-    }
     .mat-column-actions {
-      flex: 0 0 90px !important;
+      flex: 0 0 160px !important;
       justify-content: center;
 
       white-space: unset;
@@ -120,14 +115,14 @@ table {
 
     }
     .mat-column-montant {
-      flex: 0 0 200px !important;
+      flex: 0 0 150px !important;
       justify-content: center;
       font-weight: bold;
 
     }
 
     .mat-column-currentStatName {
-      flex: 0 0 200px !important;
+      flex: 0 0 120px !important;
       justify-content: center;
       font-weight: bold;
       color: #029e89

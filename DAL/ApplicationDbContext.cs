@@ -85,6 +85,11 @@ namespace DAL
         public DbSet<BonDeCommande> BonDeCommande { get; set; }
         public DbSet<BonLivraison> BonLivraison { get; set; }
 
+        public DbSet<BudjetAgence> BudjetAgences { get; set; }
+        public DbSet<BudjetDepartement> BudjetDepartements { get; set; }
+        public DbSet<BudjetEntreprise> BudjetEntreprises { get; set; }
+        public DbSet<BudjetService> BudjetServices { get; set; }
+
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -168,6 +173,14 @@ namespace DAL
             builder.Entity<BonLivraison>().ToTable($"App{nameof(this.BonLivraison)}");
             builder.Entity<BonDeCommande>().ToTable($"App{nameof(this.BonDeCommande)}");
 
+
+
+
+            builder.Entity<BudjetService>().ToTable($"App{nameof(this.BudjetServices)}");
+            builder.Entity<BudjetEntreprise>().ToTable($"App{nameof(this.BudjetEntreprises)}");
+
+            builder.Entity<BudjetAgence>().ToTable($"App{nameof(this.BudjetAgences)}");
+            builder.Entity<BudjetDepartement>().ToTable($"App{nameof(this.BudjetDepartements)}");
 
 
             builder.Entity<Secteurs>().HasIndex(p => p.Name);

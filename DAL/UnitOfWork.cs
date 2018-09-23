@@ -84,6 +84,13 @@ namespace DAL
         IBonDeCommandeRepository _BonDeCommande;
         IBonLivraisonRepository _BonLivraison;
 
+        IBudjetAgenceRepository _BudjetAgence ;
+
+        IBudjetDepartementRepository _BudjetDepartement ;
+
+        IBudjetEntrepriseRepository _BudjetEntreprise ;
+        IBudjetServiceRepository _BudjetService ;
+
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
@@ -579,6 +586,53 @@ namespace DAL
                     _BonLivraison = new BonLivraisonRepository(_context);
 
                 return _BonLivraison;
+            }
+        }
+
+        public IBudjetAgenceRepository BudjetAgence
+        {
+            get
+            {
+                if (_BudjetAgence == null)
+                    _BudjetAgence = new BudjetAgenceRepository(_context);
+
+                return _BudjetAgence;
+            }
+        }
+
+
+
+        public IBudjetDepartementRepository BudjetDepartement
+        {
+            get
+            {
+                if (_BudjetDepartement == null)
+                    _BudjetDepartement = new BudjetDepartementRepository(_context);
+
+                return _BudjetDepartement;
+            }
+        }
+        public IBudjetEntrepriseRepository BudjetEntreprise
+        {
+            get
+            {
+                if (_BudjetEntreprise == null)
+                    _BudjetEntreprise = new BudjetEntrepriseRepository(_context);
+
+                return _BudjetEntreprise;
+            }
+        }
+
+
+
+        public IBudjetServiceRepository BudjetService
+        {
+            get
+            {
+                if (_BudjetService == null)
+                    _BudjetService = new BudjetServiceRepository(_context);
+
+                return _BudjetService;
             }
         }
 

@@ -14,7 +14,7 @@
       </ng-container>
       <ng-container matColumnDef="dateDemande">
         <mat-header-cell *matHeaderCellDef mat-sort-header>Date de la demande </mat-header-cell>
-        <mat-cell *matCellDef="let demande"> {{demande.dateDemande| date:'dd MMMM yyyy à HH:mm'}} </mat-cell>
+        <mat-cell *matCellDef="let demande"> {{demande.dateDemande| date:'dd/MM/yyyy à HH:mm'}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="productName">
         <mat-header-cell *matHeaderCellDef mat-sort-header> La demande </mat-header-cell>
@@ -54,8 +54,14 @@
             <mat-icon aria-label="Edit">remove_red_eye</mat-icon>
           </button>
 
-          <button mat-icon-button color="accent" matTooltip="Factures" (click)="FacturesView(demande)">
-            <mat-icon aria-label="Edit">library_books</mat-icon>
+          <button mat-icon-button color="warn" matTooltip="Factures" (click)="FacturesView(demande)">
+            <mat-icon aria-label="Edit">description</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" matTooltip="Bon de Livraison" (click)="BonLView(demande)">
+            <mat-icon aria-label="Edit">assignment_turned_in</mat-icon>
+          </button>
+          <button mat-icon-button color="accent" matTooltip="Bon de commandes" (click)="BonCView(demande)">
+            <mat-icon aria-label="Edit">add_shopping_cart</mat-icon>
           </button>
 
 

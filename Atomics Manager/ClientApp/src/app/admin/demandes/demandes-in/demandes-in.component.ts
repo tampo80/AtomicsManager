@@ -7,6 +7,8 @@ import { MessageboxService } from '../../services/messagebox.service';
 import { STATUT } from '../../config';
 import { DetailsDemandesInComponent } from './details-demandes-in/details-demandes-in.component';
 import { FacturesComponent } from './setFacture/factures/factures.component';
+import { SetBonCommandeComponent } from './set-bon-commande/set-bon-commande.component';
+import { SetBonLivraisonComponent } from './set-bon-livraison/set-bon-livraison.component';
 
 @Component({
   selector: 'app-demandes-in',
@@ -131,6 +133,46 @@ demandesView(demande: Demandes) {
 FacturesView(demande: Demandes) {
 
   const dialogRef = this.dialog.open(FacturesComponent, {
+    data: {demande: demande},
+    panelClass: 'atomics-dialog-container',
+    width: '950px',
+   disableClose: true
+  });
+
+  dialogRef.afterClosed().subscribe(res => {
+    console.log(res);
+    if (res.result === 1) {
+      this.getDemandesIn();
+      /// this.messageboxService.ShowMessage("Information","Departements ajouter avec succès","",0,false,1,'500px',"info",'primary');
+    }
+  }
+
+
+  );
+}
+BonLView(demande: Demandes) {
+
+  const dialogRef = this.dialog.open(SetBonLivraisonComponent, {
+    data: {demande: demande},
+    panelClass: 'atomics-dialog-container',
+    width: '950px',
+   disableClose: true
+  });
+
+  dialogRef.afterClosed().subscribe(res => {
+    console.log(res);
+    if (res.result === 1) {
+      this.getDemandesIn();
+      /// this.messageboxService.ShowMessage("Information","Departements ajouter avec succès","",0,false,1,'500px',"info",'primary');
+    }
+  }
+
+
+  );
+}
+BonCView(demande: Demandes) {
+
+  const dialogRef = this.dialog.open(SetBonCommandeComponent, {
     data: {demande: demande},
     panelClass: 'atomics-dialog-container',
     width: '950px',

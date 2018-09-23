@@ -12,11 +12,15 @@ namespace DAL.Models
         public string  Name { get; set; }
         public string Description { get; set; } 
 
+
         public ApplicationUser Head { get; set; }  
 //navigation prop
          public ICollection<EntrepriseUserInfos> EntrepriseUserInfos { get; set; }
 
-         public Departements Departements { get; set; }
+
+        public ICollection<BudjetService> BudjetService { get; set; }
+
+        public Departements Departements { get; set; }
   
     }
 }

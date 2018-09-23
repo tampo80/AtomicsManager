@@ -178,7 +178,12 @@ namespace Atomics_Manager.ViewModels {
             CreateMap<Factures, FacturesViewModel>()
 
         .ReverseMap();
-            CreateMap<Reglements, ReglementsViewModel>()
+
+        CreateMap<Reglements, ReglementsViewModel>()
+
+        .ReverseMap();
+
+        CreateMap<BonDeCommande, BonDeCommandeViewModel>()
 
         .ReverseMap();
 

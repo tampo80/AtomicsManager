@@ -9,11 +9,14 @@ namespace DAL.Models
 
         public string   Description { get; set; }      
 
+
         //navigation
          public ICollection<Services> Services { get; set; }
 
          public ICollection<EntrepriseUserInfos> Head { get; set; }
-        
+
+        public ICollection<BudjetDepartement> BudjetDepartement { get; set; }
+
 
     }
 }

@@ -18,6 +18,15 @@
    </div>
 
 <div fxFlex="68%" class="full-h">
+
+    <div class="form-header">
+
+        <span class="close-button"   (click)="onNoClick()">
+          <mat-icon   aria-label="icon">clear</mat-icon>
+        </span>
+
+
+        </div>
   <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
   <mat-tab-group [disableRipple]="false">
       <mat-tab label="Demande">
@@ -203,7 +212,7 @@
   <mat-card-actions class="action" align="end">
 
     <button mat-raised-button [disabled]="!demadeForm.valid" (click)="rejectDemande()" color="warn">
-        Regeter
+        Rejeter
         <mat-icon class="mat-18">delete</mat-icon>
 
     </button>

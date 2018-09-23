@@ -428,6 +428,8 @@ namespace AtomicsManager.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Accompte");
+
                     b.Property<string>("CreatedBy")
                         .HasMaxLength(256);
 
@@ -438,6 +440,8 @@ namespace AtomicsManager.Migrations
                     b.Property<int>("DemandesId");
 
                     b.Property<string>("Montant");
+
+                    b.Property<int>("Penalite");
 
                     b.Property<string>("RefBon");
 
@@ -495,6 +499,142 @@ namespace AtomicsManager.Migrations
                     b.HasIndex("DemandesId");
 
                     b.ToTable("AppBonLivraison");
+                });
+
+            modelBuilder.Entity("DAL.Models.BudjetAgence", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("AgencesId");
+
+                    b.Property<DateTime>("Annees");
+
+                    b.Property<double>("BudjetCapex");
+
+                    b.Property<double>("BudjetOpex");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<double>("LigneCapex");
+
+                    b.Property<double>("LigneOpex");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AgencesId");
+
+                    b.ToTable("AppBudjetAgences");
+                });
+
+            modelBuilder.Entity("DAL.Models.BudjetDepartement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Annees");
+
+                    b.Property<double>("BudjetCapex");
+
+                    b.Property<double>("BudjetOpex");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int>("DepartementsId");
+
+                    b.Property<double>("LigneCapex");
+
+                    b.Property<double>("LigneOpex");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DepartementsId");
+
+                    b.ToTable("AppBudjetDepartements");
+                });
+
+            modelBuilder.Entity("DAL.Models.BudjetEntreprise", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Annees");
+
+                    b.Property<double>("BudjetCapex");
+
+                    b.Property<double>("BudjetOpex");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<int>("EntrepriseId");
+
+                    b.Property<double>("LigneCapex");
+
+                    b.Property<double>("LigneOpex");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EntrepriseId");
+
+                    b.ToTable("AppBudjetEntreprises");
+                });
+
+            modelBuilder.Entity("DAL.Models.BudjetService", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Annees");
+
+                    b.Property<double>("BudjetCapex");
+
+                    b.Property<double>("BudjetOpex");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("CreatedDate");
+
+                    b.Property<double>("LigneCapex");
+
+                    b.Property<double>("LigneOpex");
+
+                    b.Property<int>("ServicesId");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(256);
+
+                    b.Property<DateTime>("UpdatedDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServicesId");
+
+                    b.ToTable("AppBudjetServices");
                 });
 
             modelBuilder.Entity("DAL.Models.ComptesInternes", b =>
@@ -1789,6 +1929,38 @@ namespace AtomicsManager.Migrations
                     b.HasOne("DAL.Models.Demandes", "Demandes")
                         .WithMany("BonLivraison")
                         .HasForeignKey("DemandesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.BudjetAgence", b =>
+                {
+                    b.HasOne("DAL.Models.Agences", "Agences")
+                        .WithMany("BudjetAgence")
+                        .HasForeignKey("AgencesId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.BudjetDepartement", b =>
+                {
+                    b.HasOne("DAL.Models.Departements", "Departements")
+                        .WithMany("BudjetDepartement")
+                        .HasForeignKey("DepartementsId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.BudjetEntreprise", b =>
+                {
+                    b.HasOne("DAL.Models.Entreprise", "Entreprise")
+                        .WithMany("BudjetEntreprise")
+                        .HasForeignKey("EntrepriseId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("DAL.Models.BudjetService", b =>
+                {
+                    b.HasOne("DAL.Models.Services", "Services")
+                        .WithMany("BudjetService")
+                        .HasForeignKey("ServicesId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

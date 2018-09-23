@@ -9,7 +9,7 @@ namespace Atomics_Manager.ViewModels
     {
         public int Id { get; set; }
         public string RefBL { get; set; }
-        public string Demandes { get; set; }
+        public string DemandesName { get; set; }
         public int DemandesId { get; set; }
         public string Livreure { get; set; }
         public DateTime DateLivraison { get; set; }

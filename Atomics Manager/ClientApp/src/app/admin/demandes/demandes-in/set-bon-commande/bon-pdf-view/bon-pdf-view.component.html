@@ -1,0 +1,114 @@
+<div class="header">
+    <span  class="action-button" matTooltip="Enregister le bon"   (click)="saveToPdf()">
+        <mat-icon  color="warn" aria-label="icon">save</mat-icon>
+      </span>
+      <span  class="action-button" matTooltip="imprimer le bon"    (click)="onNoClick()">
+          <mat-icon color="primary"   aria-label="icon">local_printshop</mat-icon>
+        </span>
+  <span class="close-button"   (click)="onNoClick()">
+    <mat-icon   aria-label="icon">clear</mat-icon>
+  </span>
+</div>
+<mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+<div class="wrapper">
+  <!-- <pdf-viewer [src]="pdfSrc"
+          [render-text]="false"
+
+          style="display: block;"
+          (on-progress)="onProgress($event)"
+          (after-load-complete)="callBackFn($event)"
+></pdf-viewer> -->
+<div id="content" #content>
+
+</div>
+<div >
+    <html>
+        <div id="contentToConvert">
+        <head>
+          <meta charset="utf-8">
+          <title>Bon de commande</title>
+
+        </head>
+        <body>
+          <header>
+            <h1>Bon de commande</h1>
+            <address contenteditable>
+              <p>{{fournisseurs.nomSociete}}</p>
+              <p>{{fournisseurs.adresse}}</p>
+              <p>Tel:{{fournisseurs.phoneNumber}}</p>
+            </address>
+            <span><img alt="" [src]="imageToShow"><input type="file" accept="image/*"></span>
+          </header>
+          <article>
+            <h2>Fournisseur</h2>
+            <br>
+            <address contenteditable>
+                <p>{{fournisseurs.nomSociete}}</p>
+                <p>{{fournisseurs.adresse}}</p>
+                <p>Tel:{{fournisseurs.phoneNumber}}</p>
+            </address>
+            <table class="meta">
+              <tr>
+                <th><span contenteditable>Bon de commande #</span></th>
+                <td><span contenteditable>{{bon.refBon}}</span></td>
+              </tr>
+              <tr>
+                <th><span contenteditable>Date</span></th>
+                <td><span contenteditable>{{bon.dateOperation| date:'dd/MM/yyyy'}}</span></td>
+              </tr>
+              <tr>
+                <th><span contenteditable>Montant</span></th>
+                <td>{{bon.montant|currency:'XOF':'symbol'}}</td>
+              </tr>
+            </table>
+            <table class="inventory">
+              <thead>
+                <tr>
+                  <th><span contenteditable>Article</span></th>
+                  <th><span contenteditable>Description</span></th>
+                  <th><span contenteditable>Prix U.</span></th>
+                  <th><span contenteditable>Quantité</span></th>
+                  <th><span contenteditable>Prix</span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span contenteditable>{{productDetails.name}}</span></td>
+                  <td><span contenteditable>{{productDetails.description}}</span></td>
+                  <td>{{productDetails.buyingPrice|currency:'XOF':'symbol'}}</td>
+                  <td><span contenteditable>4</span></td>
+                  <td>{{bon.montant|currency:'XOF':'symbol'}}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <table class="balance">
+              <tr>
+                <th><span contenteditable>Total</span></th>
+                <td>{{bon.montant|currency:'XOF':'symbol'}}</td>
+              </tr>
+              <tr>
+                <th><span contenteditable>Acompte</span></th>
+                <td>{{bon.accompte|currency:'XOF':'symbol'}}</td>
+              </tr>
+              <tr>
+                <th><span contenteditable>Toltal restant</span></th>
+                <td>{{bon.montant-bon.accompte|currency:'XOF':'symbol'}}</td>
+              </tr>
+            </table>
+          </article>
+          <aside *ngIf="bon.penalite>0">
+            <h1><span contenteditable> N.B.</span></h1>
+            <div contenteditable>
+              <p>Pénalité de {{bon.penalite}}% par jour de retard de livraison</p>
+            </div>
+          </aside>
+          <article>
+            <br>
+            <hr>
+            <img [src]="productDetails.sicone" alt="">
+          </article>
+        </body>
+        </div>
+      </html>
+</div>

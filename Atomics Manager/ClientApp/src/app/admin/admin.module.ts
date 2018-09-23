@@ -89,7 +89,11 @@ import { CurrencyMaskService } from './services/currency-mask.service';
 import { FacturationComponent } from './comptabilite/factures/facturation/facturation.component';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-
+import { SetBonCommandeComponent } from './demandes/demandes-in/set-bon-commande/set-bon-commande.component';
+import { SetBonLivraisonComponent } from './demandes/demandes-in/set-bon-livraison/set-bon-livraison.component';
+import { BonPdfViewComponent } from './demandes/demandes-in/set-bon-commande/bon-pdf-view/bon-pdf-view.component';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { StarRatingModule } from 'angular-star-rating';
 registerLocaleData(localeFr);
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -128,6 +132,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     CurrencyMaskModule,
     NgxGraphModule,
     NgxChartsModule,
+    PdfViewerModule,
+    StarRatingModule.forRoot()
 
   ],
   declarations: [
@@ -218,6 +224,18 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 
 
+    SetBonCommandeComponent,
+
+
+
+    SetBonLivraisonComponent,
+
+
+
+    BonPdfViewComponent,
+
+
+
 
 
   ],
@@ -289,9 +307,15 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
 
 
     AddComptesInternesDialogComponent,
+    SetBonCommandeComponent,
 
+
+
+    SetBonLivraisonComponent,
 
     EditComptesInternesDialogComponent,
+
+    BonPdfViewComponent,
 
   ]
 })
