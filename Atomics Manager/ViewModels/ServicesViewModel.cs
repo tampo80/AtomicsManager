@@ -15,5 +15,7 @@ namespace Atomics_Manager.ViewModels{
         public int departementsId { get; set; }
 
         public string departementsName { get; set; }
+        public string BudjetCapex { get; set; }
+        public string BudjetOpex { get; set; }
     }
 }

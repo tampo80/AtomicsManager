@@ -62,6 +62,13 @@ namespace Atomics_Manager.Controllers
                 {
                     Departements _departements = Mapper.Map<Departements>(departements);
                     //_departements.Name = _departements.Name.ToUpper();
+                    _departements.BudjetDepartement.Add(new BudjetDepartement
+                    {
+                        Annees = DateTime.Now,
+                        BudjetCapex = departements.BudjetCapex,
+                        BudjetOpex = departements.BudjetOpex,
+                        DepartementsId = departements.Id
+                    });
                     _unitOfWork.Departements.Add(_departements);
                     await _unitOfWork.SaveChangesAsync();
                     return Ok("OK");

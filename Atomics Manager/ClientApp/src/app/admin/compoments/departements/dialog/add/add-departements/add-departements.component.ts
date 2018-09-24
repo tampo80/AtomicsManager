@@ -28,7 +28,9 @@ export class AddDepartementsComponent implements OnInit {
   formErrors = {
 
     name: '',
-    description: ''
+    description: '',
+    budjetCapex: '',
+    budjetOpex: ''
   };
   matcher = new FormErrorStateMatcher();
 
@@ -50,7 +52,9 @@ createForm() {
   this.DepartementsForm = this.fb.group(
     {
       name: ['', Validators.required],
-      description: ['', Validators.required]
+      description: ['', Validators.required],
+      budjetOpex: ['', Validators.required],
+      budjetCapex: ['', Validators.required]
 
     });
 

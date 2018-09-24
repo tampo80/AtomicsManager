@@ -50,6 +50,7 @@ namespace Atomics_Manager.Controllers {
                 try {
                     Devises _devises = Mapper.Map<Devises> (devises);
                     _devises.Label = _devises.Label.ToUpper ();
+                    
                     _unitOfWork.Devises.Add (_devises);
                     await _unitOfWork.SaveChangesAsync ();
                     return Ok ("OK");

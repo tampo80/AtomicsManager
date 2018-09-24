@@ -19,5 +19,8 @@ namespace Atomics_Manager.ViewModels{
         public byte[] Logo { get; set; }
 
         public string FormeJuridique { get; set; }
+
+        public string BudjetCapex { get; set; }
+        public string BudjetOpex { get; set; }
     }
 }

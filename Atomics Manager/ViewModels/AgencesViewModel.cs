@@ -20,5 +20,9 @@ namespace Atomics_Manager.ViewModels {
         public int VillesId { get; set; }
         public int paysId { get; set; }
         public string VillesName { get; set; }
+
+        public string BudjetCapex { get; set; }
+        public string BudjetOpex { get; set; }
     }
+
 }

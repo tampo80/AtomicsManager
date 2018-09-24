@@ -94,7 +94,8 @@ export class DepartementsComponent implements OnInit, AfterViewInit {
 
     const dialogRef = this.dialog.open(AddDepartementsComponent, {
       data: {departements: ''},
-     width: '600px',
+     width: '750px',
+     panelClass: 'atomics-dialog-container',
      disableClose: true
     });
 
@@ -114,7 +115,8 @@ export class DepartementsComponent implements OnInit, AfterViewInit {
      console.log(departements);
     const dialogRef = this.dialog.open(EditDepartementsComponent, {
       data: {departements: departements},
-     width: '600px',
+     width: '750px',
+     panelClass: 'atomics-dialog-container',
      disableClose: true
     });
 

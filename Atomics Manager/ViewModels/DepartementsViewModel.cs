@@ -13,5 +13,8 @@ namespace Atomics_Manager.ViewModels {
         public string Description { get; set; }
 
         public string   HeadName { get; set; }
+
+        public double BudjetCapex { get; set; }
+        public double BudjetOpex { get; set; }
     }
 }

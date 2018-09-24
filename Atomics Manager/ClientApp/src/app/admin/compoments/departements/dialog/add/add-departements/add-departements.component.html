@@ -1,45 +1,34 @@
+<div fxLayout="row" fxLayoutGap="0px" class="layout">
+  <div fxFlex="35%" f class="helppan">
+    <div class="help-container">
+      <p class="mat-title">Nouveau département</p>
+      <mat-divider></mat-divider>
+      <div class="vspace"></div>
+      <p class="mat-subheading-1">
+        Les activiteus est l’ensemble des actions dans une chaine d’approbation
+      </p>
+      <span class="center-icon">
+
+        <mat-icon class="mat-18 ulistration-mat-icon">flash_auto</mat-icon>
+
+      </span>
+    </div>
+
+  </div>
+  <div fxFlex="65%">
+    <div class="wrapper" fxLayout="column">
 
 
-   <mat-toolbar color="primary">
-      Ajouter un nouveau département
+      <div class="form-header">
 
-  </mat-toolbar>
-
-  <mat-divider></mat-divider>
-
-  <mat-card>
+        <span class="close-button" (click)="onNoClick()">
+          <mat-icon aria-label="icon">clear</mat-icon>
+        </span>
 
 
-  <mat-card-content>
-      <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="DepartementsForm" >
-
-
-
-
-
-
-
-
-
-
-
-                    <mat-form-field class="example-full-width">
-                            <input [errorStateMatcher]="matcher" matInput   placeholder="Nom"  formControlName='name' >
-                            <mat-error *ngIf="formErrors.name  ">{{formErrors.name}}</mat-error>
-                            <mat-error *ngIf="DepartementsForm.hasError('name') && DepartementsForm.get('name').errors.required && !formErrors.name">{{validationMessages.name.required}}</mat-error>
-
-                    </mat-form-field>
-
-                    <mat-form-field class="example-full-width">
-                       <mat-input-container floatPlaceholder="auto">
-                           <textarea matInput matTextareaAutosize formControlName="description"
-                                     placeholder=""></textarea>
-                       </mat-input-container>
-                       <mat-error *ngIf="formErrors.description">{{formErrors.description}}</mat-error>
-
-                   </mat-form-field>
-
-                    <br>
+      </div>
+      <div class="form-container" fxFlex='1'>
+        <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="DepartementsForm">
 
 
 
@@ -51,13 +40,54 @@
 
 
 
-      </form>
-  </mat-card-content>
+          <mat-form-field class="example-full-width">
+            <input [errorStateMatcher]="matcher" matInput placeholder="Nom" formControlName='name'>
+            <mat-error *ngIf="formErrors.name  ">{{formErrors.name}}</mat-error>
+            <mat-error *ngIf="DepartementsForm.hasError('name') && DepartementsForm.get('name').errors.required && !formErrors.name">{{validationMessages.name.required}}</mat-error>
 
-  <mat-card-actions align="end">
-      <button mat-raised-button (click)="onSubmit()" [disabled]="!DepartementsForm.valid" color="primary" >Ajouter</button>
-      <button mat-raised-button (click)="onNoClick()" tabindex="-1" color="basic">fermer</button>
+          </mat-form-field>
 
-  </mat-card-actions>
 
-  </mat-card>
+          <mat-form-field class="example-full-width">
+            <input [errorStateMatcher]="matcher" currencyMask matInput placeholder="Budjet CAPEX" formControlName='budjetCapex'>
+            <mat-error *ngIf="formErrors.budjetCapex  ">{{formErrors.budjetCapex}}</mat-error>
+            <mat-error *ngIf="DepartementsForm.hasError('budjetCapex') && DepartementsForm.get('budjetCapex').errors.required && !formErrors.budjetCapex">{{validationMessages.budjetCapex.required}}</mat-error>
+
+          </mat-form-field>
+          <mat-form-field class="example-full-width">
+            <input [errorStateMatcher]="matcher" currencyMask  matInput placeholder="Budjet OPEX" formControlName='budjetOpex'>
+            <mat-error *ngIf="formErrors.budjetOpex  ">{{formErrors.budjetOpex}}</mat-error>
+            <mat-error *ngIf="DepartementsForm.hasError('budjetOpex') && DepartementsForm.get('budjetOpex').errors.required && !formErrors.budjetOpex">{{validationMessages.budjetOpex.required}}</mat-error>
+
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width">
+            <mat-input-container floatPlaceholder="auto">
+              <textarea matInput matTextareaAutosize formControlName="description" placeholder="Description"></textarea>
+            </mat-input-container>
+            <mat-error *ngIf="formErrors.description">{{formErrors.description}}</mat-error>
+
+          </mat-form-field>
+          <br>
+
+
+
+
+
+
+
+
+
+
+
+        </form>
+      </div>
+      <mat-divider></mat-divider>
+      <footer class="action">
+        <button class="action-button" [disabled]="!DepartementsForm.valid" mat-raised-button (click)="onSubmit()">Créer</button>
+        <button class="action-button" mat-raised-button (click)="onNoClick()">Abandonner</button>
+      </footer>
+    </div>
+  </div>
+
+</div>
