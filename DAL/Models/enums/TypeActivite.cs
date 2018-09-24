@@ -9,6 +9,13 @@ namespace DAL.Models.enums
         Commenter,
         EnvoyerMail,
         AjouterStakeholders,
-        RetirerStakeholders
+        RetirerStakeholders,
+        SaisieBon,
+        SaisieFacture,
+        ValiderFacture,
+        ValiderBon,
+        SaisieLivraison,
+        ValiderLivraison,
+
     }
 }

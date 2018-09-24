@@ -70,12 +70,15 @@ export class SetBonLivraisonComponent implements OnInit {
   yesNo: any[];
   members: User[] = [];
   filteredUsers: Observable<User[]>;
+
+  selectedController: User = new User();
+
   constructor(private accountService: AccountService, private bonLivraisonService: BonLivraisonService,  private dateAdapter: DateAdapter<Date>, private messageboxService: MessageboxService, private entrepriseUserinfos: EntrepriseUserInfosService, private articleService: ArticlesService, private demandeServices: DemandeService, private userServices: UserService, private fb: FormBuilder, public dialogRef: MatDialogRef<SetBonLivraisonComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.BL = new BonLivraison();
 
     this.dateAdapter.setLocale('fr');
     this.demande = this.data.demande;
-    this.getBonLivraison(this.demande.id);
+
     this.getUserInfo(this.demande.userId);
     this.getProductDetaile(this.demande.productId);
     this.getWorkFlow(this.demande.id);
@@ -91,9 +94,13 @@ export class SetBonLivraisonComponent implements OnInit {
   getUsers() {
     this.accountService.getUsers().subscribe(res => {
       this.members = res;
+      this.getBonLivraison(this.demande.id);
     });
   }
 
+  getSelectedController(id) {
+    return this.members.find(e => e.id === id);
+  }
 
     ngOnInit() {
 
@@ -129,7 +136,7 @@ export class SetBonLivraisonComponent implements OnInit {
       livreure: [''],
       dateLivraison: [moment()],
       isInSla: [''],
-      control: [''],
+      control: ['', Validators.required],
       controleurId: [''],
       controleurUserName: [''],
       matchToBon: [''],
@@ -154,8 +161,9 @@ export class SetBonLivraisonComponent implements OnInit {
         this.bonLivraisonForm.get('dateLivraison').setValue(this.BL.dateLivraison);
         this.bonLivraisonForm.get('controleurUserName').setValue(this.BL.controleurUserName);
         this.bonLivraisonForm.get('control').setValue(this.BL.control);
+        this.bonLivraisonForm.get('commentaire').setValue(this.BL.commentaire);
         this.bonLivraisonForm.get('noteFournisseur').setValue(this.BL.noteFournisseur);
-        this.bonLivraisonForm.get('controleurId').setValue(this.BL.controleurId);
+        this.bonLivraisonForm.get('controleurId').setValue(this.getSelectedController(this.BL.controleurId));
       //  this.bonLivraisonForm.get('').setValue(this.BL.libele);
       }
     });
@@ -207,15 +215,18 @@ export class SetBonLivraisonComponent implements OnInit {
   AddLivraison () {
     const bonLivraison = new BonLivraison();
     bonLivraison.id = this.BL.id;
-    bonLivraison.isInSla =  this.bonLivraisonForm.get('isInSla').value();
-    bonLivraison.matchToBon =  this.bonLivraisonForm.get('matchToBon').value();
-    bonLivraison.refBL = this.bonLivraisonForm.get('refBL').value();
-    bonLivraison.livreure = this.bonLivraisonForm.get('livreure').value();
-    bonLivraison.dateLivraison = this.bonLivraisonForm.get('dateLivraison').value();
-    bonLivraison.controleurUserName = this.bonLivraisonForm.get('controleurUserName').value();
-    bonLivraison.commentaire = this.bonLivraisonForm.get('control').value();
-    bonLivraison.noteFournisseur = this.bonLivraisonForm.get('noteFournisseur').value();
-    bonLivraison.controleurId = this.bonLivraisonForm.get('controleurId').value();
+    bonLivraison.isInSla =  this.bonLivraisonForm.get('isInSla').value;
+    bonLivraison.matchToBon =  this.bonLivraisonForm.get('matchToBon').value;
+    bonLivraison.refBL = this.bonLivraisonForm.get('refBL').value;
+    bonLivraison.livreure = this.bonLivraisonForm.get('livreure').value;
+    bonLivraison.dateLivraison = this.bonLivraisonForm.get('dateLivraison').value;
+    bonLivraison.controleurUserName = this.bonLivraisonForm.get('controleurUserName').value;
+    bonLivraison.control = this.bonLivraisonForm.get('control').value;
+    bonLivraison.commentaire = this.bonLivraisonForm.get('commentaire').value;
+    bonLivraison.noteFournisseur = this.bonLivraisonForm.get('noteFournisseur').value;
+    bonLivraison.controleurId = this.bonLivraisonForm.get('controleurId').value.id;
+    bonLivraison.demandesId = this.demande.id;
+
 
 
     // approbationWorkflow.globalStatut=3;

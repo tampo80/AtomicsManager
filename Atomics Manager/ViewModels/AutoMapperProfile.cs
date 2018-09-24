@@ -187,6 +187,10 @@ namespace Atomics_Manager.ViewModels {
 
         .ReverseMap();
 
+        CreateMap<BonLivraison, BonLivraisonViewModel>()
+
+        .ReverseMap();
+
         }
     }
 }

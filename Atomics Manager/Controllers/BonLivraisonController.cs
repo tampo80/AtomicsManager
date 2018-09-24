@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Atomics_Manager.ViewModels;
 using AutoMapper;
 using DAL;
+using DAL.Core.Interfaces;
 using DAL.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -18,10 +19,12 @@ namespace Atomics_Manager.Controllers
     {
         private IUnitOfWork _unitOfWork;
         readonly ILogger _logger;
-        public BonLivraisonController(IUnitOfWork unitOfWork, ILogger<PaysController> logger)
+        private readonly IAccountManager _accountManager;
+        public BonLivraisonController(IAccountManager accountManager, IUnitOfWork unitOfWork, ILogger<PaysController> logger)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _accountManager = accountManager;
 
         }
         // GET: api/BonLivraison
@@ -51,7 +54,10 @@ namespace Atomics_Manager.Controllers
                 {
 
                     BonLivraison _bonLivraison = Mapper.Map<BonLivraison>(bonLivraison);
-
+                    Demandes _demande = _unitOfWork.Demandes.GetSingleOrDefault(e => e.Id == bonLivraison.DemandesId);
+                    ApplicationUser controleur = await _accountManager.GetUserByIdAsync(bonLivraison.ControleurId);
+                    _bonLivraison.Controleur = controleur;
+                    _bonLivraison.Demandes = _demande;
                     //_bonLivraison.Name = _bonLivraison.Name.ToUpper ();
                     await _unitOfWork.BonLivraison.AddAsync(_bonLivraison);
                     return Ok(await _unitOfWork.SaveChangesAsync());
@@ -76,11 +82,10 @@ namespace Atomics_Manager.Controllers
                 {
 
                     BonLivraison _bonLivraison = Mapper.Map<BonLivraison>(bonLivraison);
-                    Demandes dmd = _unitOfWork.Demandes.GetSingleOrDefault(e => e.Id == bonLivraison.DemandesId);
-                   // ComptesInternes ci = _unitOfWork.ComptesInternes.GetSingleOrDefault(e => e.Id == bonLivraison.ComptesInternesId);
-                   // _bonLivraison.ComptesInternes = ci;
-                    _bonLivraison.Demandes = dmd;
-
+                    Demandes _demande = _unitOfWork.Demandes.GetSingleOrDefault(e => e.Id == bonLivraison.DemandesId);
+                    ApplicationUser controleur = await _accountManager.GetUserByIdAsync(bonLivraison.ControleurId);
+                    _bonLivraison.Controleur = controleur;
+                    _bonLivraison.Demandes = _demande;
                     //_bonLivraison.Name = _bonLivraison.Name.ToUpper ();
                     _unitOfWork.BonLivraison.Update(_bonLivraison);
 

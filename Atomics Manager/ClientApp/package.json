@@ -59,6 +59,7 @@
     "ngx-rating": "0.0.9",
     "ngx-tooltip": "0.0.9",
     "npm": "^5.6.0",
+    "pdfjs-dist": "^2.0.489",
     "rxjs": "^6.2.1",
     "rxjs-compat": "^6.0.0-rc.0",
     "zone.js": "^0.8.26"
@@ -86,6 +87,10 @@
     "typescript": "~2.7.2"
   },
   "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "stream": false,
     "zlib": false
   }
 }

@@ -17,7 +17,8 @@ export class AddTypeComptesDialogComponent implements OnInit {
   public natureComptes: any[];
   constructor( private typeComptesServices: TypeComptesService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddTypeComptesDialogComponent>, @Inject(MAT_DIALOG_DATA)public data: any) {
 
-        this.natureComptes = enumSelector(NatureCompte);
+
+    this.natureComptes = enumSelector(NatureCompte);
    }
 
   ngOnInit() {

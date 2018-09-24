@@ -18,6 +18,7 @@
                 <mat-cell *matCellDef="let fournisseurs"> {{fournisseurs.nomSociete}} </mat-cell>
               </ng-container>
 
+
                 <ng-container matColumnDef="formeJuridique">
                     <mat-header-cell *matHeaderCellDef mat-sort-header> Forme juridique </mat-header-cell>
                     <mat-cell *matCellDef="let fournisseurs"> {{getformJuridique(fournisseurs.formeJuridique)}} </mat-cell>

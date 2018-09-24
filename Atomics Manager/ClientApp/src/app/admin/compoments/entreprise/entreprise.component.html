@@ -28,10 +28,10 @@
         <mat-card-content>
           <form fxLayout="column" (ngSubmit)="onSubmit()" [formGroup]="EntrepriseForm">
             <mat-form-field class="full-width">
-              <input matInput placeholder="Poste occupé" formControlName="titre" required >
+              <input matInput placeholder="Titre" formControlName="titre" required >
             </mat-form-field>
             <mat-form-field class="full-width">
-              <input matInput placeholder="Nom d'utilisateur" formControlName="name" required>
+              <input matInput placeholder="Nom de la structure" formControlName="name" required>
             </mat-form-field>
             <mat-form-field class="full-width">
               <input matInput placeholder="Adresse électronique"  formControlName="email" required>
@@ -45,7 +45,7 @@
 
             </mat-form-field>
             <mat-form-field class="full-width">
-              <input matInput placeholder="Nom complet"  formControlName="webSite" required>
+              <input matInput placeholder="Site Web"  formControlName="webSite" required>
             </mat-form-field>
             <mat-form-field class="full-width">
               <input matInput placeholder="Téléphone #"  formControlName="tel" required>
