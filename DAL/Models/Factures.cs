@@ -23,6 +23,7 @@ namespace DAL.Models
         public EtatFacture EtatFacture { get; set; }
         public string Montant { get; set; }
 
+        public byte[] Fichier { get; set; }
         public ICollection<Reglements> Reglements { get; set; }
 
     }

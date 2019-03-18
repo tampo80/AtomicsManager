@@ -1,10 +1,12 @@
 import { Component, OnInit, AfterViewInit, ViewChild } from '@angular/core';
 import { Departements } from '../../models/departements';
-import { MatPaginator, MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource, MatDialog, MatIconRegistry } from '@angular/material';
 import { DepartementsService } from '../../services/departements.service';
 import { MessageboxService } from '../../services/messagebox.service';
 import { AddDepartementsComponent } from './dialog/add/add-departements/add-departements.component';
 import { EditDepartementsComponent } from './dialog/edit/edit-departements/edit-departements.component';
+import { DomSanitizer } from '@angular/platform-browser';
+import { SetHeadDepartementComponent } from './dialog/set-head-departement/set-head-departement.component';
 
 @Component({
   selector: 'app-departements',
@@ -19,11 +21,12 @@ export class DepartementsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   public result: any;
   dataSource = new MatTableDataSource();
-  displayedColumns = ['id', 'name', 'description', 'headName', 'actions'];
+  displayedColumns = ['id', 'name', 'description', 'headName', 'budjetCapex', 'budjetOpex', 'actions'];
   isLoading: boolean;
 
-  constructor(private departementsService: DepartementsService, private messageboxService: MessageboxService, private dialog: MatDialog) {
+  constructor( private departementsService: DepartementsService, private messageboxService: MessageboxService, private dialog: MatDialog) {
     this.isLoading = true;
+
    }
 
   ngOnInit() {
@@ -88,6 +91,26 @@ export class DepartementsComponent implements OnInit, AfterViewInit {
   });
 
 
+}
+setHeadDepartements() {
+
+  const dialogRef = this.dialog.open(SetHeadDepartementComponent, {
+    data: {departements: ''},
+   width: '750px',
+   panelClass: 'atomics-dialog-container',
+   disableClose: true
+  });
+
+  dialogRef.afterClosed().subscribe(res =>  {
+    console.log(res);
+    if (res.result === 1) {
+      this.getDepartements();
+      this.messageboxService.ShowMessage('Information', 'Departements ajouter avec succès', '', 0, false, 1, '500px', 'info', 'primary');
+    }
+  }
+
+
+  );
 }
 
   addNewDepartements() {

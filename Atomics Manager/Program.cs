@@ -40,8 +40,17 @@ namespace Atomics_Manager
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                 .UseUrls("http://localhost:2829")
+                
+                .ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    // delete all default configuration providers
+                    config.Sources.Clear();
+                    config.AddJsonFile("hosting.json", optional: true);
+                    config.AddJsonFile("appsettings.json", optional: true);
+                    config.AddJsonFile("appsettings.Development.json", optional: true);
+                })
                 .UseStartup<Startup>()
+                .UseUrls("http://localhost:2829")
                 .Build();
     }
 }

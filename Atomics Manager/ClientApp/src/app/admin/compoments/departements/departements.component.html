@@ -25,6 +25,16 @@
                   <mat-cell *matCellDef="let departements"> {{departements.headName}} </mat-cell>
                 </ng-container>
 
+                <ng-container matColumnDef="budjetCapex">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Ligne CAPEX </mat-header-cell>
+                  <mat-cell *matCellDef="let departements"> {{departements.budjetCapex|currency:'XOF':'symbol'}} </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="budjetOpex">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Ligne OPEX </mat-header-cell>
+                    <mat-cell *matCellDef="let departements"> {{departements.budjetOpex|currency:'XOF':'symbol'}} </mat-cell>
+                  </ng-container>
+
               <ng-container matColumnDef="actions" >
                   <mat-header-cell *matHeaderCellDef class="lastcell">
                     <button mat-mini-fab color="primary" matTooltip="Nouveau departements" (click)="addNewDepartements(departements)">
@@ -37,7 +47,9 @@
                       <mat-icon aria-label="Edit">edit</mat-icon>
                     </button>
 
-
+                    <button mat-icon-button color="primary" matTooltip="Définir un Chef" (click)="setHeadDepartements(departements)">
+                      <mat-icon svgIcon="account-star"></mat-icon>
+                    </button>
 
                     <button mat-icon-button color="warn" matTooltip="Suprimer l'utilisateur" (click)="deleteDepartements(departements)">
                       <mat-icon aria-label="Delete">delete</mat-icon>

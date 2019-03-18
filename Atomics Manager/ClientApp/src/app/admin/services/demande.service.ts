@@ -5,13 +5,14 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Demandes } from '../models/demandes';
 import { CommentAction } from '../models/comment-action';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DemandeService {
 
-  constructor(private router: Router, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient, private userService: UserService) { }
 
 
   private readonly _demandesUrl: string = '/api/demandes';
@@ -21,7 +22,7 @@ export class DemandeService {
 
   protected getRequestHeaders(): { headers: HttpHeaders | { [header: string]: string | string[]; } } {
     const headers = new HttpHeaders({
-
+        'Authorization': 'Bearer ' + this.userService.user_token,
         'Content-Type': 'application/json',
         'Accept': `application/vnd.iman.v${ConfigService.apiVersion}+json, application/json, text/plain, */*`,
         'App-Version': ConfigService.appVersion

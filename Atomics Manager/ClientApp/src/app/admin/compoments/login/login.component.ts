@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
 
   OnSubmit(userName, password) {
+     console.log(userName);
      this.isLoading = true;
      this.isLoginError = false;
 

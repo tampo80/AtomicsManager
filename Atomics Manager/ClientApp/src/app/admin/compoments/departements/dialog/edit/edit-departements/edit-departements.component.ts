@@ -29,7 +29,9 @@ export class EditDepartementsComponent implements OnInit {
   formErrors = {
 
     name: '',
-    description: ''
+    description: '',
+    budjetCapex: '',
+    budjetOpex: ''
   };
   matcher = new FormErrorStateMatcher();
 
@@ -53,7 +55,9 @@ createForm() {
     {
       id: [this.data.departements.id, Validators.required],
       name: [this.data.departements.name, Validators.required],
-      description: [this.data.departements.description, Validators.required]
+      description: [this.data.departements.description, Validators.required],
+      budjetOpex: [this.data.departements.budjetOpex  , Validators.required],
+      budjetCapex: [this.data.departements.budjetCapex, Validators.required]
 
     });
 

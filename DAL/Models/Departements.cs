@@ -7,13 +7,16 @@ namespace DAL.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public string   Description { get; set; }      
+        public string   Description { get; set; }
 
 
         //navigation
-         public ICollection<Services> Services { get; set; }
+        public string HeadId { get; set; }
+        public ApplicationUser Head { get; set; }
 
-         public ICollection<EntrepriseUserInfos> Head { get; set; }
+        public ICollection<Services> Services { get; set; }
+
+        public ICollection<EntrepriseUserInfos> EntrepriseUserInfos { get; set; }
 
         public ICollection<BudjetDepartement> BudjetDepartement { get; set; }
 

@@ -46,6 +46,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCopperComponent } from './articles/image-copper/image-copper.component';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { SetHeadDepartementComponent } from './departements/dialog/set-head-departement/set-head-departement.component';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     align: 'right',
@@ -101,7 +102,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AddApprobationLevelDialogComponent,
     EditApprobationLevelDialogComponent,
     GourpAddComponent,
-    ImageCopperComponent
+    ImageCopperComponent,
+    SetHeadDepartementComponent
 
 
 
@@ -137,7 +139,8 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     AddApprobationLevelDialogComponent,
     EditApprobationLevelDialogComponent,
     GourpAddComponent,
-    ImageCopperComponent
+    ImageCopperComponent,
+    SetHeadDepartementComponent
 
   ]
 

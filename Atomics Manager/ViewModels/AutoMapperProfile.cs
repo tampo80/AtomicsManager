@@ -31,7 +31,8 @@ namespace Atomics_Manager.ViewModels {
 
             CreateMap<ApplicationRole, RoleViewModel> ()
                 .ForMember (d => d.Permissions, map => map.MapFrom (s => s.Claims))
-                .ForMember (d => d.UsersCount, map => map.ResolveUsing (s => s.Users?.Count ?? 0))
+                .ForMember(d => d.UsersCount, map => map.MapFrom((s, d) => s.Users?.Count ?? 0))
+                //.ForMember (d => d.UsersCount, map => map.ResolveUsing (s => s.Users?.Count ?? 0))
                 .ReverseMap ();
             CreateMap<RoleViewModel, ApplicationRole> ();
 

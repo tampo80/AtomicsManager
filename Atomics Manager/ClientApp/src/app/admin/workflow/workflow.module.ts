@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxChartsModule, TooltipService, TooltipModule } from '@swimlane/ngx-charts';
 import { ProcessComponent } from './process/process.component';
 import { EditProcessDialogComponent } from './process/dialog/edit-process-dialog/edit-process-dialog.component';
 import { AddProcessDialogComponent } from './process/dialog/add-process-dialog/add-process-dialog.component';
@@ -32,7 +32,9 @@ import { SetActivitesComponent } from './etats/set-activites/set-activites.compo
 import { SetActionTargetComponent } from './actions/dialog/set-action-target/set-action-target.component';
 import { SetActiviteTargetComponent } from './activite/dialog/set-activite-target/set-activite-target.component';
 import { GraphComponent } from './graph/graph/graph.component';
-
+import { GraphCytoscapeComponent } from './graph/graph-cytoscape/graph-cytoscape.component';
+import { CytoscapeModule } from 'ngx-cytoscape';
+import { NgCytoComponent } from './graph/ng-cyto/ng-cyto.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -43,8 +45,13 @@ import { GraphComponent } from './graph/graph/graph.component';
     CurrencyMaskModule,
     ImageCropperModule,
     NgxGraphModule,
-    NgxChartsModule,
+    CytoscapeModule,
 
+    TooltipModule,
+
+  ],
+  providers: [
+    TooltipService,
   ],
   declarations: [ProcessComponent,
     EditProcessDialogComponent,
@@ -70,7 +77,9 @@ import { GraphComponent } from './graph/graph/graph.component';
     SetActivitesComponent,
     SetActionTargetComponent,
     SetActiviteTargetComponent,
-    GraphComponent
+    GraphComponent,
+    GraphCytoscapeComponent,
+    NgCytoComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

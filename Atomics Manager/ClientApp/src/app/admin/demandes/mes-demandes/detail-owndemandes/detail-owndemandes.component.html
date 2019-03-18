@@ -124,7 +124,7 @@
                 <th>Avis</th>
 
             </tr>
-              <tr *ngFor="let work of workFlow; let i=index">
+             <!--  <tr *ngFor="let work of workFlow; let i=index">
                  <td>
                    {{i+1}}
                  </td>
@@ -133,7 +133,7 @@
                  <td>{{work.userFullName}}</td>
                  <td>{{work.actionsName}}</td>
 
-              </tr>
+              </tr> -->
 
             </table>
           </div>
@@ -147,7 +147,7 @@
 
 
 
-    <button mat-raised-button [disabled]="!demadeForm.valid" (click)="ValidateDemande()" color="primary">
+    <button mat-raised-button [disabled]="!demadeForm.valid" color="primary">
       Annuler
       <mat-icon class="mat-18">checked</mat-icon>
 

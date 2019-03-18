@@ -101,7 +101,12 @@ permissions: [
   {
     routerLink: 'workflow-graph',
     name: 'Le workflow'
-},
+  },
+
+  {
+    routerLink: 'workflow-cytoscape',
+    name: 'Le workflow 2'
+  },
 
 ],
 permissions: [

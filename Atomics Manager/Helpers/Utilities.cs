@@ -58,7 +58,10 @@ namespace Atomics_Manager.Helpers
             return user.FindFirst(OpenIdConnectConstants.Claims.Subject)?.Value?.Trim();
         }
 
-
+        public static string GetUserName(ClaimsPrincipal user)
+        {
+            return user.FindFirst(OpenIdConnectConstants.Claims.Subject)?.Value?.Trim();
+        }
 
         public static string[] GetRoles(ClaimsPrincipal identity)
         {
@@ -68,7 +71,7 @@ namespace Atomics_Manager.Helpers
                 .ToArray();
         }
 
-     private static readonly IDictionary<string, IAttachmentType> mimeMap =
+        private static readonly IDictionary<string, IAttachmentType> mimeMap =
      new Dictionary<string, IAttachmentType>(StringComparer.OrdinalIgnoreCase)
      {
             { "IVBOR", AttachmentType.Photo },

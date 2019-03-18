@@ -33,11 +33,11 @@
           <header>
             <h1>Bon de commande</h1>
             <address contenteditable>
-              <p>{{fournisseurs.nomSociete}}</p>
-              <p>{{fournisseurs.adresse}}</p>
-              <p>Tel:{{fournisseurs.phoneNumber}}</p>
+              <p>{{entreprise.name}}</p>
+              <p>{{entreprise.adresse}}</p>
+              <p>Tel:{{entreprise.tel}}</p>
             </address>
-            <span><img alt="" [src]="imageToShow"><input type="file" accept="image/*"></span>
+            <span><img alt="" class="logo" [src]="imageToShow"><input type="file" accept="image/*"></span>
           </header>
           <article>
             <h2>Fournisseur</h2>
@@ -93,10 +93,10 @@
               </tr>
               <tr>
                 <th><span contenteditable>Toltal restant</span></th>
-                <td>{{bon.montant-bon.accompte|currency:'XOF':'symbol'}}</td>
+                <td>{{bon.accompte|currency:'XOF':'symbol'}}</td>
               </tr>
             </table>
-          </article>
+           </article>
           <aside *ngIf="bon.penalite>0">
             <h1><span contenteditable> N.B.</span></h1>
             <div contenteditable>

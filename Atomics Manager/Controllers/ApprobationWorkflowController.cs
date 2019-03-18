@@ -62,7 +62,7 @@ namespace Atomics_Manager.Controllers
 
         // POST api/values
 
-        public ApprobationLevel APL(ApprobationSatut statut,int demandId)
+        private ApprobationLevel APL(ApprobationSatut statut,int demandId)
         {
             var workflowState = _unitOfWork.ApprobationWorkflow.GetAllIncluding(e=>e.Level).Where(d=>d.DemandesId==demandId).OrderBy(l=>l.Level.Level);
             ApprobationLevel apl = new ApprobationLevel();

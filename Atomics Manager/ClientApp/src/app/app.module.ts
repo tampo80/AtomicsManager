@@ -12,6 +12,7 @@ import { AuthGuard } from './admin/auth/auth.guard';
 import { UserService } from './admin/services/user.service';
 import { HttpClientModule , HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthInterceptor } from './admin/auth/auth.interceptor';
+import { HttpModule } from '@angular/http';
 
 
 
@@ -27,16 +28,12 @@ import { AuthInterceptor } from './admin/auth/auth.interceptor';
     CompomentsModule,
     AppRoutingModule,
     FormsModule,
+    HttpModule,
     HttpClientModule,
 
 
   ],
-  providers: [AuthGuard, UserService,
-    {
-      provide : HTTP_INTERCEPTORS,
-      useClass : AuthInterceptor,
-      multi : true
-    }
+  providers: [AuthGuard, UserService
   ],
   bootstrap: [AppComponent]
 })

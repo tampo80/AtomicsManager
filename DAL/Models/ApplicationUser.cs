@@ -63,5 +63,9 @@ namespace DAL.Models
         public ICollection<GroupMember> GroupeMember { get; set; }
         public ICollection<ActionsHistories> ActionsHistories { get; set; }
         public ICollection<BonLivraison> BonLivraison { get; set; }
+
+        public ICollection<Departements> Departements { get; set; }
+        public ICollection<Services> Services { get; set; }
+        public ICollection<Agences> Agences { get; set; }
     }
 }

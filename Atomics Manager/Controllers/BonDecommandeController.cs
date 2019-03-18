@@ -47,7 +47,7 @@ namespace Atomics_Manager.Controllers
         }
 
        
-        public string BuidRef(int Id)
+        private string BuidRef(int Id)
         {
             Id++;
             string Core1 = "MRN";

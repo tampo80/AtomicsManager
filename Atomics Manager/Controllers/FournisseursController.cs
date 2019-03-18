@@ -151,7 +151,7 @@ namespace Atomics_Manager.Controllers {
             }
         }
 
-        public string[] getSecteursByFournisseursId (int Id) {
+        private string[] getSecteursByFournisseursId (int Id) {
             var Secteurs = _unitOfWork.SecteursFournisseurs.GetAllIncluding (e => e.Secteurs).Where (e => e.FournisseursId == Id);
             List<string> Sec = new List<string> ();
             foreach (var sec in Secteurs) {
@@ -161,7 +161,7 @@ namespace Atomics_Manager.Controllers {
             return Sec.ToArray<string> ();
         }
 
-        public List<int> getSecteursByFournisseursById (int Id) {
+        private List<int> getSecteursByFournisseursById (int Id) {
             var Secteurs = _unitOfWork.SecteursFournisseurs.GetAllIncluding (e => e.Secteurs).Where (e => e.FournisseursId == Id);
             List<int> Sec = new List<int> ();
             foreach (var sec in Secteurs) {

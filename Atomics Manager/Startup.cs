@@ -1,33 +1,26 @@
-using System;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using DAL;
-using DAL.Models;
-using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using AutoMapper;
-using Newtonsoft.Json;
-using DAL.Core;
-using DAL.Core.Interfaces;
-using AspNet.Security.OpenIdConnect.Primitives;
 using AspNet.Security.OAuth.Validation;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
-using Swashbuckle.AspNetCore.Swagger;
-using AppPermissions = DAL.Core.ApplicationPermissions;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Rewrite;
-using System.Collections.Generic;
-using Atomics_Manager.ViewModels;
+using AspNet.Security.OpenIdConnect.Primitives;
 using Atomics_Manager.Authorization;
 using Atomics_Manager.Helpers;
 using Atomics_Manager.Hubs;
+using Atomics_Manager.ViewModels;
+using AutoMapper;
+using DAL;
+using DAL.Core;
+using DAL.Core.Interfaces;
+using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using OpenIddict.Abstractions;
+using Swashbuckle.AspNetCore.Swagger;
 //using Swashbuckle.AspNetCore.Swagger;
 namespace Atomics_Manager
 {
@@ -79,64 +72,102 @@ namespace Atomics_Manager
                 options.ClaimsIdentity.RoleClaimType = OpenIdConnectConstants.Claims.Role;
             });
 
-
-            services.AddOpenIddict(options =>
+           // services.AddHttpsRedirection(option => option.HttpsPort = 5002);
+            services.AddOpenIddict().AddCore(options =>
             {
-                options.AddEntityFrameworkCoreStores<ApplicationDbContext>();
-                options.AddMvcBinders();
-                options.EnableTokenEndpoint("/connect/token");
-                options.AllowPasswordFlow();
-                options.AllowRefreshTokenFlow();
+                // Configure OpenIddict to use the EF Core stores/models.
+                options.UseEntityFrameworkCore()
+                       .UseDbContext<ApplicationDbContext>();
+            })
+            // Register the OpenIddict server handler.
+            .AddServer(options =>
+            {
+                // Register the ASP.NET Core MVC services used by OpenIddict.
+                // Note: if you don't call this method, you won't be able to
+                // bind OpenIdConnectRequest or OpenIdConnectResponse parameters.
+                options.UseMvc();
 
-                //if (_hostingEnvironment.IsDevelopment()) //Uncomment to only disable Https during development
+                options.EnableAuthorizationEndpoint("/connect/authorize")
+                       .EnableTokenEndpoint("/connect/token");
+                //.AllowRefreshTokenFlow();
+                options.AllowAuthorizationCodeFlow()
+                       .AllowPasswordFlow()
+                       .AllowRefreshTokenFlow();
+               // options.AllowPasswordFlow();
+                // Accept anonymous clients (i.e clients that don't send a client_id).
+                options.AcceptAnonymousClients();
+
+               
+               
+
+
+                // options.AllowAuthorizationCodeFlow()
+                //.AllowPasswordFlow()
+              
+                options.RegisterScopes(
+                    OpenIdConnectConstants.Scopes.Address,
+                    OpenIdConnectConstants.Scopes.OpenId,
+                    OpenIdConnectConstants.Scopes.Email,
+                    OpenIdConnectConstants.Scopes.Phone,
+                    OpenIdConnectConstants.Scopes.Profile,
+                    OpenIdConnectConstants.Scopes.OfflineAccess,
+                    OpenIddictConstants.Scopes.Roles);
+
+                // Enable the password flow.
+                options.EnableRequestCaching();
+
+                // During development, you can disable the HTTPS requirement.
                 options.DisableHttpsRequirement();
+                // Enable the token endpoint.
 
-                //options.UseRollingTokens(); //Uncomment to renew refresh tokens on every refreshToken request
-                //options.AddSigningKey(new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(Configuration["STSKey"])));
-            });
+            }
 
-           
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = OAuthValidationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = OAuthValidationDefaults.AuthenticationScheme;
-            }).AddOAuthValidation();
 
-            
+            );
+
+
+
+
+            services.AddOpenIddict().AddValidation();
+
+
 
             // Add cors
             services.AddCors();
 
-            services.AddMvc();
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1); ;
 
             services.AddSignalR();
             // services.AddSignalR();
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Quick_Application1 API", Version = "v1" });
-
+                c.SwaggerDoc("v1", new Info { Title = "Atomics Manager API", Version = "v1" });
+                c.OperationFilter<AuthorizeCheckOperationFilter>();
                 c.AddSecurityDefinition("OpenID Connect", new OAuth2Scheme
                 {
                     Type = "oauth2",
                     Flow = "password",
-                    TokenUrl = "/connect/token"
+                    TokenUrl = "/connect/token",
+					Description = "Note: Leave client_id and client_secret blank"
+,
+
                 });
-                c.OperationFilter<FileUploadOperation>();
+                //c.OperationFilter<FileUploadOperation>();
             });
 
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy(Authorization.Policies.ViewAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewUsers));
-                options.AddPolicy(Authorization.Policies.ManageAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageUsers));
+                options.AddPolicy(Policies.ViewAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, ApplicationPermissions.ViewUsers));
+                options.AddPolicy(Policies.ManageAllUsersPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, ApplicationPermissions.ManageUsers));
 
-                options.AddPolicy(Authorization.Policies.ViewAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ViewRoles));
-                options.AddPolicy(Authorization.Policies.ViewRoleByRoleNamePolicy, policy => policy.Requirements.Add(new ViewRoleAuthorizationRequirement()));
-                options.AddPolicy(Authorization.Policies.ManageAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, AppPermissions.ManageRoles));
+                options.AddPolicy(Policies.ViewAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, ApplicationPermissions.ViewRoles));
+                options.AddPolicy(Policies.ViewRoleByRoleNamePolicy, policy => policy.Requirements.Add(new ViewRoleAuthorizationRequirement()));
+                options.AddPolicy(Policies.ManageAllRolesPolicy, policy => policy.RequireClaim(CustomClaimTypes.Permission, ApplicationPermissions.ManageRoles));
 
-                options.AddPolicy(Authorization.Policies.AssignAllowedRolesPolicy, policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
+                options.AddPolicy(Policies.AssignAllowedRolesPolicy, policy => policy.Requirements.Add(new AssignRolesAuthorizationRequirement()));
             });
 
             Mapper.Initialize(cfg =>
@@ -144,6 +175,8 @@ namespace Atomics_Manager
                 cfg.AddProfile<AutoMapperProfile>();
             });
 
+
+           //services.AddHttpsRedirection(options => options.HttpsPort = 2830);
             // Repositories
             services.AddScoped<IUnitOfWork, HttpUnitOfWork>();
             services.AddScoped<IAccountManager, AccountManager>();
@@ -175,6 +208,8 @@ namespace Atomics_Manager
 
 
             Utilities.ConfigureLogger(loggerFactory);
+            EmailTemplates.Initialize(env);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -182,19 +217,29 @@ namespace Atomics_Manager
             else
             {
                 app.UseExceptionHandler("/Home/Error");
+				app.UseHsts();
             }
 
 
-
             app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyHeader()
-                .AllowAnyMethod());
+                           .AllowAnyOrigin()
+                           .AllowAnyHeader()
+                           .AllowAnyMethod());
 
-            app.UseAuthentication();
 
+            app.UseHttpsRedirection();
+            
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseAuthentication();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.DocumentTitle="Swagger UI - Atomics Manager API";
+               
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Atomics Manager API API V1");
+            });
 
             app.UseSignalR(route =>
             {
@@ -219,8 +264,8 @@ namespace Atomics_Manager
 
                 if (env.IsDevelopment())
                 {
-                   // spa.UseAngularCliServer(npmScript: "start");
-                   spa.UseProxyToSpaDevelopmentServer("http://localhost:2829");
+                    spa.UseAngularCliServer(npmScript: "start");
+                   //spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
                 }
             });
         }

@@ -10,15 +10,15 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AtomicsManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180922101609_budjet2")]
-    partial class budjet2
+    [Migration("20180930111630_next")]
+    partial class next
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("DAL.Models.Actions", b =>
@@ -163,6 +163,8 @@ namespace AtomicsManager.Migrations
 
                     b.Property<DateTime>("CreatedDate");
 
+                    b.Property<string>("HeadId");
+
                     b.Property<string>("HeadName");
 
                     b.Property<bool>("IsMain");
@@ -179,6 +181,8 @@ namespace AtomicsManager.Migrations
                     b.Property<int>("VillesId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HeadId");
 
                     b.HasIndex("VillesId");
 
@@ -797,6 +801,8 @@ namespace AtomicsManager.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<string>("HeadId");
+
                     b.Property<string>("Name");
 
                     b.Property<string>("UpdatedBy")
@@ -805,6 +811,8 @@ namespace AtomicsManager.Migrations
                     b.Property<DateTime>("UpdatedDate");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("HeadId");
 
                     b.ToTable("AppDepartements");
                 });
@@ -985,6 +993,8 @@ namespace AtomicsManager.Migrations
                     b.Property<int>("DemandesId");
 
                     b.Property<int>("EtatFacture");
+
+                    b.Property<byte[]>("Fichier");
 
                     b.Property<string>("FraitsTransports");
 
@@ -1669,7 +1679,7 @@ namespace AtomicsManager.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("OpenIddict.Models.OpenIddictApplication", b =>
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictApplication", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -1705,7 +1715,7 @@ namespace AtomicsManager.Migrations
                     b.ToTable("OpenIddictApplications");
                 });
 
-            modelBuilder.Entity("OpenIddict.Models.OpenIddictAuthorization", b =>
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictAuthorization", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -1735,7 +1745,7 @@ namespace AtomicsManager.Migrations
                     b.ToTable("OpenIddictAuthorizations");
                 });
 
-            modelBuilder.Entity("OpenIddict.Models.OpenIddictScope", b =>
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictScope", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -1762,7 +1772,7 @@ namespace AtomicsManager.Migrations
                     b.ToTable("OpenIddictScopes");
                 });
 
-            modelBuilder.Entity("OpenIddict.Models.OpenIddictToken", b =>
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictToken", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -1868,6 +1878,10 @@ namespace AtomicsManager.Migrations
 
             modelBuilder.Entity("DAL.Models.Agences", b =>
                 {
+                    b.HasOne("DAL.Models.ApplicationUser", "Head")
+                        .WithMany("Agences")
+                        .HasForeignKey("HeadId");
+
                     b.HasOne("DAL.Models.Villes", "Villes")
                         .WithMany()
                         .HasForeignKey("VillesId")
@@ -2017,6 +2031,13 @@ namespace AtomicsManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("DAL.Models.Departements", b =>
+                {
+                    b.HasOne("DAL.Models.ApplicationUser", "Head")
+                        .WithMany("Departements")
+                        .HasForeignKey("HeadId");
+                });
+
             modelBuilder.Entity("DAL.Models.DocumentsFournisseurs", b =>
                 {
                     b.HasOne("DAL.Models.Fournisseurs", "Fournisseurs")
@@ -2036,7 +2057,7 @@ namespace AtomicsManager.Migrations
                         .HasForeignKey("DAL.Models.EntrepriseUserInfos", "ApplicationUserId");
 
                     b.HasOne("DAL.Models.Departements", "Departements")
-                        .WithMany("Head")
+                        .WithMany("EntrepriseUserInfos")
                         .HasForeignKey("DepartementsId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -2214,7 +2235,7 @@ namespace AtomicsManager.Migrations
                         .HasForeignKey("DepartementsId");
 
                     b.HasOne("DAL.Models.ApplicationUser", "Head")
-                        .WithMany()
+                        .WithMany("Services")
                         .HasForeignKey("HeadId");
                 });
 
@@ -2328,20 +2349,20 @@ namespace AtomicsManager.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("OpenIddict.Models.OpenIddictAuthorization", b =>
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictAuthorization", b =>
                 {
-                    b.HasOne("OpenIddict.Models.OpenIddictApplication", "Application")
+                    b.HasOne("OpenIddict.EntityFrameworkCore.Models.OpenIddictApplication", "Application")
                         .WithMany("Authorizations")
                         .HasForeignKey("ApplicationId");
                 });
 
-            modelBuilder.Entity("OpenIddict.Models.OpenIddictToken", b =>
+            modelBuilder.Entity("OpenIddict.EntityFrameworkCore.Models.OpenIddictToken", b =>
                 {
-                    b.HasOne("OpenIddict.Models.OpenIddictApplication", "Application")
+                    b.HasOne("OpenIddict.EntityFrameworkCore.Models.OpenIddictApplication", "Application")
                         .WithMany("Tokens")
                         .HasForeignKey("ApplicationId");
 
-                    b.HasOne("OpenIddict.Models.OpenIddictAuthorization", "Authorization")
+                    b.HasOne("OpenIddict.EntityFrameworkCore.Models.OpenIddictAuthorization", "Authorization")
                         .WithMany("Tokens")
                         .HasForeignKey("AuthorizationId");
                 });

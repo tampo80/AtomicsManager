@@ -20,7 +20,9 @@ namespace DAL.Models
         public string Tel { get; set; }
 
 
-        
+        public ApplicationUser Head { get; set; }
+        public string HeadId { get; set; }
+
         //navigation pro
         public int VillesId { get; set; }
         public Villes Villes { get; set; }

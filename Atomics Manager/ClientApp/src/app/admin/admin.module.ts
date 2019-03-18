@@ -87,13 +87,18 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
 import { CurrencyMaskDirective } from './directives/currency-mask.directive';
 import { CurrencyMaskService } from './services/currency-mask.service';
 import { FacturationComponent } from './comptabilite/factures/facturation/facturation.component';
+
+
+import { NgxChartsModule, TooltipModule, TooltipService } from '@swimlane/ngx-charts';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SetBonCommandeComponent } from './demandes/demandes-in/set-bon-commande/set-bon-commande.component';
 import { SetBonLivraisonComponent } from './demandes/demandes-in/set-bon-livraison/set-bon-livraison.component';
 import { BonPdfViewComponent } from './demandes/demandes-in/set-bon-commande/bon-pdf-view/bon-pdf-view.component';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { StarRatingModule } from 'angular-star-rating';
+import { InjectionService } from '@swimlane/ngx-charts/release/common/tooltip/injection.service';
+import { CytoscapeModule } from 'ngx-cytoscape'; // <= Add this TS import
+import {NgCytoscapeModule} from 'ng2-cytoscape/dist';
 registerLocaleData(localeFr);
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -130,9 +135,12 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatDatepickerModule,        // <----- import(must)
     MatNativeDateModule,
     CurrencyMaskModule,
+    TooltipModule,
     NgxGraphModule,
-    NgxChartsModule,
+    // NgxChartsModule,
     PdfViewerModule,
+    CytoscapeModule,
+    // NgCytoscapeModule,
     StarRatingModule.forRoot()
 
   ],
@@ -245,6 +253,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     CurrencyMaskDirective
   ],
   providers: [
+    TooltipService,
     NavigationService,
     ThemeService,
     AlertService,
@@ -255,7 +264,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     SignalRService,
     ImagesService,
     CurrencyMaskService,
-
+    InjectionService,
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
     {
       provide: LOCALE_ID,
@@ -266,11 +275,6 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
       useClass: GlobalErrorInterceptor
     },
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
-    {
-      provide : HTTP_INTERCEPTORS,
-      useClass : AuthInterceptor,
-      multi : true
-    },
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

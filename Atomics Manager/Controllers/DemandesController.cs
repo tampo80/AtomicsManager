@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using AspNet.Security.OpenIdConnect.Primitives;
 using Atomics_Manager.Helpers;
 using Atomics_Manager.ViewModels;
 using AutoMapper;
@@ -9,11 +11,16 @@ using DAL;
 using DAL.Core.Interfaces;
 using DAL.Models;
 using DAL.Models.enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using OpenIddict.EntityFrameworkCore;
+using OpenIddict.Validation;
+
 namespace Atomics_Manager.Controllers
+
 {
     [Produces("application/json")]
     [Route("api/Demandes")]
@@ -31,12 +38,14 @@ namespace Atomics_Manager.Controllers
         }
 
         [HttpGet]
+        [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
         public async Task<IActionResult> Get()
         {
-            if (User.Identity.Name==null)
-            {
-               return Unauthorized();
-            }
+           var username= User.FindFirst(OpenIdConnectConstants.Claims.Subject)?.Value;
+            //if (User.Identity.Name==null)
+            //{
+            //   return Unauthorized();
+            //}
             string usersId =await getCurrentUserId();
             var allDemandes = _unitOfWork.Demandes.GetAllIncluding(e=>e.Product,f=>f.user,y=>y.CurrentStat).Where(e=>e.userId==usersId).OrderByDescending(e=>e.Id);
             return Ok(Mapper.Map<IEnumerable<DemandesViewModel>>(allDemandes));
@@ -44,13 +53,15 @@ namespace Atomics_Manager.Controllers
 
 
        [HttpGet("in")]
-       public async Task<IActionResult> GetIn()
+       [Authorize(AuthenticationSchemes = OpenIddictValidationDefaults.AuthenticationScheme)]
+        public async Task<IActionResult> GetIn()
         {
-            if (User.Identity.Name == null)
+            string usersId = User.FindFirst(OpenIdConnectConstants.Claims.Subject)?.Value;
+            if (usersId == null)
             {
                 return Unauthorized();
             }
-            string usersId = await getCurrentUserId();
+           // string usersId = await getCurrentUserId();
 
             List<Demandes> DemandesIn = new List<Demandes>();
 
@@ -124,7 +135,7 @@ namespace Atomics_Manager.Controllers
        }
 
 
-        public bool IsExpert(string userId,int ExpertGId)
+        private bool IsExpert(string userId,int ExpertGId)
         {
             var APGm = _unitOfWork.ApprobationLevel.GetAllIncluding(e => e.APGmembers).Where(e => e.Id == ExpertGId).FirstOrDefault();
             if (APGm.APGmembers.FirstOrDefault(e=>e.MemberId==userId)!=null)
@@ -137,11 +148,12 @@ namespace Atomics_Manager.Controllers
             }
         }
 
-        public List<ApprobationLevel> APGExperts()
+
+        private List<ApprobationLevel> APGExperts()
         {
             return _unitOfWork.ApprobationLevel.Find(e=>e.TypeApprovalGroup==TypeApprovalGroup.EXPERTS).ToList();
         }
-        public string getUserService(string userid)
+        private string getUserService(string userid)
         {
           var entrepriseUserInfos=_unitOfWork.EntrepriseUserInfos.GetAll().FirstOrDefault(e=>e.ApplicationUserId==userid);
           string ServiceName=string.Empty;
@@ -154,7 +166,7 @@ namespace Atomics_Manager.Controllers
           return ServiceName;
         }
 
-         public string getUserAgence(string userid)
+        private string getUserAgence(string userid)
          {
           var entrepriseUserInfos=_unitOfWork.EntrepriseUserInfos.GetAll().FirstOrDefault(e=>e.ApplicationUserId==userid);
           string AgenceName=string.Empty;
@@ -165,13 +177,13 @@ namespace Atomics_Manager.Controllers
 
           return AgenceName;
         }
-        public EntrepriseUserInfos getUserInfos(string usersId)
+        private EntrepriseUserInfos getUserInfos(string usersId)
         {
 
             return _unitOfWork.EntrepriseUserInfos.GetAll().FirstOrDefault(e => e.ApplicationUserId == usersId);
         }
 
-        public bool IsHeadService(string UserId)
+        private bool IsHeadService(string UserId)
         {
             int serviceId = _unitOfWork.EntrepriseUserInfos.GetAll().FirstOrDefault(e=>e.ApplicationUserId==UserId).ServicesId;
 
@@ -297,7 +309,7 @@ namespace Atomics_Manager.Controllers
             }
         }
 
-        public void MoveState(int demandeId)
+        private void MoveState(int demandeId)
         {
             var demande = _unitOfWork.Demandes.GetAll().FirstOrDefault(e=>e.Id==demandeId);
             var transitions = _unitOfWork.Transition.GetAllIncluding(e => e.EtatActuel,k=>k.EtatSuivant).Where(e=>e.EtatActuel.Id==demande.CurrentStatId);
@@ -317,7 +329,7 @@ namespace Atomics_Manager.Controllers
            
         }
 
-        public void LoadNextStep(Etat stat,Demandes _demandes)
+        private void LoadNextStep(Etat stat,Demandes _demandes)
         {
             var transitions = _unitOfWork.Transition.Find(e => e.EtatActuelId==stat.Id);
           //  List<TransitionActions> TA = new List<TransitionActions>();
@@ -365,7 +377,7 @@ namespace Atomics_Manager.Controllers
              _unitOfWork.SaveChanges();
         }
 
-        public bool CanMoveTonextStat(int demandesId)
+        private bool CanMoveTonextStat(int demandesId)
         {
 
             List<DemandesAction> DA = _unitOfWork.DemandesAction.GetAllIncluding(e => e.Actions, k => k.Transition).Where(e => e.DemandesId == demandesId).ToList() ;
@@ -389,7 +401,7 @@ namespace Atomics_Manager.Controllers
             return completed;
         }
 
-        public Etat WorkflowEntryStat()
+        private Etat WorkflowEntryStat()
         {
             int processId = 0;
             Process Pro = _unitOfWork.Process.GetAll().FirstOrDefault(e => e.Name == GlobalVars.MAIN_PROCESS_NAME);

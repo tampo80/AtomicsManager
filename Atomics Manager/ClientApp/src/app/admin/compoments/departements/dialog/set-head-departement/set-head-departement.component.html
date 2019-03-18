@@ -1,0 +1,77 @@
+<div fxLayout="row" fxLayoutGap="0px" class="layout">
+  <div fxFlex="35%" f class="helppan">
+    <div class="help-container">
+      <p class="mat-title">Définition du chef de départements</p>
+      <mat-divider></mat-divider>
+      <div class="vspace"></div>
+      <p class="mat-subheading-1">
+        Définition du chef du département <b>{{departement.name}}</b>
+      </p>
+      <span class="center-icon">
+        <mat-icon class="ulistration-mat-icon" color="pirmary" svgIcon="account-star" width="64px"></mat-icon>
+
+
+      </span>
+    </div>
+
+  </div>
+  <div fxFlex="65%">
+    <div class="wrapper" fxLayout="column">
+
+
+      <div class="form-header">
+
+        <span class="close-button" (click)="onNoClick()">
+          <mat-icon aria-label="icon">clear</mat-icon>
+        </span>
+
+
+      </div>
+      <div class="form-container" fxFlex='1'>
+        <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="setHeadFrom">
+
+
+
+
+
+
+          <mat-form-field class="example-full-width">
+
+            <input  type="text" placeholder="Chef  du département"   matInput formControlName="head" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn" >
+              <mat-option *ngFor="let option of filteredUsers | async" [value]="option">
+               <span> {{option.userName}}</span>->
+               <span> ({{option.fullName}})</span>
+              </mat-option>
+            </mat-autocomplete>
+
+
+
+
+          </mat-form-field>
+
+
+
+          <br>
+
+
+
+
+
+
+
+
+
+
+
+        </form>
+      </div>
+      <mat-divider></mat-divider>
+      <footer class="action">
+        <button class="action-button" color="accent" [disabled]="!setHeadFrom.valid" mat-raised-button (click)="onSubmit()">{{actionLabel}}</button>
+        <button class="action-button" mat-raised-button (click)="onNoClick()">Abandonner</button>
+      </footer>
+    </div>
+  </div>
+
+</div>

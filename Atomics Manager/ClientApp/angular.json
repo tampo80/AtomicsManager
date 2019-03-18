@@ -29,7 +29,11 @@
               "src/assets/material-design-icons/iconfont/material-icons.css",
               "src/app/material-design/themes.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/cytoscape/dist/cytoscape.min.js",
+              "node_modules/dagre/dist/dagre.min.js",
+              "node_modules/cytoscape-dagre/cytoscape-dagre.js"
+            ],
             "lazyModules": [
               "src/app/admin/admin.module",
               "src/app/admin/compoments/compoments.module",
@@ -143,7 +147,7 @@
     "@schematics/angular:directive": {
       "prefix": "app"
     }
-  },
+  }
 
 
 }

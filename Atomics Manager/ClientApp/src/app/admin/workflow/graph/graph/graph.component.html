@@ -1,6 +1,6 @@
-<div class="mat-row page mat-elevation-z2" width="80%">
 
-
+ <div style="position: absolute; top: 50
+ px; left: 50px; right: 50px; bottom: 50px;">
 <ngx-graph
   class="chart-container"
   [links]="hierarchialGraph.links"
@@ -11,7 +11,7 @@
   [autoCenter] ="true"
   [autoZoom]="true"
   [enableZoom]="true"
-
+  [scheme]="colorScheme"
 
   >
 
@@ -23,10 +23,8 @@
 
   <ng-template #nodeTemplate let-node>
     <svg:g class="node"
-    ngx-tooltip
-    [tooltipPlacement]="'top'"
-    [tooltipType]="'tooltip'"
-    [tooltipTitle]="node.label"
+
+
     >
       <svg:rect [attr.width]="node.width" [attr.height]="node.height" [attr.fill]="node.options.color" />
       <svg:text alignment-baseline="central" [attr.x]="10" [attr.y]="node.height / 2">{{node.label}}</svg:text>
@@ -55,5 +53,5 @@
 
 </ngx-graph>
 
-
 </div>
+

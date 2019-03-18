@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { TransitionService } from '../../services/transition.service';
 import { EtatService } from '../../services/etat.service';
 import { Etat } from '../../models/etat';
@@ -6,11 +6,17 @@ import { TypeEtat } from '../../config/type-etat.enum';
 import { TransitionAction } from '../../models/transition-action';
 import { Transition } from '../../models/transition';
 import * as shape from 'd3-shape';
-import { NgxGraphModule } from '@swimlane/ngx-graph';
+// import { Graph } from '@swimlane/ngx-graph';
+import { TooltipService } from '@swimlane/ngx-charts';
+import { colorSets } from '../../../compoments/a-pgembers/color-sets';
+
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
-  styleUrls: ['./graph.component.scss']
+  styleUrls: ['./graph.component.scss'],
+  providers: [
+    TooltipService,
+  ],
 })
 export class GraphComponent implements OnInit {
 
@@ -20,9 +26,20 @@ export class GraphComponent implements OnInit {
   startNodeId: number;
   transitionAction: TransitionAction[] = [];
   curve = shape.curveMonotoneX;
-  constructor(private transitionService: TransitionService, private etatService: EtatService) {
+  view: any[];
+  width = 700;
+  height = 300;
+  fitContainer = true;
 
-
+  colorSchemes: any;
+  // graph: Graph;
+  colorScheme: any;
+  schemeType = 'ordinal';
+  selectedColorScheme: string;
+  constructor( private viewContainerRef: ViewContainerRef, private chartTooltipService: TooltipService, private transitionService: TransitionService, private etatService: EtatService) {
+    this.colorSchemes = colorSets,
+    this.setColorScheme('picnic');
+    chartTooltipService.injectionService.setRootViewContainer(viewContainerRef);
   }
   ngOnInit() {
     this.NewBuildNod();
@@ -90,6 +107,11 @@ export class GraphComponent implements OnInit {
     });
   }
 
+  setColorScheme(name) {
+    this.selectedColorScheme = name;
+    this.colorScheme = this.colorSchemes.find(s => s.name === name);
+  }
+
   showGraph() {
 
     this.hierarchialGraph.nodes = this.nodes;
@@ -97,4 +119,5 @@ export class GraphComponent implements OnInit {
     this.hierarchialGraph.links = this.links;
 
   }
+
 }

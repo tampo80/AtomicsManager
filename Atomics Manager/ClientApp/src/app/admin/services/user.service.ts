@@ -19,14 +19,14 @@ export class UserService {
 
 userAuthentication(userName, password) {
 
-  const header = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded', 'No-Auth': 'True'  });
+  const header = new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' });
 
   const params = new HttpParams()
     .append('username', userName)
     .append('password', password)
     .append('grant_type', 'password')
-    .append('scope', 'openid email phone profile offline_access roles')
-    .append('resource', window.location.origin);
+    .append('scope', 'openid email phone profile offline_access roles');
+
 
   const requestBody = params.toString();
 

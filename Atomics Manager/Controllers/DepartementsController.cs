@@ -29,8 +29,20 @@ namespace Atomics_Manager.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var allDepartements = _unitOfWork.Departements.GetAll();
-            return Ok(Mapper.Map<IEnumerable<DepartementsViewModel>>(allDepartements));
+            var allDepartements = _unitOfWork.Departements.GetAll() ;
+            return Ok(Mapper.Map<IEnumerable<DepartementsViewModel>>(allDepartements).Select(e => 
+            {
+              e.BudjetCapex = getBudejetByDepId(e.Id)!=null ? getBudejetByDepId(e.Id).LigneCapex:0;
+              e.BudjetOpex = getBudejetByDepId(e.Id)!=null? getBudejetByDepId(e.Id).LigneOpex:0;
+              return e;
+
+            }));
+        }
+
+       private BudjetDepartement getBudejetByDepId(int Id)
+        {
+            BudjetDepartement bd = _unitOfWork.BudjetDepartement.GetSingleOrDefault(e => e.DepartementsId == Id && e.Annees.Year == DateTime.Now.Year);
+            return bd;
         }
 
         [HttpGet("Isavailable/{name}")]
@@ -62,14 +74,16 @@ namespace Atomics_Manager.Controllers
                 {
                     Departements _departements = Mapper.Map<Departements>(departements);
                     //_departements.Name = _departements.Name.ToUpper();
-                    _departements.BudjetDepartement.Add(new BudjetDepartement
+                    
+                   // _unitOfWork.Departements.Add(_departements);
+                    _unitOfWork.BudjetDepartement.Add(new BudjetDepartement
                     {
                         Annees = DateTime.Now,
-                        BudjetCapex = departements.BudjetCapex,
-                        BudjetOpex = departements.BudjetOpex,
-                        DepartementsId = departements.Id
+                        LigneCapex = departements.BudjetCapex,
+                        LigneOpex = departements.BudjetOpex,
+                        DepartementsId = _departements.Id,
+                        Departements=_departements
                     });
-                    _unitOfWork.Departements.Add(_departements);
                     await _unitOfWork.SaveChangesAsync();
                     return Ok("OK");
 
@@ -95,6 +109,21 @@ namespace Atomics_Manager.Controllers
                 try
                 {
                     Departements _departements = Mapper.Map<Departements>(departements);
+                    BudjetDepartement _Bd = getBudejetByDepId(_departements.Id);
+                    if (_Bd!=null)
+                    {
+                        _unitOfWork.BudjetDepartement.Update(_Bd);
+                    }
+                    else
+                    {
+                        _unitOfWork.BudjetDepartement.Add(new BudjetDepartement
+                        {
+                            LigneCapex=departements.BudjetCapex,
+                            LigneOpex=departements.BudjetOpex,
+                            Departements=_departements,
+                            Annees=DateTime.Now
+                        });
+                    }
                     _unitOfWork.Departements.Update(_departements);
                     await _unitOfWork.SaveChangesAsync();
                     return Ok("OK");
@@ -124,6 +153,14 @@ namespace Atomics_Manager.Controllers
                     if (_departements != null)
                     {
                         _unitOfWork.Departements.Remove(_departements);
+                        
+                        
+                        BudjetDepartement _Bd = getBudejetByDepId(id);
+                        if (_Bd!=null)
+                        {
+                            _unitOfWork.BudjetDepartement.Remove(_Bd);
+                        }
+
                         await _unitOfWork.SaveChangesAsync();
                         return Ok("OK");
                     }

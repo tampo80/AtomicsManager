@@ -1,3 +1,4 @@
+import { GraphCytoscapeComponent } from './workflow/graph/graph-cytoscape/graph-cytoscape.component';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AdminComponent } from './admin.component';
@@ -47,6 +48,7 @@ import { FacturationComponent } from './comptabilite/factures/facturation/factur
         {path: 'compta-comptes-internes', component: ComptesInternesComponent},
         {path: 'compta-type-comptes', component: TypeComptesComponent},
         {path: 'workflow-graph', component: GraphComponent},
+        {path: 'workflow-cytoscape', component: GraphCytoscapeComponent},
         {path: 'workflow-transition', component: TransitionsComponent},
         {path: 'workflow-activites', component: ActiviteComponent},
         {path: 'manage-approuval-level', component: ApprobationLevelComponent},

@@ -113,6 +113,7 @@ export class BonPdfViewComponent implements OnInit , AfterViewInit {
   button = 'Envoyer';
   bonRef = '';
   bon: BonDeCommande = new BonDeCommande();
+
   pdfSrc = '';
   pdf: any;
   entreprise: Entreprise = new Entreprise();
@@ -123,6 +124,7 @@ export class BonPdfViewComponent implements OnInit , AfterViewInit {
   fournisseurs: EditFournisseurs = new EditFournisseurs();
   constructor(private fourniseurService: FournisseursService, private imageService: ImagesService, private entrepriseService: EntrepriseService, private bonDeCommandeService: BonDeCommandeService,  private dateAdapter: DateAdapter<Date>, private messageboxService: MessageboxService, private entrepriseUserinfos: EntrepriseUserInfosService, private articleService: ArticlesService, private demandeServices: DemandeService, private userServices: UserService, private fb: FormBuilder, public dialogRef: MatDialogRef<BonPdfViewComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {
 
+    this.bon.penalite = 0;
     this.fact = new BonDeCommande();
     this.fact.id = 0;
     // this.fact.tvaDeductible = YesNo.Oui;

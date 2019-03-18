@@ -12,9 +12,9 @@ export class AuthInterceptor implements HttpInterceptor {
     constructor(private router: Router, private snackBar: MatSnackBar) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (req.headers.get('No-Auth') === 'True') {
+       /*  if (req.headers.get('No-Auth') === 'True') {
             return next.handle(req.clone());
-        }
+        } */
 
         if (localStorage.getItem('userToken') != null) {
             const clonedreq = req.clone({
@@ -25,7 +25,7 @@ export class AuthInterceptor implements HttpInterceptor {
                 succ => { },
                 err => {
                     if (err.status === 401) {
-                      this.snackBar.open('Le session est expirée  reconnexion réquis ):', 'SESSION', {
+                      this.snackBar.open('Le session est expirée  reconnexion réquis.... ):', 'SESSION', {
                         duration: 4000
                       });
                           this.router.navigateByUrl('/login');
@@ -34,8 +34,8 @@ export class AuthInterceptor implements HttpInterceptor {
                 }
                 );
         } else {
-            // this.router.navigateByUrl('/login');
-            this.snackBar.open('Le session est expirée  reconnexion réquis ):', 'SESSION', {
+            this.router.navigateByUrl('/login');
+            this.snackBar.open('Le session est expirée  reconnexion réquis preeef ):', 'SESSION', {
               duration: 4000
             });
         }
