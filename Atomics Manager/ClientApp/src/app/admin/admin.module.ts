@@ -97,8 +97,9 @@ import { BonPdfViewComponent } from './demandes/demandes-in/set-bon-commande/bon
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { StarRatingModule } from 'angular-star-rating';
 import { InjectionService } from '@swimlane/ngx-charts/release/common/tooltip/injection.service';
-import { CytoscapeModule } from 'ngx-cytoscape'; // <= Add this TS import
-import {NgCytoscapeModule} from 'ng2-cytoscape/dist';
+// import { CytoscapeModule } from 'ngx-cytoscape'; // <= Add this TS import
+// import {NgCytoscapeModule} from 'ng2-cytoscape/dist';
+import { NgCytoComponent } from './workflow/graph/ng-cyto/ng-cyto.component';
 registerLocaleData(localeFr);
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -136,10 +137,11 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     MatNativeDateModule,
     CurrencyMaskModule,
     TooltipModule,
-    NgxGraphModule,
+    // NgxGraphModule,
     // NgxChartsModule,
     PdfViewerModule,
-    CytoscapeModule,
+    // CytoscapeModule,
+
     // NgCytoscapeModule,
     StarRatingModule.forRoot()
 

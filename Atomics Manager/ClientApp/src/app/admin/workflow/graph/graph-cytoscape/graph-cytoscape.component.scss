@@ -1,7 +1,9 @@
-ngx-cytoscape {
-    height: 50vh;
-    float: left;
-    position: relative;
-    border: solid #21c0c0;
-    width: 50em;
-  }
+ng2-cytoscape {
+  height: 80vh;
+  float: left;
+  width: 100%;
+  position: relative;
+  border: 2;
+  font-family: helvetica, sans-serif;
+  font-size: 14px;
+}

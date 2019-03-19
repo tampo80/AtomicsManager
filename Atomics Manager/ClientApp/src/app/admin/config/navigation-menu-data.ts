@@ -98,14 +98,10 @@ permissions: [
       name: 'Les transition'
   },
 
-  {
-    routerLink: 'workflow-graph',
-    name: 'Le workflow'
-  },
 
   {
     routerLink: 'workflow-cytoscape',
-    name: 'Le workflow 2'
+    name: 'Le workflow '
   },
 
 ],

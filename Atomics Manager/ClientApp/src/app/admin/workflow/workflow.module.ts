@@ -33,7 +33,6 @@ import { SetActionTargetComponent } from './actions/dialog/set-action-target/set
 import { SetActiviteTargetComponent } from './activite/dialog/set-activite-target/set-activite-target.component';
 import { GraphComponent } from './graph/graph/graph.component';
 import { GraphCytoscapeComponent } from './graph/graph-cytoscape/graph-cytoscape.component';
-import { CytoscapeModule } from 'ngx-cytoscape';
 import { NgCytoComponent } from './graph/ng-cyto/ng-cyto.component';
 @NgModule({
   imports: [
@@ -44,8 +43,8 @@ import { NgCytoComponent } from './graph/ng-cyto/ng-cyto.component';
     FlexLayoutModule,
     CurrencyMaskModule,
     ImageCropperModule,
-    NgxGraphModule,
-    CytoscapeModule,
+    // NgxGraphModule,
+    // CytoscapeModule,
 
     TooltipModule,
 
@@ -80,6 +79,7 @@ import { NgCytoComponent } from './graph/ng-cyto/ng-cyto.component';
     GraphComponent,
     GraphCytoscapeComponent,
     NgCytoComponent
+
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
