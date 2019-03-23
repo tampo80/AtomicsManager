@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using AspNet.Security.OpenIdConnect.Primitives;
 using Atomics_Manager.Helpers;
@@ -12,11 +11,8 @@ using DAL.Core.Interfaces;
 using DAL.Models;
 using DAL.Models.enums;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using OpenIddict.EntityFrameworkCore;
 using OpenIddict.Validation;
 
 namespace Atomics_Manager.Controllers

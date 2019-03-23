@@ -9,4 +9,5 @@ export class ActionsHistories {
    demandesId: number;
    userFullName: string;
    dateOperation: Date ;
+   comment:string;
 }
